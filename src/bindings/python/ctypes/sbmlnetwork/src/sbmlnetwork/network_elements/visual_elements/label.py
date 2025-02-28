@@ -242,7 +242,21 @@ class Label:
 
     #ToDo hide/show label
 
-    def __str__(self):
+    def move_to(self, position: tuple[float, float]):
+        if self.set_position(position):
+            return True
+
+        return False
+
+    def move_by(self, position: tuple[float, float]):
+        current_position = self.get_position()
+        new_position = (current_position[0] + position[0], current_position[1] + position[1])
+        if self.set_position(new_position):
+            return True
+
+        return False
+
+    def get_info(self):
         return (
             f"text: {self.get_text()}\n"
             f"position: {self.get_position()}\n"
@@ -256,5 +270,9 @@ class Label:
             f"horizontal_alignment: {self.get_horizontal_alignment()}"
         )
 
+    @property
+    def info(self):
+        return self.get_info()
+
     def __repr__(self):
-        return f"Label({self.get_text()})"
+        return f"{self.get_text()}"

@@ -91,32 +91,42 @@ class CurveSegmentList(list):
     def control_point_2s(self, control_point_2: tuple[float, float]):
         self.set_control_point_2s(control_point_2)
 
-    def move(self, delta: tuple[float, float]):
+    def move_by(self, delta: tuple[float, float]):
         results = []
         for segment in self:
-            results.append(segment.move(delta))
+            results.append(segment.move_by(delta))
 
         return results
 
-    def move_starts(self, delta: tuple[float, float]):
+    def move_starts_to(self, start: tuple[float, float]):
+        return self.set_starts(start)
+
+    def move_starts_by(self, delta: tuple[float, float]):
         results = []
         for segment in self:
-            results.append(segment.move_start(delta))
+            results.append(segment.move_start_by(delta))
 
         return results
 
-    def move_ends(self, delta: tuple[float, float]):
+    def move_ends_to(self, end: tuple[float, float]):
+        return self.set_ends(end)
+
+    def move_ends_by(self, delta: tuple[float, float]):
         results = []
         for segment in self:
-            results.append(segment.move_end(delta))
+            results.append(segment.move_end_by(delta))
 
         return results
 
-    def __str__(self):
+    def get_info(self):
         result = []
         for segment in self:
             result.append(str(segment))
         return "\n\n".join(result)
+
+    @property
+    def info(self):
+        return self.get_info()
 
     def __repr__(self):
         return f"CurveSegmentList({[repr(segment) for segment in self]})"

@@ -76,15 +76,19 @@ class ReactionCenterList(list):
     def move(self, delta: tuple[float, float]):
         results = []
         for reaction_center in self:
-            results.append(reaction_center.move(delta))
+            results.append(reaction_center.move_by(delta))
 
         return results
 
-    def __str__(self):
+    def get_info(self):
         result = []
         for reaction_center in self:
             result.append(str(reaction_center))
         return "\n".join(result)
+
+    @property
+    def info(self):
+        return self.get_info()
 
     def __repr__(self):
         return f"ReactionCenterList({[repr(reaction_center) for reaction_center in self]})"

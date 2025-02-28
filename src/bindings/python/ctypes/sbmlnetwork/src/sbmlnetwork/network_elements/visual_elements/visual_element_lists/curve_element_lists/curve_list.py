@@ -344,24 +344,52 @@ class CurveList(list):
     def arrow_head_fill_colors(self, fill_color: str or tuple or list):
         self.set_arrow_head_fill_colors(fill_color)
 
-    def move(self, delta: tuple[float, float]):
+    def move_arrow_head_relative_positions_to(self, relative_position: tuple[float, float]):
         results = []
         for curve in self:
-            results.append(curve.move(delta))
+            results.append(curve.move_arrow_head_relative_position_to(relative_position))
 
         return results
 
-    def move_start(self, delta: tuple[float, float]):
+    def move_arrow_head_relative_positions_by(self, delta: tuple[float, float]):
         results = []
         for curve in self:
-            results.append(curve.move_start(delta))
+            results.append(curve.move_arrow_head_relative_position_by(delta))
 
         return results
 
-    def move_end(self, delta: tuple[float, float]):
+    def move_by(self, delta: tuple[float, float]):
         results = []
         for curve in self:
-            results.append(curve.move_end(delta))
+            results.append(curve.move_by(delta))
+
+        return results
+
+    def move_to(self, position: tuple[float, float]):
+        results = []
+        for curve in self:
+            results.append(curve.move_to(position))
+
+        return results
+
+    def move_start_by(self, delta: tuple[float, float]):
+        results = []
+        for curve in self:
+            results.append(curve.move_start_by(delta))
+
+        return results
+
+    def move_end_to(self, position: tuple[float, float]):
+        results = []
+        for curve in self:
+            results.append(curve.move_end_to(position))
+
+        return results
+
+    def move_end_by(self, delta: tuple[float, float]):
+        results = []
+        for curve in self:
+            results.append(curve.move_end_by(delta))
 
         return results
 
@@ -386,11 +414,15 @@ class CurveList(list):
 
         return hidden
 
-    def __str__(self):
+    def get_info(self):
         result = []
         for curve in self:
             result.append(str(curve))
         return "\n".join(result)
+
+    @property
+    def info(self):
+        return self.get_info()
 
     def __repr__(self):
         return f"CurveList({[repr(curve) for curve in self]})"

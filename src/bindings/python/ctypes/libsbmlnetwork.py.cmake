@@ -10395,6 +10395,41 @@ class LibSBMLNetwork:
             """
         return lib.c_api_setGeometricShapeFillColor(self.sbml_object, str(id).encode(), str(fill_color).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
+    def setGeometricShapeFillColorAsGradient(self, id, stop_colors = [], stop_offsets = [], gradient_type = "linear", geometric_shape_index=0, graphical_object_index=0, layout_index=0):
+        """
+        Sets the fill color of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument as a gradient
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - stop_colors (list, optional): a list of strings that determines the stop colors of the gradient
+            - stop_offsets (list, optional): a list of floats that determines the stop offsets of the gradient
+            - gradient_type (string, optional): a string that determines the type of the gradient
+            - geometric_shape_index (int, optional): an integer (default: 0) that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the fill color of the GraphicalObject could not be set
+            """
+        if len(stop_colors) != len(stop_offsets):
+            raise ValueError("The number of stop colors list and stop offsets list should be the same")
+
+        stop_colors_ptr = None
+        if stop_colors is not None:
+            stop_colors_ptr = (ctypes.c_char_p * len(stop_colors))()
+            for i in range(len(stop_colors)):
+                stop_colors_ptr[i] = ctypes.c_char_p(stop_colors[i].encode())
+
+        stop_offsets_ptr = None
+        if stop_offsets is not None:
+            stop_offsets_ptr = (ctypes.c_double * len(stop_offsets))()
+            for i in range(len(stop_offsets)):
+                stop_offsets_ptr[i] = ctypes.c_double(stop_offsets[i])
+
+        return lib.c_api_setGeometricShapeFillColorAsGradient(self.sbml_object, str(id).encode(), str(gradient_type).encode(), stop_colors_ptr, stop_offsets_ptr, ctypes.c_int(len(stop_colors)), geometric_shape_index, graphical_object_index, layout_index)
+
     def isSetGeometricShapeX(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """
         Returns whether the x-coordinate of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set

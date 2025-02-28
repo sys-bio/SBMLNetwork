@@ -86,7 +86,7 @@ class Rectangle(ShapeBase):
     def corner_radius(self, corner_radius: tuple[float, float]):
         self.set_corner_radius(corner_radius)
 
-    def __str__(self):
+    def get_info(self):
         base_str = super().__str__()
         return (
                 base_str + "\n" +

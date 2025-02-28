@@ -1,6 +1,7 @@
 from .network_element_base import NetworkElementBase
 from .visual_elements import *
 
+
 class Reaction(NetworkElementBase):
 
     def __init__(self, libsbmlnetwork, element_id, graphical_object_index):
@@ -84,9 +85,9 @@ class Reaction(NetworkElementBase):
         return False
 
     def set_border_colors(self, border_color: str):
-        return self.set_border_color(border_color) and self.set_arrow_head_border_colors()
+        return self.set_border_color(border_color) and self.set_arrow_head_border_colors(border_color)
 
-    def get_border_thickness(self):
+    def get_border_thicknesses(self):
         if self.is_center_shapes():
             return self.get_center_shapes_list().get_border_thickness()
 
@@ -114,7 +115,7 @@ class Reaction(NetworkElementBase):
         return False
 
     def set_fill_colors(self, fill_color: str or tuple or list):
-        return self.set_fill_color(fill_color) and self.set_arrow_head_fill_colors()
+        return self.set_fill_color(fill_color) and self.set_arrow_head_fill_colors(fill_color)
 
     def get_curves_list(self, species=None):
         from .species import Species
@@ -129,7 +130,7 @@ class Reaction(NetworkElementBase):
                 species_id = species.get_species_id()
                 species_glyph_index = species.get_graphical_object_index()
         for species_reference_index in range(self.libsbmlnetwork.getNumSpeciesReferences(reaction_id=self.element_id,
-                                                                              reaction_glyph_index=self.graphical_object_index)):
+                                                                                         reaction_glyph_index=self.graphical_object_index)):
             species_reference_species_id = self.libsbmlnetwork.getSpeciesReferenceSpeciesId(
                 reaction_id=self.element_id,
                 reaction_glyph_index=self.graphical_object_index,
@@ -140,6 +141,12 @@ class Reaction(NetworkElementBase):
                 reaction_id=self.element_id,
                 reaction_glyph_index=self.graphical_object_index
             )
+            if self.libsbmlnetwork.isSetSpeciesReferenceEmptySpeciesGlyph(reaction_id=self.element_id, reaction_glyph_index=self.graphical_object_index,
+                                                                          species_reference_index=species_reference_index):
+                species_reference_species_id = self.libsbmlnetwork.getSpeciesReferenceEmptySpeciesGlyphId(reaction_id=self.element_id,
+                                                                                                          reaction_glyph_index=self.graphical_object_index,
+                                                                                                          species_reference_index=species_reference_index)
+                species_glyph_index_in_reaction = 0
             if species_id is not None and (species_id != species_reference_species_id or species_glyph_index != species_glyph_index_in_reaction):
                 continue
             curves.append(Curve(self.libsbmlnetwork, self.element_id, self.graphical_object_index, species_reference_index))
@@ -153,73 +160,111 @@ class Reaction(NetworkElementBase):
     def curves(self):
         return self.get_curves()
 
-    def get_curve_colors(self, species=None):
+    def get_center_curve_color(self):
         if self.is_center_curve():
             return self.get_center_curve().get_color()
 
         return None
 
-    def get_colors(self, species=None):
-        return self.get_curve_colors(species)
-
-    def set_curve_colors(self, color, species=None):
+    def set_center_curve_color(self, color):
         if self.is_center_curve():
             return self.get_center_curve().set_color(color)
 
         return False
 
-    def set_colors(self, color, species=None):
-        return self.set_curve_colors(color, species)
+    @property
+    def center_curve_color(self):
+        return self.get_center_curve_color()
+
+    @center_curve_color.setter
+    def center_curve_color(self, color):
+        self.set_center_curve_color(color)
+
+    def get_curve_colors(self):
+        return self.get_curves_list().get_colors()
+
+    def set_curve_colors(self, color):
+        return self.get_curves_list().set_colors(color)
 
     @property
     def curves_colors(self):
-        return self.get_curve_colors()
-
-    @property
-    def colors(self):
         return self.get_curve_colors()
 
     @curves_colors.setter
     def curves_colors(self, color):
         self.set_curve_colors(color)
 
-    @colors.setter
-    def colors(self, color):
-        self.set_curve_colors(color)
+    def set_colors(self, color):
+        if self.is_center_curve():
+            if not self.get_center_curve().set_color(color):
+                return False
+        else:
+            if not self.set_border_color(color):
+                return False
+            if not self.set_fill_color(color):
+                return False
 
-    def get_curve_thicknesses(self, species=None):
+        if not self.get_curves().set_colors(color):
+            return False
+
+        if len(self.get_arrow_heads()):
+            if not self.set_arrow_head_fill_colors(color):
+                return False
+            if not self.set_arrow_head_border_colors(color):
+                return False
+
+        return False
+
+    def get_center_curve_thickness(self):
         if self.is_center_curve():
             return self.get_center_curve().get_thickness()
 
         return None
 
-    def get_thicknesses(self, species=None):
-        return self.get_curve_thicknesses(species)
-
-    def set_curve_thicknesses(self, thickness, species=None):
+    def set_center_curve_thickness(self, thickness):
         if self.is_center_curve():
             return self.get_center_curve().set_thickness(thickness)
 
         return False
 
-    def set_thicknesses(self, thickness, species=None):
-        return self.set_curve_thicknesses(thickness, species)
+    @property
+    def center_curve_thickness(self):
+        return self.get_center_curve_thickness()
+
+    @center_curve_thickness.setter
+    def center_curve_thickness(self, thickness):
+        self.set_center_curve_thickness(thickness)
+
+    def get_curve_thicknesses(self):
+        return self.get_curves_list().get_thicknesses()
+
+    def set_curve_thicknesses(self, thickness):
+        return self.get_curves_list().set_thicknesses(thickness)
 
     @property
-    def curves_thicknesses(self):
+    def curve_thicknesses(self):
         return self.get_curve_thicknesses()
 
-    @property
-    def thicknesses(self):
-        return self.get_curve_thicknesses()
-
-    @curves_thicknesses.setter
-    def curves_thicknesses(self, thickness):
+    @curve_thicknesses.setter
+    def curve_thicknesses(self, thickness):
         self.set_curve_thicknesses(thickness)
 
-    @thicknesses.setter
-    def thicknesses(self, thickness):
-        self.set_curve_thicknesses(thickness)
+    def set_thicknesses(self, thickness):
+        if self.is_center_curve():
+            if not self.get_center_curve().set_thickness(thickness):
+                return False
+        else:
+            if not self.set_border_thickness(thickness):
+                return False
+
+        if not self.get_curves().set_thicknesses(thickness):
+            return False
+
+        if len(self.get_arrow_heads()):
+            if not self.set_arrow_head_border_thicknesses(thickness):
+                return False
+
+        return True
 
     def get_arrow_heads(self):
         return self.get_curves_list().get_arrow_heads()
@@ -257,18 +302,18 @@ class Reaction(NetworkElementBase):
         self.set_arrow_head_sizes(size)
 
     def get_arrow_head_shapes(self):
-        return self.get_arrow_heads().get_shapes_list()
+        return self.get_arrow_heads().get_shape_type()
 
     @property
     def arrow_head_shapes(self):
         return self.get_arrow_head_shapes()
 
-    def get_arrow_head_shape_types(self):
-        return self.get_arrow_heads().get_shape_type()
+    def set_arrow_head_shapes(self, shape: str):
+        return self.get_arrow_heads().set_shape(shape)
 
-    @property
-    def arrow_head_shape_types(self):
-        return self.get_arrow_head_shape_types()
+    @arrow_head_shapes.setter
+    def arrow_head_shapes(self, shape: str):
+        self.set_arrow_head_shapes(shape)
 
     def get_arrow_head_border_colors(self):
         return self.get_arrow_heads().get_border_colors()
@@ -285,10 +330,10 @@ class Reaction(NetworkElementBase):
         self.set_arrow_head_border_colors(border_color)
 
     def get_arrow_head_border_thicknesses(self):
-        return self.get_arrow_heads().get_border_thickness()
+        return self.get_arrow_heads().get_border_thickneses()
 
     def set_arrow_head_border_thicknesses(self, thickness: float):
-        return self.get_arrow_heads().set_border_thickness(thickness)
+        return self.get_arrow_heads().set_border_thicknesses(thickness)
 
     @property
     def arrow_head_border_thicknesses(self):
@@ -312,11 +357,18 @@ class Reaction(NetworkElementBase):
     def arrow_head_fill_colors(self, fill_color: str or tuple or list):
         self.set_arrow_head_fill_colors(fill_color)
 
+    def move_arrow_head_relative_positions_to(self, relative_position: float):
+        return self.get_arrow_heads().move_relative_positions_to(relative_position)
+
+    def move_arrow_head_relative_positions_by(self, delta: float):
+        return self.get_arrow_heads().move_relative_positions_by(delta)
+
     def get_species_list(self,  species_ids=None):
         from .species import Species
         from .network_element_lists import SpeciesList
 
         species = SpeciesList(libsbmlnetwork=self.libsbmlnetwork)
+        species_set = {}
         for species_reference_index in range(self.libsbmlnetwork.getNumSpeciesReferences(reaction_id=self.element_id, reaction_glyph_index=self.graphical_object_index)):
             species_id = self.libsbmlnetwork.getSpeciesReferenceSpeciesId(reaction_id=self.element_id, reaction_glyph_index=self.graphical_object_index, species_reference_index=species_reference_index)
             species_index = self.libsbmlnetwork.getSpeciesGlyphIndex(species_id=species_id, reaction_id=self.element_id, reaction_glyph_index=self.graphical_object_index)
@@ -326,9 +378,13 @@ class Reaction(NetworkElementBase):
                     species_index = 0
                 else:
                     continue
-            if (species_ids is None or
-                    (isinstance(species_ids, list) and species_id in species_ids) or
-                    (isinstance(species_ids, str) and species_id == species_ids)):
+            species_set_for_species_id = species_set.get(species_id, set())
+            species_ids_is_valid = (species_ids is None or
+                                    (isinstance(species_ids, list) and species_id in species_ids) or
+                                    (isinstance(species_ids, str) and species_id == species_ids))
+
+            if species_ids_is_valid and species_index not in species_set_for_species_id:
+                species_set.setdefault(species_id, set()).add(species_index)
                 species.append(Species(self.libsbmlnetwork, species_id, species_index))
 
         return species
@@ -352,7 +408,7 @@ class Reaction(NetworkElementBase):
     def species_ids(self):
         return self.get_species_ids()
 
-    def get_empty_species_list(self):
+    def get_empty_species(self):
         from .species import Species
 
         for species_reference_index in range(self.libsbmlnetwork.getNumSpeciesReferences(reaction_id=self.element_id, reaction_glyph_index=self.graphical_object_index)):
@@ -362,9 +418,6 @@ class Reaction(NetworkElementBase):
                 return Species(self.libsbmlnetwork, species_id, species_index)
 
         return None
-
-    def get_empty_species(self):
-        return self.get_empty_species_list()
 
     @property
     def empty_species(self):
@@ -381,38 +434,76 @@ class Reaction(NetworkElementBase):
         species_ids = self.get_species_ids()
         if species.get_species_id() in species_ids:
             if self.libsbmlnetwork.setSpeciesGlyphIndexInReactionGlyph(species_id=species.get_species_id(),
-                                                            reaction_id=self.element_id,
-                                                            reaction_glyph_index=self.graphical_object_index,
-                                                            index=species.get_graphical_object_index()) == 0:
+                                                                       reaction_id=self.element_id,
+                                                                       reaction_glyph_index=self.graphical_object_index,
+                                                                       index=species.get_graphical_object_index()) == 0:
                 return True
 
         return False
 
-    def move(self, delta: tuple[float, float], move_connected_species: bool = True):
-        is_moved = super().move(delta)
-        if not is_moved:
-            return False
+    def move_to(self, position: tuple[float, float], move_connected_species: bool = True):
+        return self.move_by((position[0] - self.get_position()[0], position[1] - self.get_position()[1]),
+                            move_connected_species)
 
-        is_moved = self.get_curves_list().move(delta)
-        if not all(is_moved):
-            return False
+    def move_by(self, delta: tuple[float, float], move_connected_species: bool = True):
+        if self._can_move_by(delta):
+            is_moved = super().move_by(delta)
+            if not is_moved:
+                return False
 
-        if move_connected_species:
-            is_moved = self.get_species_list().move(delta, move_connected_curves=False)
+            is_moved = self.get_curves_list().move_by(delta)
             if not all(is_moved):
                 return False
 
-        other_curves = self.get_species_list().get_connected_curves()
-        for curve in other_curves:
-            if curve.get_reaction().get_id() != self.get_id():
-                if curve.get_role() in curve.get_modifier_role_options():
-                    curve.get_start().move(delta)
-                else:
-                    curve.move_end(delta)
+            if move_connected_species:
+                is_moved = self.get_species_list().move_by(delta, move_connected_curves=False)
+                if not all(is_moved):
+                    return False
 
-        return True
+            other_curves = self.get_species_list().get_connected_curves()
+            for curve in other_curves:
+                if curve.get_reaction().get_id() != self.get_id():
+                    if curve.get_role() in curve.get_modifier_role_options():
+                        curve.move_start_by(delta)
+                    else:
+                        curve.move_end_by(delta, adjust_end_point_for_uni_uni_reaction=True)
 
-    def __str__(self):
+            return True
+
+        raise ValueError(f"Reaction {self.get_reaction_id()} cannot be moved by {delta} because it would lead to negative coordinates.")
+
+    def align_horizontal(self, center_at: tuple[float, float] = None, spread_width: float = None,
+                         reactants_order: list = None, products_order: list = None, modifiers_order: list = None,
+                         reactants_placement: str = "both", products_placement: str = "both", modifiers_placement: str = "both"):
+        from ..features.align import HorizontalAlign
+
+        horizontal_align = HorizontalAlign(self.libsbmlnetwork)
+        return horizontal_align.align(self, center_at, spread_width,
+                                      reactants_order, products_order, modifiers_order,
+                                      reactants_placement, products_placement, modifiers_placement)
+
+    def align_vertical(self, center_at: tuple[float, float] = None, spread_height: float = None,
+                       reactants_order: list = None, products_order: list = None, modifiers_order: list = None,
+                       reactants_placement: str = "both", products_placement: str = "both", modifiers_placement: str = "both"):
+        from ..features.align import VerticalAlign
+
+        vertical_align = VerticalAlign(self.libsbmlnetwork)
+        return vertical_align.align(self, center_at, spread_height,
+                                    reactants_order, products_order, modifiers_order,
+                                    reactants_placement, products_placement, modifiers_placement)
+
+    def align_circle(self, center_at: tuple[float, float] = None, radius: float = None, arc_start: float = -180,
+                     arc_end: float = -90,
+                     reactants_order: list = None, products_order: list = None, modifiers_order: list = None,
+                     reactants_placement: str = "both", products_placement: str = "both", modifiers_placement: str = "both"):
+        from ..features.align import CircleAlign
+
+        circle_align = CircleAlign(self.libsbmlnetwork)
+        return circle_align.align(self, center_at, radius, arc_start, arc_end,
+                                  reactants_order, products_order, modifiers_order,
+                                  reactants_placement, products_placement, modifiers_placement)
+
+    def get_info(self):
         result = []
         result.append(f"reaction id: {self.get_reaction_id()}")
         result.append(f"id: {self.get_id()}")
@@ -445,6 +536,10 @@ class Reaction(NetworkElementBase):
                 result.append("----")
 
         return "\n".join(result)
+
+    @property
+    def info(self):
+        return self.get_info()
 
     def __repr__(self):
         return f"Reaction(id={self.element_id}, index={self.graphical_object_index})"

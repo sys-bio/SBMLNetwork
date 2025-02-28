@@ -152,7 +152,15 @@ class ArrowHead:
     def fill_color(self, fill_color: str or tuple or list):
         self.set_fill_color(fill_color)
 
-    def __str__(self):
+    def move_relative_position_to(self, relative_position: tuple[float, float]):
+        return self.set_relative_position(relative_position)
+
+    def move_relative_position_by(self, delta: tuple[float, float]):
+        current_position = self.get_relative_position()
+        new_position = (current_position[0] + delta[0], current_position[1] + delta[1])
+        return self.set_relative_position(new_position)
+
+    def get_info(self):
         result = []
         result.append(f"relative_position: {self.get_relative_position()}")
         result.append(f"size: {self.get_size()}")
@@ -166,5 +174,10 @@ class ArrowHead:
 
         return "\n".join(result)
 
+    @property
+    def info(self):
+        return self.get_info()
+
     def __repr__(self):
-        return f"ArrowHead(reaction_id={self.reaction_id}, reaction_glyph_index={self.reaction_glyph_index}, species_reference_index={self.species_reference_index})"
+        return (f"ArrowHead(shapes={repr(self.get_shapes_list())},"
+                f"reaction_id={self.reaction_id}, reaction_glyph_index={self.reaction_glyph_index},species_reference_index={self.species_reference_index})")

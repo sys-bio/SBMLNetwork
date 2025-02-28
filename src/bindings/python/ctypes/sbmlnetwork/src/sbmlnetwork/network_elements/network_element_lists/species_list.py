@@ -50,40 +50,40 @@ class SpeciesList(NetworkElementBaseList):
     def reaction_ids(self):
         return self.get_reaction_ids()
 
-    def get_connected_curves(self):
+    def get_curves(self, reaction=None):
         from ..visual_elements.visual_element_lists.curve_element_lists.curve_list import CurveList
 
-        connected_curves = CurveList()
+        curves = CurveList()
         for species in self:
-            connected_curves.extend(species.get_connected_curves())
+            curves.extend(species.get_connected_curves(reaction))
 
-        return connected_curves
+        return curves
 
-    @property
-    def connected_curves(self):
-        return self.get_connected_curves()
-
-    def get_curves(self, species=None):
-        return self.get_connected_curves()
-
-    def get_curves_list(self, species=None):
-        return self.get_curves(species)
+    def get_curves_list(self, reaction=None):
+        return self.get_curves(reaction)
 
     @property
     def curves(self):
         return self.get_curves()
 
-    def get_curve_colors(self, species=None):
+    def get_connected_curves(self, reaction=None):
+        return self.get_curves(reaction)
+
+    @property
+    def connected_curves(self):
+        return self.get_connected_curves()
+
+    def get_curve_colors(self, reaction=None):
         curve_colors = []
         for species in self:
-            curve_colors.append(species.get_curve_colors())
+            curve_colors.append(species.get_curve_colors(reaction))
 
         return curve_colors
 
-    def set_curve_colors(self, color, species=None):
+    def set_curve_colors(self, color, reaction=None):
         results = []
         for species in self:
-            results.append(species.set_curve_colors(color))
+            results.append(species.set_curve_colors(color, reaction))
 
         return results
 
@@ -95,17 +95,17 @@ class SpeciesList(NetworkElementBaseList):
     def curve_colors(self, color):
         self.set_curve_colors(color)
 
-    def get_curve_thicknesses(self, species=None):
+    def get_curve_thicknesses(self, reaction=None):
         curve_thicknesses = []
         for species in self:
-            curve_thicknesses.append(species.get_curve_thicknesses())
+            curve_thicknesses.append(species.get_curve_thicknesses(reaction))
 
         return curve_thicknesses
 
-    def set_curve_thicknesses(self, thickness, species=None):
+    def set_curve_thicknesses(self, thickness, reaction=None):
         results = []
         for species in self:
-            results.append(species.set_curve_thicknesses(thickness))
+            results.append(species.set_curve_thicknesses(thickness, reaction))
 
         return results
 
@@ -216,12 +216,33 @@ class SpeciesList(NetworkElementBaseList):
     def arrow_head_fill_colors(self, color):
         self.set_arrow_head_fill_colors(color)
 
+    def move_arrow_head_relative_positions_to(self, relative_position):
+        results = []
+        for species in self:
+            results.append(species.move_arrow_head_relative_positions_to(relative_position))
+
+        return results
+
+    def move_arrow_head_relative_positions_by(self, relative_position):
+        results = []
+        for species in self:
+            results.append(species.move_arrow_head_relative_positions_by(relative_position))
+
+        return results
+
     def get_roles(self, reaction):
         roles = []
         for species in self:
             roles.append(species.get_role(reaction))
 
         return roles
+
+    def are_empty_species(self):
+        are_empty_species = []
+        for species in self:
+            are_empty_species.append(species.is_empty_species())
+
+        return are_empty_species
 
     def create_alias(self, reaction):
         aliases = SpeciesList(libsbmlnetwork=self.libsbmlnetwork)
@@ -230,76 +251,17 @@ class SpeciesList(NetworkElementBaseList):
 
         return aliases
 
-    def align_to_top(self):
-        species_info = []
-        for species in self:
-            species_info.append([species.get_species_id(), species.get_graphical_object_index()])
-        if self.libsbmlnetwork.align(species_info, "top") == 0:
-            return True
-
-        return False
-
-    def align_to_bottom(self):
-        species_info = []
-        for species in self:
-            species_info.append([species.get_species_id(), species.get_graphical_object_index()])
-        if self.libsbmlnetwork.align(species_info, "bottom") == 0:
-            return True
-
-        return False
-
-    def align_to_vertical_center(self):
-        species_info = []
-        for species in self:
-            species_info.append([species.get_species_id(), species.get_graphical_object_index()])
-        if self.libsbmlnetwork.align(species_info, "vCenter") == 0:
-            return True
-
-        return False
-
-    def align_to_left(self):
-        species_info = []
-        for species in self:
-            species_info.append([species.get_species_id(), species.get_graphical_object_index()])
-        if self.libsbmlnetwork.align(species_info, "left") == 0:
-            return True
-
-        return False
-
-    def align_to_right(self):
-        species_info = []
-        for species in self:
-            species_info.append([species.get_species_id(), species.get_graphical_object_index()])
-        if self.libsbmlnetwork.align(species_info, "right") == 0:
-            return True
-
-        return False
-
-    def align_to_horizontal_center(self):
-        species_info = []
-        for species in self:
-            species_info.append([species.get_species_id(), species.get_graphical_object_index()])
-        if self.libsbmlnetwork.align(species_info, "hCenter") == 0:
-            return True
-
-        return False
-
-    def align_to_circle(self):
-        species_info = []
-        for species in self:
-            species_info.append([species.get_species_id(), species.get_graphical_object_index()])
-        if self.libsbmlnetwork.align(species_info, "circular") == 0:
-            return True
-
-        return False
-
-    # Todo: Implement distribute method
-    # ToDo: Implement get_distribute_options method
-
-    def move(self, position: tuple[float, float], move_connected_curves: bool = False):
+    def move_to(self, position, move_connected_curves=True):
         results = []
         for species in self:
-            results.append(species.move(position, move_connected_curves))
+            results.append(species.move_to(position, move_connected_curves))
+
+        return results
+
+    def move_by(self, position, move_connected_curves=True):
+        results = []
+        for species in self:
+            results.append(species.move_by(position, move_connected_curves))
 
         return results
 

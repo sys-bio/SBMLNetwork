@@ -136,13 +136,17 @@ class ShapeBase:
         #
         # return False
 
-    def __str__(self):
+    def get_info(self):
         return (
             f"type: {self.get_type()}\n"
             f"border_color: {self.get_border_color()}\n"
             f"border_thickness: {self.get_border_thickness()}\n"
             f"fill_color: {self.get_fill_color()}"
         )
+
+    @property
+    def info(self):
+        return self.get_info()
 
     def __repr__(self):
         return f"{self.get_type()}"

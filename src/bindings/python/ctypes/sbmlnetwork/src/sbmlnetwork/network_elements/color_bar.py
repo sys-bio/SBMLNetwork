@@ -1,5 +1,6 @@
 from .additional_element import AdditionalElement
 
+
 class ColorBar(AdditionalElement):
 
     def __init__(self, libsbmlnetwork, element_id):
@@ -28,7 +29,7 @@ class ColorBar(AdditionalElement):
         self.get_shape().set_border_color(border_color)
         self.get_shape().set_border_thickness(border_thickness)
         self.get_shape().set_corner_radius((corner_radius, corner_radius))
-        self.libsbmlnetwork.setFillColorAsGradient(id=self.element_id,
+        self.libsbmlnetwork.setGeometricShapeFillColorAsGradient(id=self.element_id, geometric_shape_index=0,
                                                    stop_colors=gradient_colors,
                                                    stop_offsets=[i * 100 / (len(gradient_colors) - 1) for i in
                                                                  range(len(gradient_colors))],
@@ -221,7 +222,14 @@ class ColorBar(AdditionalElement):
 
         return ['#D32F2F', '#FF7F32', '#A8D400', '#00B4B4', '#1E3A5F']
 
-    #ToDo: implement set_gradient_colors
+    def set_gradient_colors(self, gradient_colors: list[str]):
+        if self.libsbmlnetwork.setGeometricShapeFillColorAsGradient(id=self.element_id, geometric_shape_index=0,
+                                                                    stop_colors=gradient_colors,
+                                                                    stop_offsets=[i * 100 / (len(gradient_colors) - 1) for i in range(len(gradient_colors))],
+                                                                    gradient_type="linear") == 0:
+            return True
+
+        return False
 
     def get_tick_mark_thickness(self):
         if self.get_shapes_list() and len(self.get_shapes_list()) > 1:
@@ -271,7 +279,7 @@ class ColorBar(AdditionalElement):
     def clear_color_bar_space(self):
         self.libsbmlnetwork.setCanvasWidth(self._get_max_compartments_position_x())
 
-    def __str__(self):
+    def get_info(self):
         return (
                 f"left_margin: {self.get_left_margin()}\n" +
                 f"right_margin: {self.get_right_margin()}\n" +
@@ -289,3 +297,10 @@ class ColorBar(AdditionalElement):
                 f"position: {self.get_position()}\n" +
                 f"size: {self.get_size()}"
         )
+
+    @property
+    def info(self):
+        return self.get_info()
+
+    def __repr__(self):
+        return f"ColorBar(id={self.element_id})"

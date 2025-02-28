@@ -72,11 +72,11 @@ class ReactionCenter:
 
     def move(self, delta: tuple[float, float]):
         if self.is_curve():
-            return self.get_curve().move(delta)
+            return self.get_curve().move_by(delta)
 
         return True
 
-    def __str__(self):
+    def get_info(self):
         result = []
         result.append(f"reaction id: {self.reaction_id}")
         if self.is_curve():
@@ -91,3 +91,13 @@ class ReactionCenter:
                     result.append("----")
 
         return "\n".join(result)
+
+    @property
+    def info(self):
+        return self.get_info()
+
+    def __repr__(self):
+        if self.is_curve():
+            return f"ReactionCenter({self.reaction_id}, {self.reaction_glyph_index}, {repr(self.get_curve())})"
+        else:
+            return f"ReactionCenter({self.reaction_id}, {self.reaction_glyph_index}, {repr(self.get_shapes_list())})"

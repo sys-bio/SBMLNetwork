@@ -45,7 +45,7 @@ class Polygon(ShapeBase):
     def points(self, points: list[tuple[float, float]]):
         self.set_points(points)
 
-    def __str__(self):
+    def get_info(self):
         base_str = super().__str__()
         return (
                 base_str + "\n" +

@@ -163,7 +163,7 @@ class ArrowHeadList(list):
 
         return fill_colors
 
-    def set_fill_color(self, fill_color: str or tuple or list):
+    def set_fill_colors(self, fill_color: str or tuple or list):
         results = []
         for arrow_head in self:
             results.append(arrow_head.set_fill_color(fill_color))
@@ -176,13 +176,31 @@ class ArrowHeadList(list):
 
     @fill_colors.setter
     def fill_colors(self, fill_color: str or tuple or list):
-        self.set_fill_color(fill_color)
+        self.set_fill_colors(fill_color)
 
-    def __str__(self):
+    def move_relative_positions_to(self, relative_position: tuple[float, float]):
+        results = []
+        for arrow_head in self:
+            results.append(arrow_head.move_relative_position_to(relative_position))
+
+        return results
+
+    def move_relative_positions_by(self, delta: tuple[float, float]):
+        results = []
+        for arrow_head in self:
+            results.append(arrow_head.move_relative_position_by(delta))
+
+        return results
+
+    def get_info(self):
         result = []
         for arrow_head in self:
             result.append(str(arrow_head))
         return "\n\n".join(result)
+
+    @property
+    def info(self):
+        return self.get_info()
 
     def __repr__(self):
         return f"ArrowHeadList({[repr(arrow_head) for arrow_head in self]})"

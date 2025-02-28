@@ -38,9 +38,10 @@ class Curve(ShapeBase):
 
         return True
 
-    def __str__(self):
+    def get_info(self):
         base_str = super().__str__()
         return (
                 base_str + "\n" +
                 f"points: {self.get_points()}"
         )
+

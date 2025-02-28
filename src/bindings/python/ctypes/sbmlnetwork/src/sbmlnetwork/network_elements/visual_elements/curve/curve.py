@@ -3,6 +3,7 @@ from typing import Union
 from .curve_segment import CurveSegment
 from ..visual_element_lists.curve_element_lists import *
 from .arrow_head import ArrowHead
+import math
 
 
 class Curve:
@@ -27,10 +28,15 @@ class Curve:
             reaction = self.get_reaction()
             species_list = reaction.get_species_list()
             species_id = self.libsbmlnetwork.getSpeciesReferenceSpeciesId(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index)
-            species_glyph_id = self.libsbmlnetwork.getSpeciesReferenceSpeciesGlyphId(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index)
+            species_glyph_index = self.libsbmlnetwork.getSpeciesGlyphIndex(species_id=species_id, reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index)
             for species in species_list:
-                if species.get_species_id() == species_id and species.get_id() == species_glyph_id:
+                if species.get_species_id() == species_id and species.get_graphical_object_index() == species_glyph_index:
                     return species
+            if self.libsbmlnetwork.isSetSpeciesReferenceEmptySpeciesGlyph(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index):
+                species_glyph_id = self.libsbmlnetwork.getSpeciesReferenceEmptySpeciesGlyphId(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index)
+                for species in species_list:
+                    if species.get_id() == species_glyph_id and species.get_graphical_object_index() == 0:
+                        return species
 
         return None
 
@@ -55,7 +61,7 @@ class Curve:
 
     @property
     def roles_options(self):
-        return self.get_roles_options()
+        return self.get_role_options()
 
     def get_modifier_role_options(self):
         roles = self.get_role_options()
@@ -166,7 +172,7 @@ class Curve:
             second_point = first_segment.get_control_point_1()
             if first_segment.get_start() == first_segment.get_control_point_1():
                 second_point = first_segment.get_end()
-            return (second_point[1] - first_point[1]) / (second_point[0] - first_point[0])
+            return math.atan2(second_point[1] - first_point[1], second_point[0] - first_point[0])
 
         return 0.0
 
@@ -181,7 +187,7 @@ class Curve:
             second_point = last_segment.get_control_point_2()
             if last_segment.get_end() == last_segment.get_control_point_2():
                 second_point = last_segment.get_start()
-            return (second_point[1] - first_point[1]) / (second_point[0] - first_point[0])
+            return math.atan2(second_point[1] - first_point[1], second_point[0] - first_point[0])
 
         return 0.0
 
@@ -270,11 +276,11 @@ class Curve:
     def get_arrow_head(self):
         if self.species_reference_index is not None:
             if self.libsbmlnetwork.isSetSpeciesReferenceStartHead(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index) or \
-                self.libsbmlnetwork.isSetSpeciesReferenceEndHead(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index):
+                    self.libsbmlnetwork.isSetSpeciesReferenceEndHead(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index):
                 return ArrowHead(self.libsbmlnetwork, self.reaction_id, self.reaction_glyph_index, self.species_reference_index)
         else:
             if self.libsbmlnetwork.isSetSpeciesReferenceStartHead(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index) or \
-                self.libsbmlnetwork.isSetSpeciesReferenceEndHead(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index):
+                    self.libsbmlnetwork.isSetSpeciesReferenceEndHead(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index):
                 return ArrowHead(self.libsbmlnetwork, self.reaction_id, self.reaction_glyph_index, self.species_reference_index)
 
         return None
@@ -312,18 +318,18 @@ class Curve:
         self.set_arrow_head_size(size)
 
     def get_arrow_head_shapes(self):
-        return self.get_arrow_head().get_shapes_list()
+        return self.get_arrow_head().get_shape_type()
 
     @property
     def arrow_head_shapes(self):
         return self.get_arrow_head_shapes()
 
-    def get_arrow_head_shape_type(self):
-        return self.get_arrow_head().get_shape_type()
+    def set_arrow_head_shapes(self, shape: str):
+        return self.get_arrow_head().set_shape(shape)
 
-    @property
-    def arrow_head_shape_type(self):
-        return self.get_arrow_head_shape_type()
+    @arrow_head_shapes.setter
+    def arrow_head_shapes(self, shape: str):
+        self.set_arrow_head_shapes(shape)
 
     def get_arrow_head_border_color(self):
         return self.get_arrow_head().get_border_color()
@@ -367,23 +373,109 @@ class Curve:
     def arrow_head_fill_color(self, fill_color: str or tuple or list):
         self.set_arrow_head_fill_color(fill_color)
 
-    def move(self, delta: tuple[float, float]):
-        if all(self.get_segments_list().move(delta)):
+    def move_arrow_head_relative_position_to(self, relative_position: tuple[float, float]):
+        return self.get_arrow_head().move_relative_position_to(relative_position)
+
+    def move_arrow_head_relative_position_by(self, delta: tuple[float, float]):
+        return self.get_arrow_head().move_relative_position_by(delta)
+
+    def move_by(self, delta: tuple[float, float]):
+        if all(self.get_segments_list().move_by(delta)):
             return True
 
         return False
 
-    def move_start(self, delta: tuple[float, float]):
+    def move_start_to(self, position: tuple[float, float]):
+        start = self.get_start()
+        return self.move_start_by((position[0] - start[0], position[1] - start[1]))
+
+    def move_start_by(self, delta: tuple[float, float]):
         first_segment = self.get_segments_list()[0]
         if first_segment is not None:
-            return first_segment.move_start(delta)
+            return first_segment.move_start_by(delta)
 
         return False
 
-    def move_end(self, delta: tuple[float, float]):
+    def move_end_to(self, position: tuple[float, float], adjust_end_point_for_uni_uni_reaction: bool = False):
+        end = self.get_end()
+        return self.move_end_by((position[0] - end[0], position[1] - end[1]), adjust_end_point_for_uni_uni_reaction)
+
+    import math
+
+    def move_end_by(self, delta: tuple[float, float], adjust_end_point_for_uni_uni_reaction: bool = False):
         last_segment = self.get_segments_list()[-1]
         if last_segment is not None:
-            return last_segment.move_end(delta)
+            if not last_segment.move_end_by(delta):
+                return False
+            reaction = self.get_reaction()
+            if len(reaction.get_species_list()) == 2 and len(reaction.get_curves_list()) == 2:
+                species_list = reaction.get_species_list()
+                first_species = self.get_species()
+                first_curve = self
+                first_species_center = (
+                    first_species.get_position()[0] + 0.5 * first_species.get_size()[0],
+                    first_species.get_position()[1] + 0.5 * first_species.get_size()[1]
+                )
+                second_species = [s for s in species_list if s.get_id() != first_species.get_id()][0]
+                second_curve = reaction.get_curves_list(second_species)[0]
+                second_species_center = (
+                    second_species.get_position()[0] + 0.5 * second_species.get_size()[0],
+                    second_species.get_position()[1] + 0.5 * second_species.get_size()[1]
+                )
+                reaction_center = (
+                    0.5 * (first_species_center[0] + second_species_center[0]),
+                    0.5 * (first_species_center[1] + second_species_center[1])
+                )
+                reaction.set_position(reaction_center)
+                first_curve.get_segment().set_start(reaction_center)
+                first_curve.get_segment().set_control_point_1(reaction_center)
+                second_curve.get_segment().set_start(reaction_center)
+                second_curve.get_segment().set_control_point_1(reaction_center)
+
+                if adjust_end_point_for_uni_uni_reaction:
+                    dx1 = reaction_center[0] - first_species_center[0]
+                    dy1 = reaction_center[1] - first_species_center[1]
+                    w1, h1 = first_species.get_size()
+                    half_w1, half_h1 = w1 / 2, h1 / 2
+                    t_x1 = half_w1 / abs(dx1) if dx1 != 0 else float('inf')
+                    t_y1 = half_h1 / abs(dy1) if dy1 != 0 else float('inf')
+                    t1 = min(t_x1, t_y1)
+                    intersection1 = (
+                        first_species_center[0] + t1 * dx1,
+                        first_species_center[1] + t1 * dy1
+                    )
+                    length1 = math.hypot(dx1, dy1)
+                    pad_dx1 = (dx1 / length1) * 10 if length1 else 0
+                    pad_dy1 = (dy1 / length1) * 10 if length1 else 0
+                    first_curve_end = (
+                        intersection1[0] + pad_dx1,
+                        intersection1[1] + pad_dy1
+                    )
+                    dx2 = reaction_center[0] - second_species_center[0]
+                    dy2 = reaction_center[1] - second_species_center[1]
+                    w2, h2 = second_species.get_size()
+                    half_w2, half_h2 = w2 / 2, h2 / 2
+                    t_x2 = half_w2 / abs(dx2) if dx2 != 0 else float('inf')
+                    t_y2 = half_h2 / abs(dy2) if dy2 != 0 else float('inf')
+                    t2 = min(t_x2, t_y2)
+                    intersection2 = (
+                        second_species_center[0] + t2 * dx2,
+                        second_species_center[1] + t2 * dy2
+                    )
+                    length2 = math.hypot(dx2, dy2)
+                    pad_dx2 = (dx2 / length2) * 5 if length2 else 0
+                    pad_dy2 = (dy2 / length2) * 5 if length2 else 0
+                    second_curve_end = (
+                        intersection2[0] + pad_dx2,
+                        intersection2[1] + pad_dy2
+                    )
+                    first_curve.get_segment().set_end(first_curve_end)
+                    second_curve.get_segment().set_end(second_curve_end)
+                first_curve.get_segment().set_control_point_2(first_curve.get_segment().get_end())
+                second_curve.get_segment().set_control_point_2(second_curve.get_segment().get_end())
+                return True
+            else:
+                return True
 
         return False
 
@@ -416,7 +508,7 @@ class Curve:
 
     #ToDo: implement set arrow head
 
-    def __str__(self):
+    def get_info(self):
         result = []
         #ToDo: Add the reaction, species, and role information
         result.append(f"color: {self.get_color()}")
@@ -437,6 +529,9 @@ class Curve:
 
         return "\n".join(result)
 
+    @property
+    def info(self):
+        return self.get_info()
 
     def __repr__(self):
         return f"Curve(reaction_id={self.reaction_id}, reaction_glyph_index={self.reaction_glyph_index}, species_reference_index={self.species_reference_index})"

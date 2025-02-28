@@ -24,11 +24,14 @@ class NetworkElementBase:
                 self.libsbmlnetwork.getY(id=self.element_id, graphical_object_index=self.graphical_object_index))
 
     def set_position(self, position: tuple[float, float]):
-        if self.libsbmlnetwork.setX(id=self.element_id, graphical_object_index=self.graphical_object_index, x=position[0], update_curves=False) == 0 and \
-                self.libsbmlnetwork.setY(id=self.element_id, graphical_object_index=self.graphical_object_index, y=position[1], update_curves=False) == 0:
-            return True
+        if self._can_move_to(position):
+            if self.libsbmlnetwork.setX(id=self.element_id, graphical_object_index=self.graphical_object_index, x=position[0], update_curves=False) == 0 and \
+                    self.libsbmlnetwork.setY(id=self.element_id, graphical_object_index=self.graphical_object_index, y=position[1], update_curves=False) == 0:
+                return True
 
-        return False
+            return False
+
+        raise ValueError(f"The network element {self.get_id()} cannot be moved to {position} because it would lead to negative coordinates.")
 
     @property
     def position(self):
@@ -205,6 +208,36 @@ class NetworkElementBase:
     def text_italic(self, italic: bool):
         self.set_text_italic(italic)
 
+    def set_text_relative_position(self, relative_position: tuple[float, float]):
+        position = self.get_position()
+        return self.get_labels_list().set_positions((position[0] + relative_position[0], position[1] + relative_position[1]))
+
+    def get_text_relative_position(self):
+        labels_positions = self.get_labels_list().get_positions()
+        position = self.get_position()
+        relative_positions = []
+        for label_position in labels_positions:
+            relative_positions.append((label_position[0] - position[0], label_position[1] - position[1]))
+
+        if len(relative_positions) == 1:
+            return relative_positions[0]
+
+        return relative_positions
+
+    @property
+    def text_relative_position(self):
+        return self.get_text_relative_position()
+
+    @text_relative_position.setter
+    def text_relative_position(self, relative_position: tuple[float, float]):
+        self.set_text_relative_position(relative_position)
+
+    def move_text_by(self, delta: tuple[float, float]):
+        return self.get_labels_list().move_by(delta)
+
+    def move_text_to(self, position: tuple[float, float]):
+        return self.get_labels_list().move_to(position)
+
     def add_shape(self, shape_type: str):
         valid_geometric_shapes = self.libsbmlnetwork.getListOfGeometricShapes()
         if shape_type not in valid_geometric_shapes:
@@ -341,7 +374,28 @@ class NetworkElementBase:
 
         return False
 
-    def move(self, delta: tuple[float, float]):
+    def move_to(self, position: tuple[float, float]):
+        return self.move_by((position[0] - self.get_position()[0], position[1] - self.get_position()[1]))
+
+    def move_by(self, delta: tuple[float, float]):
+        if self._can_move_by(delta):
+            current_position = self.get_position()
+            new_position = (current_position[0] + delta[0], current_position[1] + delta[1])
+            return self.set_position(new_position)
+
+        raise ValueError(f"The network element {self.get_id()} cannot be moved by {delta} because it would lead to negative coordinates.")
+
+    @staticmethod
+    def _can_move_to(position: tuple[float, float]):
+        if position[0] < 0 or position[1] < 0:
+            return False
+
+        return True
+
+    def _can_move_by(self, delta: tuple[float, float]):
         current_position = self.get_position()
         new_position = (current_position[0] + delta[0], current_position[1] + delta[1])
-        return self.set_position(new_position)
+        if new_position[0] < 0 or new_position[1] < 0:
+            return False
+
+        return True

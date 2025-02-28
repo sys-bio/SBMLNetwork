@@ -204,11 +204,29 @@ class LabelList(list):
 
         return is_italic
 
-    def __str__(self):
+    def move_to(self, position: tuple[float, float]):
+        results = []
+        for label in self:
+            results.append(label.move_to(position))
+
+        return results
+
+    def move_by(self, offset: tuple[float, float]):
+        results = []
+        for label in self:
+            results.append(label.move_by(offset))
+
+        return results
+
+    def get_info(self):
         result = []
         for label in self:
             result.append(str(label))
         return "\n".join(result)
+
+    @property
+    def info(self):
+        return self.get_info()
 
     def __repr__(self):
         return f"LabelList({[repr(label) for label in self]})"

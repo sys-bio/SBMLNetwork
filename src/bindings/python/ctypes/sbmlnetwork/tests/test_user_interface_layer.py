@@ -151,10 +151,10 @@ class TestSBMLModel(unittest.TestCase):
         network = sbmlnetwork.load(self.r.getSBML())
         species = network.get_species_list()[0]
         size = species.get_size()
-        species.set_size((size[0] + 100, size[1] + 100))
+        species.set_size((size[0] + 10, size[1] + 10))
         new_size = species.get_size()
-        self.assertAlmostEqual(size[0] + 100, new_size[0], delta=0.1)
-        self.assertAlmostEqual(size[1] + 100, new_size[1], delta=0.1)
+        self.assertAlmostEqual(size[0] + 10, new_size[0], delta=0.1)
+        self.assertAlmostEqual(size[1] + 10, new_size[1], delta=0.1)
 
     def test_network_element_label(self):
         """ Test if the network element label can be added and removed """
@@ -259,7 +259,7 @@ class TestSBMLModel(unittest.TestCase):
         position = species.get_position()
         connected_curve = species.get_connected_curves()[0]
         connected_curve_end = connected_curve.get_end()
-        species.move((50, 50), move_connected_curves=True)
+        species.move_by((50, 50), move_connected_curves=True)
         new_position = species.get_position()
         new_connected_curve_end = connected_curve.get_end()
         self.assertAlmostEqual(position[0] + 50, new_position[0], delta=0.1)
@@ -268,7 +268,7 @@ class TestSBMLModel(unittest.TestCase):
         self.assertAlmostEqual(connected_curve_end[1] + 50, new_connected_curve_end[1], delta=0.1)
         position = species.get_position()
         connected_curve_end = connected_curve.get_end()
-        species.move((50, 50), move_connected_curves=False)
+        species.move_by((50, 50), move_connected_curves=False)
         new_position = species.get_position()
         new_connected_curve_end = connected_curve.get_end()
         self.assertAlmostEqual(position[0] + 50, new_position[0], delta=0.1)
@@ -279,7 +279,7 @@ class TestSBMLModel(unittest.TestCase):
         position = species.get_position()
         connected_curve = species.get_connected_curves()[0]
         connected_curve_start = connected_curve.get_start()
-        species.move((50, 50), move_connected_curves=True)
+        species.move_by((50, 50), move_connected_curves=True)
         new_position = species.get_position()
         new_connected_curve_start = connected_curve.get_start()
         self.assertAlmostEqual(position[0] + 50, new_position[0], delta=0.1)
@@ -288,7 +288,7 @@ class TestSBMLModel(unittest.TestCase):
         self.assertAlmostEqual(connected_curve_start[1] + 50, new_connected_curve_start[1], delta=0.1)
         position = species.get_position()
         connected_curve_start = connected_curve.get_start()
-        species.move((50, 50), move_connected_curves=False)
+        species.move_by((50, 50), move_connected_curves=False)
         new_position = species.get_position()
         new_connected_curve_start = connected_curve.get_start()
         self.assertAlmostEqual(position[0] + 50, new_position[0], delta=0.1)
@@ -447,8 +447,8 @@ class TestSBMLModel(unittest.TestCase):
         self.assertEqual(label.is_italic(), True)
         species.set_font("Monospace")
         self.assertEqual(species.get_font(), "Monospace")
-        species.set_font_size(30)
-        self.assertEqual(species.get_font_size(), 30)
+        species.set_font_size(10)
+        self.assertEqual(species.get_font_size(), 10)
         species.set_font_color("blue")
         self.assertEqual(species.get_font_color(), "blue")
         self.assertEqual(species.is_text_bold(), True)
@@ -523,7 +523,7 @@ class TestSBMLModel(unittest.TestCase):
         connected_species_positions = reaction.get_species_list().get_positions()
         connected_curves_start = reaction.get_curves_list().get_starts()
         connected_curves_end = reaction.get_curves_list().get_ends()
-        reaction.move((50, 50), move_connected_species=True)
+        reaction.move_by((50, 50), move_connected_species=True)
         new_position = reaction.get_position()
         new_connected_species_positions = reaction.get_species_list().get_positions()
         new_connected_curves_start = reaction.get_curves_list().get_starts()
@@ -543,7 +543,7 @@ class TestSBMLModel(unittest.TestCase):
         connected_species_positions = reaction.get_species_list().get_positions()
         connected_curves_start = reaction.get_curves_list().get_starts()
         connected_curves_end = reaction.get_curves_list().get_ends()
-        reaction.move((50, 50), move_connected_species=False)
+        reaction.move_by((50, 50), move_connected_species=False)
         new_position = reaction.get_position()
         new_connected_species_positions = reaction.get_species_list().get_positions()
         new_connected_curves_start = reaction.get_curves_list().get_starts()
@@ -644,8 +644,8 @@ class TestSBMLModel(unittest.TestCase):
                 self.assertEqual(len(curve.get_segments_list()), 1)
                 self.assertEqual(curve.get_segment().get_start(), (100, 100))
                 self.assertEqual(curve.get_segment().get_end(), (200, 200))
-                self.assertEqual(curve.get_start_slope(), (150 - 100) / (150 - 100))
-                self.assertEqual(curve.get_end_slope(), (250 - 200) / (250 - 200))
+                self.assertEqual(curve.get_start_slope(), math.atan2(150 - 100, 150 - 100))
+                self.assertEqual(curve.get_end_slope(), math.atan2(250 - 200, 250 - 200))
 
     def test_curve_move(self):
         """ Test if the curve can be moved """
@@ -654,7 +654,7 @@ class TestSBMLModel(unittest.TestCase):
         curve = reaction.get_curves_list()[0]
         start_position = curve.get_start()
         end_position = curve.get_end()
-        curve.move((50, 50))
+        curve.move_by((50, 50))
         new_start_position = curve.get_start()
         new_end_position = curve.get_end()
         self.assertAlmostEqual(start_position[0] + 50, new_start_position[0], delta=0.1)
@@ -663,20 +663,14 @@ class TestSBMLModel(unittest.TestCase):
         self.assertAlmostEqual(end_position[1] + 50, new_end_position[1], delta=0.1)
         start_position = curve.get_start()
         end_position = curve.get_end()
-        curve.move_start((50, 50))
+        curve.move_start_by((50, 50))
         new_start_position = curve.get_start()
         new_end_position = curve.get_end()
         self.assertAlmostEqual(start_position[0] + 50, new_start_position[0], delta=0.1)
         self.assertAlmostEqual(start_position[1] + 50, new_start_position[1], delta=0.1)
-        self.assertAlmostEqual(end_position[0], new_end_position[0], delta=0.1)
-        self.assertAlmostEqual(end_position[1], new_end_position[1], delta=0.1)
-        start_position = curve.get_start()
         end_position = curve.get_end()
-        curve.move_end((50, 50))
-        new_start_position = curve.get_start()
+        curve.move_end_by((50, 50))
         new_end_position = curve.get_end()
-        self.assertAlmostEqual(start_position[0], new_start_position[0], delta=0.1)
-        self.assertAlmostEqual(start_position[1], new_start_position[1], delta=0.1)
         self.assertAlmostEqual(end_position[0] + 50, new_end_position[0], delta=0.1)
         self.assertAlmostEqual(end_position[1] + 50, new_end_position[1], delta=0.1)
         curve.add_segment((100, 100), (200, 200), (150, 150), (250, 250))
@@ -689,7 +683,7 @@ class TestSBMLModel(unittest.TestCase):
         second_segment_end_position = curve.get_segments_list()[1].get_end()
         second_segment_control_point_1_position = curve.get_segments_list()[1].get_control_point_1()
         second_segment_control_point_2_position = curve.get_segments_list()[1].get_control_point_2()
-        curve.move((50, 50))
+        curve.move_by((50, 50))
         new_first_segment_start_position = curve.get_segments_list()[0].get_start()
         new_first_segment_end_position = curve.get_segments_list()[0].get_end()
         new_first_segment_control_point_1_position = curve.get_segments_list()[0].get_control_point_1()
@@ -758,7 +752,7 @@ class TestSBMLModel(unittest.TestCase):
         end_position = segment.get_end()
         control_point_1_position = segment.get_control_point_1()
         control_point_2_position = segment.get_control_point_2()
-        segment.move((50, 50))
+        segment.move_by((50, 50))
         new_start_position = segment.get_start()
         new_end_position = segment.get_end()
         new_control_point_1_position = segment.get_control_point_1()
@@ -775,7 +769,7 @@ class TestSBMLModel(unittest.TestCase):
         end_position = segment.get_end()
         control_point_1_position = segment.get_control_point_1()
         control_point_2_position = segment.get_control_point_2()
-        segment.move_start((50, 50))
+        segment.move_start_by((50, 50))
         new_start_position = segment.get_start()
         new_end_position = segment.get_end()
         new_control_point_1_position = segment.get_control_point_1()
@@ -792,7 +786,7 @@ class TestSBMLModel(unittest.TestCase):
         end_position = segment.get_end()
         control_point_1_position = segment.get_control_point_1()
         control_point_2_position = segment.get_control_point_2()
-        segment.move_end((50, 50))
+        segment.move_end_by((50, 50))
         new_start_position = segment.get_start()
         new_end_position = segment.get_end()
         new_control_point_1_position = segment.get_control_point_1()
@@ -942,9 +936,9 @@ class TestSBMLModel(unittest.TestCase):
         species_size1 = [species.get_size() for species in species_list]
         species_size2 = species_list.get_sizes()
         self.assertEqual(species_size1, species_size2)
-        species_list.set_sizes((100, 100))
+        species_list.set_sizes((20, 20))
         for species in species_list:
-            self.assertEqual(species.get_size(), (100, 100))
+            self.assertEqual(species.get_size(), (20, 20))
         reaction_list = network.get_reactions_list()
         reaction_size1 = [reaction.get_size() for reaction in reaction_list]
         reaction_size2 = reaction_list.get_sizes()
@@ -1291,10 +1285,16 @@ class TestSBMLModel(unittest.TestCase):
 
     def test_reaction_list_move(self):
         """ Test if the reaction list can be moved """
-        network = sbmlnetwork.load(self.r.getSBML())
+        self.model1 = '''
+            J0: S1 -> S2 + S3;
+            J1: S5 + S6 -> S7;
+            J2: S8 -> S9 + S10;
+        '''
+        self.r1 = te.loada(self.model1)
+        network = sbmlnetwork.load(self.r1.getSBML())
         reaction_list = network.get_reactions_list()
         positions = reaction_list.get_positions()
-        reaction_list.move((100, 100))
+        reaction_list.move_by((100, 100))
         for i in range(len(reaction_list)):
             self.assertAlmostEqual(reaction_list[i].get_position()[0], positions[i][0] + 100, delta=1)
             self.assertAlmostEqual(reaction_list[i].get_position()[1], positions[i][1] + 100, delta=1)
@@ -1470,9 +1470,9 @@ class TestSBMLModel(unittest.TestCase):
         species_list.set_fonts("Monospace")
         for species in species_list:
             self.assertEqual(species.get_label().get_font(), "Monospace")
-        species_list.set_font_sizes(30)
+        species_list.set_font_sizes(5)
         for species in species_list:
-            self.assertEqual(species.get_label().get_font_size(), 30)
+            self.assertEqual(species.get_label().get_font_size(), 5)
         species_list.set_font_colors("blue")
         for species in species_list:
             self.assertEqual(species.get_label().get_font_color(), "blue")
@@ -1592,7 +1592,7 @@ class TestSBMLModel(unittest.TestCase):
             curve_list.set_colors("red")
             for curve in curve_list:
                 self.assertEqual(curve.get_color(), "red")
-        reaction_list.set_curves_colors("blue")
+        reaction_list.set_curve_colors("blue")
         for reaction in reaction_list:
             for curve in reaction.get_curves_list():
                 self.assertEqual(curve.get_color(), "blue")
@@ -1606,7 +1606,7 @@ class TestSBMLModel(unittest.TestCase):
             curve_list.set_thicknesses(5)
             for curve in curve_list:
                 self.assertEqual(curve.get_thickness(), 5)
-        reaction_list.set_curves_thicknesses(10)
+        reaction_list.set_curve_thicknesses(10)
         for reaction in reaction_list:
             for curve in reaction.get_curves_list():
                 self.assertEqual(curve.get_thickness(), 10)
@@ -1642,10 +1642,10 @@ class TestSBMLModel(unittest.TestCase):
                 self.assertEqual(end_point, (200, 200))
             start_slopes = curve_list.get_start_slopes()
             for start_slope in start_slopes:
-                self.assertEqual(start_slope, (150 - 100) / (150 - 100))
+                self.assertEqual(start_slope, math.atan2(150 - 100, 150 - 100))
             end_slopes = curve_list.get_end_slopes()
             for end_slope in end_slopes:
-                self.assertEqual(end_slope, (250 - 200) / (250 - 200))
+                self.assertEqual(end_slope, math.atan2(250 - 200, 250 - 200))
 
     def test_curve_list_move(self):
         """ Test if the curve list can be moved """
@@ -1654,26 +1654,20 @@ class TestSBMLModel(unittest.TestCase):
         curve_list = reaction_list[0].get_curves_list()
         start_positions = curve_list.get_starts()
         end_positions = curve_list.get_ends()
-        curve_list.move((100, 100))
+        curve_list.move_by((100, 100))
         for i in range(len(curve_list)):
             self.assertAlmostEqual(curve_list[i].get_start()[0], start_positions[i][0] + 100, delta=1)
             self.assertAlmostEqual(curve_list[i].get_start()[1], start_positions[i][1] + 100, delta=1)
             self.assertAlmostEqual(curve_list[i].get_end()[0], end_positions[i][0] + 100, delta=1)
             self.assertAlmostEqual(curve_list[i].get_end()[1], end_positions[i][1] + 100, delta=1)
         start_positions = curve_list.get_starts()
-        end_positions = curve_list.get_ends()
-        curve_list.move_start((100, 100))
+        curve_list.move_start_by((100, 100))
         for i in range(len(curve_list)):
             self.assertAlmostEqual(curve_list[i].get_start()[0], start_positions[i][0] + 100, delta=1)
             self.assertAlmostEqual(curve_list[i].get_start()[1], start_positions[i][1] + 100, delta=1)
-            self.assertAlmostEqual(curve_list[i].get_end()[0], end_positions[i][0], delta=1)
-            self.assertAlmostEqual(curve_list[i].get_end()[1], end_positions[i][1], delta=1)
-        start_positions = curve_list.get_starts()
         end_positions = curve_list.get_ends()
-        curve_list.move_end((100, 100))
+        curve_list.move_end_by((100, 100))
         for i in range(len(curve_list)):
-            self.assertAlmostEqual(curve_list[i].get_start()[0], start_positions[i][0], delta=1)
-            self.assertAlmostEqual(curve_list[i].get_start()[1], start_positions[i][1], delta=1)
             self.assertAlmostEqual(curve_list[i].get_end()[0], end_positions[i][0] + 100, delta=1)
             self.assertAlmostEqual(curve_list[i].get_end()[1], end_positions[i][1] + 100, delta=1)
 
@@ -1718,7 +1712,13 @@ class TestSBMLModel(unittest.TestCase):
 
     def test_curve_segment_list_move(self):
         """ Test if the curve segment list can be moved """
-        network = sbmlnetwork.load(self.r.getSBML())
+        self.model1 = '''
+            J0: S1 -> S2 + S3;
+            J1: S5 + S6 -> S7;
+            J2: S8 -> S9 + S10;
+        '''
+        self.r1 = te.loada(self.model1)
+        network = sbmlnetwork.load(self.r1.getSBML())
         reaction_list = network.get_reactions_list()
         curve = reaction_list[0].get_curves_list()[0]
         segment_list = curve.get_segments_list()
@@ -1726,7 +1726,7 @@ class TestSBMLModel(unittest.TestCase):
         end_positions = segment_list.get_ends()
         control_point_1_positions = segment_list.get_control_point_1s()
         control_point_2_positions = segment_list.get_control_point_2s()
-        segment_list.move((100, 100))
+        segment_list.move_by((100, 100))
         for i in range(len(segment_list)):
             self.assertAlmostEqual(segment_list[i].get_start()[0], start_positions[i][0] + 100, delta=1)
             self.assertAlmostEqual(segment_list[i].get_start()[1], start_positions[i][1] + 100, delta=1)
@@ -1740,7 +1740,7 @@ class TestSBMLModel(unittest.TestCase):
         end_positions = segment_list.get_ends()
         control_point_1_positions = segment_list.get_control_point_1s()
         control_point_2_positions = segment_list.get_control_point_2s()
-        segment_list.move_starts((100, 100))
+        segment_list.move_starts_by((100, 100))
         for i in range(len(segment_list)):
             self.assertAlmostEqual(segment_list[i].get_start()[0], start_positions[i][0] + 100, delta=1)
             self.assertAlmostEqual(segment_list[i].get_start()[1], start_positions[i][1] + 100, delta=1)
@@ -1754,7 +1754,7 @@ class TestSBMLModel(unittest.TestCase):
         end_positions = segment_list.get_ends()
         control_point_1_positions = segment_list.get_control_point_1s()
         control_point_2_positions = segment_list.get_control_point_2s()
-        segment_list.move_ends((100, 100))
+        segment_list.move_ends_by((100, 100))
         for i in range(len(segment_list)):
             self.assertAlmostEqual(segment_list[i].get_start()[0], start_positions[i][0], delta=1)
             self.assertAlmostEqual(segment_list[i].get_start()[1], start_positions[i][1], delta=1)

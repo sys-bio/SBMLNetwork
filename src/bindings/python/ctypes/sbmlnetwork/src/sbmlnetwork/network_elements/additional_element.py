@@ -1,5 +1,6 @@
 from .network_element_base import NetworkElementBase
 
+
 class AdditionalElement(NetworkElementBase):
 
     def __init__(self, libsbmletwork, element_id):
@@ -7,7 +8,7 @@ class AdditionalElement(NetworkElementBase):
 
     # ToDo: fix the issue with adding label to it
 
-    def __str__(self):
+    def get_info(self):
         result = []
         result.append(f"id: {self.get_id()}")
         result.append(f"position: {self.get_position()}")
@@ -27,8 +28,11 @@ class AdditionalElement(NetworkElementBase):
             if label != labels[-1]:
                 result.append("----")
 
-
         return "\n".join(result)
+
+    @property
+    def info(self):
+        return self.get_info()
 
     def __repr__(self):
         return f"AdditionalElement(id={self.element_id})"

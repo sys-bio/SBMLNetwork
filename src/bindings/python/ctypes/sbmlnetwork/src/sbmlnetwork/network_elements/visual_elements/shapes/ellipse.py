@@ -42,7 +42,7 @@ class Ellipse(ShapeBase):
 
         return False
 
-    def __str__(self):
+    def get_info(self):
         base_str = super().__str__()
         return (
                 base_str + "\n" +

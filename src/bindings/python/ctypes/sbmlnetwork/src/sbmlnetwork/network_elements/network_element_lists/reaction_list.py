@@ -199,77 +199,107 @@ class ReactionList(NetworkElementBaseList):
     def curves(self):
         return self.get_curves()
 
-    def get_curves_colors(self, species=None):
+    def get_center_curve_colors(self):
+        colors = []
+        for reaction in self:
+            colors.append(reaction.get_center_curve_color())
+
+        return colors
+
+    def set_center_curve_colors(self, color):
+        results = []
+        for reaction in self:
+            results.append(reaction.set_center_curve_color(color))
+
+        return results
+
+    @property
+    def center_curve_colors(self):
+        return self.get_center_curve_colors()
+
+    @center_curve_colors.setter
+    def center_curve_colors(self, color):
+        self.set_center_curve_colors(color)
+
+    def get_curve_colors(self):
         curve_colors = []
         for reaction in self:
-            curve_colors.extend(reaction.get_curves_colors(species))
+            curve_colors.extend(reaction.get_curve_colors())
 
         return curve_colors
 
-    def get_colors(self, species=None):
-        return self.get_curves_colors(species)
-
-    def set_curves_colors(self, color, species=None):
+    def set_curve_colors(self, color):
         results = []
         for reaction in self:
-            results.append(reaction.set_curve_colors(color, species))
+            results.append(reaction.set_curve_colors(color))
 
         return results
 
-    def set_colors(self, color, species=None):
-        return self.set_curves_colors(color, species)
+    @property
+    def curve_colors(self):
+        return self.get_curve_colors()
+
+    @curve_colors.setter
+    def curve_colors(self, color):
+        self.set_curve_colors(color)
+
+    def set_colors(self, color):
+        results = []
+        for reaction in self:
+            results.append(reaction.set_colors(color))
+
+        return results
+
+    def get_center_curve_thicknesses(self):
+        thicknesses = []
+        for reaction in self:
+            thicknesses.append(reaction.get_center_curve_thickness())
+
+        return thicknesses
+
+    def set_center_curve_thicknesses(self, thickness):
+        results = []
+        for reaction in self:
+            results.append(reaction.set_center_curve_thickness(thickness))
+
+        return results
 
     @property
-    def curves_colors(self):
-        return self.get_curves_colors()
+    def center_curve_thicknesses(self):
+        return self.get_center_curve_thicknesses()
 
-    @property
-    def colors(self):
-        return self.get_curves_colors()
+    @center_curve_thicknesses.setter
+    def center_curve_thicknesses(self, thickness):
+        self.set_center_curve_thicknesses(thickness)
 
-    @curves_colors.setter
-    def curves_colors(self, color):
-        self.set_curves_colors(color)
-
-    @colors.setter
-    def colors(self, color):
-        self.set_curves_colors(color)
-
-    def get_curves_thicknesses(self, species=None):
+    def get_curve_thicknesses(self):
         curve_thicknesses = []
         for reaction in self:
-            curve_thicknesses.extend(reaction.get_curve_thicknesses(species))
+            curve_thicknesses.extend(reaction.get_curve_thicknesses())
 
         return curve_thicknesses
 
-    def get_thicknesses(self, species=None):
-        return self.get_curves_thicknesses(species)
-
-    def set_curves_thicknesses(self, thickness, species=None):
+    def set_curve_thicknesses(self, thickness):
         results = []
         for reaction in self:
-            results.append(reaction.set_curve_thicknesses(thickness, species))
+            results.append(reaction.set_curve_thicknesses(thickness))
 
         return results
 
-    def set_thicknesses(self, thickness, species=None):
-        return self.set_curves_thicknesses(thickness, species)
-
     @property
-    def curves_thicknesses(self):
-        return self.get_curves_thicknesses()
+    def curve_thicknesses(self):
+        return self.get_curve_thicknesses()
 
-    @property
-    def thicknesses(self):
-        return self.get_curves_thicknesses()
+    @curve_thicknesses.setter
+    def curve_thicknesses(self, thickness):
+        self.set_curve_thicknesses(thickness)
 
-    @curves_thicknesses.setter
-    def curves_thicknesses(self, thickness):
-        self.set_curves_thicknesses(thickness)
+    def set_thicknesses(self, thickness):
+        results = []
+        for reaction in self:
+            results.append(reaction.set_thicknesses(thickness))
 
-    @thicknesses.setter
-    def thicknesses(self, thickness):
-        self.set_curves_thicknesses(thickness)
+        return results
 
     def get_arrow_heads(self):
         from ..visual_elements.visual_element_lists.curve_element_lists.arrow_head_list import ArrowHeadList
@@ -405,6 +435,20 @@ class ReactionList(NetworkElementBaseList):
     def arrow_head_fill_colors(self, fill_color: str or tuple or list):
         self.set_arrow_head_fill_colors(fill_color)
 
+    def move_arrow_head_relative_positions_to(self, relative_position: tuple[float, float]):
+        results = []
+        for reaction in self:
+            results.append(reaction.move_arrow_heads_relative_positions_to(relative_position))
+
+        return results
+
+    def move_arrow_head_relative_positions_by(self, delta: tuple[float, float]):
+        results = []
+        for reaction in self:
+            results.append(reaction.move_arrow_heads_relative_positions_by(delta))
+
+        return results
+
     def get_species_list(self):
         from .species_list import SpeciesList
 
@@ -435,7 +479,7 @@ class ReactionList(NetworkElementBaseList):
 
         empty_species_list = SpeciesList(libsbmlnetwork=self.libsbmlnetwork)
         for reaction in self:
-            empty_species_list.append(reaction.get_empty_species_list())
+            empty_species_list.append(reaction.get_empty_species())
         return empty_species_list
 
     def get_empty_species(self):
@@ -465,7 +509,7 @@ class ReactionList(NetworkElementBaseList):
     def move(self, delta: tuple[float, float], move_connected_species: bool = True):
         results = []
         for reaction in self:
-            results.append(reaction.move(delta, move_connected_species=move_connected_species))
+            results.append(reaction.move_by(delta, move_connected_species=move_connected_species))
 
         return results
 

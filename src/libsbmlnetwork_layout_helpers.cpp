@@ -468,6 +468,9 @@ std::vector<SpeciesGlyph*> getAssociatedSpeciesGlyphsWithSpeciesId(Layout* layou
             speciesGlyphs.push_back(layout->getSpeciesGlyph(i));
     }
 
+    if (speciesGlyphs.size() == 0 && layout->getSpeciesGlyph(speciesId))
+        speciesGlyphs.push_back(layout->getSpeciesGlyph(speciesId));
+
     return speciesGlyphs;
 }
 

@@ -80,11 +80,15 @@ class ShapeList(list):
     def fill_colors(self, fill_color: str or tuple or list):
         self.set_fill_colors(fill_color)
 
-    def __str__(self):
+    def get_info(self):
         result = []
         for shape in self:
             result.append(str(shape))
         return "\n".join(result)
+
+    @property
+    def info(self):
+        return self.get_info()
 
     def __repr__(self):
         return f"ShapeList({[repr(shape) for shape in self]})"

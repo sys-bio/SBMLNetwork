@@ -61,10 +61,17 @@ class NetworkElementBaseList(list):
     def sizes(self):
         return self.get_sizes()
 
-    def move(self, delta: tuple[float, float]):
+    def move_to(self, position: tuple[float, float]):
         results = []
         for element in self:
-            results.append(element.move(delta))
+            results.append(element.move_to(position))
+
+        return results
+
+    def move_by(self, delta: tuple[float, float]):
+        results = []
+        for element in self:
+            results.append(element.move_by(delta))
 
         return results
 
@@ -82,7 +89,7 @@ class NetworkElementBaseList(list):
             
         return results
 
-    def get_first_labels(self):
+    def get_labels(self):
         labels = LabelList()
         for element in self:
             labels.append(element.get_label())
@@ -251,7 +258,7 @@ class NetworkElementBaseList(list):
 
         return results
 
-    def get_first_shapes(self):
+    def get_shapes(self):
         from ..visual_elements.visual_element_lists.shape_list import ShapeList
 
         shapes = ShapeList()
@@ -260,7 +267,7 @@ class NetworkElementBaseList(list):
 
         return shapes
 
-    def set_first_shapes(self, shape_type: str):
+    def set_shapes(self, shape_type: str):
         results = []
         for element in self:
             results.append(element.set_shape(shape_type))
@@ -280,12 +287,12 @@ class NetworkElementBaseList(list):
         return self.get_shapes_list()
 
     @property
-    def first_shapes(self):
+    def shapes(self):
         return self.get_shapes()
 
-    @first_shapes.setter
-    def first_shapes(self, shape_type: str):
-        self.set_first_shapes(shape_type)
+    @shapes.setter
+    def shapes(self, shape_type: str):
+        self.set_shapes(shape_type)
 
     @property
     def shapes(self):
