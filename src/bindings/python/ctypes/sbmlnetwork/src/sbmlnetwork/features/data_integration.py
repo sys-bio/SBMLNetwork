@@ -5,6 +5,16 @@ import tellurium as te
 class Fluxes:
 
     def display(self, network_obj, simulation_end_time, simulation_start_time, simulation_time_steps, fluxes):
+        if isinstance(simulation_end_time, dict):
+            fluxes = simulation_end_time
+        else:
+            if simulation_end_time <= simulation_start_time:
+                raise ValueError("Simulation end time must be greater than simulation start time")
+            if simulation_time_steps <= 0:
+                raise ValueError("Simulation time steps must be greater than 0")
+            if simulation_start_time < 0:
+                raise ValueError("Simulation start time cannot be negative")
+
         if fluxes is None:
             fluxes = self._get_fluxes(network_obj, simulation_end_time, simulation_start_time, simulation_time_steps)
         color_bar = network_obj.get_color_bar()
@@ -15,6 +25,8 @@ class Fluxes:
             reactions = network_obj.get_reactions_list(reaction_id)
             for reaction in reactions:
                 reaction.set_colors(color)
+                reaction.set_thicknesses(8)
+                reaction.move_arrow_head_relative_positions_by((-2, 0))
 
         return True
 

@@ -13096,8 +13096,12 @@ class LibSBMLNetwork:
             a list of strings that determines the predefined html color names that can be used as the value of colors in the SBML Document
 
         """
-        colors = lib.colorData()
-        return colors.keys()
+        lib.c_api_getPredefinedColorName.restype = ctypes.c_char_p
+        list_of_color_names = []
+        for n in range(lib.c_api_getNumPredefinedColorNames()):
+            list_of_color_names.append(ctypes.c_char_p(lib.c_api_getPredefinedColorName(n)).value.decode())
+
+        return list_of_color_names
 
     def getPredefinedHexColorCodes(self):
         """
@@ -13108,19 +13112,12 @@ class LibSBMLNetwork:
             a list of strings that determines the predefined hex color codes that can be used as the value of colors in the SBML Document
 
         """
-        colors = lib.colorData()
-        return colors.values()
+        lib.c_api_getPredefinedHexColorCode.restype = ctypes.c_char_p
+        list_of_hex_color_codes = []
+        for n in range(lib.c_api_getNumPredefinedHexColorCodes()):
+            list_of_hex_color_codes.append(ctypes.c_char_p(lib.c_api_getPredefinedHexColorCode(n)).value.decode())
 
-    def getPredefinedColors(self):
-        """
-        Returns the dictionary of all predefined color names and the hex values they correspond to that can be used as the value of colors in the SBML Document
-
-        :Returns:
-
-            a dictionary of predefined color name strings that can be used as the value of colors in the SBML Document
-
-        """
-        return lib.colorData()
+        return list_of_hex_color_codes
 
     def getListOfSpreadMethods(self):
         """

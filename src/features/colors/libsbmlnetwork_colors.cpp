@@ -237,6 +237,24 @@ const std::map<std::string, std::string>* colorData() {
     return &colors;
 }
 
+std::vector<std::string> getPredefinedColorNames() {
+    std::vector<std::string> colorNames;
+    const std::map<std::string, std::string>* colors = colorData();
+    for (auto color = colors->begin(); color != colors->end(); color++) {
+        colorNames.push_back(color->first);
+    }
+    return colorNames;
+}
+
+std::vector<std::string> getPredefinedHexColorCodes() {
+    std::vector<std::string> colorValues;
+    const std::map<std::string, std::string>* colors = colorData();
+    for (auto color = colors->begin(); color != colors->end(); color++) {
+        colorValues.push_back(color->second);
+    }
+    return colorValues;
+}
+
 const std::string getHexColorCodeFromHtmlColorName(const std::string& htmlColorName) {
     const std::map<std::string, std::string>* colors = colorData();
     if (isTransparentColorName(htmlColorName)) {

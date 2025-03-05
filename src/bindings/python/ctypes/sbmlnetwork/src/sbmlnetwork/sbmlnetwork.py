@@ -573,17 +573,20 @@ class SBMLNetwork():
 
     def show_fluxes(self, simulation_end_time: float = 10, simulation_start_time: float = 0,
                     simulation_time_steps: int = 100, fluxes: dict = None):
-        if simulation_end_time <= simulation_start_time:
-            raise ValueError("Simulation end time must be greater than simulation start time")
-        if simulation_time_steps <= 0:
-            raise ValueError("Simulation time steps must be greater than 0")
-        if simulation_start_time < 0:
-            raise ValueError("Simulation start time cannot be negative")
+        pass
+        # ToDo: Implement the following code
+        # from .features.data_integration import Fluxes
+        #
+        # flux_object = Fluxes()
+        # return flux_object.display(self, simulation_end_time, simulation_start_time, simulation_time_steps, fluxes)
 
-        from .features.data_integration import Fluxes
-
-        flux_object = Fluxes()
-        return flux_object.display(self, simulation_end_time, simulation_start_time, simulation_time_steps, fluxes)
+    def group_reactions(self, reactions: list[str, Reaction], color: str = None):
+        pass
+        # ToDo: Implement the following code
+        # from .features.grouping import ReactionGrouping
+        #
+        # reaction_grouping = ReactionGrouping()
+        # return reaction_grouping.group(self, reactions, color)
 
     # ToDo: Implement the following functions on the list of elements
     # def show_compartment_labels(self):

@@ -6901,6 +6901,24 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN bool c_api_whetherDisplayReactionTextLabel(const char* styleName);
 
+    /// @brief Returns the number of predefined colors.
+    /// @return the number of predefined colors.
+    int c_api_getNumPredefinedColorNames();
+
+    /// @brief Returns the predefined color with the given index.
+    /// @param index an int representing the index of the predefined color to retrieve.
+    /// @return the predefined color with the given index.
+    const char* c_api_getPredefinedColorName(int index);
+
+    /// @brief Returns the number of predefined hex color codes.
+    /// @return the number of predefined hex color codes.
+    int c_api_getNumPredefinedHexColorCodes();
+
+    /// @brief Returns the predefined hex color code with the given index.
+    /// @param index an int representing the index of the predefined hex color code to retrieve.
+    /// @return the predefined hex color code with the given index.
+    const char* c_api_getPredefinedHexColorCode(int index);
+
     /// @brief Returns the number of predefined styles that can be used in for c_api_setStyle function.
     /// @return the number of predefined styles.
     LIBSBMLNETWORK_EXTERN int c_api_getNumPredefinedStyles();

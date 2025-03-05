@@ -213,7 +213,7 @@ class Reaction(NetworkElementBase):
             if not self.set_arrow_head_border_colors(color):
                 return False
 
-        return False
+        return True
 
     def get_center_curve_thickness(self):
         if self.is_center_curve():

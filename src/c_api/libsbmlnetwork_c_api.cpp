@@ -3492,6 +3492,28 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return whetherDisplayReactionTextLabel(styleName);
     }
 
+    int c_api_getNumPredefinedColorNames() {
+        return getPredefinedColorNames().size();
+    }
+
+    const char* c_api_getPredefinedColorName(int index) {
+        if (index >= 0 && index < c_api_getNumPredefinedColorNames())
+            return strdup(getPredefinedColorNames().at(index).c_str());
+
+        return "";
+    }
+
+    int c_api_getNumPredefinedHexColorCodes() {
+        return getPredefinedHexColorCodes().size();
+    }
+
+    const char* c_api_getPredefinedHexColorCode(int index) {
+        if (index >= 0 && index < c_api_getNumPredefinedHexColorCodes())
+            return strdup(getPredefinedHexColorCodes().at(index).c_str());
+
+        return "";
+    }
+
     int c_api_getNumPredefinedStyles() {
         return getPredefinedStyleNames().size();
     }

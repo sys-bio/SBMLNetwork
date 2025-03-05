@@ -242,6 +242,42 @@ class NetworkElementBaseList(list):
     def texts_italic(self, italic: bool):
         self.set_texts_italic(italic)
 
+    def set_text_relative_positions(self, relative_position: tuple[float, float]):
+        results = []
+        for element in self:
+            results.append(element.set_text_relative_position(relative_position))
+
+        return results
+
+    def get_text_relative_positions(self):
+        relative_positions = []
+        for element in self:
+            relative_positions.append(element.get_text_relative_position())
+
+        return relative_positions
+
+    @property
+    def text_relative_positions(self):
+        return self.get_text_relative_positions()
+
+    @text_relative_positions.setter
+    def text_relative_positions(self, relative_position: tuple[float, float]):
+        self.set_text_relative_positions(relative_position)
+
+    def move_texts_by(self, delta: tuple[float, float]):
+        results = []
+        for element in self:
+            results.append(element.move_text_by(delta))
+
+        return results
+
+    def move_texts_to(self, position: tuple[float, float]):
+        results = []
+        for element in self:
+            results.append(element.move_text_to(position))
+
+        return results
+
     def add_shapes(self, shape_type: str):
         from ..visual_elements.visual_element_lists.shape_list import ShapeList
 

@@ -10,6 +10,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
 const std::map<std::string, std::string>* colorData();
 
+std::vector<std::string> getPredefinedColorNames();
+
+std::vector<std::string> getPredefinedHexColorCodes();
+
 const std::string getHexColorCodeFromHtmlColorName(const std::string& htmlColorName);
 
 const std::string getHtmlColorNameFromHexColorCode(const std::string& hexColorCode);
