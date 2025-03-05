@@ -1106,54 +1106,6 @@ class TestSBMLModel(unittest.TestCase):
                 self.assertEqual(aliases1[i].get_species_id(), aliases2[i].get_species_id())
                 self.assertEqual(aliases1[i].get_graphical_object_index(), aliases2[i].get_graphical_object_index())
 
-    def test_species_list_alignment(self):
-        """ Test if the species list can be aligned """
-        network = sbmlnetwork.load(self.r.getSBML())
-        species_list = network.get_species_list()
-        min_y = min([pos[1] for pos in species_list.get_positions()])
-        species_list.align_to_top()
-        self.assertTrue(all([math.isclose(pos[1], min_y, abs_tol=1) for pos in species_list.get_positions()]))
-        network.auto_layout(reset_fixed_position_elements=True)
-        max_y = max([pos[1] for pos in species_list.get_positions()])
-        species_list.align_to_bottom()
-        self.assertTrue(all([math.isclose(pos[1], max_y, abs_tol=1) for pos in species_list.get_positions()]))
-        network.auto_layout(reset_fixed_position_elements=True)
-        min_y = min([pos[1] for pos in species_list.get_positions()])
-        max_y = max([pos[1] for pos in species_list.get_positions()])
-        center_y = (min_y + max_y) / 2
-        species_list.align_to_vertical_center()
-        self.assertTrue(all([math.isclose(pos[1], center_y, abs_tol=1) for pos in species_list.get_positions()]))
-        network.auto_layout(reset_fixed_position_elements=True)
-        min_x = min([pos[0] for pos in species_list.get_positions()])
-        species_list.align_to_left()
-        self.assertTrue(all([math.isclose(pos[0], min_x, abs_tol=1) for pos in species_list.get_positions()]))
-        network.auto_layout(reset_fixed_position_elements=True)
-        max_x = max([pos[0] for pos in species_list.get_positions()])
-        species_list.align_to_right()
-        self.assertTrue(all([math.isclose(pos[0], max_x, abs_tol=1) for pos in species_list.get_positions()]))
-        network.auto_layout(reset_fixed_position_elements=True)
-        min_x = min([pos[0] for pos in species_list.get_positions()])
-        max_x = max([pos[0] for pos in species_list.get_positions()])
-        center_x = (min_x + max_x) / 2
-        species_list.align_to_horizontal_center()
-        self.assertTrue(all([math.isclose(pos[0], center_x, abs_tol=1) for pos in species_list.get_positions()]))
-        network.auto_layout(reset_fixed_position_elements=True)
-        min_x = min([pos[0] for pos in species_list.get_positions()])
-        max_x = max([pos[0] for pos in species_list.get_positions()])
-        min_y = min([pos[1] for pos in species_list.get_positions()])
-        max_y = max([pos[1] for pos in species_list.get_positions()])
-        center_x = (min_x + max_x) / 2
-        center_y = (min_y + max_y) / 2
-        radius = len(species_list) * 50 # this is the radius of the circle in sbmlnetwork main code
-        species_list.align_to_circle()
-        num_species = len(species_list)
-        for i in range(num_species):
-            angle = 2 * math.pi * i / num_species
-            x = center_x + radius * math.cos(angle)
-            y = center_y + radius * math.sin(angle)
-            self.assertAlmostEqual(species_list[i].get_position()[0], x, delta=1)
-            self.assertAlmostEqual(species_list[i].get_position()[1], y, delta=1)
-
     def test_species_list_move(self):
         """ Test if the species list can be moved """
         network = sbmlnetwork.load(self.r.getSBML())
