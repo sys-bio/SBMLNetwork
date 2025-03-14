@@ -89,6 +89,13 @@ class NetworkElementBaseList(list):
             
         return results
 
+    def remove_all_labels(self):
+        results = []
+        for element in self:
+            results.append(element.remove_all_labels())
+
+        return results
+
     def get_labels(self):
         labels = LabelList()
         for element in self:
@@ -291,6 +298,13 @@ class NetworkElementBaseList(list):
         results = []
         for element in self:
             results.append(element.remove_shape(shape))
+
+        return results
+
+    def remove_all_shapes(self):
+        results = []
+        for element in self:
+            results.append(element.remove_all_shapes())
 
         return results
 

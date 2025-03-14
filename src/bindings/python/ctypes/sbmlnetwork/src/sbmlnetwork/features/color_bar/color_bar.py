@@ -1,5 +1,4 @@
-from .additional_element import AdditionalElement
-
+from ...network_elements.additional_element import AdditionalElement
 
 class ColorBar(AdditionalElement):
 
@@ -30,10 +29,10 @@ class ColorBar(AdditionalElement):
         self.get_shape().set_border_thickness(border_thickness)
         self.get_shape().set_corner_radius((corner_radius, corner_radius))
         self.libsbmlnetwork.setGeometricShapeFillColorAsGradient(id=self.element_id, geometric_shape_index=0,
-                                                   stop_colors=gradient_colors,
-                                                   stop_offsets=[i * 100 / (len(gradient_colors) - 1) for i in
-                                                                 range(len(gradient_colors))],
-                                                   gradient_type="linear")
+                                                                 stop_colors=gradient_colors,
+                                                                 stop_offsets=[i * 100 / (len(gradient_colors) - 1) for i in
+                                                                               range(len(gradient_colors))],
+                                                                 gradient_type="linear")
         self._update_tick_marks(number_of_tick_marks, tick_mark_size, tick_mark_thickness, tick_mark_color)
 
     def _update_tick_marks(self, number_of_tick_marks: int, tick_mark_size: float = None, tick_mark_thickness: float = None, tick_mark_color: str = None):
@@ -49,8 +48,8 @@ class ColorBar(AdditionalElement):
             self.libsbmlnetwork.removeGeometricShape(self.element_id, 1)
         for i in range(number_of_tick_marks):
             curve = self.add_shape("curve")
-            points = [(self.get_size()[0] + tick_mark_size, self.get_size()[1] * i * (max_value - min_value) / (number_of_tick_marks - 1)),
-                      (self.get_size()[0], self.get_size()[1] * i * (max_value - min_value) / (number_of_tick_marks - 1))]
+            points = [(self.get_size()[0] + tick_mark_size, self.get_size()[1] * i / (number_of_tick_marks - 1)),
+                      (self.get_size()[0], self.get_size()[1] * i / (number_of_tick_marks - 1))]
             curve.set_points(points)
             curve.set_border_thickness(tick_mark_thickness)
             curve.set_border_color(tick_mark_color)
@@ -75,13 +74,10 @@ class ColorBar(AdditionalElement):
             if label.set_size((1.5 * label.get_size()[0], label.get_size()[1])) == False:
                 return False
 
+        if not self._add_legend_label():
+            return False
+
         return self.get_labels_list().set_font_sizes(font_size)
-
-    def set_position(self, position: tuple[float, float]):
-        pass
-
-    def set_size(self, size: tuple[float, float]):
-        pass
 
     def get_max_value(self):
         if self.get_labels_list() and len(self.get_labels_list()) > 0:
@@ -99,7 +95,7 @@ class ColorBar(AdditionalElement):
 
     def get_min_value(self):
         if self.get_labels_list() and len(self.get_labels_list()) > 0:
-            return float(self.get_labels_list()[-1].get_text())
+            return float(self.get_labels_list()[-2].get_text())
 
         return 0.0
 
@@ -107,7 +103,7 @@ class ColorBar(AdditionalElement):
         if min_value > self.get_max_value():
             raise ValueError("Min value must be less than max value")
         if self.get_labels_list() and len(self.get_labels_list()) > 0:
-            self.get_labels_list()[-1].set_text(str(min_value))
+            self.get_labels_list()[-2].set_text(str(min_value))
 
         return self._update_labels()
 
@@ -147,6 +143,13 @@ class ColorBar(AdditionalElement):
 
         return 1.5 * self.default_width
 
+    def set_left_margin(self, left_margin: float):
+        if left_margin < 0:
+            raise ValueError("Left margin must be greater than 0")
+        left_margin_diff = left_margin - self.get_left_margin()
+        super().set_position((self.get_position()[0] + left_margin_diff, self.get_position()[1]))
+        self.libsbmlnetwork.setCanvasWidth(self.libsbmlnetwork.getCanvasWidth() + left_margin_diff)
+
     def _get_max_compartments_position_x(self):
         max_compartments_position_x_max = 0
         for i in range(self.libsbmlnetwork.getNumCompartments()):
@@ -156,13 +159,6 @@ class ColorBar(AdditionalElement):
             if compartment_position_x_max > max_compartments_position_x_max:
                 max_compartments_position_x_max = compartment_position_x_max
         return max_compartments_position_x_max
-
-    def set_left_margin(self, left_margin: float):
-        if left_margin < 0:
-            raise ValueError("Left margin must be greater than 0")
-        left_margin_diff = left_margin - self.get_left_margin()
-        super().set_position((self.get_position()[0] + left_margin_diff, self.get_position()[1]))
-        self.libsbmlnetwork.setCanvasWidth(self.libsbmlnetwork.getCanvasWidth() + left_margin_diff)
 
     def get_right_margin(self):
         if self.get_shapes_list() and len(self.get_shapes_list()) > 1:
@@ -276,8 +272,23 @@ class ColorBar(AdditionalElement):
 
         return True
 
-    def clear_color_bar_space(self):
-        self.libsbmlnetwork.setCanvasWidth(self._get_max_compartments_position_x())
+    def _get_color_bar_id(self):
+        return self.element_id
+
+    def get_horizontal_extent(self):
+        return self.get_size()[0] + self.get_left_margin() + self.get_right_margin()
+
+    def get_vertical_extent(self):
+        return self.get_size()[1]
+
+    def _add_legend_label(self):
+        label_text = "Conc."
+        if "flux" in self.get_id().lower():
+            label_text = "Flux"
+        label = self.add_label(label_text, (0, self.get_size()[1]))
+        label.set_size((2 * label.get_size()[0], 2 * label.get_size()[0]))
+        label.align_to_left()
+        return True
 
     def get_info(self):
         return (
@@ -295,7 +306,8 @@ class ColorBar(AdditionalElement):
                 f"number_of_tick_marks: {self.get_number_of_tick_marks()}\n" +
                 f"tick_mark_size: {self.get_tick_mark_size()} \n" +
                 f"position: {self.get_position()}\n" +
-                f"size: {self.get_size()}"
+                f"size: {self.get_size()} \n" +
+                f"legend_label: {self.get_labels_list()[-1].get_text()}"
         )
 
     @property

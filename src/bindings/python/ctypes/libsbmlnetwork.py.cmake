@@ -9978,7 +9978,7 @@ class LibSBMLNetwork:
         lib.c_api_getGeometricShapeType.restype = ctypes.c_char_p
         return ctypes.c_char_p(lib.c_api_getGeometricShapeType(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)).value.decode()
 
-    def setGeometricShapeType(self, id, geometric_shape, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
+    def setGeometricShapeType(self, id, geometric_shape, graphical_object_index=0, layout_index=0):
         """
         Sets the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
 
@@ -9994,7 +9994,7 @@ class LibSBMLNetwork:
 
             true on success and false if the GeometricShape object could not be set
         """
-        return lib.c_api_setGeometricShapeType(self.sbml_object, str(id).encode(), str(geometric_shape).encode(), geometric_shape_index, graphical_object_index, layout_index)
+        return lib.c_api_setGeometricShapeType(self.sbml_object, str(id).encode(), str(geometric_shape).encode(), graphical_object_index, layout_index)
 
     def getCompartmentsGeometricShapeType(self):
         """

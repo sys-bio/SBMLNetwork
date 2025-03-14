@@ -80,6 +80,16 @@ class NetworkElementBase:
 
         return removed
 
+    def remove_all_labels(self):
+        could_not_remove = False
+        while self.libsbmlnetwork.getNumTextGlyphs(id=self.element_id, graphical_object_index=self.graphical_object_index) > 0:
+            if self.libsbmlnetwork.removeText(id=self.element_id, graphical_object_index=self.graphical_object_index, text_glyph_index=0) == 0:
+                continue
+            else:
+                could_not_remove = True
+
+        return not could_not_remove
+
     def get_label(self):
         if self.libsbmlnetwork.getNumTextGlyphs(id=self.element_id, graphical_object_index=self.graphical_object_index) > 0:
             return Label(self.libsbmlnetwork, self.element_id, self.graphical_object_index, 0)
@@ -259,6 +269,16 @@ class NetworkElementBase:
                 return True
 
         return False
+
+    def remove_all_shapes(self):
+        could_not_remove = False
+        while self.libsbmlnetwork.getNumGeometricShapes(id=self.element_id, graphical_object_index=self.graphical_object_index) > 0:
+            if self.libsbmlnetwork.removeGeometricShape(id=self.element_id, graphical_object_index=self.graphical_object_index, geometric_shape_index=0) == 0:
+                continue
+            else:
+                could_not_remove = True
+
+        return not could_not_remove
 
     def get_shape(self):
         if self.libsbmlnetwork.getNumGeometricShapes(id=self.element_id, graphical_object_index=self.graphical_object_index) > 0:

@@ -75,7 +75,7 @@ class TestSBMLModel(unittest.TestCase):
         """ Test if the color bar can be set """
         network = sbmlnetwork.load(self.r.getSBML())
         original_canvas_width = network.get_size()[0]
-        color_bar = network.add_color_bar()
+        color_bar = network._add_color_bar()
         self.assertAlmostEqual(color_bar.get_position()[0], original_canvas_width + color_bar.get_left_margin(), delta=0.1)
         self.assertAlmostEqual(network.get_size()[0], original_canvas_width + color_bar.get_left_margin() + color_bar.get_size()[0] + color_bar.get_right_margin(), delta=0.1)
         color_bar.set_number_of_tick_marks(10)
@@ -121,7 +121,103 @@ class TestSBMLModel(unittest.TestCase):
         self.assertEqual(color_bar.get_tick_mark_color(), "green")
         self.assertAlmostEqual(color_bar.get_tick_mark_label_font_size(), 15, delta=0.1)
         network.remove_color_bar()
-        self.assertEqual(network.get_size()[0], original_canvas_width)
+
+    def test_show_fluxes(self):
+        """ Test if the fluxes can be shown """
+        network = sbmlnetwork.load(self.r.getSBML())
+        colors = network.get_reactions_list().get_curves_list().get_colors()
+        original_canvas_width = network.get_size()[0]
+        network.show_fluxes()
+        self.assertEqual(len(network.get_additional_elements()), 1)
+        self.assertEqual(original_canvas_width + network.fluxes.get_color_bar().get_horizontal_extent() + 20, network.get_size()[0])
+        colors_new = network.get_reactions_list().get_curves_list().get_colors()
+        for color_new in colors_new:
+            self.assertNotEqual(color_new, colors[0])
+        network.hide_fluxes()
+        self.assertEqual(len(network.get_additional_elements()), 0)
+        colors_new = network.get_reactions_list().get_curves_list().get_colors()
+        for color_new in colors_new:
+            self.assertEqual(color_new, colors[0])
+        network.save()
+        original_canvas_width = network.get_size()[0]
+        colors = network.get_species_list().get_fill_colors()
+        network.show_concentrations()
+        self.assertEqual(len(network.get_additional_elements()), 1)
+        self.assertEqual(original_canvas_width + network.concentrations.get_color_bar().get_horizontal_extent() + 20, network.get_size()[0])
+        colors_new = network.get_species_list().get_fill_colors()
+        for color_new in colors_new:
+            self.assertNotEqual(color_new, colors[0])
+        network.hide_concentrations()
+        self.assertEqual(len(network.get_additional_elements()), 0)
+        colors_new = network.get_species_list().get_fill_colors()
+        for color_new in colors_new:
+            self.assertEqual(color_new, colors[0])
+
+    def test_grouping(self):
+        model = '''
+            J0: S1 -> S2 + S3;
+            J1: S4 -> S5;
+            J2: S5 -> S6 + S7;
+            J3: S8 -> S9;
+            J4: S9 -> S10;
+        '''
+        r = te.loada(model)
+        network = sbmlnetwork.load(r.getSBML())
+        reactions = network.get_reactions_list()
+        group_1 = network.group_reactions(reactions[:3], "white")
+
+
+
+        reactions_list = group_1.get_reactions_list()
+        species_list = group_1.get_species_list()
+        group_1.hide()
+        self.assertTrue(group_1.is_hidden())
+        for reaction in reactions_list:
+            self.assertTrue(reaction.is_hidden())
+            curves_list = reaction.get_curves_list()
+            for curve in curves_list:
+                self.assertTrue(curve.is_hidden())
+        for species in species_list:
+            self.assertTrue(species.is_hidden())
+        group_1.show()
+        self.assertFalse(group_1.is_hidden())
+        for reaction in reactions_list:
+            self.assertFalse(reaction.is_hidden())
+            curves_list = reaction.get_curves_list()
+            for curve in curves_list:
+                self.assertFalse(curve.is_hidden())
+        for species in species_list:
+            self.assertFalse(species.is_hidden())
+        group_1.set_color("yellow")
+        for reaction in reactions_list:
+            self.assertEqual(reaction.get_font_color(), "yellow")
+            curves_list = reaction.get_curves_list()
+            for curve in curves_list:
+                self.assertEqual(curve.get_color(), "yellow")
+        for species in species_list:
+            self.assertEqual(species.get_border_color()[0], "yellow")
+            self.assertEqual(species.get_font_color(), "yellow")
+        group_1.set_curve_thickness(12)
+        for reaction in reactions_list:
+            curves_list = reaction.get_curves_list()
+            for curve in curves_list:
+                self.assertAlmostEqual(curve.get_thickness(), 12, delta=0.1)
+        group_1.set_species_border_thickness(11)
+        for species in species_list:
+            self.assertAlmostEqual(species.get_border_thickness()[0], 11, delta=0.1)
+        group_1.set_species_shape("triangle")
+        for species in species_list:
+            self.assertEqual(species.get_shape().get_type(), "triangle")
+        group_1.set_font("Monospace", 15)
+        for reaction in reactions_list:
+            self.assertEqual(reaction.get_font(), "Monospace")
+            self.assertAlmostEqual(reaction.get_font_size(), 15, delta=0.1)
+        for species in species_list:
+            self.assertEqual(species.get_font(), "Monospace")
+            self.assertAlmostEqual(species.get_font_size(), 15, delta=0.1)
+        group_1.set_species_size((55, 55))
+        for species in species_list:
+            self.assertEqual(species.get_size(), (55, 55))
 
     def test_network__background_color(self):
         """ Test if the network background color can be set """

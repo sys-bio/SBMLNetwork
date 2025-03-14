@@ -2,6 +2,8 @@ import libsbmlnetwork
 import networkinfotranslator
 from IPython.display import display
 from .settings import Settings
+from .features.data_integration import Fluxes
+from .features.data_integration import Concentrations
 from .network_elements import *
 from typing import Union
 import warnings
@@ -12,6 +14,8 @@ class SBMLNetwork():
     def __init__(self):
         self.libsbmlnetwork = libsbmlnetwork.LibSBMLNetwork()
         self.settings = Settings(self.libsbmlnetwork)
+        self.fluxes = Fluxes(self)
+        self.concentrations = Concentrations(self)
 
     def load(self, sbml: str):
         self.libsbmlnetwork.load(sbml)
@@ -194,6 +198,13 @@ class SBMLNetwork():
     def reaction_ids(self):
         return self.get_reaction_ids()
 
+    def get_additional_element(self, element_id: str):
+        for i in range(self.libsbmlnetwork.getNumAllAdditionalGraphicalObjects()):
+            if self.libsbmlnetwork.getAdditionalGraphicalObjectId(i) == element_id:
+                return AdditionalElement(self.libsbmlnetwork, element_id)
+
+        return None
+
     def get_additional_elements(self):
         additional_elements = NetworkElementList(libsbmlnetwork=self.libsbmlnetwork)
         for graphical_object_index in range(self.libsbmlnetwork.getNumAllAdditionalGraphicalObjects()):
@@ -225,53 +236,43 @@ class SBMLNetwork():
         return None
 
     def remove_additional_element(self, element: Union[str, AdditionalElement]):
-        element_id = None
         if isinstance(element, str):
-            element_id = element
-        elif isinstance(element, AdditionalElement):
-            element_id = element.get_id()
-        if element_id is None:
-            raise ValueError("Element id cannot be None")
-        for i in range(self.libsbmlnetwork.getNumAllAdditionalGraphicalObjects()):
-            if self.libsbmlnetwork.getAdditionalGraphicalObjectId(i) == element_id:
-                if self.libsbmlnetwork.removeAdditionalGraphicalObject(additional_graphical_object_index=i) == 0:
-                    return True
+            element = self.get_additional_element(element)
+        if element is not None:
+            element.remove_all_labels()
+            for i in range(self.libsbmlnetwork.getNumAllAdditionalGraphicalObjects()):
+                if self.libsbmlnetwork.getAdditionalGraphicalObjectId(i) == element.get_id():
+                    if self.libsbmlnetwork.removeAdditionalGraphicalObject(additional_graphical_object_index=i) == 0:
+                        return True
 
         return False
 
     # Todo: Implement get color options method
 
-    def has_color_bar(self):
-        for i in range(self.libsbmlnetwork.getNumAllAdditionalGraphicalObjects()):
-            if self.libsbmlnetwork.getAdditionalGraphicalObjectId(i) == "sbmlnetwork_color_bar":
-                return True
+    def has_color_bar(self, color_bar_type: str = None):
+        from .features.color_bar.color_bar_manager import ColorBarManager
 
-        return False
+        return ColorBarManager().has_color_bar(self, color_bar_type)
 
-    def add_color_bar(self):
-        color_bar_id = "sbmlnetwork_color_bar"
-        self.remove_additional_element(color_bar_id)
-        if self.libsbmlnetwork.addAdditionalGraphicalObject(id=color_bar_id) == 0:
-            return ColorBar(self.libsbmlnetwork, color_bar_id)
+    def _add_color_bar(self, color_bar_type: str = None):
+        from .features.color_bar.color_bar_manager import ColorBarManager
 
-        return None
+        return ColorBarManager().add_color_bar(self, color_bar_type)
 
-    def get_color_bar(self):
-        for i in range(self.libsbmlnetwork.getNumAllAdditionalGraphicalObjects()):
-            if self.libsbmlnetwork.getAdditionalGraphicalObjectId(i) == "sbmlnetwork_color_bar":
-                return ColorBar(self.libsbmlnetwork, self.libsbmlnetwork.getAdditionalGraphicalObjectId(i))
+    def get_color_bar(self, color_bar_type: str = None):
+        from .features.color_bar.color_bar_manager import ColorBarManager
 
-        return self.add_color_bar()
+        return ColorBarManager().get_color_bar(self, color_bar_type)
 
-    def remove_color_bar(self):
-        if self.has_color_bar():
-            color_bar = self.get_color_bar()
-            if color_bar:
-                color_bar.clear_color_bar_space()
+    def remove_color_bar(self, color_bar_type: str = None):
+        from .features.color_bar.color_bar_manager import ColorBarManager
 
-            return self.remove_additional_element("sbmlnetwork_color_bar")
+        return ColorBarManager().remove_color_bar(self, color_bar_type)
 
-        return False
+    def remove_color_bars(self):
+        from .features.color_bar.color_bar_manager import ColorBarManager
+
+        return ColorBarManager().remove_color_bars(self)
 
     @property
     def color_bar(self):
@@ -287,19 +288,19 @@ class SBMLNetwork():
         return False
 
     def set_font_color(self, color: str):
-        self.get_compartments_list().set_font_color(color)
-        self.get_species_list().set_font_color(color)
-        self.get_reactions_list().set_font_color(color)
+        self.get_compartments_list().set_font_colors(color)
+        self.get_species_list().set_font_colors(color)
+        self.get_reactions_list().set_font_colors(color)
 
     def get_font_color(self):
         all_font_colors = set()
-        compartments_font_colors = self.get_compartments_list().get_font_color()
+        compartments_font_colors = self.get_compartments_list().get_font_colors()
         for font_color in compartments_font_colors:
             all_font_colors.add(font_color)
-        species_font_colors = self.get_species_list().get_font_color()
+        species_font_colors = self.get_species_list().get_font_colors()
         for font_color in species_font_colors:
             all_font_colors.add(font_color)
-        reactions_font_colors = self.get_reactions_list().get_font_color()
+        reactions_font_colors = self.get_reactions_list().get_font_colors()
         for font_color in reactions_font_colors:
             all_font_colors.add(font_color)
 
@@ -323,13 +324,13 @@ class SBMLNetwork():
 
     def get_font(self):
         all_fonts = set()
-        compartments_fonts = self.get_compartments_list().get_font()
+        compartments_fonts = self.get_compartments_list().get_fonts()
         for font in compartments_fonts:
             all_fonts.add(font)
-        species_fonts = self.get_species_list().get_font()
+        species_fonts = self.get_species_list().get_fonts()
         for font in species_fonts:
             all_fonts.add(font)
-        reactions_fonts = self.get_reactions_list().get_font()
+        reactions_fonts = self.get_reactions_list().get_fonts()
         for font in reactions_fonts:
             all_fonts.add(font)
 
@@ -347,19 +348,19 @@ class SBMLNetwork():
         self.set_font(font)
 
     def set_font_size(self, size: float):
-        self.get_compartments_list().set_font_size(size)
-        self.get_species_list().set_font_size(size)
-        self.get_reactions_list().set_font_size(size)
+        self.get_compartments_list().set_font_sizes(size)
+        self.get_species_list().set_font_sizes(size)
+        self.get_reactions_list().set_font_sizes(size)
 
     def get_font_size(self):
         all_font_sizes = set()
-        compartments_font_sizes = self.get_compartments_list().get_font_size()
+        compartments_font_sizes = self.get_compartments_list().get_font_sizes()
         for font_size in compartments_font_sizes:
             all_font_sizes.add(font_size)
-        species_font_sizes = self.get_species_list().get_font_size()
+        species_font_sizes = self.get_species_list().get_font_sizes()
         for font_size in species_font_sizes:
             all_font_sizes.add(font_size)
-        reactions_font_sizes = self.get_reactions_list().get_font_size()
+        reactions_font_sizes = self.get_reactions_list().get_font_sizes()
         for font_size in reactions_font_sizes:
             all_font_sizes.add(font_size)
 
@@ -505,9 +506,9 @@ class SBMLNetwork():
         self.set_border_thickness(thickness)
 
     def set_fill_color(self, color: str):
-        self.get_compartments_list().set_fill_color(color)
-        self.get_species_list().set_fill_color(color)
-        self.get_reactions_list().set_fill_color(color)
+        self.get_compartments_list().set_fill_colors(color)
+        self.get_species_list().set_fill_colors(color)
+        self.get_reactions_list().set_fill_colors(color)
 
     def get_fill_color(self):
         all_fill_colors = set()
@@ -571,22 +572,26 @@ class SBMLNetwork():
     def get_styles_options(self):
         return self.libsbmlnetwork.getListOfStyles()
 
-    def show_fluxes(self, simulation_end_time: float = 10, simulation_start_time: float = 0,
-                    simulation_time_steps: int = 100, fluxes: dict = None):
-        pass
-        # ToDo: Implement the following code
-        # from .features.data_integration import Fluxes
-        #
-        # flux_object = Fluxes()
-        # return flux_object.display(self, simulation_end_time, simulation_start_time, simulation_time_steps, fluxes)
+    def show_fluxes(self, simulation_end_time: float = None, simulation_start_time: float = None,
+                    simulation_time_steps: int = None, fluxes: dict = None):
+        return self.fluxes.show(simulation_end_time, simulation_start_time, simulation_time_steps, fluxes)
+
+    def hide_fluxes(self):
+        return self.fluxes.hide()
+
+    def show_concentrations(self, simulation_end_time: float = None, simulation_start_time: float = None,
+                            simulation_time_steps: int = None, concentrations: dict = None):
+        return self.concentrations.show(simulation_end_time, simulation_start_time, simulation_time_steps, concentrations)
+
+    def hide_concentrations(self):
+        return self.concentrations.hide()
 
     def group_reactions(self, reactions: list[str, Reaction], color: str = None):
-        pass
-        # ToDo: Implement the following code
-        # from .features.grouping import ReactionGrouping
-        #
-        # reaction_grouping = ReactionGrouping()
-        # return reaction_grouping.group(self, reactions, color)
+        from .features.grouping import ReactionGroup
+
+        reaction_group = ReactionGroup()
+        reaction_group.group(self, reactions, color)
+        return reaction_group
 
     # ToDo: Implement the following functions on the list of elements
     # def show_compartment_labels(self):
@@ -747,21 +752,27 @@ class SBMLNetwork():
                 if y > current_height:
                     current_height = y
 
-        if self.has_color_bar():
-            color_bar_extra_margin = 20
-            current_width += color_bar_extra_margin
-
         padding = 20
         current_width += padding
         current_height += padding
 
+        fluxes_color_bar = self.get_color_bar("fluxes")
+        concentration_color_bar = self.get_color_bar("concentrations")
+
+        if fluxes_color_bar or concentration_color_bar:
+            color_bar_extra_margin = 20
+            current_width += color_bar_extra_margin
+
         if self.libsbmlnetwork.getNumAllCompartmentGlyphs() == 1:
             sole_compartment = self.get_compartment()
-            if self.has_color_bar():
-                color_bar = self.get_color_bar()
-                sole_compartment.set_size((current_width - color_bar.get_size()[0] - color_bar.get_left_margin() - color_bar.get_right_margin(), current_height))
-            else:
-                sole_compartment.set_size((current_width, current_height))
+            compartment_width = current_width
+            compartment_height = current_height
+            if fluxes_color_bar:
+                compartment_width -= fluxes_color_bar.get_size()[0] + fluxes_color_bar.get_left_margin() + fluxes_color_bar.get_right_margin()
+            if concentration_color_bar:
+                compartment_width -= concentracion_color_bar.get_size()[0] + concentracion_color_bar.get_left_margin() + concentracion_color_bar.get_right_margin()
+
+            sole_compartment.set_size((compartment_width, compartment_height))
 
         self.libsbmlnetwork.setCanvasWidth(current_width)
         self.libsbmlnetwork.setCanvasHeight(current_height)
@@ -801,6 +812,7 @@ def load(sbml: str):
     """
     instance.load(sbml)
     return instance
+
 
 version = instance.get_version()
 settings = instance.get_settings()
