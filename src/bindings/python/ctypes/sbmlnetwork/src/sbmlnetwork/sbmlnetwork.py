@@ -768,9 +768,9 @@ class SBMLNetwork():
             compartment_width = current_width
             compartment_height = current_height
             if fluxes_color_bar:
-                compartment_width -= fluxes_color_bar.get_size()[0] + fluxes_color_bar.get_left_margin() + fluxes_color_bar.get_right_margin()
+                compartment_width -= fluxes_color_bar.get_horizontal_extent()
             if concentration_color_bar:
-                compartment_width -= concentracion_color_bar.get_size()[0] + concentracion_color_bar.get_left_margin() + concentracion_color_bar.get_right_margin()
+                compartment_width -= concentration_color_bar.get_horizontal_extent()
 
             sole_compartment.set_size((compartment_width, compartment_height))
 
