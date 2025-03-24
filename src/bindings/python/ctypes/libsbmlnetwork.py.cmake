@@ -1171,6 +1171,21 @@ class LibSBMLNetwork:
         lib.c_api_isReactionGlyph.restype = ctypes.c_bool
         return lib.c_api_isReactionGlyph(self.sbml_object, str(reaction_id).encode(), layout_index)
 
+    def isReversible(self, reaction_id):
+        """
+        Returns whether the Reaction with the given reaction_id is reversible in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+
+        :Returns:
+
+            true if the Reaction with the given reaction_id is reversible in the given SBMLDocument and false otherwise
+        """
+        lib.c_api_isReversible.restype = ctypes.c_bool
+        return lib.c_api_isReversible(self.sbml_object, str(reaction_id).encode())
+
     def getNumSpeciesReferences(self, reaction_id, reaction_glyph_index=0, layout_index=0):
         """
         Returns the number of SpeciesReferences associated with the given reaction_id and reaction_glyph_index in the Layout object with the given index in the given SBMLDocument

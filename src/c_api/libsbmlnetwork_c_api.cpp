@@ -351,6 +351,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return isReactionGlyph(document, layoutIndex, reactionId);
     }
 
+    bool c_api_isReversible(SBMLDocument* document, const char* reactionId) {
+        return isReversible(document, reactionId);
+    }
+
     const int c_api_getNumReactants(SBMLDocument* document, const char* reactionId) {
         return getNumReactants(document, reactionId);
     }

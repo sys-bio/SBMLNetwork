@@ -137,8 +137,6 @@ class ReactionGroup(list):
                 return False
             if not reaction.set_colors(color):
                 return False
-            if not reaction.set_font_color(color):
-                return False
 
         return True
 

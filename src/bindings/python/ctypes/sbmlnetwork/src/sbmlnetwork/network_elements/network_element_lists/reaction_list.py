@@ -316,13 +316,13 @@ class ReactionList(NetworkElementBaseList):
     def get_arrow_head_relative_positions(self):
         relative_positions = []
         for reaction in self:
-            relative_positions.append(reaction.get_arrow_head_relative_position())
+            relative_positions.append(reaction.get_arrow_head_relative_positions())
         return relative_positions
 
     def set_arrow_head_relative_positions(self, relative_position: tuple[float, float]):
         results = []
         for reaction in self:
-            results.append(reaction.set_arrow_head_relative_position(relative_position))
+            results.append(reaction.set_arrow_head_relative_positions(relative_position))
         return results
 
     @property
@@ -336,13 +336,13 @@ class ReactionList(NetworkElementBaseList):
     def get_arrow_head_sizes(self):
         sizes = []
         for reaction in self:
-            sizes.append(reaction.get_arrow_head_size())
+            sizes.append(reaction.get_arrow_head_sizes())
         return sizes
 
     def set_arrow_head_sizes(self, size: tuple[float, float]):
         results = []
         for reaction in self:
-            results.append(reaction.set_arrow_head_size(size))
+            results.append(reaction.set_arrow_head_sizes(size))
         return results
 
     @property
@@ -354,37 +354,37 @@ class ReactionList(NetworkElementBaseList):
         self.set_arrow_head_sizes(size)
 
     def get_arrow_head_shapes(self):
-        from ..visual_elements.visual_element_lists.shape_list import ShapeList
-
-        arrow_head_shapes = ShapeList()
+        shapes = []
         for reaction in self:
-            arrow_head_shapes.append(reaction.get_arrow_head_shapes())
-        return arrow_head_shapes
+            shapes.append(reaction.get_arrow_head_shapes())
+
+        return shapes
+
+    def set_arrow_head_shapes(self, shape):
+        results = []
+        for reaction in self:
+            results.append(reaction.set_arrow_head_shapes(shape))
+
+        return results
 
     @property
     def arrow_head_shapes(self):
         return self.get_arrow_head_shapes()
 
-    def get_arrow_head_shape_types(self):
-        shape_types = []
-        for reaction in self:
-            shape_types.append(reaction.get_arrow_head_shape_type())
-        return shape_types
-
-    @property
-    def arrow_head_shape_types(self):
-        return self.get_arrow_head_shape_types()
+    @arrow_head_shapes.setter
+    def arrow_head_shapes(self, shape):
+        self.set_arrow_head_shapes(shape)
 
     def get_arrow_head_border_color(self):
         border_colors = []
         for reaction in self:
-            border_colors.append(reaction.get_arrow_head_border_color())
+            border_colors.append(reaction.get_arrow_head_border_colors())
         return border_colors
 
     def set_arrow_head_border_colors(self, border_color: str):
         results = []
         for reaction in self:
-            results.append(reaction.set_arrow_head_border_color(border_color))
+            results.append(reaction.set_arrow_head_border_colors(border_color))
         return results
 
     @property
@@ -398,13 +398,13 @@ class ReactionList(NetworkElementBaseList):
     def get_arrow_head_border_thicknesses(self):
         border_thicknesses = []
         for reaction in self:
-            border_thicknesses.append(reaction.get_arrow_head_border_thickness())
+            border_thicknesses.append(reaction.get_arrow_head_border_thicknesses())
         return border_thicknesses
 
     def set_arrow_head_border_thicknesses(self, thickness: float):
         results = []
         for reaction in self:
-            results.append(reaction.set_arrow_head_border_thickness(thickness))
+            results.append(reaction.set_arrow_head_border_thicknesses(thickness))
         return results
 
     @property
@@ -418,13 +418,13 @@ class ReactionList(NetworkElementBaseList):
     def get_arrow_head_fill_colors(self):
         fill_colors = []
         for reaction in self:
-            fill_colors.append(reaction.get_arrow_head_fill_color())
+            fill_colors.append(reaction.get_arrow_head_fill_colors())
         return fill_colors
 
     def set_arrow_head_fill_colors(self, fill_color: str or tuple or list):
         results = []
         for reaction in self:
-            results.append(reaction.set_arrow_head_fill_color(fill_color))
+            results.append(reaction.set_arrow_head_fill_colors(fill_color))
         return results
 
     @property
@@ -438,14 +438,14 @@ class ReactionList(NetworkElementBaseList):
     def move_arrow_head_relative_positions_to(self, relative_position: tuple[float, float]):
         results = []
         for reaction in self:
-            results.append(reaction.move_arrow_heads_relative_positions_to(relative_position))
+            results.append(reaction.move_arrow_head_relative_positions_to(relative_position))
 
         return results
 
     def move_arrow_head_relative_positions_by(self, delta: tuple[float, float]):
         results = []
         for reaction in self:
-            results.append(reaction.move_arrow_heads_relative_positions_by(delta))
+            results.append(reaction.move_arrow_head_relative_positions_by(delta))
 
         return results
 

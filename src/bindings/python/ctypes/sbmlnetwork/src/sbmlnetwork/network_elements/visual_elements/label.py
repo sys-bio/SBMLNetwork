@@ -29,6 +29,26 @@ class Label:
     def position(self, position: tuple[float, float]):
         self.set_position(position)
 
+    def get_relative_position(self):
+        element_position = (self.libsbmlnetwork.getX(id=self.element_id, graphical_object_index=self.graphical_object_index),
+                            self.libsbmlnetwork.getY(id=self.element_id, graphical_object_index=self.graphical_object_index))
+        text_position = self.get_position()
+        return (text_position[0] - element_position[0], text_position[1] - element_position[1])
+
+    def set_relative_position(self, relative_position: tuple[float, float]):
+        element_position = (self.libsbmlnetwork.getX(id=self.element_id, graphical_object_index=self.graphical_object_index),
+                            self.libsbmlnetwork.getY(id=self.element_id, graphical_object_index=self.graphical_object_index))
+        text_position = (element_position[0] + relative_position[0], element_position[1] + relative_position[1])
+        return self.set_position(text_position)
+
+    @property
+    def relative_position(self):
+        return self.get_relative_position()
+
+    @relative_position.setter
+    def relative_position(self, relative_position: tuple[float, float]):
+        self.set_relative_position(relative_position)
+
     def get_size(self):
         return (self.libsbmlnetwork.getTextWidth(id=self.element_id, graphical_object_index=self.graphical_object_index,
                                      text_glyph_index=self.text_glyph_index),

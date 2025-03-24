@@ -9,9 +9,19 @@ class ArrowHead:
         self.reaction_glyph_index = reaction_glyph_index
         self.species_reference_index = species_reference_index
 
+    def get_id(self):
+        start_head_id = self.libsbmlnetwork.getSpeciesReferenceStartHead(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index)
+        if start_head_id:
+            return start_head_id
+        end_head_id = self.libsbmlnetwork.getSpeciesReferenceEndHead(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index)
+        if end_head_id:
+            return end_head_id
+
+        return None
+
     def get_relative_position(self):
         return self.libsbmlnetwork.getSpeciesReferenceLineEndingBoundingBoxX(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index), \
-                self.libsbmlnetwork.getSpeciesReferenceLineEndingBoundingBoxY(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index)
+            self.libsbmlnetwork.getSpeciesReferenceLineEndingBoundingBoxY(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index)
 
     def set_relative_position(self, relative_position: tuple[float, float]):
         if self.libsbmlnetwork.setSpeciesReferenceLineEndingBoundingBoxX(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index, x=relative_position[0]) == 0 and \
@@ -30,7 +40,7 @@ class ArrowHead:
 
     def get_size(self):
         return self.libsbmlnetwork.getSpeciesReferenceLineEndingBoundingBoxWidth(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index), \
-                self.libsbmlnetwork.getSpeciesReferenceLineEndingBoundingBoxHeight(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index)
+            self.libsbmlnetwork.getSpeciesReferenceLineEndingBoundingBoxHeight(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index)
 
     def set_size(self, size: tuple[float, float]):
         if self.libsbmlnetwork.setSpeciesReferenceLineEndingBoundingBoxWidth(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index, width=size[0]) == 0 and \

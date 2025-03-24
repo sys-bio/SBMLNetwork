@@ -210,9 +210,25 @@ class Species(NetworkElementBase):
     def role_options(self):
         return self.get_role_options()
 
+    def get_substrate_role_options(self):
+        roles = self.get_role_options()
+        return [role for role in roles if role in ["substrate", "sidesubstrate", "side substrate", "reactant", "sidereactant", "side reactant"]]
+
+    @property
+    def substrate_role_options(self):
+        return self.get_substrate_role_options()
+
+    def get_product_role_options(self):
+        roles = self.get_role_options()
+        return [role for role in roles if role in ["product", "sideproduct", "side product"]]
+
+    @property
+    def product_role_options(self):
+        return self.get_product_role_options()
+
     def get_modifier_role_options(self):
         roles = self.get_role_options()
-        return [role for role in roles if role not in ["substrate", "sidesubstrate", "product", "sideproduct"]]
+        return [role for role in roles if role not in self.get_substrate_role_options() + self.get_product_role_options()]
 
     @property
     def modifier_role_options(self):

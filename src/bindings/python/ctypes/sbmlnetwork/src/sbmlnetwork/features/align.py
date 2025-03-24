@@ -56,20 +56,17 @@ class AlignBase:
     @staticmethod
     def _get_product_species(reaction, species_list):
         return [species for species in species_list if
-                species.get_role(reaction) in ["product", "sideproduct", "side product"]]
+                species.get_role(reaction) in species.get_product_role_options()]
 
     @staticmethod
     def _get_reactant_species(reaction, species_list):
         return [species for species in species_list if
-                species.get_role(reaction) in ["substrate", "sidesubstrate", "side substrate", "reactant",
-                                               "sidereactant", "side reactant"]]
+                species.get_role(reaction) in species.get_substrate_role_options()]
 
     @staticmethod
     def _get_modifier_species(reaction, species_list):
         return [species for species in species_list if
-                species.get_role(reaction) not in ["substrate", "sidesubstrate", "side substrate", "reactant",
-                                                   "sidereactant", "side reactant", "product", "sideproduct",
-                                                   "side product"]]
+                species.get_role(reaction) in species.get_modifier_role_options()]
 
 
 class HorizontalAlign(AlignBase):

@@ -213,6 +213,9 @@ class Reaction(NetworkElementBase):
             if not self.set_arrow_head_border_colors(color):
                 return False
 
+        if not self.set_font_color(color):
+            return False
+
         return True
 
     def get_center_curve_thickness(self):
@@ -502,6 +505,12 @@ class Reaction(NetworkElementBase):
         return circle_align.align(self, center_at, radius, arc_start, arc_end,
                                   reactants_order, products_order, modifiers_order,
                                   reactants_placement, products_placement, modifiers_placement)
+
+    def show_reversibility(self):
+        if self.libsbmlnetwork.isReversible(reaction_id=self.get_reaction_id()):
+            return True
+
+        return False
 
     def get_info(self):
         result = []

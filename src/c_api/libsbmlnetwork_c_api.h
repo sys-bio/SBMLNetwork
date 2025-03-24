@@ -521,6 +521,12 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return @c true if this abstract GraphicalObject is of type ReactionGlyph, false otherwise
     LIBSBMLNETWORK_EXTERN bool c_api_isReactionGlyph(SBMLDocument* document, const char* reactionId, int layoutIndex = 0);
 
+    /// @brief Predicate returning true if the Reaction object with the given id in the SBML document is reversible.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction to check reversibility.
+    /// @return @c true if the Reaction object with the given id is reversible, false otherwise
+    LIBSBMLNETWORK_EXTERN bool c_api_isReversible(SBMLDocument* document, const char* reactionId);
+
     /// @brief Returns the number of Reactants of the Reaction object with the given id in the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param reactionId the id of the reaction the number of Reactant objects associated with it is going to be returned.

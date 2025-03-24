@@ -553,13 +553,10 @@ class SBMLNetwork():
         return self.libsbmlnetwork.getStyle()
 
     def set_style(self, style_name: str):
-        valid_styles = self.libsbmlnetwork.getListOfStyles()
-        if style_name not in valid_styles:
-            raise ValueError(f"Style name must be one of {valid_styles}")
-        if self.libsbmlnetwork.setStyle(style_name) == 0:
-            return True
+        from .features.styles.style_manager import StyleManager
 
-        return False
+        style_manager = StyleManager(self)
+        return style_manager.set_style(style_name)
 
     @property
     def style(self):

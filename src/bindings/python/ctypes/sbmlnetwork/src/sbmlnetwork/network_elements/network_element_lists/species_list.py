@@ -131,36 +131,38 @@ class SpeciesList(NetworkElementBaseList):
         return self.get_arrow_heads()
 
     def get_arrow_head_shapes(self):
-        from ..visual_elements.visual_element_lists.shape_list import ShapeList
-
-        shapes = ShapeList()
+        shapes = []
         for species in self:
             shapes.append(species.get_arrow_head_shapes())
 
         return shapes
 
-    def get_arrow_head_shape_types(self):
-        shape_types = []
-        for species in self:
-            shape_types.append(species.get_arrow_head_shape_type())
-
-        return shape_types
-
     @property
-    def arrow_head_shape_types(self):
-        return self.arrow_head_shape_types()
+    def arrow_head_shapes(self):
+        return self.get_arrow_head_shapes()
+
+    def set_arrow_head_shapes(self, shape):
+        results = []
+        for species in self:
+            results.append(species.set_arrow_head_shapes(shape))
+
+        return results
+
+    @arrow_head_shapes.setter
+    def arrow_head_shapes(self, shape):
+        self.set_arrow_head_shapes(shape)
 
     def get_arrow_head_border_colors(self):
         border_colors = []
         for species in self:
-            border_colors.append(species.get_arrow_head_border_color())
+            border_colors.append(species.get_arrow_head_border_colors())
 
         return border_colors
 
     def set_arrow_head_border_colors(self, color):
         results = []
         for species in self:
-            results.append(species.set_arrow_head_border_color(color))
+            results.append(species.set_arrow_head_border_colors(color))
 
         return results
 
@@ -175,14 +177,14 @@ class SpeciesList(NetworkElementBaseList):
     def get_arrow_head_border_thicknesses(self):
         border_thicknesses = []
         for species in self:
-            border_thicknesses.append(species.get_arrow_head_border_thickness())
+            border_thicknesses.append(species.get_arrow_head_border_thicknesses())
 
         return border_thicknesses
 
     def set_arrow_head_border_thicknesses(self, thickness):
         results = []
         for species in self:
-            results.append(species.set_arrow_head_border_thickness(thickness))
+            results.append(species.set_arrow_head_border_thicknesses(thickness))
 
         return results
 
@@ -197,14 +199,14 @@ class SpeciesList(NetworkElementBaseList):
     def get_arrow_head_fill_colors(self):
         fill_colors = []
         for species in self:
-            fill_colors.append(species.get_arrow_head_fill_color())
+            fill_colors.append(species.get_arrow_head_fill_colors())
 
         return fill_colors
 
     def set_arrow_head_fill_colors(self, color):
         results = []
         for species in self:
-            results.append(species.set_arrow_head_fill_color(color))
+            results.append(species.set_arrow_head_fill_colors(color))
 
         return results
 
