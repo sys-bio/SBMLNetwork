@@ -31,7 +31,7 @@ class StyleManager:
                     self._update_species_label_position(label, species.get_size())
             reactions_list = self.network_obj.get_reactions_list()
             for reaction in reactions_list:
-                reaction.show_reversible_arrow(self._are_substrtes_directions_reveresed(reaction))
+                reaction.show_reversibility(self._are_substrtes_directions_reveresed(reaction))
                 self._set_reaction_center_style(reaction)
                 self._add_geometric_shapes_to_multiple_curve_segments(reaction)
                 labels_list = reaction.get_labels_list()

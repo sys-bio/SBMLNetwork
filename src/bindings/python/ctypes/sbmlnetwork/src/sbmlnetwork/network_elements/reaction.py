@@ -506,9 +506,23 @@ class Reaction(NetworkElementBase):
                                   reactants_order, products_order, modifiers_order,
                                   reactants_placement, products_placement, modifiers_placement)
 
-    def show_reversibility(self):
+    def show_reversibility(self, are_subsrate_directions_reversed: bool = False):
         if self.libsbmlnetwork.isReversible(reaction_id=self.get_reaction_id()):
-            return True
+            product_head_name = ""
+            for curve in self.get_curves():
+                if curve.get_role() in curve.get_product_role_options():
+                    arrow_head = curve.get_arrow_head()
+                    if arrow_head:
+                        product_head_name = arrow_head.get_id()
+                        break
+
+            if product_head_name:
+                for curve in self.get_curves():
+                    if curve.get_role() in curve.get_substrate_role_options():
+                        if are_subsrate_directions_reversed:
+                            self.libsbmlnetwork.setSpeciesReferenceStartHead(reaction_id=self.get_reaction_id(), reaction_glyph_index=self.graphical_object_index, species_reference_index=curve.species_reference_index, head=product_head_name)
+                        else:
+                            self.libsbmlnetwork.setSpeciesReferenceEndHead(reaction_id=self.get_reaction_id(), reaction_glyph_index=self.graphical_object_index, species_reference_index=curve.species_reference_index, head=product_head_name)
 
         return False
 
