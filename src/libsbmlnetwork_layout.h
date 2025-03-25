@@ -869,6 +869,13 @@ LIBSBMLNETWORK_EXTERN int setPositionX(Layout* layout, const std::string& id, un
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setPositionX(Layout* layout, GraphicalObject* graphicalObject, const double& x);
 
+/// @brief Sets the value of the "x" attribute of the bounding box of this ReactionGlyph object associated with the object with the given id of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @param reactionGlyph a pointer to the ReactionGlyph object.
+/// @param x a double value to use as the value of the "x" attribute of the bounding box of this ReactionGlyph object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setPositionX(Layout* layout, ReactionGlyph* reactionGlyph, const double& x);
+
 /// @brief Sets the value of the "x" attribute of this BoundingBox object.
 /// @param boundingBox a pointer to the BoundingBox object.
 /// @param x a double value to use as the value of the "x" attribute of this BoundingBox object.
@@ -925,6 +932,13 @@ LIBSBMLNETWORK_EXTERN int setPositionY(Layout* layout, const std::string& id, un
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setPositionY(Layout* layout, GraphicalObject* graphicalObject, const double& y);
 
+/// @brief Sets the value of the "y" attribute of the bounding box of this ReactionGlyph object associated with the object with the given id of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @param reactionGlyph a pointer to the ReactionGlyph object.
+/// @param y a double value to use as the value of the "y" attribute of the bounding box of this ReactionGlyph object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setPositionY(Layout* layout, ReactionGlyph* reactionGlyph, const double& y);
+
 /// @brief Sets the value of the "y" attribute of this BoundingBox object.
 /// @param boundingBox a pointer to the BoundingBox object.
 /// @param y a double value to use as the value of the "y" attribute of this BoundingBox object.
@@ -961,6 +975,14 @@ LIBSBMLNETWORK_EXTERN int setPosition(Layout* layout, const std::string& id, uns
 /// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setPosition(Layout* layout, GraphicalObject* graphicalObject, const double& x, const double& y);
+
+/// @brief Sets the value of "x" and "y" attributes of the bounding box this ReactionGlyph object.
+/// @param layout a pointer to the Layout object.
+/// @param reactionGlyph a pointer to the ReactionGlyph object.
+/// @param x a double value to use as the value of the "x" attribute of the bounding box of this ReactionGlyph object.
+/// @param y a double value to use as the value of the "y" attribute of the bounding box of this ReactionGlyph object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setPosition(Layout* layout, ReactionGlyph* reactionGlyph, const double& x, const double& y);
 
 /// @brief Sets the value of "x" and "y" attributes of the bounding box this BoundingBox object.
 /// @param boundingBox a pointer to the BoundingBox object.
@@ -1015,11 +1037,20 @@ LIBSBMLNETWORK_EXTERN int setDimensionWidth(Layout* layout, const std::string& i
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDimensionWidth(Layout* layout, GraphicalObject* graphicalObject, const double& width);
 
+/// @brief Sets the value of the "width" attribute of the bounding box this ReactionGlyph object.
+/// @param layout a pointer to the Layout object.
+/// @param reactionGlyph a pointer to the ReactionGlyph object.
+/// @param width a double value to use as the value of the "width" attribute of the bounding box of this ReactionGlyph object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setDimensionWidth(Layout* layout, ReactionGlyph* reactionGlyph, const double& width);
+
 /// @brief Sets the value of the "width" attribute of this BoundingBox object.
 /// @param boundingBox a pointer to the BoundingBox object.
 /// @param width a double value to use as the value of the "width" attribute of this BoundingBox object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDimensionWidth(BoundingBox* boundingBox, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setDimensionWidth(Curve* curve, const double& width);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentDimensionWidth(Layout* layout, const double& width);
 
@@ -1066,12 +1097,21 @@ LIBSBMLNETWORK_EXTERN int setDimensionHeight(Layout* layout, const std::string& 
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, const double& height);
 
+/// @brief Sets the value of the "height" attribute of the bounding box of this ReactionGlyph object associated with the object with the given id of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @param reactionGlyph a pointer to the ReactionGlyph object.
+/// @param height a double value to use as the value of the "height" attribute of the bounding box of this ReactionGlyph object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setDimensionHeight(Layout* layout, ReactionGlyph* reactionGlyph, const double& height);
+
 /// @brief Sets the value of the "height" attribute of this BoundingBox object.
 /// @param layout a pointer to the Layout object.
 /// @param boundingBox a pointer to the BoundingBox object.
 /// @param width a double value to use as the value of the "height" attribute of this BoundingBox object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDimensionHeight(BoundingBox* boundingBox, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setDimensionHeight(Curve* curve, const double& height);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentDimensionHeight(Layout* layout, const double& height);
 

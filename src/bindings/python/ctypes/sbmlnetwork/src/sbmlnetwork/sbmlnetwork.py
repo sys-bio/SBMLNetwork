@@ -669,10 +669,12 @@ class SBMLNetwork():
                 for text_glyph_index in range(self.libsbmlnetwork.getNumTextGlyphs(id=compartment_id, graphical_object_index=compartment_glyph_index)):
                     x = self.libsbmlnetwork.getTextX(id=compartment_id, graphical_object_index=compartment_glyph_index, text_glyph_index=text_glyph_index)
                     y = self.libsbmlnetwork.getTextY(id=compartment_id, graphical_object_index=compartment_glyph_index, text_glyph_index=text_glyph_index)
-                    if x > current_width:
-                        current_width = x
-                    if y > current_height:
-                        current_height = y
+                    width = self.libsbmlnetwork.getTextWidth(id=compartment_id, graphical_object_index=compartment_glyph_index, text_glyph_index=text_glyph_index)
+                    height = self.libsbmlnetwork.getTextHeight(id=compartment_id, graphical_object_index=compartment_glyph_index, text_glyph_index=text_glyph_index)
+                    if x + width > current_width:
+                        current_width = x + width
+                    if y + height > current_height:
+                        current_height = y + height
 
         # species
         for species_index in range(self.libsbmlnetwork.getNumSpecies()):
@@ -690,10 +692,12 @@ class SBMLNetwork():
                 for text_glyph_index in range(self.libsbmlnetwork.getNumTextGlyphs(id=species_id, graphical_object_index=species_glyph_index)):
                     x = self.libsbmlnetwork.getTextX(id=species_id, graphical_object_index=species_glyph_index, text_glyph_index=text_glyph_index)
                     y = self.libsbmlnetwork.getTextY(id=species_id, graphical_object_index=species_glyph_index, text_glyph_index=text_glyph_index)
-                    if x > current_width:
-                        current_width = x
-                    if y > current_height:
-                        current_height = y
+                    width = self.libsbmlnetwork.getTextWidth(id=species_id, graphical_object_index=species_glyph_index, text_glyph_index=text_glyph_index)
+                    height = self.libsbmlnetwork.getTextHeight(id=species_id, graphical_object_index=species_glyph_index, text_glyph_index=text_glyph_index)
+                    if x + width > current_width:
+                        current_width = x + width
+                    if y + height > current_height:
+                        current_height = y + height
 
         # reactions
         for reaction_index in range(self.libsbmlnetwork.getNumReactions()):
@@ -711,10 +715,12 @@ class SBMLNetwork():
                 for text_glyph_index in range(self.libsbmlnetwork.getNumTextGlyphs(id=reaction_id, graphical_object_index=reaction_glyph_index)):
                     x = self.libsbmlnetwork.getTextX(id=reaction_id, graphical_object_index=reaction_glyph_index, text_glyph_index=text_glyph_index)
                     y = self.libsbmlnetwork.getTextY(id=reaction_id, graphical_object_index=reaction_glyph_index, text_glyph_index=text_glyph_index)
-                    if x > current_width:
-                        current_width = x
-                    if y > current_height:
-                        current_height = y
+                    width = self.libsbmlnetwork.getTextWidth(id=reaction_id, graphical_object_index=reaction_glyph_index, text_glyph_index=text_glyph_index)
+                    height = self.libsbmlnetwork.getTextHeight(id=reaction_id, graphical_object_index=reaction_glyph_index, text_glyph_index=text_glyph_index)
+                    if x + width > current_width:
+                        current_width = x + width
+                    if y + height > current_height:
+                        current_height = y + height
                 # empty species
                 for species_reference_index in range(self.libsbmlnetwork.getNumSpeciesReferences(reaction_id=reaction_id, reaction_glyph_index=reaction_glyph_index)):
                     if self.libsbmlnetwork.isSetSpeciesReferenceEmptySpeciesGlyph(reaction_id=reaction_id, reaction_glyph_index=reaction_glyph_index, species_reference_index=species_reference_index):
@@ -744,10 +750,12 @@ class SBMLNetwork():
             for text_glyph_index in range(self.libsbmlnetwork.getNumTextGlyphs(id=graphical_object_id, graphical_object_index=0)):
                 x = self.libsbmlnetwork.getTextX(id=graphical_object_id, graphical_object_index=0, text_glyph_index=text_glyph_index)
                 y = self.libsbmlnetwork.getTextY(id=graphical_object_id, graphical_object_index=0, text_glyph_index=text_glyph_index)
-                if x > current_width:
-                    current_width = x
-                if y > current_height:
-                    current_height = y
+                width = self.libsbmlnetwork.getTextWidth(id=graphical_object_id, graphical_object_index=0, text_glyph_index=text_glyph_index)
+                height = self.libsbmlnetwork.getTextHeight(id=graphical_object_id, graphical_object_index=0, text_glyph_index=text_glyph_index)
+                if x + width > current_width:
+                    current_width = x + width
+                if y + height > current_height:
+                    current_height = y + height
 
         padding = 20
         current_width += padding
@@ -762,8 +770,8 @@ class SBMLNetwork():
 
         if self.libsbmlnetwork.getNumAllCompartmentGlyphs() == 1:
             sole_compartment = self.get_compartment()
-            compartment_width = current_width
-            compartment_height = current_height
+            compartment_width = current_width - sole_compartment.get_position()[0]
+            compartment_height = current_height - sole_compartment.get_position()[1]
             if fluxes_color_bar:
                 compartment_width -= fluxes_color_bar.get_horizontal_extent()
             if concentration_color_bar:

@@ -138,6 +138,14 @@ int setCurveMiddlePositionX(Curve* curve, const double& x);
 
 int setCurveMiddlePositionY(Curve* curve, const double& y);
 
+const double setCurveHorizontalLength(Curve* curve, const double& length);
+
+const double setCurveVerticalLength(Curve* curve, const double& length);
+
+int getCurveHorizontalLength(Curve* curve, double& length);
+
+int getCurveVerticalLength(Curve* curve, double& length);
+
 int updateGraphicalObjectId(Layout* layout, GraphicalObject* graphicalObject, const std::string& newId);
 
 int updateSpeciesReferenceGlyphSpeciesGlyphId(SpeciesReferenceGlyph* speciesReferenceGlyph, const std::string& originalSpeciesGlyphId, const std::string& newSpeciesGlyphId);

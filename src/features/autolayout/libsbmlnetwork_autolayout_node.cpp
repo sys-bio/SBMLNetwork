@@ -172,17 +172,13 @@ GraphicalObject* AutoLayoutCentroidNode::getGraphicalObject() {
 
 void AutoLayoutCentroidNode::updateDimensions() {
     std::string fixedWidth = LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(getGraphicalObject(), "width");
-    if (fixedWidth.empty()) {
-        if (!isSetCurve())
-            setWidth(std::max(calculateWidth(), getWidth()));
-    }
+    if (fixedWidth.empty())
+        setWidth(calculateWidth());
     else
         setWidth(std::stod(fixedWidth));
     std::string fixedHeight = LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(getGraphicalObject(), "height");
-    if (fixedHeight.empty()) {
-        if (!isSetCurve())
-            setHeight(std::max(calculateHeight(), getHeight()));
-    }
+    if (fixedHeight.empty())
+        setHeight(calculateHeight());
     else
         setHeight(std::stod(fixedHeight));
 }
@@ -203,6 +199,7 @@ void AutoLayoutCentroidNode::setX(const double& x) {
         ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->setX(x);
         curve->getCurveSegment(0)->getEnd()->setX(x);
         ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->setX(x);
+        _graphicalObject->getBoundingBox()->setX(x - 0.5 * getWidth());
     }
     else
         _graphicalObject->getBoundingBox()->setX(x);
@@ -224,6 +221,7 @@ void AutoLayoutCentroidNode::setY(const double& y) {
         ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->setY(y);
         curve->getCurveSegment(0)->getEnd()->setY(y);
         ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->setY(y);
+        _graphicalObject->getBoundingBox()->setY(y - 0.5 * getHeight());
     }
     else
         _graphicalObject->getBoundingBox()->setY(y);
@@ -246,13 +244,29 @@ void AutoLayoutCentroidNode::setWidth(const double& width) {
     if (std::abs(width - getWidth())) {
         if (isSetCurve()) {
             Curve* curve = getCurve();
-            curve->getCurveSegment(0)->getStart()->setX(curve->getCurveSegment(0)->getStart()->x() - 0.5 * std::abs(width - getWidth()));
-            ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->setX(((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->x() - 0.5 * std::abs(width - getWidth()));
-            curve->getCurveSegment(0)->getEnd()->setX(curve->getCurveSegment(0)->getEnd()->x() + 0.5 * std::abs(width - getWidth()));
-            ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->setX(((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->x() - 0.5 * std::abs(width - getWidth()));
+            if (LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(_graphicalObject, "fixed_position") == "true") {
+                std::string fixedX = LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(_graphicalObject, "x");
+                if (!fixedX.empty()) {
+                    curve->getCurveSegment(0)->getStart()->setX(std::stod(fixedX) - 0.5 * width);
+                    ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->setX(std::stod(fixedX) - 0.5 * width);
+                    curve->getCurveSegment(0)->getEnd()->setX(std::stod(fixedX) + 0.5 * width);
+                    ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->setX(std::stod(fixedX) - 0.5 * width);
+                }
+            }
+            else {
+                curve->getCurveSegment(0)->getStart()->setX(
+                        curve->getCurveSegment(0)->getStart()->x() - 0.5 * std::abs(width - getWidth()));
+                ((CubicBezier * )(curve->getCurveSegment(0)))->getBasePoint1()->setX(
+                        ((CubicBezier * )(curve->getCurveSegment(0)))->getBasePoint1()->x() -
+                        0.5 * std::abs(width - getWidth()));
+                curve->getCurveSegment(0)->getEnd()->setX(
+                        curve->getCurveSegment(0)->getEnd()->x() + 0.5 * std::abs(width - getWidth()));
+                ((CubicBezier * )(curve->getCurveSegment(0)))->getBasePoint2()->setX(
+                        ((CubicBezier * )(curve->getCurveSegment(0)))->getBasePoint2()->x() -
+                        0.5 * std::abs(width - getWidth()));
+            }
         }
-        else
-            _graphicalObject->getBoundingBox()->setWidth(width);
+        _graphicalObject->getBoundingBox()->setWidth(width);
     }
 }
 
@@ -273,27 +287,49 @@ void AutoLayoutCentroidNode::setHeight(const double& height) {
     if (std::abs(height - getHeight())) {
         if (isSetCurve()) {
             Curve* curve = getCurve();
-            curve->getCurveSegment(0)->getStart()->setY(curve->getCurveSegment(0)->getStart()->y() - 0.5 * std::abs(height - getHeight()));
-            ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->setY(((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->y() - 0.5 * std::abs(height - getHeight()));
-            curve->getCurveSegment(0)->getEnd()->setY(curve->getCurveSegment(0)->getEnd()->y() + 0.5 * std::abs(height - getHeight()));
-            ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->setY(((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->y() - 0.5 * std::abs(height - getHeight()));
+            if (LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(_graphicalObject, "fixed_position") == "true") {
+                std::string fixedY = LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(_graphicalObject, "y");
+                if (!fixedY.empty()) {
+                    curve->getCurveSegment(0)->getStart()->setY(std::stod(fixedY) - 0.5 * height);
+                    ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->setY(std::stod(fixedY) - 0.5 * height);
+                    curve->getCurveSegment(0)->getEnd()->setY(std::stod(fixedY) + 0.5 * height);
+                    ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->setY(std::stod(fixedY) - 0.5 * height);
+                }
+            }
+            else {
+                curve->getCurveSegment(0)->getStart()->setY(
+                        curve->getCurveSegment(0)->getStart()->y() - 0.5 * std::abs(height - getHeight()));
+                ((CubicBezier * )(curve->getCurveSegment(0)))->getBasePoint1()->setY(
+                        ((CubicBezier * )(curve->getCurveSegment(0)))->getBasePoint1()->y() -
+                        0.5 * std::abs(height - getHeight()));
+                curve->getCurveSegment(0)->getEnd()->setY(
+                        curve->getCurveSegment(0)->getEnd()->y() + 0.5 * std::abs(height - getHeight()));
+                ((CubicBezier * )(curve->getCurveSegment(0)))->getBasePoint2()->setY(
+                        ((CubicBezier * )(curve->getCurveSegment(0)))->getBasePoint2()->y() -
+                        0.5 * std::abs(height - getHeight()));
+            }
         }
-        else
-            _graphicalObject->getBoundingBox()->setHeight(height);
+        _graphicalObject->getBoundingBox()->setHeight(height);
     }
 }
 
 const double AutoLayoutCentroidNode::calculateWidth() {
+    if (isSetCurve())
+        return getWidth();
+
     ReactionGlyph* reactionGlyph = (ReactionGlyph*)_graphicalObject;
     std::string displayedText = reactionGlyph->getReactionId();
     Reaction *reaction = LIBSBMLNETWORK_CPP_NAMESPACE::findReactionGlyphReaction(_model, reactionGlyph);
     if (reaction && reaction->isSetName() && _useNameAsTextLabel)
         displayedText = reaction->getName();
 
-    return std::max(LIBSBMLNETWORK_CPP_NAMESPACE::defaults_getReactionDefaultWidth(), displayedText.size() * 9.0);
+    return std::max(std::max(LIBSBMLNETWORK_CPP_NAMESPACE::defaults_getReactionDefaultWidth(), displayedText.size() * 9.0), getWidth());
 }
 
 const double AutoLayoutCentroidNode::calculateHeight() {
+    if (isSetCurve())
+        return getHeight();
+
     return std::max(LIBSBMLNETWORK_CPP_NAMESPACE::defaults_getReactionDefaultHeight(), getHeight());
 }
 
