@@ -168,39 +168,44 @@ void set_layout_features_setModifierGlyphs(Layout* layout, Reaction* reaction, R
 void set_layout_features_setEmptySpeciesReferenceGlyphs(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData) {
     Reaction* reaction = findReactionGlyphReaction(model, reactionGlyph);
     if (reaction->getNumReactants() == 0) {
-        SpeciesReferenceGlyph* emptyReactantGlyph = set_layout_features_createEmptySpeciesReferenceGlyph(model, layout, reactionGlyph);
+        SpeciesReferenceGlyph* emptyReactantGlyph = set_layout_features_createEmptySpeciesReferenceGlyph(model, layout, reactionGlyph, userData);
         emptyReactantGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
-        user_data_setGraphicalObjectUserData(emptyReactantGlyph, userData);
     }
     else if (reaction->getNumProducts() == 0) {
-        SpeciesReferenceGlyph* emptyProductGlyph = set_layout_features_createEmptySpeciesReferenceGlyph(model, layout, reactionGlyph);
+        SpeciesReferenceGlyph* emptyProductGlyph = set_layout_features_createEmptySpeciesReferenceGlyph(model, layout, reactionGlyph, userData);
         emptyProductGlyph->setRole(SPECIES_ROLE_PRODUCT);
-        user_data_setGraphicalObjectUserData(emptyProductGlyph, userData);
     }
 }
 
-SpeciesReferenceGlyph* set_layout_features_createEmptySpeciesReferenceGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) {
-    SpeciesGlyph* emptySpeciesGlyph = set_layout_features_createEmptySpeciesGlyph(model, layout, reactionGlyph);
-    return set_layout_features_createEmptySpeciesReferenceGlyph(layout, reactionGlyph, emptySpeciesGlyph);
+SpeciesReferenceGlyph* set_layout_features_createEmptySpeciesReferenceGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData) {
+    SpeciesGlyph* emptySpeciesGlyph = set_layout_features_createEmptySpeciesGlyph(model, layout, reactionGlyph, userData);
+    return set_layout_features_createEmptySpeciesReferenceGlyph(layout, reactionGlyph, emptySpeciesGlyph, userData);
 }
 
-SpeciesGlyph* set_layout_features_createEmptySpeciesGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) {
-    SpeciesGlyph* emptySpeciesGlyph = set_layout_features_createEmptySpeciesGlyph(layout, reactionGlyph->getId());
-    CompartmentGlyph* compartmentGlyph = getCompartmentGlyphOfReactionGlyph(model, layout, reactionGlyph);
-    if (compartmentGlyph)
-        user_data_setUserData(emptySpeciesGlyph, "compartment", compartmentGlyph->getCompartmentId());
-    user_data_setUserData(emptySpeciesGlyph, "width", std::to_string(2* defaults_getEmptySpeciesDefaultRadius()));
-    user_data_setUserData(emptySpeciesGlyph, "height", std::to_string(2* defaults_getEmptySpeciesDefaultRadius()));
-    set_layout_features_setGraphicalObjectBoundingBox(emptySpeciesGlyph);
+SpeciesGlyph* set_layout_features_createEmptySpeciesGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData) {
+    SpeciesGlyph* emptySpeciesGlyph = set_layout_features_createEmptySpeciesGlyph(layout, reactionGlyph->getId(), userData);
+    std::string compartmentId = user_data_getUserData(emptySpeciesGlyph, "compartment");
+    if (compartmentId.empty()) {
+        CompartmentGlyph* compartmentGlyph = getCompartmentGlyphOfReactionGlyph(model, layout, reactionGlyph);
+        if (compartmentGlyph)
+            user_data_setUserData(emptySpeciesGlyph, "compartment", compartmentGlyph->getCompartmentId());
+    }
+    std::string fixedWidth = user_data_getUserData(emptySpeciesGlyph, "width");
+    if (fixedWidth.empty())
+        user_data_setUserData(emptySpeciesGlyph, "width", std::to_string(2* defaults_getEmptySpeciesDefaultRadius()));
+    std::string fixedHeight = user_data_getUserData(emptySpeciesGlyph, "height");
+    if (fixedHeight.empty())
+        user_data_setUserData(emptySpeciesGlyph, "height", std::to_string(2* defaults_getEmptySpeciesDefaultRadius()));
 
     return emptySpeciesGlyph;
 }
 
-SpeciesReferenceGlyph* set_layout_features_createEmptySpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, SpeciesGlyph* emptySpeciesGlyph) {
+SpeciesReferenceGlyph* set_layout_features_createEmptySpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, SpeciesGlyph* emptySpeciesGlyph, const std::vector<std::map<std::string, std::string>>& userData) {
     SpeciesReferenceGlyph* emptySpeciesReferenceGlyph = layout->createSpeciesReferenceGlyph();
     emptySpeciesReferenceGlyph->setId(reactionGlyph->getId() + "_EmptySpeciesReferenceGlyph");
     emptySpeciesReferenceGlyph->setSpeciesGlyphId(emptySpeciesGlyph->getId());
     set_layout_features_setSpeciesReferenceGlyphCurve(emptySpeciesReferenceGlyph);
+    user_data_setGraphicalObjectUserData(emptySpeciesReferenceGlyph, userData);
 
     return emptySpeciesReferenceGlyph;
 }
@@ -270,10 +275,11 @@ SpeciesGlyph* set_layout_features_createSpeciesGlyph(Layout* layout, const std::
     return speciesGlyph;
 }
 
-SpeciesGlyph* set_layout_features_createEmptySpeciesGlyph(Layout* layout, const std::string& reactionGlyphId) {
+SpeciesGlyph* set_layout_features_createEmptySpeciesGlyph(Layout* layout, const std::string& reactionGlyphId, const std::vector<std::map<std::string, std::string>>& userData) {
     SpeciesGlyph *speciesGlyph = layout->createSpeciesGlyph();
     speciesGlyph->setId(reactionGlyphId + "_EmptySpeciesGlyph");
     set_layout_features_setGraphicalObjectBoundingBox(speciesGlyph);
+    user_data_setGraphicalObjectUserData(speciesGlyph, userData);
 
     return speciesGlyph;
 }
