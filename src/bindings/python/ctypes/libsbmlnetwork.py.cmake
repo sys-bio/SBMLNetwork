@@ -1171,6 +1171,21 @@ class LibSBMLNetwork:
         lib.c_api_isReactionGlyph.restype = ctypes.c_bool
         return lib.c_api_isReactionGlyph(self.sbml_object, str(reaction_id).encode(), layout_index)
 
+    def isReversible(self, reaction_id):
+        """
+        Returns whether the Reaction with the given reaction_id is reversible in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+
+        :Returns:
+
+            true if the Reaction with the given reaction_id is reversible in the given SBMLDocument and false otherwise
+        """
+        lib.c_api_isReversible.restype = ctypes.c_bool
+        return lib.c_api_isReversible(self.sbml_object, str(reaction_id).encode())
+
     def getNumSpeciesReferences(self, reaction_id, reaction_glyph_index=0, layout_index=0):
         """
         Returns the number of SpeciesReferences associated with the given reaction_id and reaction_glyph_index in the Layout object with the given index in the given SBMLDocument
@@ -1758,6 +1773,58 @@ class LibSBMLNetwork:
             true on success and false if the y-coordinate of the second base point of the CurveSegment could not be set
         """
         return lib.c_api_setSpeciesReferenceCurveSegmentBasePoint2Y(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(y), reaction_glyph_index, species_reference_index, curve_segment_index, layout_index)
+
+    def makeSpeciesReferenceVisible(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+        """
+        Makes the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument visible
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - species_reference_index (int): an integer that determines the index of the SpeciesReference in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the SpeciesReference could not be made visible
+        """
+        return lib.c_api_makeSpeciesReferenceVisible(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
+
+    def makeSpeciesReferenceInvisible(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+        """
+        Makes the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument invisible
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - species_reference_index (int): an integer that determines the index of the SpeciesReference in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the SpeciesReference could not be made invisible
+        """
+        return lib.c_api_makeSpeciesReferenceInvisible(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
+
+    def isSpeciesReferenceVisible(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+        """
+        Returns whether the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument is visible
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - species_reference_index (int): an integer that determines the index of the SpeciesReference in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true if the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument is visible and false otherwise
+        """
+        lib.c_api_isSpeciesReferenceVisible.restype = ctypes.c_bool
+        return lib.c_api_isSpeciesReferenceVisible(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
 
     def isSetSpeciesReferenceLineColor(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
         """
@@ -9926,7 +9993,7 @@ class LibSBMLNetwork:
         lib.c_api_getGeometricShapeType.restype = ctypes.c_char_p
         return ctypes.c_char_p(lib.c_api_getGeometricShapeType(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)).value.decode()
 
-    def setGeometricShapeType(self, id, geometric_shape, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
+    def setGeometricShapeType(self, id, geometric_shape, graphical_object_index=0, layout_index=0):
         """
         Sets the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
 
@@ -9942,7 +10009,7 @@ class LibSBMLNetwork:
 
             true on success and false if the GeometricShape object could not be set
         """
-        return lib.c_api_setGeometricShapeType(self.sbml_object, str(id).encode(), str(geometric_shape).encode(), geometric_shape_index, graphical_object_index, layout_index)
+        return lib.c_api_setGeometricShapeType(self.sbml_object, str(id).encode(), str(geometric_shape).encode(), graphical_object_index, layout_index)
 
     def getCompartmentsGeometricShapeType(self):
         """
@@ -10342,6 +10409,41 @@ class LibSBMLNetwork:
                 true on success and false if the fill color of the GeometricShape object could not be set
             """
         return lib.c_api_setGeometricShapeFillColor(self.sbml_object, str(id).encode(), str(fill_color).encode(), geometric_shape_index, graphical_object_index, layout_index)
+
+    def setGeometricShapeFillColorAsGradient(self, id, stop_colors = [], stop_offsets = [], gradient_type = "linear", geometric_shape_index=0, graphical_object_index=0, layout_index=0):
+        """
+        Sets the fill color of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument as a gradient
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - stop_colors (list, optional): a list of strings that determines the stop colors of the gradient
+            - stop_offsets (list, optional): a list of floats that determines the stop offsets of the gradient
+            - gradient_type (string, optional): a string that determines the type of the gradient
+            - geometric_shape_index (int, optional): an integer (default: 0) that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the fill color of the GraphicalObject could not be set
+            """
+        if len(stop_colors) != len(stop_offsets):
+            raise ValueError("The number of stop colors list and stop offsets list should be the same")
+
+        stop_colors_ptr = None
+        if stop_colors is not None:
+            stop_colors_ptr = (ctypes.c_char_p * len(stop_colors))()
+            for i in range(len(stop_colors)):
+                stop_colors_ptr[i] = ctypes.c_char_p(stop_colors[i].encode())
+
+        stop_offsets_ptr = None
+        if stop_offsets is not None:
+            stop_offsets_ptr = (ctypes.c_double * len(stop_offsets))()
+            for i in range(len(stop_offsets)):
+                stop_offsets_ptr[i] = ctypes.c_double(stop_offsets[i])
+
+        return lib.c_api_setGeometricShapeFillColorAsGradient(self.sbml_object, str(id).encode(), str(gradient_type).encode(), stop_colors_ptr, stop_offsets_ptr, ctypes.c_int(len(stop_colors)), geometric_shape_index, graphical_object_index, layout_index)
 
     def isSetGeometricShapeX(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """
@@ -13009,8 +13111,12 @@ class LibSBMLNetwork:
             a list of strings that determines the predefined html color names that can be used as the value of colors in the SBML Document
 
         """
-        colors = lib.colorData()
-        return colors.keys()
+        lib.c_api_getPredefinedColorName.restype = ctypes.c_char_p
+        list_of_color_names = []
+        for n in range(lib.c_api_getNumPredefinedColorNames()):
+            list_of_color_names.append(ctypes.c_char_p(lib.c_api_getPredefinedColorName(n)).value.decode())
+
+        return list_of_color_names
 
     def getPredefinedHexColorCodes(self):
         """
@@ -13021,19 +13127,12 @@ class LibSBMLNetwork:
             a list of strings that determines the predefined hex color codes that can be used as the value of colors in the SBML Document
 
         """
-        colors = lib.colorData()
-        return colors.values()
+        lib.c_api_getPredefinedHexColorCode.restype = ctypes.c_char_p
+        list_of_hex_color_codes = []
+        for n in range(lib.c_api_getNumPredefinedHexColorCodes()):
+            list_of_hex_color_codes.append(ctypes.c_char_p(lib.c_api_getPredefinedHexColorCode(n)).value.decode())
 
-    def getPredefinedColors(self):
-        """
-        Returns the dictionary of all predefined color names and the hex values they correspond to that can be used as the value of colors in the SBML Document
-
-        :Returns:
-
-            a dictionary of predefined color name strings that can be used as the value of colors in the SBML Document
-
-        """
-        return lib.colorData()
+        return list_of_hex_color_codes
 
     def getListOfSpreadMethods(self):
         """

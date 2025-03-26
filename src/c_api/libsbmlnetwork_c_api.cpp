@@ -351,6 +351,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return isReactionGlyph(document, layoutIndex, reactionId);
     }
 
+    bool c_api_isReversible(SBMLDocument* document, const char* reactionId) {
+        return isReversible(document, reactionId);
+    }
+
     const int c_api_getNumReactants(SBMLDocument* document, const char* reactionId) {
         return getNumReactants(document, reactionId);
     }
@@ -380,7 +384,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     const char* c_api_getSpeciesReferenceId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
-        return strdup(getSpeciesReferenceId(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex).c_str());
+        return strdup(getSpeciesReferenceId(document, layoutIndex, reactionId, reactionGlyphIndex,
+                                            speciesReferenceIndex).c_str());
     }
 
     const char* c_api_getSpeciesReferenceSpeciesId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
@@ -501,6 +506,18 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setSpeciesReferenceCurveSegmentBasePoint2Y(SBMLDocument* document, const char* reactionId, const double y, int reactionGlyphIndex, int speciesReferenceIndex, int curveSegmentIndex, int layoutIndex) {
         return setSpeciesReferenceCurveSegmentBasePoint2Y(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, curveSegmentIndex, y);
+    }
+
+    int c_api_makeSpeciesReferenceVisible(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
+        return makeVisible(document, getSpeciesReference(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex));
+    }
+
+    int c_api_makeSpeciesReferenceInvisible(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
+        return makeInvisible(document, getSpeciesReference(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex));
+    }
+
+    bool c_api_isSpeciesReferenceVisible(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
+        return isVisible(document, getSpeciesReference(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex));
     }
 
     bool c_api_isSetSpeciesReferenceLineColor(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
@@ -3477,6 +3494,28 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     bool c_api_whetherDisplayReactionTextLabel(const char* styleName) {
         return whetherDisplayReactionTextLabel(styleName);
+    }
+
+    int c_api_getNumPredefinedColorNames() {
+        return getPredefinedColorNames().size();
+    }
+
+    const char* c_api_getPredefinedColorName(int index) {
+        if (index >= 0 && index < c_api_getNumPredefinedColorNames())
+            return strdup(getPredefinedColorNames().at(index).c_str());
+
+        return "";
+    }
+
+    int c_api_getNumPredefinedHexColorCodes() {
+        return getPredefinedHexColorCodes().size();
+    }
+
+    const char* c_api_getPredefinedHexColorCode(int index) {
+        if (index >= 0 && index < c_api_getNumPredefinedHexColorCodes())
+            return strdup(getPredefinedHexColorCodes().at(index).c_str());
+
+        return "";
     }
 
     int c_api_getNumPredefinedStyles() {

@@ -10,10 +10,10 @@ class Curve(ShapeBase):
                     self.libsbmlnetwork.getGeometricShapeSegmentX(id=self.element_id, graphical_object_index=self.graphical_object_index, geometric_shape_index=self.geometric_shape_index, segment_index=segment_index),
                     self.libsbmlnetwork.getGeometricShapeSegmentY(id=self.element_id, graphical_object_index=self.graphical_object_index, geometric_shape_index=self.geometric_shape_index, segment_index=segment_index)))
         else:
-            for segment_index in range(self.libsbmlnetwork.getSpeciesReferenceLineEndingGeometricShapeNumSegments(reaction_id=self.element_id, reaction_glyph_index=self.graphical_object_index, species_reference_index=self.sub_entity_index, index=self.geometric_shape_index)):
+            for segment_index in range(self.libsbmlnetwork.getSpeciesReferenceLineEndingGeometricShapeNumSegments(reaction_id=self.element_id, reaction_glyph_index=self.graphical_object_index, species_reference_index=self.sub_element_index, index=self.geometric_shape_index)):
                 points.append((
-                    self.libsbmlnetwork.getSpeciesReferenceLineEndingGeometricShapeSegmentX(reaction_id=self.element_id, reaction_glyph_index=self.graphical_object_index, species_reference_index=self.sub_entity_index, index=self.geometric_shape_index, segment_index=segment_index),
-                    self.libsbmlnetwork.getSpeciesReferenceLineEndingGeometricShapeSegmentY(reaction_id=self.element_id, reaction_glyph_index=self.graphical_object_index, species_reference_index=self.sub_entity_index, index=self.geometric_shape_index, segment_index=segment_index)))
+                    self.libsbmlnetwork.getSpeciesReferenceLineEndingGeometricShapeSegmentX(reaction_id=self.element_id, reaction_glyph_index=self.graphical_object_index, species_reference_index=self.sub_element_index, index=self.geometric_shape_index, segment_index=segment_index),
+                    self.libsbmlnetwork.getSpeciesReferenceLineEndingGeometricShapeSegmentY(reaction_id=self.element_id, reaction_glyph_index=self.graphical_object_index, species_reference_index=self.sub_element_index, index=self.geometric_shape_index, segment_index=segment_index)))
 
         return points
 
@@ -32,15 +32,16 @@ class Curve(ShapeBase):
         else:
             for segment_index, point in enumerate(points):
                 #ToDo add a geometric shapes segment
-                if self.libsbmlnetwork.setSpeciesReferenceLineEndingGeometricShapeSegmentX(reaction_id=self.element_id, reaction_glyph_index=self.graphical_object_index, species_reference_index=self.sub_entity_index, geometric_shape_index=self.geometric_shape_index, segment_index=segment_index, x=point[0]) != 0 or \
-                        self.libsbmlnetwork.setSpeciesReferenceLineEndingGeometricShapeSegmentY(reaction_id=self.element_id, reaction_glyph_index=self.graphical_object_index, species_reference_index=self.sub_entity_index, geometric_shape_index=self.geometric_shape_index, segment_index=segment_index, y=point[1]) != 0:
+                if self.libsbmlnetwork.setSpeciesReferenceLineEndingGeometricShapeSegmentX(reaction_id=self.element_id, reaction_glyph_index=self.graphical_object_index, species_reference_index=self.sub_element_index, geometric_shape_index=self.geometric_shape_index, segment_index=segment_index, x=point[0]) != 0 or \
+                        self.libsbmlnetwork.setSpeciesReferenceLineEndingGeometricShapeSegmentY(reaction_id=self.element_id, reaction_glyph_index=self.graphical_object_index, species_reference_index=self.sub_element_index, geometric_shape_index=self.geometric_shape_index, segment_index=segment_index, y=point[1]) != 0:
                     return False
 
         return True
 
-    def __str__(self):
+    def get_info(self):
         base_str = super().__str__()
         return (
                 base_str + "\n" +
                 f"points: {self.get_points()}"
         )
+

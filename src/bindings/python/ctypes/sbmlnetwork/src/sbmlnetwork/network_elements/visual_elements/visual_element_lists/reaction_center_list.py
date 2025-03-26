@@ -9,14 +9,18 @@ class ReactionCenterList(list):
         super().__init__(reaction_center_list or [])
         self.libsbmlnetwork = libsbmlnetwork
 
-    def get_reaction(self):
+    def get_reactions(self):
         reactions = ReactionList(libsbmlnetwork=self.libsbmlnetwork)
         for reaction_center in self:
             reactions.append(reaction_center.get_reaction())
 
         return reactions
 
-    def switch_to_curve(self):
+    @property
+    def reactions(self):
+        return self.get_reactions()
+
+    def switch_to_curves(self):
         results = []
         for reaction_center in self:
             results.append(reaction_center.switch_to_curve())
@@ -30,26 +34,30 @@ class ReactionCenterList(list):
 
         return results
 
-    def is_curve(self):
+    def are_curves(self):
         results = []
         for reaction_center in self:
             results.append(reaction_center.is_curve())
 
         return results
 
-    def is_shapes(self):
+    def are_shapes(self):
         results = []
         for reaction_center in self:
             results.append(reaction_center.is_shapes())
 
         return results
 
-    def get_curve(self):
+    def get_curves(self):
         curve_list = CurveList(libsbmlnetwork=self.libsbmlnetwork)
         for reaction_center in self:
             curve_list.append(reaction_center.get_curve())
 
         return curve_list
+
+    @property
+    def curves(self):
+        return self.get_curves()
 
     def get_shapes_list(self):
         shapes_list = ShapeList()
@@ -58,18 +66,29 @@ class ReactionCenterList(list):
 
         return shapes_list
 
+    def get_shapes(self):
+        return self.get_shapes_list()
+
+    @property
+    def shapes(self):
+        return self.get_shapes_list()
+
     def move(self, delta: tuple[float, float]):
         results = []
         for reaction_center in self:
-            results.append(reaction_center.move(delta))
+            results.append(reaction_center.move_by(delta))
 
         return results
 
-    def __str__(self):
+    def get_info(self):
         result = []
         for reaction_center in self:
             result.append(str(reaction_center))
         return "\n".join(result)
+
+    @property
+    def info(self):
+        return self.get_info()
 
     def __repr__(self):
         return f"ReactionCenterList({[repr(reaction_center) for reaction_center in self]})"

@@ -12,6 +12,10 @@ class Compartment(NetworkElementBase):
     def get_compartment_id(self):
         return self.element_id
 
+    @property
+    def compartment_id(self):
+        return self.get_compartment_id()
+
     def get_species_list(self):
         species_list = SpeciesList(libsbmlnetwork=self.libsbmlnetwork)
         species_ids = self.libsbmlnetwork.getListOfSpeciesIds()
@@ -22,6 +26,13 @@ class Compartment(NetworkElementBase):
                     species_list.append(Species(self.libsbmlnetwork, species_id, species_glyph_index))
 
         return species_list
+
+    def get_species(self):
+        return self.get_species_list()
+
+    @property
+    def species(self):
+        return self.get_species()
 
     def get_reactions_list(self):
         reactions_list = ReactionList(libsbmlnetwork=self.libsbmlnetwork)
@@ -35,7 +46,26 @@ class Compartment(NetworkElementBase):
 
         return reactions_list
 
-    def __str__(self):
+    def get_reactions(self):
+        return self.get_reactions_list()
+
+    @property
+    def reactions(self):
+        return self.get_reactions()
+
+    def set_position(self, position: tuple[float, float]):
+        if position[0] < 0 or position[1] < 0:
+            raise ValueError(f"The compartment {self.get_compartment_id()} cannot be moved to {position} because it would lead to negative coordinates.")
+
+        if super().set_position(position):
+            if self.get_position()[0] + self.get_size()[0] > self.libsbmlnetwork.getCanvasWidth():
+                self.libsbmlnetwork.setCanvasWidth(self.get_position()[0] + self.get_size()[0])
+            if self.get_position()[1] + self.get_size()[1] > self.libsbmlnetwork.getCanvasHeight():
+                self.libsbmlnetwork.setCanvasHeight(self.get_position()[1] + self.get_size()[1])
+
+            return True
+
+    def get_info(self):
         result = []
         result.append(f"compartment id: {self.get_compartment_id()}")
         result.append(f"id: {self.get_id()}")
@@ -64,8 +94,11 @@ class Compartment(NetworkElementBase):
             if label != labels[-1]:
                 result.append("----")
 
-
         return "\n".join(result)
+
+    @property
+    def info(self):
+        return self.get_info()
 
     def __repr__(self):
         return f"Compartment(id={self.element_id}, index={self.graphical_object_index})"

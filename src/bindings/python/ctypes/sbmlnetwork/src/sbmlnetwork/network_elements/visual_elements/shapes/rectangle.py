@@ -22,6 +22,14 @@ class Rectangle(ShapeBase):
 
         return False
 
+    @property
+    def relative_position(self):
+        return self.get_relative_position()
+
+    @relative_position.setter
+    def relative_position(self, relative_position: tuple[float, float]):
+        self.set_relative_position(relative_position)
+
     def get_size(self):
         if self.sub_element_index is None:
             return self.libsbmlnetwork.getGeometricShapeWidth(id=self.element_id, graphical_object_index=self.graphical_object_index, geometric_shape_index=self.geometric_shape_index), \
@@ -42,6 +50,14 @@ class Rectangle(ShapeBase):
 
         return False
 
+    @property
+    def size(self):
+        return self.get_size()
+
+    @size.setter
+    def size(self, size: tuple[float, float]):
+        self.set_size(size)
+
     def get_corner_radius(self):
         if self.sub_element_index is None:
             return self.libsbmlnetwork.getGeometricShapeBorderRadiusX(id=self.element_id, graphical_object_index=self.graphical_object_index, geometric_shape_index=self.geometric_shape_index), \
@@ -60,7 +76,17 @@ class Rectangle(ShapeBase):
                     self.libsbmlnetwork.setSpeciesReferenceLineEndingGeometricShapeBorderRadiusY(id=self.element_id, graphical_object_index=self.graphical_object_index, species_reference_index=self.sub_element_index, geometric_shape_index=self.geometric_shape_index, y=corner_radius[1]) == 0:
                 return True
 
-    def __str__(self):
+        return False
+
+    @property
+    def corner_radius(self):
+        return self.get_corner_radius()
+
+    @corner_radius.setter
+    def corner_radius(self, corner_radius: tuple[float, float]):
+        self.set_corner_radius(corner_radius)
+
+    def get_info(self):
         base_str = super().__str__()
         return (
                 base_str + "\n" +

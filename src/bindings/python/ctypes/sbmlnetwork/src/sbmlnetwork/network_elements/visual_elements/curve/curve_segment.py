@@ -30,6 +30,14 @@ class CurveSegment:
 
         return False
 
+    @property
+    def start(self):
+        return self.get_start()
+
+    @start.setter
+    def start(self, start: tuple[float, float]):
+        self.set_start(start)
+
     def get_end(self):
         if self.species_reference_index is None:
             return (self.libsbmlnetwork.getCurveSegmentEndPointX(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, curve_segment_index=self.curve_segment_index),
@@ -49,6 +57,14 @@ class CurveSegment:
                 return True
 
         return False
+
+    @property
+    def end(self):
+        return self.get_end()
+
+    @end.setter
+    def end(self, end: tuple[float, float]):
+        self.set_end(end)
 
     def get_control_point_1(self):
         if self.species_reference_index is None:
@@ -70,6 +86,14 @@ class CurveSegment:
 
         return False
 
+    @property
+    def control_point_1(self):
+        return self.get_control_point_1()
+
+    @control_point_1.setter
+    def control_point_1(self, control_point_1: tuple[float, float]):
+        self.set_control_point_1(control_point_1)
+
     def get_control_point_2(self):
         if self.species_reference_index is None:
             return (self.libsbmlnetwork.getCurveSegmentBasePoint2X(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, curve_segment_index=self.curve_segment_index),
@@ -90,7 +114,15 @@ class CurveSegment:
 
         return False
 
-    def move(self, delta: tuple[float, float]):
+    @property
+    def control_point_2(self):
+        return self.get_control_point_2()
+
+    @control_point_2.setter
+    def control_point_2(self, control_point_2: tuple[float, float]):
+        self.set_control_point_2(control_point_2)
+
+    def move_by(self, delta: tuple[float, float]):
         current_start = self.get_start()
         new_start = (current_start[0] + delta[0], current_start[1] + delta[1])
         if not self.set_start(new_start):
@@ -113,7 +145,11 @@ class CurveSegment:
 
         return True
 
-    def move_start(self, delta: tuple[float, float]):
+    def move_start_to(self, position: tuple[float, float]):
+        start = self.get_start()
+        return self.move_by((position[0] - start[0], position[1] - start[1]))
+
+    def move_start_by(self, delta: tuple[float, float]):
         current_start = self.get_start()
         new_start = (current_start[0] + delta[0], current_start[1] + delta[1])
         if not self.set_start(new_start):
@@ -126,7 +162,11 @@ class CurveSegment:
 
         return True
 
-    def move_end(self, delta: tuple[float, float]):
+    def move_end_to(self, position: tuple[float, float]):
+        end = self.get_end()
+        return self.move_by((position[0] - end[0], position[1] - end[1]))
+
+    def move_end_by(self, delta: tuple[float, float]):
         current_end = self.get_end()
         new_end = (current_end[0] + delta[0], current_end[1] + delta[1])
         if not self.set_end(new_end):
@@ -139,13 +179,17 @@ class CurveSegment:
 
         return True
 
-    def __str__(self):
+    def get_info(self):
         return(
             f"start: {self.get_start()}\n"
             f"end: {self.get_end()}\n"
             f"control_point_1: {self.get_control_point_1()}\n"
             f"control_point_2: {self.get_control_point_2()}"
         )
+
+    @property
+    def info(self):
+        return self.get_info()
 
     def __repr__(self):
         return self.__str__()

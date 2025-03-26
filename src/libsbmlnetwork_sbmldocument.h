@@ -164,6 +164,12 @@ LIBSBMLNETWORK_EXTERN const std::string getReactionId(SBMLDocument* document, un
 /// @return a pointer to the Reaction object with the given id, or @c "" if the object does not exists.
 LIBSBMLNETWORK_EXTERN Reaction* getReaction(SBMLDocument* document, const std::string& id);
 
+/// @brief Returns true if the Reaction object with the given id is reversible, otherwise returns false.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId the id of the Reaction object.
+/// @return true if the Reaction object with the given id is reversible, otherwise returns false.
+LIBSBMLNETWORK_EXTERN bool isReversible(SBMLDocument* document, const std::string& reactionId);
+
 /// @brief Returns the number of SpeciesReference objects in the Reaction object with the given id.
 /// @param document a pointer to the SBMLDocument object.
 /// @param reactionId the id of the Reaction object.

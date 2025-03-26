@@ -521,6 +521,12 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return @c true if this abstract GraphicalObject is of type ReactionGlyph, false otherwise
     LIBSBMLNETWORK_EXTERN bool c_api_isReactionGlyph(SBMLDocument* document, const char* reactionId, int layoutIndex = 0);
 
+    /// @brief Predicate returning true if the Reaction object with the given id in the SBML document is reversible.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction to check reversibility.
+    /// @return @c true if the Reaction object with the given id is reversible, false otherwise
+    LIBSBMLNETWORK_EXTERN bool c_api_isReversible(SBMLDocument* document, const char* reactionId);
+
     /// @brief Returns the number of Reactants of the Reaction object with the given id in the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param reactionId the id of the reaction the number of Reactant objects associated with it is going to be returned.
@@ -915,6 +921,34 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param y the value to be set as "y" attribute of the base point 2 of the CubicBezier object.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setSpeciesReferenceCurveSegmentBasePoint2Y(SBMLDocument* document, const char* reactionId, const double y, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Make the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id visible.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceIndex the index of the SpeciesReference.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_makeSpeciesReferenceVisible(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex);
+
+    /// @brief Make the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id invisible.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceIndex the index of the SpeciesReference.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_makeSpeciesReferenceInvisible(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex);
+
+    /// @brief Predicates returning @c true if the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document is visible.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceIndex the index of the SpeciesReference.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return @c true if the SpeciesReference object with the given index is visible, @c false otherwise
+    LIBSBMLNETWORK_EXTERN bool c_api_isSpeciesReferenceVisible(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex);
 
     /// @brief Predicates returning @c true if the "stroke" attribute of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
     /// of the Layout object with the given index in the ListOfLayouts of the SBML document is set.
@@ -6872,6 +6906,24 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param styleName a string representing the name of the predefined style to use.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN bool c_api_whetherDisplayReactionTextLabel(const char* styleName);
+
+    /// @brief Returns the number of predefined colors.
+    /// @return the number of predefined colors.
+    int c_api_getNumPredefinedColorNames();
+
+    /// @brief Returns the predefined color with the given index.
+    /// @param index an int representing the index of the predefined color to retrieve.
+    /// @return the predefined color with the given index.
+    const char* c_api_getPredefinedColorName(int index);
+
+    /// @brief Returns the number of predefined hex color codes.
+    /// @return the number of predefined hex color codes.
+    int c_api_getNumPredefinedHexColorCodes();
+
+    /// @brief Returns the predefined hex color code with the given index.
+    /// @param index an int representing the index of the predefined hex color code to retrieve.
+    /// @return the predefined hex color code with the given index.
+    const char* c_api_getPredefinedHexColorCode(int index);
 
     /// @brief Returns the number of predefined styles that can be used in for c_api_setStyle function.
     /// @return the number of predefined styles.

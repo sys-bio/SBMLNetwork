@@ -670,7 +670,8 @@ int removeText(Layout* layout, const std::string& id, unsigned int graphicalObje
 
 int removeText(Layout* layout, GraphicalObject* textGlyph) {
     if (isTextGlyph(textGlyph)) {
-        layout->removeTextGlyph(textGlyph->getId());
+        if (layout->removeTextGlyph(textGlyph->getId()))
+            return 0;
     }
 
     return -1;

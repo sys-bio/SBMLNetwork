@@ -207,6 +207,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return NULL;
     }
 
+    bool isReversible(SBMLDocument* document, const std::string& reactionId) {
+        if (document && document->isSetModel()) {
+            Reaction* reaction = getReaction(document, reactionId);
+            if (reaction)
+                return reaction->getReversible();
+        }
+
+        return false;
+    }
+
     const unsigned int getNumSpeciesReferences(SBMLDocument* document, const std::string& reactionId) {
         if (document && document->isSetModel()) {
             Reaction* reaction = getReaction(document, reactionId);

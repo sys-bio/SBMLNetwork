@@ -21,6 +21,34 @@ class Label:
 
         return False
 
+    @property
+    def position(self):
+        return self.get_position()
+
+    @position.setter
+    def position(self, position: tuple[float, float]):
+        self.set_position(position)
+
+    def get_relative_position(self):
+        element_position = (self.libsbmlnetwork.getX(id=self.element_id, graphical_object_index=self.graphical_object_index),
+                            self.libsbmlnetwork.getY(id=self.element_id, graphical_object_index=self.graphical_object_index))
+        text_position = self.get_position()
+        return (text_position[0] - element_position[0], text_position[1] - element_position[1])
+
+    def set_relative_position(self, relative_position: tuple[float, float]):
+        element_position = (self.libsbmlnetwork.getX(id=self.element_id, graphical_object_index=self.graphical_object_index),
+                            self.libsbmlnetwork.getY(id=self.element_id, graphical_object_index=self.graphical_object_index))
+        text_position = (element_position[0] + relative_position[0], element_position[1] + relative_position[1])
+        return self.set_position(text_position)
+
+    @property
+    def relative_position(self):
+        return self.get_relative_position()
+
+    @relative_position.setter
+    def relative_position(self, relative_position: tuple[float, float]):
+        self.set_relative_position(relative_position)
+
     def get_size(self):
         return (self.libsbmlnetwork.getTextWidth(id=self.element_id, graphical_object_index=self.graphical_object_index,
                                      text_glyph_index=self.text_glyph_index),
@@ -35,6 +63,14 @@ class Label:
             return True
 
         return False
+
+    @property
+    def size(self):
+        return self.get_size()
+
+    @size.setter
+    def size(self, size: tuple[float, float]):
+        self.set_size(size)
 
     def align_to_top(self):
         if self.libsbmlnetwork.setTextVerticalAlignment(id=self.element_id, graphical_object_index=self.graphical_object_index,
@@ -78,6 +114,10 @@ class Label:
 
         return None
 
+    @property
+    def vertical_alignment(self):
+        return self.get_vertical_alignment()
+
     def align_to_left(self):
         if self.libsbmlnetwork.setTextHorizontalAlignment(id=self.element_id, graphical_object_index=self.graphical_object_index,
                                                  text_glyph_index=self.text_glyph_index, text_horizontal_alignment="start"):
@@ -111,6 +151,10 @@ class Label:
 
         return None
 
+    @property
+    def horizontal_alignment(self):
+        return self.get_horizontal_alignment
+
     def get_text(self):
         return self.libsbmlnetwork.getText(id=self.element_id, graphical_object_index=self.graphical_object_index,
                                 text_glyph_index=self.text_glyph_index)
@@ -121,6 +165,14 @@ class Label:
             return True
 
         return False
+
+    @property
+    def text(self):
+        return self.get_text()
+
+    @text.setter
+    def text(self, text: str):
+        self.set_text(text)
 
     def get_font_color(self):
         return self.libsbmlnetwork.getFontColor(id=self.element_id, graphical_object_index=self.graphical_object_index,
@@ -133,6 +185,14 @@ class Label:
 
         return False
 
+    @property
+    def font_color(self):
+        return self.get_font_color()
+
+    @font_color.setter
+    def font_color(self, font_color: str):
+        self.set_font_color(font_color)
+
     def get_font(self):
         return self.libsbmlnetwork.getFontFamily(id=self.element_id, graphical_object_index=self.graphical_object_index,
                                       text_glyph_index=self.text_glyph_index)
@@ -144,6 +204,14 @@ class Label:
 
         return False
 
+    @property
+    def font(self):
+        return self.get_font()
+
+    @font.setter
+    def font(self, font):
+        self.set_font(font)
+
     def get_font_size(self):
         return self.libsbmlnetwork.getFontSize(id=self.element_id, graphical_object_index=self.graphical_object_index,
                                     text_glyph_index=self.text_glyph_index)
@@ -154,6 +222,14 @@ class Label:
             return True
 
         return False
+
+    @property
+    def font_size(self):
+        return self.get_font_size()
+
+    @font_size.setter
+    def font_size(self, font_size: float):
+        self.set_font_size(font_size)
 
     def set_bold(self, bold: bool):
         if bold:
@@ -186,7 +262,21 @@ class Label:
 
     #ToDo hide/show label
 
-    def __str__(self):
+    def move_to(self, position: tuple[float, float]):
+        if self.set_position(position):
+            return True
+
+        return False
+
+    def move_by(self, position: tuple[float, float]):
+        current_position = self.get_position()
+        new_position = (current_position[0] + position[0], current_position[1] + position[1])
+        if self.set_position(new_position):
+            return True
+
+        return False
+
+    def get_info(self):
         return (
             f"text: {self.get_text()}\n"
             f"position: {self.get_position()}\n"
@@ -200,5 +290,9 @@ class Label:
             f"horizontal_alignment: {self.get_horizontal_alignment()}"
         )
 
+    @property
+    def info(self):
+        return self.get_info()
+
     def __repr__(self):
-        return f"Label({self.get_text()})"
+        return f"{self.get_text()}"
