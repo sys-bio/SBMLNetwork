@@ -118,12 +118,12 @@ int createAliasSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, co
     return -1;
 }
 
-int createAliasReactionGlyph(SBMLDocument* document, const std::string& reactionId) {
-    return alias_element_createAliasReactionGlyph(document, getLayout(document), getReactionGlyph(document, reactionId));
+int createAliasReactionGlyph(SBMLDocument* document, const std::string& reactionId, bool alsoAliasSpecies) {
+    return alias_element_createAliasReactionGlyph(document, getLayout(document), getReactionGlyph(document, reactionId), alsoAliasSpecies);
 }
 
-int createAliasReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId) {
-    return alias_element_createAliasReactionGlyph(document, getLayout(document, layoutIndex), getReactionGlyph(document, layoutIndex, reactionId));
+int createAliasReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, bool alsoAliasSpecies) {
+    return alias_element_createAliasReactionGlyph(document, getLayout(document, layoutIndex), getReactionGlyph(document, layoutIndex, reactionId), alsoAliasSpecies);
 }
 
 int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, const unsigned int index) {

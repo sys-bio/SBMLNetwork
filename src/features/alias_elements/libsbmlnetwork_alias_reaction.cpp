@@ -8,11 +8,11 @@
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
-    int alias_element_createAliasReactionGlyph(SBMLDocument* document, Layout* layout, ReactionGlyph* reactionGlyph) {
+    int alias_element_createAliasReactionGlyph(SBMLDocument* document, Layout* layout, ReactionGlyph* reactionGlyph, bool alsoAliasSpecies) {
         if (document && reactionGlyph) {
             double padding = getReactionGlyphs(layout, reactionGlyph->getReactionId()).size() * defaults_getAliasReactionGlyphPadding();
             ReactionGlyph* aliasReactionGlyph = alias_element_createAliasReactionGlyph(layout, reactionGlyph, padding);
-            if (aliasReactionGlyph)
+            if (aliasReactionGlyph && alsoAliasSpecies)
                 return alias_element_createAliasSpeciesReferenceGlyphs(document, layout, reactionGlyph, aliasReactionGlyph, padding);
         }
 

@@ -109,15 +109,17 @@ LIBSBMLNETWORK_EXTERN int createAliasSpeciesGlyph(SBMLDocument* document, unsign
 /// @brief Creates an alias ReactionGlyph object for the Reaction with the given id in the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param reactionId the id of the Reaction to create an alias ReactionGlyph for.
+/// @param alsoAliasSpecies whether to also create alias nodes for all species connected to the reaction.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int createAliasReactionGlyph(SBMLDocument* document, const std::string& reactionId);
+LIBSBMLNETWORK_EXTERN int createAliasReactionGlyph(SBMLDocument* document, const std::string& reactionId, bool alsoAliasSpecies = true);
 
 /// @brief Creates an alias ReactionGlyph object for the Reaction with the given id in the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
 /// @param reactionId the id of the Reaction to create an alias ReactionGlyph for.
+/// @param alsoAliasSpecies whether to also create alias nodes for all species connected to the reaction.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int createAliasReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId);
+LIBSBMLNETWORK_EXTERN int createAliasReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, bool alsoAliasSpecies = true);
 
 /// @brief Sets which SpeciesGlyph of Species with the given id  to be assigned to the ReactionGlyph with the given id and index in the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.

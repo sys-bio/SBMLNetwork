@@ -10,7 +10,7 @@ using namespace libsbml;
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
-int alias_element_createAliasReactionGlyph(SBMLDocument* document, Layout* layout, ReactionGlyph* reactionGlyph);
+int alias_element_createAliasReactionGlyph(SBMLDocument* document, Layout* layout, ReactionGlyph* reactionGlyph, bool alsoAliasSpecies = true);
 
 ReactionGlyph* alias_element_createAliasReactionGlyph(Layout* layout, ReactionGlyph* reactionGlyph, const double& padding = 0.0);
 
