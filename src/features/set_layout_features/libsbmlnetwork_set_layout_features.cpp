@@ -18,7 +18,6 @@ int set_layout_features_setDefaultLayoutFeatures(SBMLDocument* document, Layout*
             set_layout_features_clearGraphicalObjects(layout);
             set_layout_features_setCompartmentGlyphs(model, layout);
             set_layout_features_setReactionGlyphs(model, layout, maxNumConnectedEdges);
-            set_layout_features_setReactionBoundingBoxes(layout);
             set_layout_features_setTextGlyphs(layout);
             user_data_setUserData(layout, "max_num_connected_edges", std::to_string(maxNumConnectedEdges));
             return 0;
