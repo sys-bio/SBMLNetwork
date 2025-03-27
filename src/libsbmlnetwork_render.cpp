@@ -1103,8 +1103,10 @@ bool isSetStrokeColor(Style* style) {
 }
 
 bool isSetStrokeColor(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeColor(getGeometricShape(renderGroup)))
-        return isSetStrokeColor(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetStrokeColor(getGeometricShape(renderGroup, i)))
+            return true;
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->isSetStroke();
@@ -1132,8 +1134,10 @@ const std::string getStrokeColor(Style* style) {
 }
 
 const std::string getStrokeColor(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeColor(getGeometricShape(renderGroup)))
-        return getStrokeColor(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetStrokeColor(getGeometricShape(renderGroup, i)))
+            return getStrokeColor(getGeometricShape(renderGroup, i));
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->getStroke();
@@ -1161,8 +1165,10 @@ int setStrokeColor(Style* style, const std::string& strokeColorId, const std::st
 }
 
 int setStrokeColor(RenderGroup* renderGroup, const std::string& strokeColorId, const std::string& strokeColorValue) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeColor(getGeometricShape(renderGroup)))
-        return setStrokeColor(getGeometricShape(renderGroup), strokeColorId, strokeColorValue);
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetStrokeColor(getGeometricShape(renderGroup, i)))
+            setStrokeColor(getGeometricShape(renderGroup, i), strokeColorId, strokeColorValue);
+    }
 
     if (isRenderGroup(renderGroup) && isValidStrokeColorValue(strokeColorValue, renderGroup)) {
         renderGroup->setStroke(toLowerCase(strokeColorId));
@@ -1256,8 +1262,10 @@ bool isSetStrokeWidth(Style* style) {
 }
 
 bool isSetStrokeWidth(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeWidth(getGeometricShape(renderGroup)))
-        return isSetStrokeWidth(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetStrokeWidth(getGeometricShape(renderGroup, i)))
+            return true;
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->isSetStrokeWidth();
@@ -1285,8 +1293,10 @@ const double getStrokeWidth(Style* style) {
 }
 
 const double getStrokeWidth(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeWidth(getGeometricShape(renderGroup)))
-        return getStrokeWidth(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetStrokeWidth(getGeometricShape(renderGroup, i)))
+            return getStrokeWidth(getGeometricShape(renderGroup, i));
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->getStrokeWidth();
@@ -1314,8 +1324,10 @@ int setStrokeWidth(Style* style, const double& strokeWidth) {
 }
 
 int setStrokeWidth(RenderGroup* renderGroup, const double& strokeWidth) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeWidth(getGeometricShape(renderGroup)))
-        return setStrokeWidth(getGeometricShape(renderGroup), strokeWidth);
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetStrokeWidth(getGeometricShape(renderGroup, i)))
+            setStrokeWidth(getGeometricShape(renderGroup, i), strokeWidth);
+    }
 
     if (isRenderGroup(renderGroup) && isValidStrokeWidthValue(strokeWidth, renderGroup)) {
         renderGroup->setStrokeWidth(strokeWidth);
@@ -1390,8 +1402,10 @@ bool isSetStrokeDashArray(Style* style) {
 }
 
 bool isSetStrokeDashArray(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeDashArray(getGeometricShape(renderGroup)))
-        return isSetStrokeDashArray(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetStrokeDashArray(getGeometricShape(renderGroup, i)))
+            return true;
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->isSetStrokeDashArray();
@@ -1419,8 +1433,10 @@ const std::vector<unsigned int> getStrokeDashArray(Style* style) {
 }
 
 const std::vector<unsigned int> getStrokeDashArray(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeDashArray(getGeometricShape(renderGroup)))
-        return getStrokeDashArray(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetStrokeDashArray(getGeometricShape(renderGroup, i)))
+            return getStrokeDashArray(getGeometricShape(renderGroup, i));
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->getStrokeDashArray();
@@ -1451,8 +1467,10 @@ int setStrokeDashArray(Style* style, const std::vector<unsigned int>& strokeDash
 }
 
 int setStrokeDashArray(RenderGroup* renderGroup, const std::vector<unsigned int>& strokeDashArray) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeDashArray(getGeometricShape(renderGroup)))
-        return setStrokeDashArray(getGeometricShape(renderGroup), strokeDashArray);
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetStrokeDashArray(getGeometricShape(renderGroup, i)))
+            setStrokeDashArray(getGeometricShape(renderGroup, i), strokeDashArray);
+    }
 
     if (isRenderGroup(renderGroup) && isValidStrokeDashArrayValue(strokeDashArray, renderGroup)) {
         renderGroup->setStrokeDashArray(strokeDashArray);
@@ -1496,8 +1514,10 @@ unsigned int getNumStrokeDashes(Style* style) {
 }
 
 unsigned int getNumStrokeDashes(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeDashArray(getGeometricShape(renderGroup)))
-        return getNumStrokeDashes(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetStrokeDashArray(getGeometricShape(renderGroup, i)))
+            return getNumStrokeDashes(getGeometricShape(renderGroup, i));
+    }
 
     if (isRenderGroup(renderGroup))
         return getStrokeDashArray(renderGroup).size();
@@ -1522,8 +1542,10 @@ unsigned int getStrokeDash(Style* style, unsigned int strokeDashIndex) {
 }
 
 unsigned int getStrokeDash(RenderGroup* renderGroup, unsigned int strokeDashIndex) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeDashArray(getGeometricShape(renderGroup)))
-        return getStrokeDash(getGeometricShape(renderGroup), strokeDashIndex);
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetStrokeDashArray(getGeometricShape(renderGroup, i)))
+            return getStrokeDash(getGeometricShape(renderGroup, i), strokeDashIndex);
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->getDashByIndex(strokeDashIndex);
@@ -1567,8 +1589,10 @@ int setStrokeDash(RenderGroup* renderGroup, unsigned int dash) {
 }
 
 int setStrokeDash(RenderGroup* renderGroup, unsigned int strokeDashIndex, unsigned int dash) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeDashArray(getGeometricShape(renderGroup)))
-        return setStrokeDash(getGeometricShape(renderGroup), strokeDashIndex, dash);
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetStrokeDashArray(getGeometricShape(renderGroup, i)))
+            setStrokeDash(getGeometricShape(renderGroup, i), strokeDashIndex, dash);
+    }
 
     if (isRenderGroup(renderGroup) && isValidStrokeDashValue(dash, renderGroup)) {
         renderGroup->setDashByIndex(strokeDashIndex, dash);
@@ -1746,8 +1770,10 @@ bool isSetFontFamily(Style* style) {
 }
 
 bool isSetFontFamily(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetFontFamily(getGeometricShape(renderGroup)))
-        return isSetFontFamily(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetFontFamily(getGeometricShape(renderGroup, i)))
+            return true;
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->isSetFontFamily();
@@ -1775,8 +1801,10 @@ const std::string getFontFamily(Style* style) {
 }
 
 const std::string getFontFamily(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetFontFamily(getGeometricShape(renderGroup)))
-        return getFontFamily(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetFontFamily(getGeometricShape(renderGroup, i)))
+            return getFontFamily(getGeometricShape(renderGroup, i));
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->getFontFamily();
@@ -1804,8 +1832,10 @@ int setFontFamily(Style* style, const std::string& fontFamily) {
 }
 
 int setFontFamily(RenderGroup* renderGroup, const std::string& fontFamily) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetFontFamily(getGeometricShape(renderGroup)))
-        return setFontFamily(getGeometricShape(renderGroup), fontFamily);
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetFontFamily(getGeometricShape(renderGroup, i)))
+            setFontFamily(getGeometricShape(renderGroup, i), fontFamily);
+    }
 
     if (isRenderGroup(renderGroup) && isValidFontFamilyValue(fontFamily, renderGroup)) {
         renderGroup->setFontFamily(fontFamily);
@@ -1988,8 +2018,10 @@ int setFontSizeAsDouble(Style* style, const double& fontSize) {
 }
 
 int setFontSizeAsDouble(RenderGroup* renderGroup, const double& fontSize) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetFontSize(getGeometricShape(renderGroup)))
-        return setFontSizeAsDouble(getGeometricShape(renderGroup), fontSize);
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetFontSize(getGeometricShape(renderGroup, i)))
+            setFontSizeAsDouble(getGeometricShape(renderGroup, i), fontSize);
+    }
 
     if (isRenderGroup(renderGroup)) {
         RelAbsVector fontSizeRelAbs;
@@ -2121,8 +2153,10 @@ bool isSetFontWeight(Style* style) {
 }
 
 bool isSetFontWeight(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetFontWeight(getGeometricShape(renderGroup)))
-        return isSetFontWeight(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetFontWeight(getGeometricShape(renderGroup, i)))
+            return true;
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->isSetFontWeight();
@@ -2150,8 +2184,10 @@ const std::string getFontWeight(Style* style) {
 }
 
 const std::string getFontWeight(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetFontWeight(getGeometricShape(renderGroup)))
-        return getFontWeight(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetFontWeight(getGeometricShape(renderGroup, i)))
+            return getFontWeight(getGeometricShape(renderGroup, i));
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->getFontWeightAsString();
@@ -2179,8 +2215,10 @@ int setFontWeight(Style* style, const std::string& fontWeight) {
 }
 
 int setFontWeight(RenderGroup* renderGroup, const std::string& fontWeight) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetFontWeight(getGeometricShape(renderGroup)))
-        return setFontWeight(getGeometricShape(renderGroup), fontWeight);
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetFontWeight(getGeometricShape(renderGroup, i)))
+            setFontWeight(getGeometricShape(renderGroup, i), fontWeight);
+    }
 
     if (isRenderGroup(renderGroup) && isValidFontWeightValue(fontWeight, renderGroup)) {
         renderGroup->setFontWeight(fontWeight);
@@ -2272,8 +2310,10 @@ bool isSetFontStyle(Style* style) {
 }
 
 bool isSetFontStyle(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetFontStyle(getGeometricShape(renderGroup)))
-        return isSetFontStyle(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetFontStyle(getGeometricShape(renderGroup, i)))
+            return true;
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->isSetFontStyle();
@@ -2301,8 +2341,10 @@ const std::string getFontStyle(Style* style) {
 }
 
 const std::string getFontStyle(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetFontStyle(getGeometricShape(renderGroup)))
-        return getFontStyle(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetFontStyle(getGeometricShape(renderGroup, i)))
+            return getFontStyle(getGeometricShape(renderGroup, i));
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->getFontStyleAsString();
@@ -2330,8 +2372,10 @@ int setFontStyle(Style* style, const std::string& fontStyle) {
 }
 
 int setFontStyle(RenderGroup* renderGroup, const std::string& fontStyle) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetFontStyle(getGeometricShape(renderGroup)))
-        return setFontStyle(getGeometricShape(renderGroup), fontStyle);
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetFontStyle(getGeometricShape(renderGroup, i)))
+            setFontStyle(getGeometricShape(renderGroup, i), fontStyle);
+    }
 
     if (isRenderGroup(renderGroup) && isValidFontStyleValue(fontStyle, renderGroup)) {
         renderGroup->setFontStyle(fontStyle);
@@ -2423,8 +2467,10 @@ bool isSetTextAnchor(Style* style) {
 }
 
 bool isSetTextAnchor(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetTextAnchor(getGeometricShape(renderGroup)))
-        return isSetTextAnchor(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetTextAnchor(getGeometricShape(renderGroup, i)))
+            return true;
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->isSetTextAnchor();
@@ -2452,8 +2498,10 @@ const std::string getTextAnchor(Style* style) {
 }
 
 const std::string getTextAnchor(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetTextAnchor(getGeometricShape(renderGroup)))
-        return getTextAnchor(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetTextAnchor(getGeometricShape(renderGroup, i)))
+            return getTextAnchor(getGeometricShape(renderGroup, i));
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->getTextAnchorAsString();
@@ -2481,8 +2529,10 @@ int setTextAnchor(Style* style, const std::string& textAnchor) {
 }
 
 int setTextAnchor(RenderGroup* renderGroup, const std::string& textAnchor) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetTextAnchor(getGeometricShape(renderGroup)))
-        return setTextAnchor(getGeometricShape(renderGroup), textAnchor);
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetTextAnchor(getGeometricShape(renderGroup, i)))
+            setTextAnchor(getGeometricShape(renderGroup, i), textAnchor);
+    }
 
     if (isRenderGroup(renderGroup) && isValidTextAnchorValue(textAnchor, renderGroup)) {
         renderGroup->setTextAnchor(textAnchor);
@@ -2574,8 +2624,10 @@ bool isSetVTextAnchor(Style* style) {
 }
 
 bool isSetVTextAnchor(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetVTextAnchor(getGeometricShape(renderGroup)))
-        return isSetVTextAnchor(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetVTextAnchor(getGeometricShape(renderGroup, i)))
+            return true;
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->isSetVTextAnchor();
@@ -2603,8 +2655,10 @@ const std::string getVTextAnchor(Style* style) {
 }
 
 const std::string getVTextAnchor(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetVTextAnchor(getGeometricShape(renderGroup)))
-        return getVTextAnchor(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetVTextAnchor(getGeometricShape(renderGroup, i)))
+            return getVTextAnchor(getGeometricShape(renderGroup, i));
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->getVTextAnchorAsString();
@@ -2632,8 +2686,10 @@ int setVTextAnchor(Style* style, const std::string& vtextAnchor) {
 }
 
 int setVTextAnchor(RenderGroup* renderGroup, const std::string& vtextAnchor) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetVTextAnchor(getGeometricShape(renderGroup)))
-        return setVTextAnchor(getGeometricShape(renderGroup), vtextAnchor);
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetVTextAnchor(getGeometricShape(renderGroup, i)))
+            setVTextAnchor(getGeometricShape(renderGroup, i), vtextAnchor);
+    }
 
     if (isRenderGroup(renderGroup) && isValidVTextAnchorValue(vtextAnchor, renderGroup)) {
         renderGroup->setVTextAnchor(vtextAnchor);
@@ -2725,8 +2781,10 @@ bool isSetFillColor(Style* style) {
 }
 
 bool isSetFillColor(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetFillColor(getGeometricShape(renderGroup)))
-        return isSetFillColor(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetFillColor(getGeometricShape(renderGroup, i)))
+            return true;
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->isSetFill();
@@ -2754,8 +2812,10 @@ const std::string getFillColor(Style* style) {
 }
 
 const std::string getFillColor(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetFillColor(getGeometricShape(renderGroup)))
-        return getFillColor(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetFillColor(getGeometricShape(renderGroup, i)))
+            return getFillColor(getGeometricShape(renderGroup, i));
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->getFill();
@@ -2783,8 +2843,9 @@ int setFillColor(Style* style, const std::string& fillColorId, const std::string
 }
 
 int setFillColor(RenderGroup* renderGroup, const std::string& fillColorId, const std::string& fillColorValue) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetFillColor(getGeometricShape(renderGroup))) {
-        return setFillColor(getGeometricShape(renderGroup), fillColorId, fillColorValue);
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetFillColor(getGeometricShape(renderGroup, i)))
+            setFillColor(getGeometricShape(renderGroup, i), fillColorId, fillColorValue);
     }
 
     if (isRenderGroup(renderGroup) && isValidFillColorValue(fillColorValue, renderGroup)) {
@@ -2825,8 +2886,10 @@ int setFillColorAsGradient(Style* style, const std::string& gradientId) {
 }
 
 int setFillColorAsGradient(RenderGroup* renderGroup, const std::string& gradientId) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetFillColor(getGeometricShape(renderGroup)))
-        return setFillColorAsGradient(getGeometricShape(renderGroup), gradientId);
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetFillColor(getGeometricShape(renderGroup, i)))
+            setFillColorAsGradient(getGeometricShape(renderGroup, i), gradientId);
+    }
 
     if (isRenderGroup(renderGroup)) {
         renderGroup->setFill(gradientId);
@@ -2933,8 +2996,10 @@ bool isSetFillRule(Style* style) {
 }
 
 bool isSetFillRule(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetFillRule(getGeometricShape(renderGroup)))
-        return isSetFillRule(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetFillRule(getGeometricShape(renderGroup, i)))
+            return true;
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->isSetFillRule();
@@ -2962,8 +3027,10 @@ const std::string getFillRule(Style* style) {
 }
 
 const std::string getFillRule(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetFillRule(getGeometricShape(renderGroup)))
-        return getFillRule(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetFillRule(getGeometricShape(renderGroup, i)))
+            return getFillRule(getGeometricShape(renderGroup, i));
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->getFillRuleAsString();
@@ -2991,8 +3058,10 @@ int setFillRule(Style* style, const std::string& fillRule) {
 }
 
 int setFillRule(RenderGroup* renderGroup, const std::string& fillRule) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetFillRule(getGeometricShape(renderGroup)))
-        return setFillRule(getGeometricShape(renderGroup), fillRule);
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetFillRule(getGeometricShape(renderGroup, i)))
+            setFillRule(getGeometricShape(renderGroup, i), fillRule);
+    }
 
     if (isRenderGroup(renderGroup) && isValidFillRuleValue(fillRule, renderGroup)) {
         renderGroup->setFillRule(fillRule);
@@ -3048,8 +3117,10 @@ bool isSetStartHead(Style* style) {
 }
 
 bool isSetStartHead(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetStartHead(getGeometricShape(renderGroup)))
-        return isSetStartHead(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetStartHead(getGeometricShape(renderGroup, i)))
+            return true;
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->isSetStartHead();
@@ -3077,8 +3148,10 @@ const std::string getStartHead(Style* style) {
 }
 
 const std::string getStartHead(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetStartHead(getGeometricShape(renderGroup)))
-        return getStartHead(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetStartHead(getGeometricShape(renderGroup, i)))
+            return getStartHead(getGeometricShape(renderGroup, i));
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->getStartHead();
@@ -3106,8 +3179,10 @@ int setStartHead(Style* style, const std::string& startHead) {
 }
 
 int setStartHead(RenderGroup* renderGroup, const std::string& startHead) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetStartHead(getGeometricShape(renderGroup)))
-        return setStartHead(getGeometricShape(renderGroup), startHead);
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetStartHead(getGeometricShape(renderGroup, i)))
+            setStartHead(getGeometricShape(renderGroup, i), startHead);
+    }
 
     if (isRenderGroup(renderGroup) && isValidStartHeadValue(startHead, renderGroup)) {
         renderGroup->setStartHead(startHead);
@@ -3139,8 +3214,10 @@ bool isSetEndHead(Style* style) {
 }
 
 bool isSetEndHead(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetEndHead(getGeometricShape(renderGroup)))
-        return isSetEndHead(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetEndHead(getGeometricShape(renderGroup, i)))
+            return true;
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->isSetEndHead();
@@ -3168,8 +3245,10 @@ const std::string getEndHead(Style* style) {
 }
 
 const std::string getEndHead(RenderGroup* renderGroup) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetEndHead(getGeometricShape(renderGroup)))
-        return getEndHead(getGeometricShape(renderGroup));
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetEndHead(getGeometricShape(renderGroup, i)))
+            return getEndHead(getGeometricShape(renderGroup, i));
+    }
 
     if (isRenderGroup(renderGroup))
         return renderGroup->getEndHead();
@@ -3197,8 +3276,10 @@ int setEndHead(Style* style, const std::string& endHead) {
 }
 
 int setEndHead(RenderGroup* renderGroup, const std::string& endHead) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetEndHead(getGeometricShape(renderGroup)))
-        return setEndHead(getGeometricShape(renderGroup), endHead);
+    for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+        if (isSetEndHead(getGeometricShape(renderGroup, i)))
+            setEndHead(getGeometricShape(renderGroup, i), endHead);
+    }
 
     if (isRenderGroup(renderGroup) && isValidEndHeadValue(endHead, renderGroup)) {
         renderGroup->setEndHead(endHead);
