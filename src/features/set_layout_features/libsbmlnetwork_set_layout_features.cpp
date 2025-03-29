@@ -192,10 +192,10 @@ SpeciesGlyph* set_layout_features_createEmptySpeciesGlyph(Model* model, Layout* 
     }
     std::string fixedWidth = user_data_getUserData(emptySpeciesGlyph, "width");
     if (fixedWidth.empty())
-        user_data_setUserData(emptySpeciesGlyph, "width", std::to_string(2* defaults_getEmptySpeciesDefaultRadius()));
+        user_data_setUserData(emptySpeciesGlyph, "width", std::to_string(defaults_getEmptySpeciesDefaultWidth()));
     std::string fixedHeight = user_data_getUserData(emptySpeciesGlyph, "height");
     if (fixedHeight.empty())
-        user_data_setUserData(emptySpeciesGlyph, "height", std::to_string(2* defaults_getEmptySpeciesDefaultRadius()));
+        user_data_setUserData(emptySpeciesGlyph, "height", std::to_string(defaults_getEmptySpeciesDefaultHeight()));
 
     return emptySpeciesGlyph;
 }

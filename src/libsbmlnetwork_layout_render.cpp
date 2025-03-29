@@ -1,5 +1,6 @@
 #include "libsbmlnetwork_layout_render.h"
 #include "libsbmlnetwork_layout.h"
+#include "libsbmlnetwork_layout_helpers.h"
 #include "libsbmlnetwork_render.h"
 #include "libsbmlnetwork_render_helpers.h"
 
@@ -140,6 +141,29 @@ int setSpeciesReferenceStrokeColor(Layout* layout, LocalRenderInformation* local
     return 0;
 }
 
+int setEmptySpeciesStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& strokeColor) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                style = getStyleById(localRenderInformation, emptySpeciesGlyphId);
+                if (style) {
+                    std::string colorId = addColor(localRenderInformation, strokeColor);
+                    if (setStrokeColor(style, colorId, getValue(localRenderInformation, colorId)))
+                        return -1;
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
 int setCompartmentStrokeWidth(Layout* layout, LocalRenderInformation* localRenderInformation, const double& width) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
@@ -199,6 +223,28 @@ int setSpeciesReferenceStrokeWidth(Layout* layout, LocalRenderInformation* local
             if (style) {
                 if (setStrokeWidth(style, width))
                     return -1;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesStrokeWidth(Layout* layout, LocalRenderInformation* localRenderInformation, const double& width) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                style = getStyleById(localRenderInformation, emptySpeciesGlyphId);
+                if (style) {
+                    if (setStrokeWidth(style, width))
+                        return -1;
+                }
+                break;
             }
         }
     }
@@ -266,6 +312,32 @@ int setReactionFontColor(Layout* layout, LocalRenderInformation* localRenderInfo
     return 0;
 }
 
+int setEmptySpeciesFontColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontColor) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                std::vector<TextGlyph*> textGlyphs = getTextGlyphs(layout, emptySpeciesGlyphId);
+                for (unsigned int k = 0; k < textGlyphs.size(); k++) {
+                    style = getStyleById(localRenderInformation, textGlyphs.at(k));
+                    if (style) {
+                        std::string colorId = addColor(localRenderInformation, fontColor);
+                        if (setFontColor(style, colorId, getValue(localRenderInformation, colorId)))
+                            return -1;
+                    }
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
 int setCompartmentFontFamily(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontFamily) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
@@ -316,6 +388,31 @@ int setReactionFontFamily(Layout* layout, LocalRenderInformation* localRenderInf
             if (style) {
                 if (setFontFamily(style, fontFamily))
                     return -1;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesFontFamily(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontFamily) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                std::vector<TextGlyph*> textGlyphs = getTextGlyphs(layout, emptySpeciesGlyphId);
+                for (unsigned int k = 0; k < textGlyphs.size(); k++) {
+                    style = getStyleById(localRenderInformation, textGlyphs.at(k));
+                    if (style) {
+                        if (setFontFamily(style, fontFamily))
+                            return -1;
+                    }
+                }
+                break;
             }
         }
     }
@@ -407,6 +504,40 @@ int setReactionFontSizeAsDouble(Layout* layout, LocalRenderInformation* localRen
     return setReactionFontSize(layout, localRenderInformation, fontSizeVector);
 }
 
+int setEmptySpeciesFontSize(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& fontSize) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                std::vector<TextGlyph*> textGlyphs = getTextGlyphs(layout, emptySpeciesGlyphId);
+                for (unsigned int k = 0; k < textGlyphs.size(); k++) {
+                    style = getStyleById(localRenderInformation, textGlyphs.at(k));
+                    if (style) {
+                        if (setFontSize(style, fontSize))
+                            return -1;
+                    }
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesFontSizeAsDouble(Layout* layout, LocalRenderInformation* localRenderInformation, const double& fontSize) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    RelAbsVector fontSizeVector;
+    fontSizeVector.setAbsoluteValue(fontSize);
+    return setEmptySpeciesFontSize(layout, localRenderInformation, fontSizeVector);
+}
+
 int setCompartmentFontWeight(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontWeight) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
@@ -457,6 +588,31 @@ int setReactionFontWeight(Layout* layout, LocalRenderInformation* localRenderInf
             if (style) {
                 if (setFontWeight(style, fontWeight))
                     return -1;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesFontWeight(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontWeight) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                std::vector<TextGlyph*> textGlyphs = getTextGlyphs(layout, emptySpeciesGlyphId);
+                for (unsigned int k = 0; k < textGlyphs.size(); k++) {
+                    style = getStyleById(localRenderInformation, textGlyphs.at(k));
+                    if (style) {
+                        if (setFontWeight(style, fontWeight))
+                            return -1;
+                    }
+                }
+                break;
             }
         }
     }
@@ -521,6 +677,31 @@ int setReactionFontStyle(Layout* layout, LocalRenderInformation* localRenderInfo
     return 0;
 }
 
+int setEmptySpeciesFontStyle(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontStyle) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                std::vector<TextGlyph*> textGlyphs = getTextGlyphs(layout, emptySpeciesGlyphId);
+                for (unsigned int k = 0; k < textGlyphs.size(); k++) {
+                    style = getStyleById(localRenderInformation, textGlyphs.at(k));
+                    if (style) {
+                        if (setFontStyle(style, fontStyle))
+                            return -1;
+                    }
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
 int setCompartmentTextAnchor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& textAnchor) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
@@ -578,6 +759,31 @@ int setReactionTextAnchor(Layout* layout, LocalRenderInformation* localRenderInf
     return 0;
 }
 
+int setEmptySpeciesTextAnchor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& textAnchor) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                std::vector<TextGlyph*> textGlyphs = getTextGlyphs(layout, emptySpeciesGlyphId);
+                for (unsigned int k = 0; k < textGlyphs.size(); k++) {
+                    style = getStyleById(localRenderInformation, textGlyphs.at(k));
+                    if (style) {
+                        if (setTextAnchor(style, textAnchor))
+                            return -1;
+                    }
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
 int setCompartmentVTextAnchor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& vTextAnchor) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
@@ -628,6 +834,31 @@ int setReactionVTextAnchor(Layout* layout, LocalRenderInformation* localRenderIn
             if (style) {
                 if (setVTextAnchor(style, vTextAnchor))
                     return -1;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesVTextAnchor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& vTextAnchor) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                std::vector<TextGlyph*> textGlyphs = getTextGlyphs(layout, emptySpeciesGlyphId);
+                for (unsigned int k = 0; k < textGlyphs.size(); k++) {
+                    style = getStyleById(localRenderInformation, textGlyphs.at(k));
+                    if (style) {
+                        if (setVTextAnchor(style, vTextAnchor))
+                            return -1;
+                    }
+                }
+                break;
             }
         }
     }
@@ -734,6 +965,51 @@ int setReactionFillColorAsGradient(Layout* layout, LocalRenderInformation* local
     return 0;
 }
 
+int setEmptySpeciesFillColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillColor) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                style = getStyleById(localRenderInformation, emptySpeciesGlyphId);
+                if (style) {
+                    std::string colorId = addColor(localRenderInformation, fillColor);
+                    if (setFillColor(style, colorId, getValue(localRenderInformation, colorId)))
+                        return -1;
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesFillColorAsGradient(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& gradientId) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                style = getStyleById(localRenderInformation, emptySpeciesGlyphId);
+                if (style) {
+                    if (setFillColorAsGradient(style, gradientId))
+                        return -1;
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
 int setCompartmentFillRule(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillRule) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
@@ -782,6 +1058,28 @@ int setReactionFillRule(Layout* layout, LocalRenderInformation* localRenderInfor
     return 0;
 }
 
+int setEmptySpeciesFillRule(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillRule) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                style = getStyleById(localRenderInformation, emptySpeciesGlyphId);
+                if (style) {
+                    if (setFillRule(style, fillRule))
+                        return -1;
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
 int setCompartmentGeometricShapeType(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& shape) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
@@ -824,6 +1122,28 @@ int setReactionGeometricShapeType(Layout* layout, LocalRenderInformation* localR
         if (style) {
             if (setGeometricShapeType(style, shape))
                 return -1;
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesGeometricShapeType(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& shape) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                style = getStyleById(localRenderInformation, emptySpeciesGlyphId);
+                if (style) {
+                    if (setGeometricShapeType(style, shape))
+                        return -1;
+                }
+                break;
+            }
         }
     }
 
@@ -905,6 +1225,34 @@ int setReactionGeometricShapeXAsDouble(Layout* layout, LocalRenderInformation* l
     return setReactionGeometricShapeX(layout, localRenderInformation, xVector);
 }
 
+int setEmptySpeciesGeometricShapeX(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& x) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                style = getStyleById(localRenderInformation, emptySpeciesGlyphId);
+                if (style) {
+                    if (setGeometricShapeX(style, x))
+                        return -1;
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesGeometricShapeXAsDouble(Layout* layout, LocalRenderInformation* localRenderInformation, const double& x) {
+    RelAbsVector xVector;
+    xVector.setAbsoluteValue(x);
+    return setEmptySpeciesGeometricShapeX(layout, localRenderInformation, xVector);
+}
+
 int setCompartmentGeometricShapeY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& y) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
@@ -969,6 +1317,34 @@ int setReactionGeometricShapeYAsDouble(Layout* layout, LocalRenderInformation* l
     RelAbsVector yVector;
     yVector.setAbsoluteValue(y);
     return setReactionGeometricShapeY(layout, localRenderInformation, yVector);
+}
+
+int setEmptySpeciesGeometricShapeY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& y) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                style = getStyleById(localRenderInformation, emptySpeciesGlyphId);
+                if (style) {
+                    if (setGeometricShapeY(style, y))
+                        return -1;
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesGeometricShapeYAsDouble(Layout* layout, LocalRenderInformation* localRenderInformation, const double& y) {
+    RelAbsVector yVector;
+    yVector.setAbsoluteValue(y);
+    return setEmptySpeciesGeometricShapeY(layout, localRenderInformation, yVector);
 }
 
 int setCompartmentGeometricShapeWidth(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& width) {
@@ -1037,6 +1413,34 @@ int setReactionGeometricShapeWidthAsDouble(Layout* layout, LocalRenderInformatio
     return setReactionGeometricShapeWidth(layout, localRenderInformation, widthVector);
 }
 
+int setEmptySpeciesGeometricShapeWidth(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& width) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                style = getStyleById(localRenderInformation, emptySpeciesGlyphId);
+                if (style) {
+                    if (setGeometricShapeWidth(style, width))
+                        return -1;
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesGeometricShapeWidthAsDouble(Layout* layout, LocalRenderInformation* localRenderInformation, const double& width) {
+    RelAbsVector widthVector;
+    widthVector.setAbsoluteValue(width);
+    return setEmptySpeciesGeometricShapeWidth(layout, localRenderInformation, widthVector);
+}
+
 int setCompartmentGeometricShapeHeight(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& height) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
@@ -1103,6 +1507,34 @@ int setReactionGeometricShapeHeightAsDouble(Layout* layout, LocalRenderInformati
     return setReactionGeometricShapeHeight(layout, localRenderInformation, heightVector);
 }
 
+int setEmptySpeciesGeometricShapeHeight(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& height) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                style = getStyleById(localRenderInformation, emptySpeciesGlyphId);
+                if (style) {
+                    if (setGeometricShapeHeight(style, height))
+                        return -1;
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesGeometricShapeHeightAsDouble(Layout* layout, LocalRenderInformation* localRenderInformation, const double& height) {
+    RelAbsVector heightVector;
+    heightVector.setAbsoluteValue(height);
+    return setEmptySpeciesGeometricShapeHeight(layout, localRenderInformation, heightVector);
+}
+
 int setCompartmentGeometricShapeRatio(Layout* layout, LocalRenderInformation* localRenderInformation, const double& ratio) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
@@ -1142,6 +1574,28 @@ int setReactionGeometricShapeRatio(Layout* layout, LocalRenderInformation* local
         if (style) {
             if (setGeometricShapeRatio(style, ratio))
                 return -1;
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesGeometricShapeRatio(Layout* layout, LocalRenderInformation* localRenderInformation, const double& ratio) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                style = getStyleById(localRenderInformation, emptySpeciesGlyphId);
+                if (style) {
+                    if (setGeometricShapeRatio(style, ratio))
+                        return -1;
+                }
+                break;
+            }
         }
     }
 
@@ -1214,6 +1668,34 @@ int setReactionGeometricShapeCornerCurvatureRadiusXAsDouble(Layout* layout, Loca
     return setReactionGeometricShapeCornerCurvatureRadiusX(layout, localRenderInformation, radiusXVector);
 }
 
+int setEmptySpeciesGeometricShapeCornerCurvatureRadiusX(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& radiusX) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                style = getStyleById(localRenderInformation, emptySpeciesGlyphId);
+                if (style) {
+                    if (setGeometricShapeCornerCurvatureRadiusX(style, radiusX))
+                        return -1;
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesGeometricShapeCornerCurvatureRadiusXAsDouble(Layout* layout, LocalRenderInformation* localRenderInformation, const double& radiusX) {
+    RelAbsVector radiusXVector;
+    radiusXVector.setAbsoluteValue(radiusX);
+    return setEmptySpeciesGeometricShapeCornerCurvatureRadiusX(layout, localRenderInformation, radiusXVector);
+}
+
 int setCompartmentGeometricShapeCornerCurvatureRadiusY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& radiusY) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
@@ -1278,6 +1760,34 @@ int setReactionGeometricShapeCornerCurvatureRadiusYAsDouble(Layout* layout, Loca
     RelAbsVector radiusYVector;
     radiusYVector.setAbsoluteValue(radiusY);
     return setReactionGeometricShapeCornerCurvatureRadiusY(layout, localRenderInformation, radiusYVector);
+}
+
+int setEmptySpeciesGeometricShapeCornerCurvatureRadiusY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& radiusY) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                style = getStyleById(localRenderInformation, emptySpeciesGlyphId);
+                if (style) {
+                    if (setGeometricShapeCornerCurvatureRadiusY(style, radiusY))
+                        return -1;
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesGeometricShapeCornerCurvatureRadiusYAsDouble(Layout* layout, LocalRenderInformation* localRenderInformation, const double& radiusY) {
+    RelAbsVector radiusYVector;
+    radiusYVector.setAbsoluteValue(radiusY);
+    return setEmptySpeciesGeometricShapeCornerCurvatureRadiusY(layout, localRenderInformation, radiusYVector);
 }
 
 int setCompartmentGeometricShapeCenterX(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& centerX) {
@@ -1346,6 +1856,34 @@ int setReactionGeometricShapeCenterXAsDouble(Layout* layout, LocalRenderInformat
     return setReactionGeometricShapeCenterX(layout, localRenderInformation, centerXVector);
 }
 
+int setEmptySpeciesGeometricShapeCenterX(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& centerX) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                style = getStyleById(localRenderInformation, emptySpeciesGlyphId);
+                if (style) {
+                    if (setGeometricShapeCenterX(style, centerX))
+                        return -1;
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesGeometricShapeCenterXAsDouble(Layout* layout, LocalRenderInformation* localRenderInformation, const double& centerX) {
+    RelAbsVector centerXVector;
+    centerXVector.setAbsoluteValue(centerX);
+    return setEmptySpeciesGeometricShapeCenterX(layout, localRenderInformation, centerXVector);
+}
+
 int setCompartmentGeometricShapeCenterY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& centerY) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
@@ -1410,6 +1948,34 @@ int setReactionGeometricShapeCenterYAsDouble(Layout* layout, LocalRenderInformat
     RelAbsVector centerYVector;
     centerYVector.setAbsoluteValue(centerY);
     return setReactionGeometricShapeCenterY(layout, localRenderInformation, centerYVector);
+}
+
+int setEmptySpeciesGeometricShapeCenterY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& centerY) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                style = getStyleById(localRenderInformation, emptySpeciesGlyphId);
+                if (style) {
+                    if (setGeometricShapeCenterY(style, centerY))
+                        return -1;
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesGeometricShapeCenterYAsDouble(Layout* layout, LocalRenderInformation* localRenderInformation, const double& centerY) {
+    RelAbsVector centerYVector;
+    centerYVector.setAbsoluteValue(centerY);
+    return setEmptySpeciesGeometricShapeCenterY(layout, localRenderInformation, centerYVector);
 }
 
 int setCompartmentGeometricShapeRadiusX(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& radiusX) {
@@ -1478,6 +2044,34 @@ int setReactionGeometricShapeRadiusXAsDouble(Layout* layout, LocalRenderInformat
     return setReactionGeometricShapeRadiusX(layout, localRenderInformation, radiusXVector);
 }
 
+int setEmptySpeciesGeometricShapeRadiusX(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& radiusX) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                style = getStyleById(localRenderInformation, emptySpeciesGlyphId);
+                if (style) {
+                    if (setGeometricShapeRadiusX(style, radiusX))
+                        return -1;
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesGeometricShapeRadiusXAsDouble(Layout* layout, LocalRenderInformation* localRenderInformation, const double& radiusX) {
+    RelAbsVector radiusXVector;
+    radiusXVector.setAbsoluteValue(radiusX);
+    return setEmptySpeciesGeometricShapeRadiusX(layout, localRenderInformation, radiusXVector);
+}
+
 int setCompartmentGeometricShapeRadiusY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& radiusY) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
@@ -1542,6 +2136,34 @@ int setReactionGeometricShapeRadiusYAsDouble(Layout* layout, LocalRenderInformat
     RelAbsVector radiusYVector;
     radiusYVector.setAbsoluteValue(radiusY);
     return setReactionGeometricShapeRadiusY(layout, localRenderInformation, radiusYVector);
+}
+
+int setEmptySpeciesGeometricShapeRadiusY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& radiusY) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                style = getStyleById(localRenderInformation, emptySpeciesGlyphId);
+                if (style) {
+                    if (setGeometricShapeRadiusY(style, radiusY))
+                        return -1;
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesGeometricShapeRadiusYAsDouble(Layout* layout, LocalRenderInformation* localRenderInformation, const double& radiusY) {
+    RelAbsVector radiusYVector;
+    radiusYVector.setAbsoluteValue(radiusY);
+    return setEmptySpeciesGeometricShapeRadiusY(layout, localRenderInformation, radiusYVector);
 }
 
 int setCompartmentGeometricShapeElementX(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& elementX) {
@@ -1610,6 +2232,34 @@ int setReactionGeometricShapeElementXAsDouble(Layout* layout, LocalRenderInforma
     return setReactionGeometricShapeElementX(layout, localRenderInformation, elementXVector);
 }
 
+int setEmptySpeciesGeometricShapeElementX(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& elementX) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                style = getStyleById(localRenderInformation, emptySpeciesGlyphId);
+                if (style) {
+                    if (setGeometricShapeElementX(style, elementX))
+                        return -1;
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesGeometricShapeElementXAsDouble(Layout* layout, LocalRenderInformation* localRenderInformation, const double& elementX) {
+    RelAbsVector elementXVector;
+    elementXVector.setAbsoluteValue(elementX);
+    return setEmptySpeciesGeometricShapeElementX(layout, localRenderInformation, elementXVector);
+}
+
 int setCompartmentGeometricShapeElementY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& elementY) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
@@ -1673,6 +2323,34 @@ int setReactionGeometricShapeElementYAsDouble(Layout* layout, LocalRenderInforma
     return setReactionGeometricShapeElementY(layout, localRenderInformation, elementYVector);
 }
 
+int setEmptySpeciesGeometricShapeElementY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& elementY) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                style = getStyleById(localRenderInformation, emptySpeciesGlyphId);
+                if (style) {
+                    if (setGeometricShapeElementY(style, elementY))
+                        return -1;
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesGeometricShapeElementYAsDouble(Layout* layout, LocalRenderInformation* localRenderInformation, const double& elementY) {
+    RelAbsVector elementYVector;
+    elementYVector.setAbsoluteValue(elementY);
+    return setEmptySpeciesGeometricShapeElementY(layout, localRenderInformation, elementYVector);
+}
+
 int setCompartmentGeometricShapeBasePoint1X(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& basePoint1X) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
@@ -1734,6 +2412,34 @@ int setReactionGeometricShapeBasePoint1XAsDouble(Layout* layout, LocalRenderInfo
     RelAbsVector basePoint1XVector;
     basePoint1XVector.setAbsoluteValue(basePoint1X);
     return setReactionGeometricShapeBasePoint1X(layout, localRenderInformation, basePoint1XVector);
+}
+
+int setEmptySpeciesGeometricShapeBasePoint1X(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& basePoint1X) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                style = getStyleById(localRenderInformation, emptySpeciesGlyphId);
+                if (style) {
+                    if (setGeometricShapeBasePoint1X(style, basePoint1X))
+                        return -1;
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesGeometricShapeBasePoint1XAsDouble(Layout* layout, LocalRenderInformation* localRenderInformation, const double& basePoint1X) {
+    RelAbsVector basePoint1XVector;
+    basePoint1XVector.setAbsoluteValue(basePoint1X);
+    return setEmptySpeciesGeometricShapeBasePoint1X(layout, localRenderInformation, basePoint1XVector);
 }
 
 int setCompartmentGeometricShapeBasePoint1Y(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& basePoint1Y) {
@@ -1802,6 +2508,34 @@ int setReactionGeometricShapeBasePoint1YAsDouble(Layout* layout, LocalRenderInfo
     return setReactionGeometricShapeBasePoint1Y(layout, localRenderInformation, basePoint1YVector);
 }
 
+int setEmptySpeciesGeometricShapeBasePoint1Y(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& basePoint1Y) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                style = getStyleById(localRenderInformation, emptySpeciesGlyphId);
+                if (style) {
+                    if (setGeometricShapeBasePoint1Y(style, basePoint1Y))
+                        return -1;
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesGeometricShapeBasePoint1YAsDouble(Layout* layout, LocalRenderInformation* localRenderInformation, const double& basePoint1Y) {
+    RelAbsVector basePoint1YVector;
+    basePoint1YVector.setAbsoluteValue(basePoint1Y);
+    return setEmptySpeciesGeometricShapeBasePoint1Y(layout, localRenderInformation, basePoint1YVector);
+}
+
 int setCompartmentGeometricShapeBasePoint2X(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& basePoint2X) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
@@ -1866,6 +2600,34 @@ int setReactionGeometricShapeBasePoint2XAsDouble(Layout* layout, LocalRenderInfo
     RelAbsVector basePoint2XVector;
     basePoint2XVector.setAbsoluteValue(basePoint2X);
     return setReactionGeometricShapeBasePoint2X(layout, localRenderInformation, basePoint2XVector);
+}
+
+int setEmptySpeciesGeometricShapeBasePoint2X(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& basePoint2X) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                style = getStyleById(localRenderInformation, emptySpeciesGlyphId);
+                if (style) {
+                    if (setGeometricShapeBasePoint2X(style, basePoint2X))
+                        return -1;
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesGeometricShapeBasePoint2XAsDouble(Layout* layout, LocalRenderInformation* localRenderInformation, const double& basePoint2X) {
+    RelAbsVector basePoint2XVector;
+    basePoint2XVector.setAbsoluteValue(basePoint2X);
+    return setEmptySpeciesGeometricShapeBasePoint2X(layout, localRenderInformation, basePoint2XVector);
 }
 
 int setCompartmentGeometricShapeBasePoint2Y(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& basePoint2Y) {
@@ -1934,6 +2696,34 @@ int setReactionGeometricShapeBasePoint2YAsDouble(Layout* layout, LocalRenderInfo
     return setReactionGeometricShapeBasePoint2Y(layout, localRenderInformation, basePoint2YVector);
 }
 
+int setEmptySpeciesGeometricShapeBasePoint2Y(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& basePoint2Y) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                style = getStyleById(localRenderInformation, emptySpeciesGlyphId);
+                if (style) {
+                    if (setGeometricShapeBasePoint2Y(style, basePoint2Y))
+                        return -1;
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesGeometricShapeBasePoint2YAsDouble(Layout* layout, LocalRenderInformation* localRenderInformation, const double& basePoint2Y) {
+    RelAbsVector basePoint2YVector;
+    basePoint2YVector.setAbsoluteValue(basePoint2Y);
+    return setEmptySpeciesGeometricShapeBasePoint2Y(layout, localRenderInformation, basePoint2YVector);
+}
+
 int setCompartmentGeometricShapeHref(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& href) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
@@ -1973,6 +2763,29 @@ int setReactionGeometricShapeHref(Layout* layout, LocalRenderInformation* localR
         if (style) {
             if (setGeometricShapeHref(style, href))
                 return -1;
+        }
+    }
+
+    return 0;
+}
+
+int setEmptySpeciesGeometricShapeHref(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& href) {
+    if (layout == NULL || localRenderInformation == NULL)
+        return -1;
+
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            std::string emptySpeciesGlyphId = getEmptySpeciesGlyphId(layout, layout->getReactionGlyph(
+                    i)->getSpeciesReferenceGlyph(j));
+            if (!emptySpeciesGlyphId.empty()) {
+                style = getStyleById(localRenderInformation, emptySpeciesGlyphId);
+                if (style) {
+                    if (setGeometricShapeHref(style, href))
+                        return -1;
+                }
+                break;
+            }
         }
     }
 

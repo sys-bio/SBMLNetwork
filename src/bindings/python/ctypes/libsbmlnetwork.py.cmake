@@ -7989,6 +7989,32 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineColors(self.sbml_object, str(line_color).encode(), layout_index)
 
+    def getEmptySpeciesBorderColor(self):
+        """
+        Returns the default border color of the EmptySetGlyph objects in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the default border color of the EmptySetGlyph objects in the given SBMLDocument
+        """
+        lib.c_api_getEmptySpeciesBorderColor.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getEmptySpeciesBorderColor(self.sbml_object)).value.decode()
+
+    def setEmptySpeciesBorderColor(self, border_color, layout_index=0):
+        """
+        Sets the border color of all the EmptySetGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - border_color (string): a string that determines the border color of the EmptySetGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the border color of all the EmptySetGlyph object could not be set
+        """
+        return lib.c_api_setEmptySpeciesBorderColor(self.sbml_object, str(border_color).encode(), layout_index)
+
     def isSetBorderWidth(self, id, graphical_object_index=0, layout_index=0):
         """
         Returns whether the border width of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set
@@ -8326,6 +8352,32 @@ class LibSBMLNetwork:
             true on success and false if the line dash could not be set
         """
         return lib.c_api_setLineDash(self.sbml_object, str(id).encode(), dash, line_dash_index, graphical_object_index, layout_index)
+
+    def getEmptySpeciesBorderWidth(self):
+        """
+        Returns the default border width of the EmptySetGlyph objects in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the default border width of the EmptySetGlyph objects in the given SBMLDocument
+        """
+        lib.c_api_getEmptySpeciesBorderWidth.restype = ctypes.c_double
+        return lib.c_api_getEmptySpeciesBorderWidth(self.sbml_object)
+
+    def setEmptySpeciesBorderWidth(self, border_width, layout_index=0):
+        """
+        Sets the border width of all the EmptySetGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - border_width (float): a float that determines the border width of the EmptySetGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the border width of all the EmptySetGlyph object could not be set
+        """
+        return lib.c_api_setEmptySpeciesBorderWidth(self.sbml_object, ctypes.c_double(border_width), layout_index)
 
     def isSetFillColor(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -8691,6 +8743,32 @@ class LibSBMLNetwork:
 
         return lib.c_api_setFillColorsAsGradient(self.sbml_object, str(gradient_type).encode(), stop_colors_ptr, stop_offsets_ptr, len(stop_colors), layout_index)
 
+    def getEmptySpeciesFillColor(self):
+        """
+        Returns the default fill color of the EmptySetGlyph objects in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the default fill color of the EmptySetGlyph objects in the given SBMLDocument
+        """
+        lib.c_api_getEmptySpeciesFillColor.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getEmptySpeciesFillColor(self.sbml_object)).value.decode()
+
+    def setEmptySpeciesFillColor(self, fill_color, layout_index=0):
+        """
+        Sets the fill color of all the EmptySetGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - fill_color (string): a string that determines the fill color of the EmptySetGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the fill color of all the EmptySetGlyph object could not be set
+        """
+        return lib.c_api_setEmptySpeciesFillColor(self.sbml_object, str(fill_color).encode(), layout_index)
+
     def isSetFillRule(self, id, graphical_object_index=0, layout_index=0):
         """
         Returns whether the fill rule of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set
@@ -8756,6 +8834,32 @@ class LibSBMLNetwork:
             true on success and false if the fill rule of all the GraphicalObject object could not be set
         """
         return lib.c_api_setFillRules(self.sbml_object, str(fill_rule).encode(), layout_index)
+
+    def getEmptySpeciesFillRule(self):
+        """
+        Returns the default fill rule of the EmptySetGlyph objects in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the default fill rule of the EmptySetGlyph objects in the given SBMLDocument
+        """
+        lib.c_api_getEmptySpeciesFillRule.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getEmptySpeciesFillRule(self.sbml_object)).value.decode()
+
+    def setEmptySpeciesFillRule(self, fill_rule, layout_index=0):
+        """
+        Sets the fill rule of all the EmptySetGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - fill_rule (string): a string that determines the fill rule of the EmptySetGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the fill rule of all the EmptySetGlyph object could not be set
+        """
+        return lib.c_api_setEmptySpeciesFillRule(self.sbml_object, str(fill_rule).encode(), layout_index)
 
     def isSetFontColor(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
@@ -8902,6 +9006,32 @@ class LibSBMLNetwork:
             true on success and false if the font color of all the GraphicalObject object could not be set
         """
         return lib.c_api_setFontColors(self.sbml_object, str(font_color).encode(), layout_index)
+
+    def getEmptySpeciesFontColor(self):
+        """
+        Returns the default font color of the EmptySetGlyph objects in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the default font color of the EmptySetGlyph objects in the given SBMLDocument
+        """
+        lib.c_api_getEmptySpeciesFontColor.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getEmptySpeciesFontColor(self.sbml_object)).value.decode()
+
+    def setEmptySpeciesFontColor(self, font_color, layout_index=0):
+        """
+        Sets the font color of all the EmptySetGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - font_color (string): a string that determines the font color of the EmptySetGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the font color of all the EmptySetGlyph object could not be set
+        """
+        return lib.c_api_setEmptySpeciesFontColor(self.sbml_object, str(font_color).encode(), layout_index)
 
     def isSetFontFamily(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
@@ -9050,6 +9180,33 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setFontFamilies(self.sbml_object, str(font_family).encode(), layout_index)
 
+    def getEmptySpeciesFontFamily(self):
+        """
+        Returns the default font family of the EmptySetGlyph objects in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the default font family of the EmptySetGlyph objects in the given SBMLDocument
+        """
+        lib.c_api_getEmptySpeciesFontFamily.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getEmptySpeciesFontFamily(self.sbml_object)).value.decode()
+
+    def setEmptySpeciesFontFamily(self, font_family, layout_index=0):
+        """
+        Sets the font family of all the EmptySetGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - font_family (string): a string that determines the font family of the EmptySetGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the font family of all the EmptySetGlyph object could not be set
+        """
+        return lib.c_api_setEmptySpeciesFontFamily(self.sbml_object, str(font_family).encode(), layout_index)
+
+
     def isSetFontSize(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
         Returns whether the font size of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument is set
@@ -9196,6 +9353,32 @@ class LibSBMLNetwork:
             true on success and false if the font size of all the GraphicalObject object could not be set
         """
         return lib.c_api_setFontSizes(self.sbml_object, ctypes.c_double(font_size), layout_index)
+
+    def getEmptySpeciesFontSize(self):
+        """
+        Returns the default font size of the EmptySetGlyph objects in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the default font size of the EmptySetGlyph objects in the given SBMLDocument
+        """
+        lib.c_api_getEmptySpeciesFontSize.restype = ctypes.c_double
+        return lib.c_api_getEmptySpeciesFontSize(self.sbml_object)
+
+    def setEmptySpeciesFontSize(self, font_size, layout_index=0):
+        """
+        Sets the font size of all the EmptySetGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - font_size (float): a float that determines the font size of the EmptySetGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the font size of all the EmptySetGlyph object could not be set
+        """
+        return lib.c_api_setEmptySpeciesFontSize(self.sbml_object, ctypes.c_double(font_size), layout_index)
 
     def isSetFontWeight(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
@@ -9344,6 +9527,32 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setFontWeights(self.sbml_object, str(font_weight).encode(), layout_index)
 
+    def getEmptySpeciesFontWeight(self):
+        """
+        Returns the default font weight of the EmptySetGlyph objects in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the default font weight of the EmptySetGlyph objects in the given SBMLDocument
+        """
+        lib.c_api_getEmptySpeciesFontWeight.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getEmptySpeciesFontWeight(self.sbml_object)).value.decode()
+
+    def setEmptySpeciesFontWeight(self, font_weight, layout_index=0):
+        """
+        Sets the font weight of all the EmptySetGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - font_weight (string): a string that determines the font weight of the EmptySetGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the font weight of all the EmptySetGlyph object could not be set
+        """
+        return lib.c_api_setEmptySpeciesFontWeight(self.sbml_object, str(font_weight).encode(), layout_index)
+
     def isSetFontStyle(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
         Returns whether the font style of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument is set
@@ -9491,6 +9700,32 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setFontStyles(self.sbml_object, str(font_style).encode(), layout_index)
 
+    def getEmptySpeciesFontStyle(self):
+        """
+        Returns the default font style of the EmptySetGlyph objects in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the default font style of the EmptySetGlyph objects in the given SBMLDocument
+        """
+        lib.c_api_getEmptySpeciesFontStyle.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getEmptySpeciesFontStyle(self.sbml_object)).value.decode()
+
+    def setEmptySpeciesFontStyle(self, font_style, layout_index=0):
+        """
+        Sets the font style of all the EmptySetGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - font_style (string): a string that determines the font style of the EmptySetGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the font style of all the EmptySetGlyph object could not be set
+        """
+        return lib.c_api_setEmptySpeciesFontStyle(self.sbml_object, str(font_style).encode(), layout_index)
+
     def isSetTextHorizontalAlignment(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
         Returns whether the text horizontal alignment of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set
@@ -9637,6 +9872,32 @@ class LibSBMLNetwork:
             true on success and false if the text horizontal alignment of all the GraphicalObject object could not be set
         """
         return lib.c_api_setTextHorizontalAlignments(self.sbml_object, str(text_horizontal_alignment).encode(), layout_index)
+
+    def getEmptySpeciesTextHorizontalAlignment(self):
+        """
+        Returns the default text horizontal alignment of the EmptySetGlyph objects in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the default text horizontal alignment of the EmptySetGlyph objects in the given SBMLDocument
+        """
+        lib.c_api_getEmptySpeciesTextHorizontalAlignment.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getEmptySpeciesTextHorizontalAlignment(self.sbml_object)).value.decode()
+
+    def setEmptySpeciesTextHorizontalAlignment(self, text_horizontal_alignment, layout_index=0):
+        """
+        Sets the text horizontal alignment of all the EmptySetGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - text_horizontal_alignment (string): a string that determines the text horizontal alignment of the EmptySetGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the text horizontal alignment of all the EmptySetGlyph object could not be set
+        """
+        return lib.c_api_setEmptySpeciesTextHorizontalAlignment(self.sbml_object, str(text_horizontal_alignment).encode(), layout_index)
 
     def isSetTextVerticalAlignment(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
@@ -9887,14 +10148,13 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setEndHead(self.sbml_object, str(id).encode(), str(end_head).encode(), graphical_object_index, layout_index)
 
-    def getNumGeometricShapes(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
+    def getNumGeometricShapes(self, id, graphical_object_index=0, layout_index=0):
         """
         Returns the number of GeometricShape objects associated with the model entity with the given id in the given SBMLDocument
 
         :Parameters:
 
             - id (string): a string that determines the id of the model entity
-            - geometric_shape_index (int, optional): an integer (default: 0) that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
             - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
@@ -9902,9 +10162,9 @@ class LibSBMLNetwork:
 
             an integer that determines the number of GeometricShape objects associated with the model entity with the given id in the given SBMLDocument
         """
-        return lib.c_api_getNumGeometricShapes(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
+        return lib.c_api_getNumGeometricShapes(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
-    def addGeometricShape(self, id, geometric_shape_type, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
+    def addGeometricShape(self, id, geometric_shape_type, graphical_object_index=0, layout_index=0):
         """
         Adds a GeometricShape object of the given type to the model entity with the given id in the given SBMLDocument
 
@@ -9912,7 +10172,6 @@ class LibSBMLNetwork:
 
             - id (string): a string that determines the id of the model entity
             - geometric_shape (string): a string that determines the type of the GeometricShape object to be added to the model entity
-            - geometric_shape_index (int, optional): an integer (default: 0) that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
             - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
@@ -9920,7 +10179,7 @@ class LibSBMLNetwork:
 
             true on success and false if the GeometricShape object could not be added to the model entity
         """
-        return lib.c_api_addGeometricShape(self.sbml_object, str(id).encode(), str(geometric_shape_type).encode(), geometric_shape_index, graphical_object_index, layout_index)
+        return lib.c_api_addGeometricShape(self.sbml_object, str(id).encode(), str(geometric_shape_type).encode(), graphical_object_index, layout_index)
 
     def removeGeometricShape(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """
@@ -10103,6 +10362,32 @@ class LibSBMLNetwork:
             true on success and false if the GeometricShape object could not be set
         """
         return lib.c_api_setGeometricShapesType(self.sbml_object, str(geometric_shape).encode(), layout_index)
+
+    def getEmptySpeciesGeometricShapeType(self):
+        """
+        Returns the default GeometricShape type of the EmptySetGlyph objects in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the default GeometricShape type of the EmptySetGlyph objects in the given SBMLDocument
+        """
+        lib.c_api_getEmptySpeciesGeometricShapeType.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getEmptySpeciesGeometricShapeType(self.sbml_object)).value.decode()
+
+    def setEmptySpeciesGeometricShapeType(self, geometric_shape, layout_index=0):
+        """
+        Sets the GeometricShape object associated with the empty species in the given SBMLDocument
+
+        :Parameters:
+
+            - geometric_shape (string): a string that determines the type of the GeometricShape object to be added to the model entity
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the GeometricShape object could not be set
+        """
+        return lib.c_api_setEmptySpeciesGeometricShapeType(self.sbml_object, str(geometric_shape).encode(), layout_index)
 
     def isRectangle(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """

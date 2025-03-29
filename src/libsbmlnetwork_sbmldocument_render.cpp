@@ -4337,6 +4337,18 @@ int setStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::
     return 0;
 }
 
+const std::string getEmptySpeciesStrokeColor(const SBMLDocument* document) {
+    return getEmptySpeciesStrokeColor(getGlobalRenderInformation(const_cast<SBMLDocument*>(document)));
+}
+
+int setEmptySpeciesStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke) {
+    if (!setEmptySpeciesStrokeColor(getGlobalRenderInformation(document), stroke) && !setEmptySpeciesStrokeColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), stroke))
+        return 0;
+
+    return -1;
+}
+
 bool isSetStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject) {
     if (canHaveStrokeWidth(graphicalObject))
         return isSetStrokeWidth(getStyle(document, graphicalObject));
@@ -4485,6 +4497,18 @@ int setStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const doubl
         return -1;
 
     return 0;
+}
+
+const double getEmptySpeciesStrokeWidth(const SBMLDocument* document) {
+    return getEmptySpeciesStrokeWidth(getGlobalRenderInformation(const_cast<SBMLDocument*>(document)));
+}
+
+int setEmptySpeciesStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth) {
+    if (!setEmptySpeciesStrokeWidth(getGlobalRenderInformation(document), strokeWidth) && !setEmptySpeciesStrokeWidth(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), strokeWidth))
+        return 0;
+
+    return -1;
 }
 
 bool isSetStrokeDashArray(SBMLDocument* document, GraphicalObject* graphicalObject) {
@@ -4741,6 +4765,18 @@ int setFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::st
     return 0;
 }
 
+const std::string getEmptySpeciesFontColor(const SBMLDocument* document) {
+    return getEmptySpeciesFontColor(getGlobalRenderInformation(const_cast<SBMLDocument*>(document)));
+}
+
+int setEmptySpeciesFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor) {
+    if (!setEmptySpeciesFontColor(getGlobalRenderInformation(document), fontColor) && !setEmptySpeciesFontColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontColor))
+        return 0;
+
+    return -1;
+}
+
 bool isSetFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, graphicalObject, textGlyphIndex);
     if (canHaveFontFamily(textGlyph)) {
@@ -4872,6 +4908,18 @@ int setFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::s
         return -1;
 
     return 0;
+}
+
+const std::string getEmptySpeciesFontFamily(const SBMLDocument* document) {
+    return getEmptySpeciesFontFamily(getGlobalRenderInformation(const_cast<SBMLDocument*>(document)));
+}
+
+int setEmptySpeciesFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontFamily) {
+    if (!setEmptySpeciesFontFamily(getGlobalRenderInformation(document), fontFamily) && !setEmptySpeciesFontFamily(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontFamily))
+        return 0;
+
+    return -1;
 }
 
 bool isSetFontSize(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
@@ -5098,6 +5146,30 @@ int setFontSizeAsDouble(SBMLDocument* document, unsigned int layoutIndex, const 
     return 0;
 }
 
+const RelAbsVector getEmptySpeciesFontSize(const SBMLDocument* document) {
+    return getEmptySpeciesFontSize(getGlobalRenderInformation(const_cast<SBMLDocument*>(document)));
+}
+
+int setEmptySpeciesFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize) {
+    if (!setEmptySpeciesFontSize(getGlobalRenderInformation(document), fontSize) && !setEmptySpeciesFontSize(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontSize))
+        return 0;
+
+    return -1;
+}
+
+const double getEmptySpeciesFontSizeAsDouble(const SBMLDocument* document) {
+    return getEmptySpeciesFontSizeAsDouble(getGlobalRenderInformation(const_cast<SBMLDocument*>(document)));
+}
+
+int setEmptySpeciesFontSizeAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& fontSize) {
+    if (!setEmptySpeciesFontSizeAsDouble(getGlobalRenderInformation(document), fontSize) && !setEmptySpeciesFontSizeAsDouble(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontSize))
+        return 0;
+
+    return -1;
+}
+
 bool isSetFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, graphicalObject, textGlyphIndex);
     if (canHaveFontWeight(textGlyph)) {
@@ -5229,6 +5301,18 @@ int setFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::s
         return -1;
 
     return 0;
+}
+
+const std::string getEmptySpeciesFontWeight(const SBMLDocument* document) {
+    return getEmptySpeciesFontWeight(getGlobalRenderInformation(const_cast<SBMLDocument*>(document)));
+}
+
+int setEmptySpeciesFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight) {
+    if (!setEmptySpeciesFontWeight(getGlobalRenderInformation(document), fontWeight) && !setEmptySpeciesFontWeight(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontWeight))
+        return 0;
+
+    return -1;
 }
 
 bool isSetFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
@@ -5364,6 +5448,18 @@ int setFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::st
     return 0;
 }
 
+const std::string getEmptySpeciesFontStyle(const SBMLDocument* document) {
+    return getEmptySpeciesFontStyle(getGlobalRenderInformation(const_cast<SBMLDocument*>(document)));
+}
+
+int setEmptySpeciesFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle) {
+    if (!setEmptySpeciesFontStyle(getGlobalRenderInformation(document), fontStyle) && !setEmptySpeciesFontStyle(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontStyle))
+        return 0;
+
+    return -1;
+}
+
 bool isSetTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, graphicalObject, textGlyphIndex);
     if (canHaveTextAnchor(textGlyph)) {
@@ -5497,6 +5593,18 @@ int setTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::s
     return 0;
 }
 
+const std::string getEmptySpeciesTextAnchor(const SBMLDocument* document) {
+    return getEmptySpeciesTextAnchor(getGlobalRenderInformation(const_cast<SBMLDocument*>(document)));
+}
+
+int setEmptySpeciesTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor) {
+    if (!setEmptySpeciesTextAnchor(getGlobalRenderInformation(document), textAnchor) && !setEmptySpeciesTextAnchor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), textAnchor))
+        return 0;
+
+    return -1;
+}
+
 bool isSetVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, graphicalObject, textGlyphIndex);
     if (canHaveVTextAnchor(textGlyph)) {
@@ -5628,6 +5736,18 @@ int setVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::
         return -1;
 
     return 0;
+}
+
+const std::string getEmptySpeciesVTextAnchor(const SBMLDocument* document) {
+    return getEmptySpeciesVTextAnchor(getGlobalRenderInformation(const_cast<SBMLDocument*>(document)));
+}
+
+int setEmptySpeciesVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor) {
+    if (!setEmptySpeciesVTextAnchor(getGlobalRenderInformation(document), vtextAnchor) && !setEmptySpeciesVTextAnchor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), vtextAnchor))
+        return 0;
+
+    return -1;
 }
 
 bool isSetFillColor(SBMLDocument* document, GraphicalObject* graphicalObject) {
@@ -5848,6 +5968,26 @@ int setFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, con
     return 0;
 }
 
+const std::string getEmptySpeciesFillColor(const SBMLDocument* document) {
+    return getEmptySpeciesFillColor(getGlobalRenderInformation(const_cast<SBMLDocument*>(document)));
+}
+
+int setEmptySpeciesFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
+    if (!setEmptySpeciesFillColor(getGlobalRenderInformation(document), fillColor) && !setEmptySpeciesFillColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fillColor))
+        return 0;
+
+    return -1;
+}
+
+int setEmptySpeciesFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
+    if (!setEmptySpeciesFillColorAsGradient(getGlobalRenderInformation(document), addGradient(getGlobalRenderInformation(document, layoutIndex), gradientType, stopsVector)) && !setEmptySpeciesFillColorAsGradient(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), addGradient(getLocalRenderInformation(document, layoutIndex), gradientType, stopsVector)))
+        return 0;
+
+    return -1;
+}
+
 bool isSetFillRule(SBMLDocument* document, GraphicalObject* graphicalObject) {
     if (canHaveFillRule(graphicalObject))
         return isSetFillRule(getStyle(document, graphicalObject));
@@ -5985,6 +6125,18 @@ int setFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::str
         return -1;
 
     return 0;
+}
+
+const std::string getEmptySpeciesFillRule(const SBMLDocument* document) {
+    return getEmptySpeciesFillRule(getGlobalRenderInformation(const_cast<SBMLDocument*>(document)));
+}
+
+int setEmptySpeciesFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule) {
+    if (!setEmptySpeciesFillRule(getGlobalRenderInformation(document), fillRule) && !setEmptySpeciesFillRule(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fillRule))
+        return 0;
+
+    return -1;
 }
 
 bool isSetStartHead(SBMLDocument* document, GraphicalObject* graphicalObject) {
@@ -6317,6 +6469,18 @@ int setGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, cons
         return -1;
 
     return 0;
+}
+
+const std::string getEmptySpeciesGeometricShapeType(const SBMLDocument* document) {
+    return getEmptySpeciesGeometricShapeType(getGlobalRenderInformation(const_cast<SBMLDocument*>(document)));
+}
+
+int setEmptySpeciesGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape) {
+    if (!setEmptySpeciesGeometricShapeType(getGlobalRenderInformation(document), shape) && !setEmptySpeciesGeometricShapeType(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), shape))
+        return 0;
+
+    return -1;
 }
 
 bool isRectangle(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {

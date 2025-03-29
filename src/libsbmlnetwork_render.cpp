@@ -1249,6 +1249,20 @@ int setSpeciesReferenceStrokeColor(GlobalRenderInformation* globalRenderInformat
     return stokeColorIsSet ? 0 : -1;
 }
 
+const std::string getEmptySpeciesStrokeColor(GlobalRenderInformation* globalRenderInformation) {
+    return getStrokeColor(getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType()));
+}
+
+int setEmptySpeciesStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& strokeColor) {
+    Style* style = getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType());
+    if (style) {
+        std::string colorId = addColor(globalRenderInformation, strokeColor);
+        return setStrokeColor(style, colorId, getValue(globalRenderInformation, colorId));
+    }
+
+    return -1;
+}
+
 bool isSetStrokeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
     return isSetStrokeWidth(getStyle(renderInformationBase, graphicalObject));
 }
@@ -1387,6 +1401,14 @@ int setSpeciesReferenceStrokeWidth(GlobalRenderInformation* globalRenderInformat
     }
 
     return stokeWidthIsSet ? 0 : -1;
+}
+
+const double getEmptySpeciesStrokeWidth(GlobalRenderInformation* globalRenderInformation) {
+    return getStrokeWidth(getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType()));
+}
+
+int setEmptySpeciesStrokeWidth(GlobalRenderInformation* globalRenderInformation, const double& strokeWidth) {
+    return setStrokeWidth(getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType()), strokeWidth);
 }
 
 bool isSetStrokeDashArray(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -1757,6 +1779,24 @@ int setReactionFontColor(GlobalRenderInformation* globalRenderInformation, const
     return -1;
 }
 
+const std::string getEmptySpeciesFontColor(GlobalRenderInformation* globalRenderInformation) {
+    Style* style = getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType());
+    if (style)
+        return getFontColor(style);
+
+    return "";
+}
+
+int setEmptySpeciesFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor) {
+    Style* style = getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType());
+    if (style) {
+        std::string colorId = addColor(globalRenderInformation, fontColor);
+        return setFontColor(style, colorId, getValue(globalRenderInformation, colorId));
+    }
+
+    return -1;
+}
+
 bool isSetFontFamily(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
     return isSetFontFamily(getStyle(renderInformationBase, graphicalObject));
 }
@@ -1908,6 +1948,22 @@ int setReactionFontFamily(GlobalRenderInformation* globalRenderInformation, cons
     Style* style = getStyleByType(globalRenderInformation, getReactionGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setFontFamily(style, fontFamily);
+
+    return -1;
+}
+
+const std::string getEmptySpeciesFontFamily(GlobalRenderInformation* globalRenderInformation) {
+    Style* style = getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType());
+    if (style)
+        return getFontFamily(style);
+
+    return "";
+}
+
+int setEmptySpeciesFontFamily(GlobalRenderInformation* globalRenderInformation, const std::string& fontFamily) {
+    Style* style = getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType());
     if (style)
         return setFontFamily(style, fontFamily);
 
@@ -2140,6 +2196,34 @@ int setReactionFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation
     return -1;
 }
 
+const RelAbsVector getEmptySpeciesFontSize(GlobalRenderInformation* globalRenderInformation) {
+    Style* style = getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType());
+    if (style)
+        return getFontSize(style);
+
+    return RelAbsVector(NAN, NAN);
+}
+
+int setEmptySpeciesFontSize(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& fontSize) {
+    Style* style = getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType());
+    if (style)
+        return setFontSize(style, fontSize);
+
+    return -1;
+}
+
+const double getEmptySpeciesFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation) {
+    return getAbsoluteValue(getEmptySpeciesFontSize(globalRenderInformation));
+}
+
+int setEmptySpeciesFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation, const double& fontSize) {
+    Style* style = getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType());
+    if (style)
+        return setFontSizeAsDouble(style, fontSize);
+
+    return -1;
+}
+
 bool isSetFontWeight(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
     return isSetFontWeight(getStyle(renderInformationBase, graphicalObject));
 }
@@ -2291,6 +2375,22 @@ int setReactionFontWeight(GlobalRenderInformation* globalRenderInformation, cons
     Style* style = getStyleByType(globalRenderInformation, getReactionGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setFontWeight(style, fontWeight);
+
+    return -1;
+}
+
+const std::string getEmptySpeciesFontWeight(GlobalRenderInformation* globalRenderInformation) {
+    Style* style = getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType());
+    if (style)
+        return getFontWeight(style);
+
+    return "";
+}
+
+int setEmptySpeciesFontWeight(GlobalRenderInformation* globalRenderInformation, const std::string& fontWeight) {
+    Style* style = getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType());
     if (style)
         return setFontWeight(style, fontWeight);
 
@@ -2454,6 +2554,22 @@ int setReactionFontStyle(GlobalRenderInformation* globalRenderInformation, const
     return -1;
 }
 
+const std::string getEmptySpeciesFontStyle(GlobalRenderInformation* globalRenderInformation) {
+    Style* style = getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType());
+    if (style)
+        return getFontStyle(style);
+
+    return "";
+}
+
+int setEmptySpeciesFontStyle(GlobalRenderInformation* globalRenderInformation, const std::string& fontStyle) {
+    Style* style = getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType());
+    if (style)
+        return setFontStyle(style, fontStyle);
+
+    return -1;
+}
+
 bool isSetTextAnchor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
     return isSetTextAnchor(getStyle(renderInformationBase, graphicalObject));
 }
@@ -2611,6 +2727,22 @@ int setReactionTextAnchor(GlobalRenderInformation* globalRenderInformation, cons
     return -1;
 }
 
+const std::string getEmptySpeciesTextAnchor(GlobalRenderInformation* globalRenderInformation) {
+    Style* style = getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType());
+    if (style)
+        return getTextAnchor(style);
+
+    return "";
+}
+
+int setEmptySpeciesTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& textAnchor) {
+    Style* style = getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType());
+    if (style)
+        return setTextAnchor(style, textAnchor);
+
+    return -1;
+}
+
 bool isSetVTextAnchor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
     return isSetVTextAnchor(getStyle(renderInformationBase, graphicalObject));
 }
@@ -2762,6 +2894,22 @@ int setReactionVTextAnchor(GlobalRenderInformation* globalRenderInformation, con
     Style* style = getStyleByType(globalRenderInformation, getReactionGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setVTextAnchor(style, vtextAnchor);
+
+    return -1;
+}
+
+const std::string getEmptySpeciesVTextAnchor(GlobalRenderInformation* globalRenderInformation) {
+    Style* style = getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType());
+    if (style)
+        return getVTextAnchor(style);
+
+    return "";
+}
+
+int setEmptySpeciesVTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& vtextAnchor) {
+    Style* style = getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType());
     if (style)
         return setVTextAnchor(style, vtextAnchor);
 
@@ -2983,6 +3131,31 @@ int setReactionFillColorAsGradient(GlobalRenderInformation* globalRenderInformat
     return -1;
 }
 
+const std::string getEmptySpeciesFillColor(GlobalRenderInformation* globalRenderInformation) {
+    return getFillColor(getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType()));
+}
+
+int setEmptySpeciesFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColor) {
+    Style* style = getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType());
+    if (style) {
+        std::string colorId = addColor(globalRenderInformation, fillColor);
+        return setFillColor(style, colorId, getValue(globalRenderInformation, colorId));
+    }
+
+    return -1;
+}
+
+int setEmptySpeciesFillColorAsGradient(GlobalRenderInformation* globalRenderInformation, const std::string& gradientId) {
+    Style* style = getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType());
+    if (style) {
+        if (globalRenderInformation->getGradientDefinition(gradientId)) {
+            return setFillColorAsGradient(style, gradientId);
+        }
+    }
+
+    return -1;
+}
+
 bool isSetFillRule(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
     return isSetFillRule(getStyle(renderInformationBase, graphicalObject));
 }
@@ -3102,6 +3275,14 @@ const std::string getReactionFillRule(GlobalRenderInformation* globalRenderInfor
 
 int setReactionFillRule(GlobalRenderInformation* globalRenderInformation, const std::string& fillRule) {
     return setFillRule(getStyleByType(globalRenderInformation, getReactionGlyphStyleType()), fillRule);
+}
+
+const std::string getEmptySpeciesFillRule(GlobalRenderInformation* globalRenderInformation) {
+    return getFillRule(getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType()));
+}
+
+int setEmptySpeciesFillRule(GlobalRenderInformation* globalRenderInformation, const std::string& fillRule) {
+    return setFillRule(getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType()), fillRule);
 }
 
 bool isSetStartHead(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -3615,6 +3796,26 @@ const std::string getReactionGeometricShapeType(GlobalRenderInformation* globalR
 
 int setReactionGeometricShapeType(GlobalRenderInformation* globalRenderInformation, const std::string& shape) {
     Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setGeometricShapeType(style, shape);
+
+    return -1;
+}
+
+const std::string getEmptySpeciesGeometricShapeType(GlobalRenderInformation* globalRenderInformation) {
+    Style* style = getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType());
+    if (style) {
+        if (getNumGeometricShapes(style) == 1 && !getGeometricShapeType(getGeometricShape(style)).empty())
+            return getGeometricShapeType(getGeometricShape(style));
+
+        return getGeometricShapeType(style);
+    }
+
+    return "";
+}
+
+int setEmptySpeciesGeometricShapeType(GlobalRenderInformation* globalRenderInformation, const std::string& shape) {
+    Style* style = getStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType());
     if (style)
         return setGeometricShapeType(style, shape);
 
@@ -5545,6 +5746,8 @@ int setReactionGeometricShapeCornerCurvatureRadiusXAsDouble(GlobalRenderInformat
 
     return -1;
 }
+
+
 
 bool isSetGeometricShapeCornerCurvatureRadiusY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     return isSetGeometricShapeCornerCurvatureRadiusY(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);

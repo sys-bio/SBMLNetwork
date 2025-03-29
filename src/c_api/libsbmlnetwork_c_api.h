@@ -4361,6 +4361,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setLineColors(SBMLDocument* document, const char* lineColor, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const char* c_api_getEmptySpeciesBorderColor(SBMLDocument* document);
+
+    LIBSBMLNETWORK_EXTERN int c_api_setEmptySpeciesBorderColor(SBMLDocument* document, const char* borderColor, int layoutIndex);
+
     /// @brief Predicates returning @c true if the "stroke-width" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -4475,6 +4479,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setLineWidths(SBMLDocument* document, const double lineWidth, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getEmptySpeciesBorderWidth(SBMLDocument* document);
+
+    LIBSBMLNETWORK_EXTERN int c_api_setEmptySpeciesBorderWidth(SBMLDocument* document, const double borderWidth, int layoutIndex);
 
     /// @brief Returns the size of the "stroke-dasharray" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
@@ -4667,6 +4675,12 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setFillColorsAsGradient(SBMLDocument* document, const char* gradientType = "linear", const char** stopColors = NULL, const double* stopOffsets = NULL, const int stopsSize = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const char* c_api_getEmptySpeciesFillColor(SBMLDocument* document);
+
+    LIBSBMLNETWORK_EXTERN int c_api_setEmptySpeciesFillColor(SBMLDocument* document, const char* fillColor, int layoutIndex);
+
+    LIBSBMLNETWORK_EXTERN int c_api_setEmptySpeciesFillColorAsGradient(SBMLDocument* document, const char* gradientType = "linear", const char** stopColors = NULL, const double* stopOffsets = NULL, const int stopsSize = 0, int layoutIndex = 0);
+
     /// @brief Predicates returning @c true if the "fill-rule" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -4749,6 +4763,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setFillRules(SBMLDocument* document, const char* fillRule, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const char* c_api_getEmptySpeciesFillRule(SBMLDocument* document);
+
+    LIBSBMLNETWORK_EXTERN int c_api_setEmptySpeciesFillRule(SBMLDocument* document, const char* fillRule, int layoutIndex);
+
     /// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup of the Style that belongs to the the TextGlyph
     /// with the given index associated with the GraphicalObject with the given index associated with the model entity with this id is set.
     /// @param document a pointer to the SBMLDocument object.
@@ -4822,6 +4840,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setFontColors(SBMLDocument* document, const char* fontColor, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const char* c_api_getEmptySpeciesFontColor(SBMLDocument* document);
+
+    LIBSBMLNETWORK_EXTERN int c_api_setEmptySpeciesFontColor(SBMLDocument* document, const char* fontColor, int layoutIndex);
+
     /// @brief Predicates returning @c true if the "font-family" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -4894,6 +4916,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setFontFamilies(SBMLDocument* document, const char* fontFamily, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const char* c_api_getEmptySpeciesFontFamily(SBMLDocument* document);
+
+    LIBSBMLNETWORK_EXTERN int c_api_setEmptySpeciesFontFamily(SBMLDocument* document, const char* fontFamily, int layoutIndex);
+
     /// @brief Predicates returning @c true if the "font-size" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -4964,6 +4990,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setFontSizes(SBMLDocument* document, const double fontSize, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getEmptySpeciesFontSize(SBMLDocument* document);
+
+    LIBSBMLNETWORK_EXTERN int c_api_setEmptySpeciesFontSize(SBMLDocument* document, const double fontSize, int layoutIndex);
 
     /// @brief Predicates returning @c true if the "font-weight" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject is set.
     /// @param document a pointer to the SBMLDocument object.
@@ -5036,6 +5066,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setFontWeights(SBMLDocument* document, const char* fontWeight, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const char* c_api_getEmptySpeciesFontWeight(SBMLDocument* document);
+
+    LIBSBMLNETWORK_EXTERN int c_api_setEmptySpeciesFontWeight(SBMLDocument* document, const char* fontWeight, int layoutIndex);
+
     /// @brief Predicates returning @c true if the "font-style" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -5107,6 +5141,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setFontStyles(SBMLDocument* document, const char* fontStyle, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const char* c_api_getEmptySpeciesFontStyle(SBMLDocument* document);
+
+    LIBSBMLNETWORK_EXTERN int c_api_setEmptySpeciesFontStyle(SBMLDocument* document, const char* fontStyle, int layoutIndex);
 
     /// @brief Predicates returning @c true if the "text-anchor" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
@@ -5190,6 +5228,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// attribute is not set
     LIBSBMLNETWORK_EXTERN bool c_api_isSetTextVerticalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const char* c_api_getEmptySpeciesTextVerticalAlignment(SBMLDocument* document);
+
+    LIBSBMLNETWORK_EXTERN int c_api_setEmptySpeciesTextVerticalAlignment(SBMLDocument* document, const char* textVerticalAlignment, int layoutIndex);
+
     /// @brief Returns the value of the "text-anchor" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -5251,6 +5293,11 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setTextVerticalAlignments(SBMLDocument* document, const char* textVerticalAlignment, int layoutIndex = 0);
+
+    /// @brief Returns the valj
+    LIBSBMLNETWORK_EXTERN const char* c_api_getEmptySpeciesTextVerticalAlignment(SBMLDocument* document);
+
+    LIBSBMLNETWORK_EXTERN int c_api_setEmptySpeciesTextVerticalAlignment(SBMLDocument* document, const char* textVerticalAlignment, int layoutIndex);
 
     /// @brief Predicates returning @c true if the "startHead" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
@@ -5409,6 +5456,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapesType(SBMLDocument* document, const char* shape, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const char* c_api_getEmptySpeciesGeometricShapeType(SBMLDocument* document);
+
+    LIBSBMLNETWORK_EXTERN int c_api_setEmptySpeciesGeometricShapeType(SBMLDocument* document, const char* shape, int layoutIndex);
 
     /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject is of type Rectangle.
     /// @param document a pointer to the SBMLDocument object.
