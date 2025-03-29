@@ -1049,7 +1049,6 @@ int setDimensionWidth(Layout* layout, ReactionGlyph* reactionGlyph, const double
         if (setDimensionWidth(getCurve(reactionGlyph), x))
             return -1;
 
-    std::cout << getCurve(reactionGlyph)->getCurveSegment(0)->getStart()->x() << ", " << getCurve(reactionGlyph)->getCurveSegment(0)->getEnd()->x() << std::endl;
     return setDimensionWidth(getBoundingBox(reactionGlyph), x);
 }
 
