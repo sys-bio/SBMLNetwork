@@ -8,7 +8,7 @@ class AlignBase:
 
     def __init__(self, net):
         self.net = net
-        self.padding = 8
+        self.padding = 30
 
     def align(self, *args, **kwargs):
         pass
@@ -139,7 +139,7 @@ class HorizontalAlign(AlignBase):
     def _set_first_reactant_features(self, reactant_species, reaction, x_center, y_center):
         curves = reaction.get_curves_list(reactant_species[0])
         for curve in curves:
-            while (len(curve.get_segments()) > 1):
+            while len(curve.get_segments()) > 1:
                 curve.remove_segment(curve.get_segment())
             curve_segment = curve.get_segment()
             curve_segment.set_start((x_center, y_center))
@@ -569,7 +569,7 @@ class VerticalAlign(AlignBase):
 
 class CircleAlign(AlignBase):
 
-    def align(self, reaction: Reaction, center_at: tuple[float, float], radius: float, arc_start: float, arc_end: float,
+    def align(self, reaction: Reaction, center_at: tuple[float, float], radius: float, arc_start: float, arc_end: float, clockwise: bool,
               reactants_order: list[str or Species], products_order: list[str or Species],
               modifiers_order: list[str or Species],
               reactants_placement: str, products_placement: str, modifiers_placement: str):
@@ -592,34 +592,34 @@ class CircleAlign(AlignBase):
         except ValueError:
             raise ValueError(f"Using this 'center_at' or 'radius' for the reaction \"{reaction.get_reaction_id()}\" will cause the species to be placed outside the canvas.")
 
-        self._set_reaction_center_features(reaction, x_center, y_center, radius, arc_start_rad, arc_end_rad)
+        self._set_reaction_center_features(reaction, x_center, y_center, radius, arc_start_rad, arc_end_rad, clockwise)
         self._set_first_reactant_features(reactant_species, reaction, x_center, y_center, radius, arc_start_rad,
-                                          arc_end_rad)
+                                          arc_end_rad, clockwise)
         self._set_last_product_features(product_species, reaction, x_center, y_center, radius, arc_start_rad,
-                                        arc_end_rad)
+                                        arc_end_rad, clockwise)
 
         if len(reactant_species) == 1 and len(product_species) == 1:
             return True
 
         if len(reactant_species) > 1 and not self._set_extra_reactant_features(reactant_species, reaction, x_center,
                                                                                y_center, radius, arc_start_rad,
-                                                                               arc_end_rad, reactants_placement):
+                                                                               arc_end_rad, clockwise, reactants_placement):
             return False
 
         if len(product_species) > 1 and not self._set_extra_product_features(product_species, reaction, x_center,
                                                                              y_center, radius, arc_start_rad,
-                                                                             arc_end_rad, products_placement):
+                                                                             arc_end_rad, clockwise, products_placement):
             return False
 
         if len(modifier_species) > 0 and not self._set_modifier_features(modifier_species, reaction, x_center, y_center,
-                                                                         radius, arc_start_rad, arc_end_rad,
+                                                                         radius, arc_start_rad, arc_end_rad, clockwise,
                                                                          modifiers_placement):
             return False
 
         return True
 
-    def _set_reaction_center_features(self, reaction, x_center, y_center, radius, arc_start_rad, arc_end_rad):
-        arc_reaction_point = self._get_arc_reaction_point(arc_start_rad, arc_end_rad)
+    def _set_reaction_center_features(self, reaction, x_center, y_center, radius, arc_start_rad, arc_end_rad, clockwise):
+        arc_reaction_point = self._get_arc_reaction_point(arc_start_rad, arc_end_rad, clockwise)
         reaction.set_position(
             (x_center + radius * math.cos(arc_reaction_point), y_center - radius * math.sin(arc_reaction_point)))
         reaction.get_labels_list().set_positions((x_center + radius * math.cos(arc_reaction_point),
@@ -627,13 +627,13 @@ class CircleAlign(AlignBase):
         return True
 
     def _set_first_reactant_features(self, reactant_species, reaction, x_center, y_center, radius, arc_start_rad,
-                                     arc_end_rad):
-        arc_reaction_point = self._get_arc_reaction_point(arc_start_rad, arc_end_rad)
+                                     arc_end_rad, clockwise):
+        arc_reaction_point = self._get_arc_reaction_point(arc_start_rad, arc_end_rad, clockwise)
         curves = reaction.get_curves_list(reactant_species[0])
         for curve in curves:
-            while (len(curve.get_segments()) > 1):
+            while len(curve.get_segments()) > 1:
                 curve.remove_segment(curve.get_segment())
-            offset_x, offset_y = self._get_reactant_point_offsets(arc_start_rad, reactant_species[0])
+            offset_x, offset_y = self._get_reactant_point_offsets(arc_start_rad, reactant_species[0], clockwise)
             curve_segment = curve.get_segment()
             start_x = x_center + radius * math.cos(arc_reaction_point)
             start_y = y_center - radius * math.sin(arc_reaction_point)
@@ -641,25 +641,29 @@ class CircleAlign(AlignBase):
             end_x = x_center + radius * math.cos(arc_start_rad) + offset_x
             end_y = y_center - radius * math.sin(arc_start_rad) + offset_y
             curve_segment.set_end((end_x, end_y))
+            if clockwise and arc_start_rad < arc_reaction_point:
+                arc_start_rad += 2 * math.pi
+            elif not clockwise and arc_start_rad > arc_reaction_point:
+                arc_reaction_point += 2 * math.pi
             delta = arc_start_rad - arc_reaction_point
             k = (4.0 / 3.0) * math.tan(delta / 4.0)
-            P1 = (x_center + radius * (math.cos(arc_reaction_point) - k * math.sin(arc_reaction_point)),
+            p1 = (x_center + radius * (math.cos(arc_reaction_point) - k * math.sin(arc_reaction_point)),
                   y_center - radius * (math.sin(arc_reaction_point) + k * math.cos(arc_reaction_point)))
-            P2 = (x_center + radius * (math.cos(arc_start_rad) + k * math.sin(arc_start_rad)),
+            p2 = (x_center + radius * (math.cos(arc_start_rad) + k * math.sin(arc_start_rad)),
                   y_center - radius * (math.sin(arc_start_rad) - k * math.cos(arc_start_rad)))
-            curve_segment.set_control_point_1(P1)
-            curve_segment.set_control_point_2(P2)
+            curve_segment.set_control_point_1(p1)
+            curve_segment.set_control_point_2(p2)
 
         return True
 
     def _set_last_product_features(self, product_species, reaction, x_center, y_center, radius, arc_start_rad,
-                                   arc_end_rad):
-        arc_reaction_point = self._get_arc_reaction_point(arc_start_rad, arc_end_rad)
+                                   arc_end_rad, clockwise):
+        arc_reaction_point = self._get_arc_reaction_point(arc_start_rad, arc_end_rad, clockwise)
         curves = reaction.get_curves_list(product_species[-1])
         for curve in curves:
-            while (len(curve.get_segments()) > 1):
+            while len(curve.get_segments()) > 1:
                 curve.remove_segment(curve.get_segment())
-            offset_x, offset_y = self._get_product_point_offsets(arc_end_rad, product_species[-1])
+            offset_x, offset_y = self._get_product_point_offsets(arc_end_rad, product_species[-1], clockwise)
             curve_segment = curve.get_segment()
             start_x = x_center + radius * math.cos(arc_reaction_point)
             start_y = y_center - radius * math.sin(arc_reaction_point)
@@ -667,25 +671,33 @@ class CircleAlign(AlignBase):
             end_x = x_center + radius * math.cos(arc_end_rad) + offset_x
             end_y = y_center - radius * math.sin(arc_end_rad) + offset_y
             curve_segment.set_end((end_x, end_y))
-            delta = arc_reaction_point - arc_end_rad
+            if clockwise and arc_reaction_point < arc_end_rad:
+                arc_reaction_point += 2 * math.pi
+            elif not clockwise and arc_reaction_point > arc_end_rad:
+                arc_end_rad += 2 * math.pi
+            delta = arc_end_rad - arc_reaction_point
             k = (4.0 / 3.0) * math.tan(delta / 4.0)
-            p1 = (x_center + radius * (math.cos(arc_reaction_point) + k * math.sin(arc_reaction_point)),
-                  y_center - radius * (math.sin(arc_reaction_point) - k * math.cos(arc_reaction_point)))
-            p2 = (x_center + radius * (math.cos(arc_end_rad) - k * math.sin(arc_end_rad)),
-                  y_center - radius * (math.sin(arc_end_rad) + k * math.cos(arc_end_rad)))
+            p1 = (x_center + radius * (math.cos(arc_reaction_point) - k * math.sin(arc_reaction_point)),
+                  y_center - radius * (math.sin(arc_reaction_point) + k * math.cos(arc_reaction_point)))
+            p2 = (x_center + radius * (math.cos(arc_end_rad) + k * math.sin(arc_end_rad)),
+                  y_center - radius * (math.sin(arc_end_rad) - k * math.cos(arc_end_rad)))
             curve_segment.set_control_point_1(p1)
             curve_segment.set_control_point_2(p2)
 
         return True
 
     def _set_extra_reactant_features(self, reactant_species, reaction, x_center, y_center, radius, arc_start_rad,
-                                     arc_end_rad, species_placement):
-        arc_reaction_point = self._get_arc_reaction_point(arc_start_rad, arc_end_rad)
+                                     arc_end_rad, clockwise, species_placement):
+        arc_reaction_point = self._get_arc_reaction_point(arc_start_rad, arc_end_rad, clockwise)
         max_width = max([species.get_size()[0] for species in reactant_species])
         max_height = max([species.get_size()[1] for species in reactant_species])
         default_radial_padding = 2 * math.sqrt((max_width ** 2 + max_height ** 2) / 2)
-        default_angular_padding_arc = min(((arc_end_rad - arc_start_rad) / (len(reactant_species) - 1)),
-                                          (2 * math.sqrt((max_width ** 2 + max_height ** 2) / 2) / radius))
+        if clockwise:
+            default_angular_padding_arc = -min(((arc_end_rad - arc_start_rad) / (len(reactant_species) - 1)),
+                                               (2 * math.sqrt((max_width ** 2 + max_height ** 2) / 2) / radius))
+        else:
+            default_angular_padding_arc = min(((arc_end_rad - arc_start_rad) / (len(reactant_species) - 1)),
+                                              (2 * math.sqrt((max_width ** 2 + max_height ** 2) / 2) / radius))
         control_point_angular_padding_arc = 0.5 * default_angular_padding_arc
         for i, species in enumerate(reactant_species):
             if i == 0:
@@ -758,13 +770,17 @@ class CircleAlign(AlignBase):
         return True
 
     def _set_extra_product_features(self, product_species, reaction, x_center, y_center, radius, arc_start_rad,
-                                    arc_end_rad, species_placement):
-        arc_reaction_point = self._get_arc_reaction_point(arc_start_rad, arc_end_rad)
+                                    arc_end_rad, clockwise, species_placement):
+        arc_reaction_point = self._get_arc_reaction_point(arc_start_rad, arc_end_rad, clockwise)
         max_width = max([species.get_size()[0] for species in product_species])
         max_height = max([species.get_size()[1] for species in product_species])
         default_radial_padding = 2 * math.sqrt((max_width ** 2 + max_height ** 2) / 2)
-        default_angular_padding_arc = min(((arc_end_rad - arc_start_rad) / (len(product_species) - 1)),
-                                          (2 * math.sqrt((max_width ** 2 + max_height ** 2) / 2) / radius))
+        if clockwise:
+            default_angular_padding_arc = -min(((arc_end_rad - arc_start_rad) / (len(product_species) - 1)),
+                                               (2 * math.sqrt((max_width ** 2 + max_height ** 2) / 2) / radius))
+        else:
+            default_angular_padding_arc = min(((arc_end_rad - arc_start_rad) / (len(product_species) - 1)),
+                                              (2 * math.sqrt((max_width ** 2 + max_height ** 2) / 2) / radius))
         control_point_angular_padding_arc = 0.5 * default_angular_padding_arc
         product_species.reverse()
         for i, species in enumerate(product_species):
@@ -838,8 +854,8 @@ class CircleAlign(AlignBase):
         return True
 
     def _set_modifier_features(self, modifier_species, reaction, x_center, y_center, radius,
-                               arc_start_rad, arc_end_rad, species_placement):
-        arc_reaction_point = self._get_arc_reaction_point(arc_start_rad, arc_end_rad)
+                               arc_start_rad, arc_end_rad, clockwise, species_placement):
+        arc_reaction_point = self._get_arc_reaction_point(arc_start_rad, arc_end_rad, clockwise)
         max_width = max([species.get_size()[0] for species in modifier_species])
         max_height = max([species.get_size()[1] for species in modifier_species])
         default_angular_padding_arc = 2 * math.sqrt((max_width ** 2 + max_height ** 2) / 2) / radius
@@ -934,21 +950,26 @@ class CircleAlign(AlignBase):
         return math.radians(arc_start), math.radians(arc_end)
 
     @staticmethod
-    def _get_arc_reaction_point(arc_start_rad, arc_end_rad):
+    def _get_arc_reaction_point(arc_start_rad, arc_end_rad, clockwise):
         start = arc_start_rad % (2 * math.pi)
         end = arc_end_rad % (2 * math.pi)
-        diff = (end - start) % (2 * math.pi)
-        half_diff = diff / 2.0
-        arc_reaction_point = (start + half_diff) % (2 * math.pi)
+        if clockwise:
+            diff = (start - end) % (2 * math.pi)
+            return start - diff / 2.0
+        else:
+            diff = (end - start) % (2 * math.pi)
+            return start + diff / 2.0
 
-        return arc_reaction_point
-
-    def _get_reactant_point_offsets(self, arc_reactant_rad, species):
+    def _get_reactant_point_offsets(self, arc_reactant_rad, species, clockwise):
         width, height = species.get_size()
         hw = width / 2.0
         hh = height / 2.0
-        dx = -math.sin(arc_reactant_rad)
-        dy = -math.cos(arc_reactant_rad)
+        if clockwise:
+            dx = math.sin(arc_reactant_rad)
+            dy = math.cos(arc_reactant_rad)
+        else:
+            dx = -math.sin(arc_reactant_rad)
+            dy = -math.cos(arc_reactant_rad)
         epsilon = 1e-6
         scale_x = hw / abs(dx) if abs(dx) > epsilon else float('inf')
         scale_y = hh / abs(dy) if abs(dy) > epsilon else float('inf')
@@ -971,12 +992,16 @@ class CircleAlign(AlignBase):
 
         return offset_x, offset_y
 
-    def _get_product_point_offsets(self, arc_product_rad, species):
+    def _get_product_point_offsets(self, arc_product_rad, species, clockwise):
         width, height = species.get_size()
         hw = width / 2.0
         hh = height / 2.0
-        dx = math.sin(arc_product_rad)
-        dy = math.cos(arc_product_rad)
+        if clockwise:
+            dx = -math.sin(arc_product_rad)
+            dy = -math.cos(arc_product_rad)
+        else:
+            dx = math.sin(arc_product_rad)
+            dy = math.cos(arc_product_rad)
         epsilon = 1e-6
         scale_x = hw / abs(dx) if abs(dx) > epsilon else float('inf')
         scale_y = hh / abs(dy) if abs(dy) > epsilon else float('inf')
