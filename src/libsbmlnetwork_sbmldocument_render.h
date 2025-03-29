@@ -7227,6 +7227,10 @@ LIBSBMLNETWORK_EXTERN int setLineEndingStrokeColor(SBMLDocument* document, unsig
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke);
 
+LIBSBMLNETWORK_EXTERN const std::string getEmptySpeciesStrokeColor(const SBMLDocument* document);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke);
+
 /// @brief Predicates returning @c true if the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -7323,6 +7327,10 @@ LIBSBMLNETWORK_EXTERN int setLineEndingStrokeWidth(SBMLDocument* document, unsig
 /// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of these Style objects.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth);
+
+LIBSBMLNETWORK_EXTERN const double getEmptySpeciesStrokeWidth(const SBMLDocument* document);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth);
 
 /// @brief Predicates returning @c true if the "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -7522,6 +7530,10 @@ LIBSBMLNETWORK_EXTERN int setReactionFontColor(SBMLDocument* document, unsigned 
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor);
 
+LIBSBMLNETWORK_EXTERN const std::string getEmptySpeciesFontColor(const SBMLDocument* document);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor);
+
 /// @brief Predicates returning @c true if the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -7624,6 +7636,10 @@ LIBSBMLNETWORK_EXTERN int setReactionFontFamily(SBMLDocument* document, unsigned
 /// @param fontFamily a string value to use as the value of the "font-family" attribute of the RenderGroup of these Style objects.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontFamily);
+
+LIBSBMLNETWORK_EXTERN const std::string getEmptySpeciesFontFamily(const SBMLDocument* document);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontFamily);
 
 /// @brief Predicates returning @c true if the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -7815,6 +7831,14 @@ LIBSBMLNETWORK_EXTERN int setFontSize(SBMLDocument* document, unsigned int layou
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontSizeAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& fontSize);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getEmptySpeciesFontSize(const SBMLDocument* document);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize);
+
+LIBSBMLNETWORK_EXTERN const double getEmptySpeciesFontSizeAsDouble(const SBMLDocument* document);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesFontSizeAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& fontSize);
+
 /// @brief Predicates returning @c true if the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -7917,6 +7941,10 @@ LIBSBMLNETWORK_EXTERN int setReactionFontWeight(SBMLDocument* document, unsigned
 /// @param fontWeight a string value to use as the value of the "font-weight" attribute of the RenderGroup of these Style objects.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight);
+
+LIBSBMLNETWORK_EXTERN const std::string getEmptySpeciesFontWeight(const SBMLDocument* document);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight);
 
 /// @brief Predicates returning @c true if the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -8022,6 +8050,10 @@ LIBSBMLNETWORK_EXTERN int setReactionFontStyle(SBMLDocument* document, unsigned 
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle);
 
+LIBSBMLNETWORK_EXTERN const std::string getEmptySpeciesFontStyle(const SBMLDocument* document);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle);
+
 /// @brief Predicates returning @c true if the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -8125,6 +8157,10 @@ LIBSBMLNETWORK_EXTERN int setReactionTextAnchor(SBMLDocument* document, unsigned
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor);
 
+LIBSBMLNETWORK_EXTERN const std::string getEmptySpeciesTextAnchor(const SBMLDocument* document);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor);
+
 /// @brief Predicates returning @c true if the "vtext-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -8213,6 +8249,10 @@ LIBSBMLNETWORK_EXTERN int setReactionVTextAnchor(SBMLDocument* document, unsigne
 /// @param vtextAnchor a string value to use as the value of the "vtext-anchor" attribute of the RenderGroup of these Style objects.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor);
+
+LIBSBMLNETWORK_EXTERN const std::string getEmptySpeciesVTextAnchor(const SBMLDocument* document);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor);
 
 /// @brief Predicates returning @c true if the "fill" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -8331,6 +8371,12 @@ LIBSBMLNETWORK_EXTERN int setFillColor(SBMLDocument* document, unsigned int layo
 
 LIBSBMLNETWORK_EXTERN int setFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
 
+LIBSBMLNETWORK_EXTERN const std::string getEmptySpeciesFillColor(const SBMLDocument* document);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
+
 /// @brief Predicates returning @c true if the "fill-rule" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -8426,6 +8472,10 @@ LIBSBMLNETWORK_EXTERN int setLineEndingFillRule(SBMLDocument* document, unsigned
 /// @param fillRule a string value to use as the value of the "fill-rule" attribute of the RenderGroup of these Style objects.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule);
+
+LIBSBMLNETWORK_EXTERN const std::string getEmptySpeciesFillRule(const SBMLDocument* document);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule);
 
 /// @brief Predicates returning @c true if the "startHead" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -8675,6 +8725,10 @@ LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeType(SBMLDocument* document, 
 /// @param shape a string value indicating the shape of the geometric shape to be set.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape);
+
+LIBSBMLNETWORK_EXTERN const std::string getEmptySpeciesGeometricShapeType(const SBMLDocument* document);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Rectangle.
 /// @param document a pointer to the SBMLDocument object.

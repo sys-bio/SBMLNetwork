@@ -1181,6 +1181,10 @@ int setReactionDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, 
     return -1;
 }
 
+const double getEmptySpeciesDefaultWidth() {
+    return defaults_getEmptySpeciesDefaultWidth();
+}
+
 const double getDimensionHeight(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
     return getDimensionHeight(getLayout(document), id, graphicalObjectIndex);
 }
@@ -1261,6 +1265,10 @@ int setSpeciesDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, 
 
 const double getReactionDimensionHeight() {
     return defaults_getReactionDefaultHeight();
+}
+
+const double getEmptySpeciesDefaultHeight() {
+    return defaults_getEmptySpeciesDefaultHeight();
 }
 
 int setReactionDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const double& height, bool updateCurves) {

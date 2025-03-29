@@ -30,8 +30,6 @@ int setSpeciesGlyphIndexInReactionGlyph(Layout* layout, const std::string specie
 
 CompartmentGlyph* getCompartmentGlyphOfReactionGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
 
-CompartmentGlyph* getDefaultCompartmentGlyph(Layout* layout);
-
 std::vector<SpeciesReferenceGlyph*> getSpeciesReferencesAssociatedWithSpecies(Layout* layout, const std::string& speciesId);
 
 std::vector<SpeciesReferenceGlyph*> getSpeciesReferencesAssociatedWithSpeciesGlyph(Layout* layout, const std::string& speciesGlyphId);
@@ -45,8 +43,6 @@ const int getSpeciesReferenceIndex(Layout* layout, ReactionGlyph* reactionGlyph,
 const int getIndexOfConnectedSpeciesGlyph(std::vector<SpeciesReferenceGlyph*> speciesReferenceGlyphs, std::vector<SpeciesGlyph*> speciesGlyphs);
 
 TextGlyph* createAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObject);
-
-void setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject);
 
 void setReactionGlyphCurve(ReactionGlyph* reactionGlyph);
 
@@ -69,8 +65,6 @@ Reaction* findReactionGlyphReaction(Model* model, ReactionGlyph* reactionGlyph);
 SimpleSpeciesReference* findSpeciesReference(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, SpeciesGlyph* speciesGlyph);
 
 ReactionGlyph* findSpeciesReferenceReactionGlyph(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph);
-
-bool containsSpecies(Model* model, Layout* layout, CompartmentGlyph* compartmentGlyph);
 
 bool compartmentGlyphBelongs(CompartmentGlyph* compartmentGlyph, Compartment* compartment);
 
@@ -137,6 +131,14 @@ const double getCurveMiddlePositionY(Curve* curve);
 int setCurveMiddlePositionX(Curve* curve, const double& x);
 
 int setCurveMiddlePositionY(Curve* curve, const double& y);
+
+const double setCurveHorizontalLength(Curve* curve, const double& length);
+
+const double setCurveVerticalLength(Curve* curve, const double& length);
+
+int getCurveHorizontalLength(Curve* curve, double& length);
+
+int getCurveVerticalLength(Curve* curve, double& length);
 
 int updateGraphicalObjectId(Layout* layout, GraphicalObject* graphicalObject, const std::string& newId);
 

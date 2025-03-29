@@ -1205,6 +1205,10 @@ LIBSBMLNETWORK_EXTERN int setReactionStrokeColor(GlobalRenderInformation* global
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& strokeColor);
 
+LIBSBMLNETWORK_EXTERN const std::string getEmptySpeciesStrokeColor(GlobalRenderInformation* globalRenderInformation);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& strokeColor);
+
 /// @brief Predicates returning @c true if the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -1323,6 +1327,10 @@ LIBSBMLNETWORK_EXTERN int setReactionStrokeWidth(GlobalRenderInformation* global
 /// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of the Style for all SpeciesReferenceGlyph objects.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceStrokeWidth(GlobalRenderInformation* globalRenderInformation, const double& strokeWidth);
+
+LIBSBMLNETWORK_EXTERN const double getEmptySpeciesStrokeWidth(GlobalRenderInformation* globalRenderInformation);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesStrokeWidth(GlobalRenderInformation* globalRenderInformation, const double& strokeWidth);
 
 /// @brief Predicates returning @c true if the "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1650,6 +1658,10 @@ LIBSBMLNETWORK_EXTERN const std::string getReactionFontColor(GlobalRenderInforma
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor);
 
+LIBSBMLNETWORK_EXTERN const std::string getEmptySpeciesFontColor(GlobalRenderInformation* globalRenderInformation);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor);
+
 /// @brief Predicates returning @c true if the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -1762,6 +1774,10 @@ LIBSBMLNETWORK_EXTERN const std::string getReactionFontFamily(GlobalRenderInform
 /// @param fontFamily a string value to use as the value of the "font-family" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionFontFamily(GlobalRenderInformation* globalRenderInformation, const std::string& fontFamily);
+
+LIBSBMLNETWORK_EXTERN const std::string getEmptySpeciesFontFamily(GlobalRenderInformation* globalRenderInformation);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesFontFamily(GlobalRenderInformation* globalRenderInformation, const std::string& fontFamily);
 
 /// @brief Predicates returning @c true if the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1937,6 +1953,14 @@ LIBSBMLNETWORK_EXTERN const double getReactionFontSizeAsDouble(GlobalRenderInfor
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation, const double& fontSize);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getEmptySpeciesFontSize(GlobalRenderInformation* globalRenderInformation);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesFontSize(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& fontSize);
+
+LIBSBMLNETWORK_EXTERN const double getEmptySpeciesFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation, const double& fontSize);
+
 /// @brief Predicates returning @c true if the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -2049,6 +2073,10 @@ LIBSBMLNETWORK_EXTERN const std::string getReactionFontWeight(GlobalRenderInform
 /// @param fontWeight a string value to use as the value of the "font-weight" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionFontWeight(GlobalRenderInformation* globalRenderInformation, const std::string& fontWeight);
+
+LIBSBMLNETWORK_EXTERN const std::string getEmptySpeciesFontWeight(GlobalRenderInformation* globalRenderInformation);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesFontWeight(GlobalRenderInformation* globalRenderInformation, const std::string& fontWeight);
 
 /// @brief Predicates returning @c true if the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -2163,6 +2191,10 @@ LIBSBMLNETWORK_EXTERN const std::string getReactionFontStyle(GlobalRenderInforma
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionFontStyle(GlobalRenderInformation* globalRenderInformation, const std::string& fontStyle);
 
+LIBSBMLNETWORK_EXTERN const std::string getEmptySpeciesFontStyle(GlobalRenderInformation* globalRenderInformation);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesFontStyle(GlobalRenderInformation* globalRenderInformation, const std::string& fontFamily);
+
 /// @brief Predicates returning @c true if the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -2276,6 +2308,10 @@ LIBSBMLNETWORK_EXTERN const std::string getReactionTextAnchor(GlobalRenderInform
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& textAnchor);
 
+LIBSBMLNETWORK_EXTERN const std::string getEmptySpeciesTextAnchor(GlobalRenderInformation* globalRenderInformation);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& textAnchor);
+
 /// @brief Predicates returning @c true if the "vtext-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -2388,6 +2424,10 @@ LIBSBMLNETWORK_EXTERN const std::string getReactionVTextAnchor(GlobalRenderInfor
 /// @param vtextAnchor a string value to use as the value of the "vtext-anchor" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionVTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& vtextAnchor);
+
+LIBSBMLNETWORK_EXTERN const std::string getEmptySpeciesVTextAnchor(GlobalRenderInformation* globalRenderInformation);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesVTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& vtextAnchor);
 
 /// @brief Predicates returning @c true if the "fill" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -2517,6 +2557,12 @@ LIBSBMLNETWORK_EXTERN int setReactionFillColor(GlobalRenderInformation* globalRe
 
 LIBSBMLNETWORK_EXTERN int setReactionFillColorAsGradient(GlobalRenderInformation* globalRenderInformation, const std::string& gradientId);
 
+LIBSBMLNETWORK_EXTERN const std::string getEmptySpeciesFillColor(GlobalRenderInformation* globalRenderInformation);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColor);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesFillColorAsGradient(GlobalRenderInformation* globalRenderInformation, const std::string& gradientId);
+
 /// @brief Predicates returning @c true if the "fill-rule" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -2629,6 +2675,10 @@ LIBSBMLNETWORK_EXTERN const std::string getReactionFillRule(GlobalRenderInformat
 /// @param fillRule a string value to use as the value of the "fill-rule" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionFillRule(GlobalRenderInformation* globalRenderInformation, const std::string& fillRule);
+
+LIBSBMLNETWORK_EXTERN const std::string getEmptySpeciesFillRule(GlobalRenderInformation* globalRenderInformation);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesFillRule(GlobalRenderInformation* globalRenderInformation, const std::string& fillRule);
 
 /// @brief Predicates returning @c true if the "startHead" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -3012,6 +3062,10 @@ LIBSBMLNETWORK_EXTERN const std::string getReactionGeometricShapeType(GlobalRend
 /// @param shape a string value indicating the shape of the geometric shape to be set.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeType(GlobalRenderInformation* globalRenderInformation, const std::string& shape);
+
+LIBSBMLNETWORK_EXTERN const std::string getEmptySpeciesGeometricShapeType(GlobalRenderInformation* globalRenderInformation);
+
+LIBSBMLNETWORK_EXTERN int setEmptySpeciesGeometricShapeType(GlobalRenderInformation* globalRenderInformation, const std::string& shape);
 
 /// @brief Checks if the Transformation2D at the given index of the RenderGroup of the Style for a GraphicalObject is of type Rectangle.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.

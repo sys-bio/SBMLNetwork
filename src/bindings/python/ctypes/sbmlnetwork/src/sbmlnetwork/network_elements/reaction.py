@@ -496,13 +496,13 @@ class Reaction(NetworkElementBase):
                                     reactants_placement, products_placement, modifiers_placement)
 
     def align_circle(self, center_at: tuple[float, float] = None, radius: float = None, arc_start: float = -180,
-                     arc_end: float = -90,
+                     arc_end: float = -90, clockwise: bool = False,
                      reactants_order: list = None, products_order: list = None, modifiers_order: list = None,
                      reactants_placement: str = "both", products_placement: str = "both", modifiers_placement: str = "both"):
         from ..features.align import CircleAlign
 
         circle_align = CircleAlign(self.libsbmlnetwork)
-        return circle_align.align(self, center_at, radius, arc_start, arc_end,
+        return circle_align.align(self, center_at, radius, arc_start, arc_end, clockwise,
                                   reactants_order, products_order, modifiers_order,
                                   reactants_placement, products_placement, modifiers_placement)
 

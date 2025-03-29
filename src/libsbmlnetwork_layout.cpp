@@ -857,13 +857,21 @@ int setPositionX(Layout* layout, const std::string& id, unsigned int graphicalOb
 
 int setPositionX(Layout* layout, GraphicalObject* graphicalObject, const double& x) {
     double moveDistance = x - getPositionX(graphicalObject);
-    if ((isSetCurve(graphicalObject) && !setPositionX(getCurve(graphicalObject), x)) || !setPositionX(getBoundingBox(graphicalObject), x)) {
+    if ((isReactionGlyph(graphicalObject) && !setPositionX(layout, (ReactionGlyph*)graphicalObject, x)) || !setPositionX(getBoundingBox(graphicalObject), x)) {
         updateAssociatedTextGlyphsPositionX(layout, graphicalObject, moveDistance);
         fix_elements_fixGraphicalObjectPosition(graphicalObject);
         return 0;
     }
 
     return -1;
+}
+
+int setPositionX(Layout* layout, ReactionGlyph* reactionGlyph, const double& x) {
+    if (isSetCurve(reactionGlyph))
+        if (setPositionX(getCurve(reactionGlyph), x))
+            return -1;
+
+    return setPositionX(getBoundingBox(reactionGlyph), x);
 }
 
 int setPositionX(BoundingBox* boundingBox, const double& x) {
@@ -919,13 +927,21 @@ int setPositionY(Layout* layout, const std::string& id, unsigned int graphicalOb
 
 int setPositionY(Layout* layout, GraphicalObject* graphicalObject, const double& y) {
     double moveDistance = y - getPositionY(graphicalObject);
-    if ((isSetCurve(graphicalObject) && !setPositionY(getCurve(graphicalObject), y)) || !setPositionY(getBoundingBox(graphicalObject), y)) {
+    if ((isReactionGlyph(graphicalObject) && !setPositionY(layout, (ReactionGlyph*)graphicalObject, y)) || !setPositionY(getBoundingBox(graphicalObject), y)) {
         updateAssociatedTextGlyphsPositionY(layout, graphicalObject, moveDistance);
         fix_elements_fixGraphicalObjectPosition(graphicalObject);
         return 0;
     }
 
     return -1;
+}
+
+int setPositionY(Layout* layout, ReactionGlyph* reactionGlyph, const double& y) {
+    if (isSetCurve(reactionGlyph))
+        if (setPositionY(getCurve(reactionGlyph), y))
+            return -1;
+
+    return setPositionY(getBoundingBox(reactionGlyph), y);
 }
 
 int setPositionY(BoundingBox* boundingBox, const double& y) {
@@ -957,13 +973,21 @@ int setPosition(Layout* layout, const std::string& id, unsigned int graphicalObj
 int setPosition(Layout* layout, GraphicalObject* graphicalObject, const double& x, const double& y) {
     double moveDistanceX = x - getPositionX(graphicalObject);
     double moveDistanceY = y - getPositionY(graphicalObject);
-    if ((isSetCurve(graphicalObject) && !setPosition(getCurve(graphicalObject), x, y)) || !setPosition(getBoundingBox(graphicalObject), x, y)) {
+    if ((isReactionGlyph(graphicalObject) && !setPosition(layout, (ReactionGlyph*)graphicalObject, x, y)) || !setPosition(getBoundingBox(graphicalObject), x, y)) {
         updateAssociatedTextGlyphsPosition(layout, graphicalObject, moveDistanceX, moveDistanceY);
         fix_elements_fixGraphicalObjectPosition(graphicalObject);
         return 0;
     }
 
     return -1;
+}
+
+int setPosition(Layout* layout, ReactionGlyph* reactionGlyph, const double& x, const double& y) {
+    if (isSetCurve(reactionGlyph))
+        if (setPosition(getCurve(reactionGlyph), x, y))
+            return -1;
+
+    return setPosition(getBoundingBox(reactionGlyph), x, y);
 }
 
 int setPosition(BoundingBox* boundingBox, const double& x, const double& y) {
@@ -1011,7 +1035,7 @@ int setDimensionWidth(Layout* layout, const std::string& id, unsigned int graphi
 
 int setDimensionWidth(Layout* layout, GraphicalObject* graphicalObject, const double& width) {
     double changedWidth = width - getDimensionWidth(graphicalObject);
-    if (!setDimensionWidth(getBoundingBox(graphicalObject), width)) {
+    if ((isReactionGlyph(graphicalObject) && !setDimensionWidth(layout, (ReactionGlyph*)graphicalObject, width)) || !setDimensionWidth(getBoundingBox(graphicalObject), width)) {
         fix_elements_fixGraphicalObjectWidth(graphicalObject);
         updateAssociatedTextGlyphsDimensionWidth(layout, graphicalObject, changedWidth);
         return 0;
@@ -1020,9 +1044,26 @@ int setDimensionWidth(Layout* layout, GraphicalObject* graphicalObject, const do
     return -1;
 }
 
+int setDimensionWidth(Layout* layout, ReactionGlyph* reactionGlyph, const double& x) {
+    if (isSetCurve(reactionGlyph))
+        if (setDimensionWidth(getCurve(reactionGlyph), x))
+            return -1;
+
+    return setDimensionWidth(getBoundingBox(reactionGlyph), x);
+}
+
 int setDimensionWidth(BoundingBox* boundingBox, const double& width) {
     if (boundingBox && isValidBoundingBoxWidthValue(width, boundingBox)) {
         boundingBox->setWidth(width);
+        return 0;
+    }
+
+    return -1;
+}
+
+int setDimensionWidth(Curve* curve, const double& width) {
+    if (curve && isValidBoundingBoxWidthValue(width, curve)) {
+        setCurveHorizontalLength(curve, width);
         return 0;
     }
 
@@ -1081,7 +1122,7 @@ int setDimensionHeight(Layout* layout, const std::string& id, unsigned int graph
 
 int setDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, const double& height) {
     double changedHeight = height - getDimensionHeight(graphicalObject);
-    if (!setDimensionHeight(getBoundingBox(graphicalObject), height)) {
+    if ((isReactionGlyph(graphicalObject) && !setDimensionHeight(layout, (ReactionGlyph*)graphicalObject, height)) || !setDimensionHeight(getBoundingBox(graphicalObject), height)) {
         fix_elements_fixGraphicalObjectHeight(graphicalObject);
         updateAssociatedTextGlyphsDimensionHeight(layout, graphicalObject, changedHeight);
         return 0;
@@ -1090,9 +1131,26 @@ int setDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, const d
     return -1;
 }
 
+int setDimensionHeight(Layout* layout, ReactionGlyph* reactionGlyph, const double& x) {
+    if (isSetCurve(reactionGlyph))
+        if (setDimensionHeight(getCurve(reactionGlyph), x))
+            return -1;
+
+    return setDimensionHeight(getBoundingBox(reactionGlyph), x);
+}
+
 int setDimensionHeight(BoundingBox* boundingBox, const double& height) {
     if (boundingBox && isValidBoundingBoxHeightValue(height, boundingBox)) {
         boundingBox->setHeight(height);
+        return 0;
+    }
+
+    return -1;
+}
+
+int setDimensionHeight(Curve* curve, const double& height) {
+    if (curve && isValidBoundingBoxHeightValue(height, curve)) {
+        setCurveVerticalLength(curve, height);
         return 0;
     }
 

@@ -38,8 +38,12 @@ const double defaults_getSpeciesDefaultHeight() {
     return 36.0;
 }
 
-const double defaults_getEmptySpeciesDefaultRadius() {
-    return 15.0;
+const double defaults_getEmptySpeciesDefaultWidth() {
+    return 30.0;
+}
+
+const double defaults_getEmptySpeciesDefaultHeight() {
+    return 30.0;
 }
 
 const double defaults_getReactionDefaultWidth() {

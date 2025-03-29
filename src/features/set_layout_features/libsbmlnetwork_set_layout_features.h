@@ -39,15 +39,15 @@ void set_layout_features_setProductGlyphs(Layout* layout, Reaction* reaction, Re
 
 void set_layout_features_setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData);
 
-void set_layout_features_setEmptySpeciesReferenceGlyphs(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData = {});
+void set_layout_features_setEmptySpeciesReferenceGlyphs(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData);
 
-SpeciesReferenceGlyph* set_layout_features_createEmptySpeciesReferenceGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
+SpeciesReferenceGlyph* set_layout_features_createEmptySpeciesReferenceGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData);
 
-SpeciesGlyph* set_layout_features_createEmptySpeciesGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
+SpeciesGlyph* set_layout_features_createEmptySpeciesGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData);
 
-SpeciesGlyph* set_layout_features_createEmptySpeciesGlyph(ReactionGlyph* reactionGlyph);
+SpeciesGlyph* set_layout_features_createEmptySpeciesGlyph(ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData);
 
-SpeciesReferenceGlyph* set_layout_features_createEmptySpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, SpeciesGlyph* EmptySpeciesGlyph);
+SpeciesReferenceGlyph* set_layout_features_createEmptySpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, SpeciesGlyph* EmptySpeciesGlyph, const std::vector<std::map<std::string, std::string>>& userData);
 
 void set_layout_features_setReactionBoundingBoxes(Layout* layout);
 
@@ -69,7 +69,7 @@ CompartmentGlyph* set_layout_features_createCompartmentGlyph(Layout* layout, con
 
 SpeciesGlyph* set_layout_features_createSpeciesGlyph(Layout* layout, const std::string& speciesId, const std::vector<std::map<std::string, std::string>>& userData = {});
 
-SpeciesGlyph* set_layout_features_createEmptySpeciesGlyph(Layout* layout, const std::string& reactionGlyphId);
+SpeciesGlyph* set_layout_features_createEmptySpeciesGlyph(Layout* layout, const std::string& reactionGlyphId, const std::vector<std::map<std::string, std::string>>& userData);
 
 ReactionGlyph* set_layout_features_createReactionGlyph(Layout* layout, const std::string& reactionId, const std::vector<std::map<std::string, std::string>>& userData = {});
 

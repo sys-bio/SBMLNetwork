@@ -2088,6 +2088,10 @@ LIBSBMLNETWORK_EXTERN int setSpeciesDimensionWidth(SBMLDocument* document, unsig
 /// @return the default "width" attribute of the bounding box of the ReactionGlyph objects.
 LIBSBMLNETWORK_EXTERN const double getReactionDimensionWidth();
 
+/// @brief Returns the default value of the "width" attribute of the bounding box of the SpeciesGlyph used to represent an empty Species
+/// @return the default "width" attribute of the bounding box of the SpeciesGlyph used to represent an empty Species
+LIBSBMLNETWORK_EXTERN const double getEmptySpeciesDefaultWidth();
+
 /// @brief Sets the value of the "width" attribute the bounding box of all the ReactionGlyph objects in the Layout object with the given index in the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
@@ -2176,6 +2180,10 @@ LIBSBMLNETWORK_EXTERN int setSpeciesDimensionHeight(SBMLDocument* document, unsi
 /// @brief Returns the default value of the "height" attribute of the bounding box of the ReactionGlyph objects.
 /// @return the default "height" attribute of the bounding box of the ReactionGlyph objects.
 LIBSBMLNETWORK_EXTERN const double getReactionDimensionHeight();
+
+/// @brief Returns the default value of the "height" attribute of the bounding box of the SpeciesGlyph used to represent an empty Species
+/// @return the default "height" attribute of the bounding box of the SpeciesGlyph used to represent an empty Species
+LIBSBMLNETWORK_EXTERN const double getEmptySpeciesDefaultHeight();
 
 /// @brief Sets the value of the "height" attribute of the bounding box of all the ReactionGlyph objects in the Layout object with the given index in the SBML document.
 /// @param document a pointer to the SBMLDocument object.

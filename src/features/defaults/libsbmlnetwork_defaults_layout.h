@@ -22,7 +22,9 @@ const double defaults_getSpeciesDefaultWidth();
 
 const double defaults_getSpeciesDefaultHeight();
 
-const double defaults_getEmptySpeciesDefaultRadius();
+const double defaults_getEmptySpeciesDefaultWidth();
+
+const double defaults_getEmptySpeciesDefaultHeight();
 
 const double defaults_getReactionDefaultWidth();
 

@@ -641,6 +641,73 @@ int setCurveMiddlePositionY(Curve* curve, const double& y) {
     return -1;
 }
 
+const double setCurveHorizontalLength(Curve* curve, const double& length) {
+    if (curve->getNumCurveSegments() == 1) {
+        LineSegment *lineSegment = curve->getCurveSegment(0);
+        double x1 = lineSegment->getStart()->x();
+        double x2 = lineSegment->getEnd()->x();
+        double x = 0.5 * (x1 + x2);
+        double x1New = x - 0.5 * length;
+        double x2New = x + 0.5 * length;
+        lineSegment->getStart()->setX(x1New);
+        lineSegment->getEnd()->setX(x2New);
+        if (isCubicBezier(lineSegment)) {
+            ((CubicBezier *) lineSegment)->getBasePoint1()->setX(x1New);
+            ((CubicBezier *) lineSegment)->getBasePoint2()->setX(x2New);
+        }
+
+
+    }
+
+    return 0;
+}
+
+const double setCurveVerticalLength(Curve* curve, const double& length) {
+    if (curve->getNumCurveSegments() == 1) {
+        LineSegment *lineSegment = curve->getCurveSegment(0);
+        double y1 = lineSegment->getStart()->y();
+        double y2 = lineSegment->getEnd()->y();
+        double y = 0.5 * (y1 + y2);
+        double y1New = y - 0.5 * length;
+        double y2New = y + 0.5 * length;
+        lineSegment->getStart()->setY(y1New);
+        lineSegment->getEnd()->setY(y2New);
+        if (isCubicBezier(lineSegment)) {
+            ((CubicBezier *) lineSegment)->getBasePoint1()->setY(y1New);
+            ((CubicBezier *) lineSegment)->getBasePoint2()->setY(y2New);
+        }
+
+    }
+
+    return 0;
+}
+
+int getCurveHorizontalLength(Curve* curve, double& length) {
+    if (curve->getNumCurveSegments() == 1) {
+        LineSegment *lineSegment = curve->getCurveSegment(0);
+        double x1 = lineSegment->getStart()->x();
+        double x2 = lineSegment->getEnd()->x();
+        length = std::abs(x1 - x2);
+
+        return 0;
+    }
+
+    return -1;
+}
+
+int getCurveVerticalLength(Curve* curve, double& length) {
+    if (curve->getNumCurveSegments() == 1) {
+        LineSegment *lineSegment = curve->getCurveSegment(0);
+        double y1 = lineSegment->getStart()->y();
+        double y2 = lineSegment->getEnd()->y();
+        length = std::abs(y1 - y2);
+
+        return 0;
+    }
+
+    return -1;
+}
+
 int updateGraphicalObjectId(Layout* layout, GraphicalObject* graphicalObject, const std::string& newId) {
     if (graphicalObject && !newId.empty() && getGraphicalObjectUsingItsOwnId(layout, newId) == NULL) {
         if (isSpeciesGlyph(graphicalObject)) {
