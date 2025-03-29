@@ -49,7 +49,6 @@ class TestSBMLNetwork(unittest.TestCase):
         self.assertEqual(network.getWidth("S2"), 86)
         self.assertEqual(network.getHeight("S2"), 73)
 
-
     def test_max_edges(self):
         model = """
             S1 -> S2;
@@ -838,6 +837,141 @@ class TestSBMLNetwork(unittest.TestCase):
         self.assertEqual(network.getCompartmentsFillColor(), "yellow")
         self.assertEqual(network.getSpeciesFillColor(), "orange")
         self.assertEqual(network.getReactionsFillColor(), "fuchsia")
+
+    def test_reaction_position_and_dimensions_after_autolayout(self):
+        model = '''
+        J0: S1 -> S2;
+        '''
+        r = te.loada(model)
+        net = sbmlnetwork.load(r.getSBML())
+
+        # Testing width
+        self.assertEqual(net.libsbmlnetwork.getWidth("J0"), 0)
+        net.libsbmlnetwork.setWidth("J0", 110)
+        self.assertEqual(net.libsbmlnetwork.getWidth("J0"), 110)
+        net.libsbmlnetwork.autolayout()
+        self.assertEqual(net.libsbmlnetwork.getWidth("J0"), 110)
+
+        # Testing height
+        self.assertEqual(net.libsbmlnetwork.getHeight("J0"), 0)
+        net.libsbmlnetwork.setHeight("J0", 25)
+        self.assertEqual(net.libsbmlnetwork.getHeight("J0"), 25)
+        net.libsbmlnetwork.autolayout()
+        self.assertEqual(net.libsbmlnetwork.getHeight("J0"), 25)
+
+        # Testing x position
+        net.libsbmlnetwork.setX("J0", 410)
+        self.assertEqual(net.libsbmlnetwork.getX("J0"), 410)
+        net.libsbmlnetwork.autolayout()
+        self.assertEqual(net.libsbmlnetwork.getX("J0"), 410)
+
+        # Testing y position
+        net.libsbmlnetwork.setY("J0", 420)
+        self.assertEqual(net.libsbmlnetwork.getY("J0"), 420)
+        net.libsbmlnetwork.autolayout()
+        self.assertEqual(net.libsbmlnetwork.getY("J0"), 420)
+
+    def test_empty_species_positiions_and_dimensions_after_autolayout(self):
+        model = '''
+        J0: -> S1;
+        '''
+        r = te.loada(model)
+        net = sbmlnetwork.load(r.getSBML())
+        empty_species_glyph_id = ""
+        for sr_index in range(net.libsbmlnetwork.getNumSpeciesReferences(reaction_id="J0")):
+            if net.libsbmlnetwork.getSpeciesReferenceEmptySpeciesGlyphId(reaction_id="J0", species_reference_index=sr_index) != "":
+                empty_species_glyph_id = net.libsbmlnetwork.getSpeciesReferenceEmptySpeciesGlyphId(reaction_id="J0", species_reference_index=sr_index)
+                break
+        if empty_species_glyph_id != "":
+            net.libsbmlnetwork.setX(id=empty_species_glyph_id, x=250)
+            net.libsbmlnetwork.setY(id=empty_species_glyph_id, y=290)
+            net.libsbmlnetwork.setWidth(id=empty_species_glyph_id, width=90)
+            net.libsbmlnetwork.setHeight(id=empty_species_glyph_id, height=15)
+            net.auto_layout()
+            self.assertEqual(net.libsbmlnetwork.getX(id=empty_species_glyph_id), 250)
+            self.assertEqual(net.libsbmlnetwork.getY(id=empty_species_glyph_id), 290)
+            self.assertEqual(net.libsbmlnetwork.getWidth(id=empty_species_glyph_id), 90)
+            self.assertEqual(net.libsbmlnetwork.getHeight(id=empty_species_glyph_id), 15)
+
+    def test_setting_getting_empty_species_default_values(self):
+        model = '''
+        J0: -> S1;
+        J1: S2 -> ;
+        '''
+        r = te.loada(model)
+        net = sbmlnetwork.load(r.getSBML())
+
+        # Test border color
+        net.libsbmlnetwork.setEmptySpeciesBorderColor("blue")
+        self.assertEqual(net.libsbmlnetwork.getEmptySpeciesBorderColor(), "blue")
+
+        # Test fill color
+        net.libsbmlnetwork.setEmptySpeciesFillColor("yellow")
+        self.assertEqual(net.libsbmlnetwork.getEmptySpeciesFillColor(), "yellow")
+
+        # Test font size
+        net.libsbmlnetwork.setEmptySpeciesFontSize(10)
+        self.assertEqual(net.libsbmlnetwork.getEmptySpeciesFontSize(), 10)
+
+        # Test font family
+        net.libsbmlnetwork.setEmptySpeciesFontFamily("Arial")
+        self.assertEqual(net.libsbmlnetwork.getEmptySpeciesFontFamily(), "Arial")
+
+        # Test font style
+        net.libsbmlnetwork.setEmptySpeciesFontStyle("italic")
+        self.assertEqual(net.libsbmlnetwork.getEmptySpeciesFontStyle(), "italic")
+
+        # Test font weight
+        net.libsbmlnetwork.setEmptySpeciesFontWeight("bold")
+        self.assertEqual(net.libsbmlnetwork.getEmptySpeciesFontWeight(), "bold")
+
+        # Test font color
+        net.libsbmlnetwork.setEmptySpeciesFontColor("green")
+        self.assertEqual(net.libsbmlnetwork.getEmptySpeciesFontColor(), "green")
+
+        # Test geometric shape
+        net.libsbmlnetwork.setEmptySpeciesGeometricShapeType("ellipse")
+        self.assertEqual(net.libsbmlnetwork.getEmptySpeciesGeometricShapeType(), "ellipse")
+
+    def test_empty_species_properties(self):
+        model = '''
+        J0: -> S1;
+        '''
+        r = te.loada(model)
+        net = sbmlnetwork.load(r.getSBML())
+        empty_species_glyph_id = ""
+        for sr_index in range(net.libsbmlnetwork.getNumSpeciesReferences(reaction_id="J0")):
+            if net.libsbmlnetwork.getSpeciesReferenceEmptySpeciesGlyphId(reaction_id="J0", species_reference_index=sr_index) != "":
+                empty_species_glyph_id = net.libsbmlnetwork.getSpeciesReferenceEmptySpeciesGlyphId(reaction_id="J0", species_reference_index=sr_index)
+                break
+        if empty_species_glyph_id != "":
+            net.libsbmlnetwork.setX(id=empty_species_glyph_id, x=250)
+            net.libsbmlnetwork.setY(id=empty_species_glyph_id, y=290)
+            net.libsbmlnetwork.setWidth(id=empty_species_glyph_id, width=90)
+            net.libsbmlnetwork.setHeight(id=empty_species_glyph_id, height=15)
+            net.auto_layout()
+            self.assertEqual(net.libsbmlnetwork.getX(id=empty_species_glyph_id), 250)
+            self.assertEqual(net.libsbmlnetwork.getY(id=empty_species_glyph_id), 290)
+            self.assertEqual(net.libsbmlnetwork.getWidth(id=empty_species_glyph_id), 90)
+            self.assertEqual(net.libsbmlnetwork.getHeight(id=empty_species_glyph_id), 15)
+
+    def test_setting_geometric_shape_properties_for_species_glyph_with_more_than_one_geometric_shape(self):
+        model = '''
+        J0: -> S1;
+        '''
+        r = te.loada(model)
+        net = sbmlnetwork.load(r.getSBML())
+        empty_species_glyph_id = ""
+        for sr_index in range(net.libsbmlnetwork.getNumSpeciesReferences(reaction_id="J0")):
+            if net.libsbmlnetwork.getSpeciesReferenceEmptySpeciesGlyphId(reaction_id="J0", species_reference_index=sr_index) != "":
+                empty_species_glyph_id = net.libsbmlnetwork.getSpeciesReferenceEmptySpeciesGlyphId(reaction_id="J0", species_reference_index=sr_index)
+                break
+
+        if empty_species_glyph_id != "":
+            net.libsbmlnetwork.setBorderColor(id=empty_species_glyph_id, border_color="blue")
+            self.assertEqual(net.libsbmlnetwork.getBorderColor(id=empty_species_glyph_id), "blue")
+            net.libsbmlnetwork.setFillColor(id=empty_species_glyph_id, fill_color="yellow")
+            self.assertEqual(net.libsbmlnetwork.getFillColor(id=empty_species_glyph_id), "yellow")
 
     @staticmethod
     def _get_max_position_y(network, species_list):
