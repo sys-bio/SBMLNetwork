@@ -72,13 +72,13 @@ const std::string getEmptySpeciesGlyphId(Layout* layout, SpeciesReferenceGlyph* 
     return "";
 }
 
-int setSpeciesGlyphIndexInReactionGlyph(Layout* layout, const std::string speciesId, ReactionGlyph* reactionGlyph, const unsigned int index) {
+int setSpeciesGlyphIndexInReactionGlyph(Layout* layout, const std::string speciesId, ReactionGlyph* reactionGlyph, const unsigned int speciesGlyphIndex) {
     std::vector<SpeciesGlyph*> speciesGlyphs = getAssociatedSpeciesGlyphsWithSpeciesId(layout, speciesId);
     std::vector<SpeciesReferenceGlyph*> speciesReferenceGlyphs = getSpeciesReferencesAssociatedWithSpecies(layout, reactionGlyph, speciesId);
     int originalSpeciesGlyphIndex = getIndexOfConnectedSpeciesGlyph(speciesReferenceGlyphs, speciesGlyphs);
-    if (originalSpeciesGlyphIndex != -1 && originalSpeciesGlyphIndex != index && index < speciesGlyphs.size()) {
+    if (originalSpeciesGlyphIndex != -1 && originalSpeciesGlyphIndex != speciesGlyphIndex && speciesGlyphIndex < speciesGlyphs.size()) {
         SpeciesGlyph* originalSpeciesGlyph = speciesGlyphs.at(originalSpeciesGlyphIndex);
-        SpeciesGlyph* newSpeciesGlyph = speciesGlyphs.at(index);
+        SpeciesGlyph* newSpeciesGlyph = speciesGlyphs.at(speciesGlyphIndex);
         for (unsigned int i = 0; i < speciesReferenceGlyphs.size(); i++) {
             SpeciesReferenceGlyph* speciesReferenceGlyph = speciesReferenceGlyphs.at(i);
             speciesReferenceGlyph->setId(getIdOfSpeciesReferenceGlyphConnectedToNewSpeciesGlyph(speciesReferenceGlyph->getId(), originalSpeciesGlyph->getId(), newSpeciesGlyph->getId()));

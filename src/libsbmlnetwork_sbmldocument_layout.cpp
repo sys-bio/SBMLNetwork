@@ -126,29 +126,29 @@ int createAliasReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, c
     return alias_element_createAliasReactionGlyph(document, getLayout(document, layoutIndex), getReactionGlyph(document, layoutIndex, reactionId));
 }
 
-int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, const unsigned int index) {
-    if (!setSpeciesGlyphIndexInReactionGlyph(getLayout(document), speciesId, getReactionGlyph(document, reactionId), index))
+int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, const unsigned int speciesGlyphIndex) {
+    if (!setSpeciesGlyphIndexInReactionGlyph(getLayout(document), speciesId, getReactionGlyph(document, reactionId), speciesGlyphIndex))
         return updateLayoutCurves(document, getLayout(document));
 
     return -1;
 }
 
-int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, const unsigned int index) {
-    if (!setSpeciesGlyphIndexInReactionGlyph(getLayout(document, layoutIndex), speciesId, getReactionGlyph(document, layoutIndex, reactionId), index))
+int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, const unsigned int speciesGlyphIndex) {
+    if (!setSpeciesGlyphIndexInReactionGlyph(getLayout(document, layoutIndex), speciesId, getReactionGlyph(document, layoutIndex, reactionId), speciesGlyphIndex))
         return updateLayoutCurves(document, getLayout(document, layoutIndex));
 
     return -1;
 }
 
-int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, const unsigned int index) {
-    if (!setSpeciesGlyphIndexInReactionGlyph(getLayout(document), speciesId, getReactionGlyph(document, reactionId, reactionGlyphIndex), index))
+int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, const unsigned int speciesGlyphIndex) {
+    if (!setSpeciesGlyphIndexInReactionGlyph(getLayout(document), speciesId, getReactionGlyph(document, reactionId, reactionGlyphIndex), speciesGlyphIndex))
         return updateLayoutCurves(document, getLayout(document));
 
     return -1;
 }
 
-int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, const unsigned int index) {
-    if (!setSpeciesGlyphIndexInReactionGlyph(getLayout(document, layoutIndex), speciesId, getReactionGlyph(document, layoutIndex, reactionId, reactionGlyphIndex), index))
+int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, const unsigned int speciesGlyphIndex) {
+    if (!setSpeciesGlyphIndexInReactionGlyph(getLayout(document, layoutIndex), speciesId, getReactionGlyph(document, layoutIndex, reactionId, reactionGlyphIndex), speciesGlyphIndex))
         return updateLayoutCurves(document, getLayout(document, layoutIndex));
 
     return -1;
