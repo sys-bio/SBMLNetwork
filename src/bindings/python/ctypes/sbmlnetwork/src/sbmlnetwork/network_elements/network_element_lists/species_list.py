@@ -122,7 +122,7 @@ class SpeciesList(NetworkElementBaseList):
 
         arrow_heads = ArrowHeadList()
         for species in self:
-            arrow_heads.append(species.get_arrow_heads())
+            arrow_heads.extend(species.get_arrow_heads())
 
         return arrow_heads
 
@@ -131,9 +131,11 @@ class SpeciesList(NetworkElementBaseList):
         return self.get_arrow_heads()
 
     def get_arrow_head_shapes(self):
-        shapes = []
+        from ..visual_elements.visual_element_lists.shape_list import ShapeList
+
+        shapes = ShapeList()
         for species in self:
-            shapes.append(species.get_arrow_head_shapes())
+            shapes.extend(species.get_arrow_head_shapes())
 
         return shapes
 

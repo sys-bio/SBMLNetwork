@@ -192,4 +192,4 @@ class CurveSegment:
         return self.get_info()
 
     def __repr__(self):
-        return self.__str__()
+        return f"CurveSegment(reaction_id={self.reaction_id}, reaction_glyph_index={self.reaction_glyph_index}, species_reference_index={self.species_reference_index}, curve_segment_index={self.curve_segment_index})"

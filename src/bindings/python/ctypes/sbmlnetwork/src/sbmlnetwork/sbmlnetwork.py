@@ -2,20 +2,20 @@ import libsbmlnetwork
 import networkinfotranslator
 from IPython.display import display
 from .settings import Settings
-from .features.data_integration import Fluxes
-from .features.data_integration import Concentrations
+from .features.data_integration import ColorCodingFluxes
+from .features.data_integration import ColorCodingConcentrations, SizeCodingConcentrations
 from .network_elements import *
 from typing import Union
 import warnings
 
 
-class SBMLNetwork():
+class SBMLNetwork:
 
     def __init__(self):
         self.libsbmlnetwork = libsbmlnetwork.LibSBMLNetwork()
         self.settings = Settings(self.libsbmlnetwork)
-        self.fluxes = Fluxes(self)
-        self.concentrations = Concentrations(self)
+        self.fluxes = None
+        self.concentrations = None
 
     def load(self, sbml: str):
         self.libsbmlnetwork.load(sbml)
@@ -569,18 +569,28 @@ class SBMLNetwork():
     def get_styles_options(self):
         return self.libsbmlnetwork.getListOfStyles()
 
-    def show_fluxes(self, simulation_end_time: float = None, simulation_start_time: float = None,
-                    simulation_time_steps: int = None, fluxes: dict = None):
-        return self.fluxes.show(simulation_end_time, simulation_start_time, simulation_time_steps, fluxes)
+    def show_fluxes(self, data: Union[float, dict], log_scale: bool = False):
+        self.fluxes = ColorCodingFluxes(self)
+        return self.fluxes.show(data, log_scale)
 
     def hide_fluxes(self):
+        if self.fluxes is None:
+            return False
+
         return self.fluxes.hide()
 
-    def show_concentrations(self, simulation_end_time: float = None, simulation_start_time: float = None,
-                            simulation_time_steps: int = None, concentrations: dict = None):
-        return self.concentrations.show(simulation_end_time, simulation_start_time, simulation_time_steps, concentrations)
+    def show_concentrations(self, data: Union[float, dict], log_scale: bool = False, show_by = "color"):
+        if show_by == "size":
+            self.concentrations = SizeCodingConcentrations(self)
+        else:
+            self.concentrations = ColorCodingConcentrations(self)
+
+        return self.concentrations.show(data, log_scale)
 
     def hide_concentrations(self):
+        if self.concentrations is None:
+            return False
+
         return self.concentrations.hide()
 
     def group_reactions(self, reactions: list[str, Reaction], color: str = None):
@@ -757,23 +767,14 @@ class SBMLNetwork():
                 if y + height > current_height:
                     current_height = y + height
 
-        padding = 20
-        current_width += padding
-        current_height += padding
-
-        fluxes_color_bar = self.get_color_bar("fluxes")
-        concentration_color_bar = self.get_color_bar("concentrations")
-
-        if fluxes_color_bar or concentration_color_bar:
-            color_bar_extra_margin = 20
-            current_width += color_bar_extra_margin
-
         if self.libsbmlnetwork.getNumAllCompartmentGlyphs() == 1:
             sole_compartment = self.get_compartment()
             compartment_width = current_width - sole_compartment.get_position()[0]
             compartment_height = current_height - sole_compartment.get_position()[1]
+            fluxes_color_bar = self.get_color_bar("fluxes")
             if fluxes_color_bar:
                 compartment_width -= fluxes_color_bar.get_horizontal_extent()
+            concentration_color_bar = self.get_color_bar("concentrations")
             if concentration_color_bar:
                 compartment_width -= concentration_color_bar.get_horizontal_extent()
 

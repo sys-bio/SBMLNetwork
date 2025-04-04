@@ -111,7 +111,7 @@ class ReactionList(NetworkElementBaseList):
 
         shapes = ShapeList()
         for reaction in self:
-            shapes.append(reaction.get_shapes())
+            shapes.extend(reaction.get_shapes())
 
         return shapes
 
@@ -120,7 +120,7 @@ class ReactionList(NetworkElementBaseList):
 
         shapes = ShapeList()
         for reaction in self:
-            shapes.append(reaction.get_center_shapes())
+            shapes.extend(reaction.get_center_shapes())
 
         return shapes
 
@@ -306,7 +306,7 @@ class ReactionList(NetworkElementBaseList):
 
         arrow_heads = ArrowHeadList()
         for reaction in self:
-            arrow_heads.append(reaction.get_arrow_heads())
+            arrow_heads.extend(reaction.get_arrow_heads())
         return arrow_heads
 
     @property
