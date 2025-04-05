@@ -223,6 +223,10 @@ void setReactionGlyphCurve(ReactionGlyph* reactionGlyph) {
         double width = reactionGlyph->getBoundingBox()->width();
         double height = reactionGlyph->getBoundingBox()->height();
         set_layout_features_setCurveCubicBezier(reactionGlyph->getCurve(), x + 0.5 * width, y + 0.5 * height);
+        reactionGlyph->getBoundingBox()->setX(x);
+        reactionGlyph->getBoundingBox()->setY(y);
+        reactionGlyph->getBoundingBox()->setWidth(std::max(width, defaults_getReactionDefaultWidth()));
+        reactionGlyph->getBoundingBox()->setHeight(std::max(height, defaults_getReactionDefaultHeight()));
     }
 }
 
@@ -254,8 +258,8 @@ void setReactionGlyphBoundingBox(ReactionGlyph* reactionGlyph) {
         }
         reactionGlyph->getBoundingBox()->setX(x);
         reactionGlyph->getBoundingBox()->setY(y);
-        reactionGlyph->getBoundingBox()->setWidth(width);
-        reactionGlyph->getBoundingBox()->setHeight(height);
+        reactionGlyph->getBoundingBox()->setWidth(std::max(width, defaults_getReactionDefaultWidth()));
+        reactionGlyph->getBoundingBox()->setHeight(std::max(height, defaults_getReactionDefaultHeight()));
     }
 }
 
