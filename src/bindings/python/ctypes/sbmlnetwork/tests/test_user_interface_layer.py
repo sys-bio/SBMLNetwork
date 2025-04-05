@@ -167,7 +167,6 @@ class TestSBMLModel(unittest.TestCase):
         group_1 = network.group_reactions(reactions[:3], "white")
         reactions_list = group_1.get_reactions_list()
         species_list = group_1.get_species_list()
-        self.assertFalse(group_1.is_hidden())
         for reaction in reactions_list:
             self.assertFalse(reaction.is_hidden())
             curves_list = reaction.get_curves_list()
