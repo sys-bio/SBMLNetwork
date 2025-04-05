@@ -4,6 +4,7 @@
 #include "../../features/set_layout_features/libsbmlnetwork_set_layout_features.h"
 #include "../../features/alias_elements/libsbmlnetwork_alias_element.h"
 #include "../../features/defaults/libsbmlnetwork_defaults_layout.h"
+#include "../../features/user_data/libsbmlnetwork_user_data.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
@@ -16,6 +17,7 @@ int alias_element_createAliasSpeciesGlyph(Layout* layout, const std::string spec
                 alias_element_setAliasGraphicalObjectPosition(aliasSpeciesGlyph, reactionGlyph);
                 alias_element_setAliasSpeciesGlyphDimensions(aliasSpeciesGlyph, reactionGlyph);
                 alias_element_setAliasSpeciesGlyphTextGlyph(layout, aliasSpeciesGlyph);
+                user_data_setUserData(reactionGlyph, "alias_" + speciesId, aliasSpeciesGlyph->getId());
                 return 0;
             }
         }
@@ -27,7 +29,7 @@ int alias_element_createAliasSpeciesGlyph(Layout* layout, const std::string spec
 SpeciesGlyph* alias_element_createAliasSpeciesGlyph(Layout* layout, SpeciesGlyph* speciesGlyph, const double& padding) {
     SpeciesGlyph* aliasSpeciesGlyph = NULL;
     if (speciesGlyph) {
-        aliasSpeciesGlyph = set_layout_features_createSpeciesGlyph(layout, speciesGlyph->getSpeciesId());
+        aliasSpeciesGlyph = set_layout_features_createSpeciesGlyph(layout, speciesGlyph->getSpeciesId(), set_layout_features_getSpeciesGlyphId(layout, speciesGlyph->getSpeciesId()));
         alias_element_setAliasGraphicalObjectPosition(aliasSpeciesGlyph, speciesGlyph, padding);
         alias_element_setAliasSpeciesGlyphDimensions(aliasSpeciesGlyph, speciesGlyph);
         alias_element_setAliasSpeciesGlyphTextGlyph(layout, aliasSpeciesGlyph);
@@ -39,7 +41,7 @@ SpeciesGlyph* alias_element_createAliasSpeciesGlyph(Layout* layout, SpeciesGlyph
 SpeciesGlyph* alias_element_createAliasSpeciesGlyph(Layout* layout, const std::string& speciesId, std::vector<SpeciesReferenceGlyph*> speciesGlyphReferences) {
     SpeciesGlyph* aliasSpeciesGlyph = NULL;
     if (speciesGlyphReferences.size()) {
-        aliasSpeciesGlyph = set_layout_features_createSpeciesGlyph(layout, speciesId);
+        aliasSpeciesGlyph = set_layout_features_createSpeciesGlyph(layout, speciesId, set_layout_features_getSpeciesGlyphId(layout, speciesId));
         while (speciesGlyphReferences.size()) {
             SpeciesReferenceGlyph* speciesReferenceGlyph = speciesGlyphReferences.back();
             speciesReferenceGlyph->setId(getIdOfSpeciesReferenceGlyphConnectedToNewSpeciesGlyph(speciesReferenceGlyph->getId(), speciesReferenceGlyph->getSpeciesGlyphId(), aliasSpeciesGlyph->getId()));

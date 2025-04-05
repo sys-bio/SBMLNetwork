@@ -93,6 +93,10 @@ const std::string getColorIdFromHexColorCode(RenderInformationBase* renderInform
 
 const std::string getUniqueColorId(RenderInformationBase* renderInformationBase);
 
+const std::string getUniqueColorId(GlobalRenderInformation* globalRenderInformation);
+
+const std::string getUniqueColorId(LocalRenderInformation* localRenderInformation);
+
 ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, unsigned char r, unsigned char g, unsigned char b, unsigned char a);
 
 ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, const std::string &value);

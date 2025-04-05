@@ -70,9 +70,11 @@ class ColorBar(AdditionalElement):
         for i in range(len(labels)):
             y_position = (i / (number_of_tick_marks - 1) - 0.5) * size[
                 1]
-            label = self.add_label(labels[len(labels) - 1 - i], (size[0] + tick_mark_size, y_position))
-            if label.set_size((1.5 * label.get_size()[0], label.get_size()[1])) == False:
+            label = self.add_label(labels[len(labels) - 1 - i], (size[0] + tick_mark_size, y_position + size[1] / 2))
+            if not label.set_size((1.5 * label.get_size()[0], 1.5 * label.get_size()[0])):
                 return False
+            else:
+                label.move_by((0.0, - label.get_size()[1] / 2))
 
         if not self._add_legend_label():
             return False

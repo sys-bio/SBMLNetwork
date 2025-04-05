@@ -251,9 +251,18 @@ class Species(NetworkElementBase):
 
         return False
 
-    def create_alias(self, reaction: Reaction):
-        if self.libsbmlnetwork.createAliasSpeciesGlyph(species_id=self.element_id, reaction_id=reaction.get_reaction_id(), reaction_glyph_index=reaction.graphical_object_index) == 0:
-            species_glyph_index = self.libsbmlnetwork.getSpeciesGlyphIndex(species_id=self.element_id, reaction_id=reaction.get_reaction_id(), reaction_glyph_index=reaction.graphical_object_index)
+    def create_alias(self, reaction: Union[Reaction, str]):
+        if isinstance(reaction, Reaction):
+            reaction_id = reaction.get_reaction_id()
+            reaction_glyph_index = reaction.graphical_object_index
+        elif isinstance(reaction, str):
+            reaction_id = reaction
+            reaction_glyph_index = 0
+        else:
+            raise ValueError("Reaction must be a Reaction object or a string")
+
+        if self.libsbmlnetwork.createAliasSpeciesGlyph(species_id=self.element_id, reaction_id=reaction_id, reaction_glyph_index=reaction_glyph_index) == 0:
+            species_glyph_index = self.libsbmlnetwork.getSpeciesGlyphIndex(species_id=self.element_id, reaction_id=reaction_id, reaction_glyph_index=reaction_glyph_index)
             return Species(self.libsbmlnetwork, self.element_id, species_glyph_index)
 
         return None

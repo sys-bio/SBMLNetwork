@@ -463,14 +463,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// or @c 0 if the object is @c NULL or has no associated SpeciesGlyph objects
     LIBSBMLNETWORK_EXTERN const int c_api_getNumSpeciesGlyphs(SBMLDocument* document, const char* speciesId, int layoutIndex);
 
-    /// @brief Sets which SpeciesGlyph of Species with the given id  to be assigned to the ReactionGlyph with the given id and index in the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @brief Sets which index of SpeciesGlyph of the Species with the given id to be assigned to the ReactionGlyph with the given id and index in the Layout object with the given index in the ListOfLayouts of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param speciesId the id of the species the SpeciesGlyph object associated with it is going to be set.
+    /// @param speciesGlyphIndex the index of the SpeciesGlyph object.
     /// @param reactionId the id of the reaction the SpeciesGlyph object is going to be associated with.
-    /// @param index the index of the SpeciesGlyph object.
     /// @param reactionGlyphIndex the index of the ReactionGlyph object.
     /// @param layoutIndex the index number of the Layout to return.
-    LIBSBMLNETWORK_EXTERN const int c_api_setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, const char* speciesId, const char* reactionId, int index, int reactionGlyphIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN const int c_api_setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, const char* speciesId, int speceisGlyphIndex, const char* reactionId, int reactionGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the index of the SpeciesGlyph object among the list of SpeciesGlyph objects associated with the given species id that is associated with the given reaction id with the given index in the ListOfLayouts of the SBML document.
     /// @param a pointer to the SBMLDocument object.

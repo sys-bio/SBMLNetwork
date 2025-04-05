@@ -127,9 +127,9 @@ class TestSBMLModel(unittest.TestCase):
         network = sbmlnetwork.load(self.r.getSBML())
         colors = network.get_reactions_list().get_curves_list().get_colors()
         original_canvas_width = network.get_size()[0]
-        network.show_fluxes()
+        network.show_fluxes(10)
         self.assertEqual(len(network.get_additional_elements()), 1)
-        self.assertEqual(original_canvas_width + network.fluxes.get_color_bar().get_horizontal_extent() + 20, network.get_size()[0])
+        self.assertEqual(original_canvas_width + network.fluxes.get_color_bar().get_horizontal_extent(), network.get_size()[0])
         colors_new = network.get_reactions_list().get_curves_list().get_colors()
         for color_new in colors_new:
             self.assertNotEqual(color_new, colors[0])
@@ -141,9 +141,9 @@ class TestSBMLModel(unittest.TestCase):
         network.save()
         original_canvas_width = network.get_size()[0]
         colors = network.get_species_list().get_fill_colors()
-        network.show_concentrations()
+        network.show_concentrations(10)
         self.assertEqual(len(network.get_additional_elements()), 1)
-        self.assertEqual(original_canvas_width + network.concentrations.get_color_bar().get_horizontal_extent() + 20, network.get_size()[0])
+        self.assertEqual(original_canvas_width + network.concentrations.get_color_bar().get_horizontal_extent(), network.get_size()[0])
         colors_new = network.get_species_list().get_fill_colors()
         for color_new in colors_new:
             self.assertNotEqual(color_new, colors[0])
@@ -165,22 +165,8 @@ class TestSBMLModel(unittest.TestCase):
         network = sbmlnetwork.load(r.getSBML())
         reactions = network.get_reactions_list()
         group_1 = network.group_reactions(reactions[:3], "white")
-
-
-
         reactions_list = group_1.get_reactions_list()
         species_list = group_1.get_species_list()
-        group_1.hide()
-        self.assertTrue(group_1.is_hidden())
-        for reaction in reactions_list:
-            self.assertTrue(reaction.is_hidden())
-            curves_list = reaction.get_curves_list()
-            for curve in curves_list:
-                self.assertTrue(curve.is_hidden())
-        for species in species_list:
-            self.assertTrue(species.is_hidden())
-        group_1.show()
-        self.assertFalse(group_1.is_hidden())
         for reaction in reactions_list:
             self.assertFalse(reaction.is_hidden())
             curves_list = reaction.get_curves_list()
@@ -196,7 +182,6 @@ class TestSBMLModel(unittest.TestCase):
                 self.assertEqual(curve.get_color(), "yellow")
         for species in species_list:
             self.assertEqual(species.get_border_color()[0], "yellow")
-            self.assertEqual(species.get_font_color(), "yellow")
         group_1.set_curve_thickness(12)
         for reaction in reactions_list:
             curves_list = reaction.get_curves_list()

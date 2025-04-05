@@ -215,16 +215,29 @@ void set_layout_features_setReactionBoundingBoxes(Layout* layout) {
         setReactionGlyphBoundingBox(layout->getReactionGlyph(i));
 }
 
-SpeciesGlyph* set_layout_features_getSpeciesGlyph(Layout* layout, const std::string& speciesId, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData) {
-    std::vector<SpeciesGlyph*> speciesGlyphs = getAssociatedSpeciesGlyphsWithSpeciesId(layout, speciesId);
-    if (speciesGlyphs.size()) {
-        if (set_layout_features_getConnectedSpeciesGlyphReferences(layout, speciesGlyphs.back()).size() >= maxNumConnectedEdges)
-            return set_layout_features_createSpeciesGlyph(layout, speciesId, userData);
+SpeciesGlyph* set_layout_features_getSpeciesGlyph(Layout* layout, const std::string& speciesId, const std::string& speciesGlyphId, const std::vector<std::map<std::string, std::string>>& userData) {
+    if (!speciesGlyphId.empty()) {
+        if (layout->getSpeciesGlyph(speciesGlyphId))
+            return layout->getSpeciesGlyph(speciesGlyphId);
 
-        return speciesGlyphs.back();
+        return set_layout_features_createSpeciesGlyph(layout, speciesId, speciesGlyphId, userData);
     }
 
-    return set_layout_features_createSpeciesGlyph(layout, speciesId, userData);
+    return NULL;
+}
+
+SpeciesGlyph* set_layout_features_getSpeciesGlyph(Layout* layout, const std::string& speciesId, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData) {
+    std::string speciesGlyphId;
+    int speciesGlyphIndex = 0;
+    while(true) {
+        speciesGlyphId = speciesId + "_Glyph_" + std::to_string(speciesGlyphIndex);
+        if (!layout->getSpeciesGlyph(speciesGlyphId))
+            return set_layout_features_createSpeciesGlyph(layout, speciesId, speciesGlyphId, userData);
+        else if (set_layout_features_getConnectedSpeciesGlyphReferences(layout, layout->getSpeciesGlyph(speciesGlyphId)).size() < maxNumConnectedEdges)
+            return layout->getSpeciesGlyph(speciesGlyphId);
+
+        speciesGlyphIndex++;
+    }
 }
 
 void set_layout_features_setTextGlyphs(Layout* layout) {
@@ -265,9 +278,9 @@ CompartmentGlyph* set_layout_features_createCompartmentGlyph(Layout* layout, con
     return compartmentGlyph;
 }
 
-SpeciesGlyph* set_layout_features_createSpeciesGlyph(Layout* layout, const std::string& speciesId, const std::vector<std::map<std::string, std::string>>& userData) {
+SpeciesGlyph* set_layout_features_createSpeciesGlyph(Layout* layout, const std::string& speciesId, const std::string& speciesGlyphId, const std::vector<std::map<std::string, std::string>>& userData) {
     SpeciesGlyph *speciesGlyph = layout->createSpeciesGlyph();
-    speciesGlyph->setId(set_layout_features_getSpeciesGlyphId(layout, speciesId));
+    speciesGlyph->setId(speciesGlyphId);
     speciesGlyph->setSpeciesId(speciesId);
     set_layout_features_setGraphicalObjectBoundingBox(speciesGlyph);
     user_data_setGraphicalObjectUserData(speciesGlyph, userData);
@@ -295,8 +308,10 @@ ReactionGlyph* set_layout_features_createReactionGlyph(Layout* layout, const std
 }
 
 SpeciesReferenceGlyph* set_layout_features_createSpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, const std::string& speciesId, unsigned int stoichiometryIndex, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData) {
+    SpeciesGlyph* speciesGlyph = set_layout_features_getSpeciesGlyph(layout, speciesId, user_data_getUserData(reactionGlyph, "alias_" + speciesId), userData);
+    if (!speciesGlyph)
+        speciesGlyph = set_layout_features_getSpeciesGlyph(layout, speciesId, maxNumConnectedEdges, userData);
     SpeciesReferenceGlyph* speciesReferenceGlyph = reactionGlyph->createSpeciesReferenceGlyph();
-    SpeciesGlyph* speciesGlyph = set_layout_features_getSpeciesGlyph(layout, speciesId, maxNumConnectedEdges, userData);
     speciesReferenceGlyph->setId(set_layout_features_getSpeciesReferenceGlyphId(reactionGlyph, speciesGlyph->getId(), stoichiometryIndex));
     speciesReferenceGlyph->setSpeciesGlyphId(speciesGlyph->getId());
     set_layout_features_setSpeciesReferenceGlyphCurve(speciesReferenceGlyph);

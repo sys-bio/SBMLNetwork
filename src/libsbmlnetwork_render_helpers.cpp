@@ -403,10 +403,28 @@ const std::string getColorIdFromHexColorCode(RenderInformationBase* renderInform
 }
 
 const std::string getUniqueColorId(RenderInformationBase* renderInformationBase) {
-    std::string uniqueColorId = "color_0";
+    if (renderInformationBase->isLocalRenderInformation())
+        return getUniqueColorId((LocalRenderInformation*)renderInformationBase);
+    else if (renderInformationBase->isGlobalRenderInformation())
+        return getUniqueColorId((GlobalRenderInformation*)renderInformationBase);
+
+    return "";
+}
+
+const std::string getUniqueColorId(GlobalRenderInformation* globalRenderInformation) {
+    std::string uniqueColorId = "sbmlnetwork_global_color_0";
     unsigned int i = 0;
-    while (renderInformationBase->getColorDefinition(uniqueColorId))
-        uniqueColorId = "color_" + std::to_string(i++);
+    while (globalRenderInformation->getColorDefinition(uniqueColorId))
+        uniqueColorId = "sbmlnetwork_global_color_" + std::to_string(i++);
+
+    return uniqueColorId;
+}
+
+const std::string getUniqueColorId(LocalRenderInformation* localRenderInformation) {
+    std::string uniqueColorId = "sbmlnetwork_local_color_0";
+    unsigned int i = 0;
+    while (localRenderInformation->getColorDefinition(uniqueColorId))
+        uniqueColorId = "sbmlnetwork_local_color_" + std::to_string(i++);
 
     return uniqueColorId;
 }

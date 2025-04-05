@@ -46,9 +46,7 @@ class Curve:
 
     def get_role(self):
         if self.species_reference_index is not None:
-            species = self.get_species()
-            reaction = self.get_reaction()
-            return species.get_role(reaction)
+            return self.libsbmlnetwork.getSpeciesReferenceRole(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index)
 
         return None
 
@@ -527,6 +525,7 @@ class Curve:
     def get_info(self):
         result = []
         #ToDo: Add the reaction, species, and role information
+        result.append(f"role: {self.get_role()}")
         result.append(f"color: {self.get_color()}")
         result.append(f"thickness: {self.get_thickness()}")
 
