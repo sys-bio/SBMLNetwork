@@ -846,14 +846,14 @@ class TestSBMLNetwork(unittest.TestCase):
         net = sbmlnetwork.load(r.getSBML())
 
         # Testing width
-        self.assertEqual(net.libsbmlnetwork.getWidth("J0"), 0)
+        self.assertEqual(net.libsbmlnetwork.getWidth("J0"), 30)
         net.libsbmlnetwork.setWidth("J0", 110)
         self.assertEqual(net.libsbmlnetwork.getWidth("J0"), 110)
         net.libsbmlnetwork.autolayout()
         self.assertEqual(net.libsbmlnetwork.getWidth("J0"), 110)
 
         # Testing height
-        self.assertEqual(net.libsbmlnetwork.getHeight("J0"), 0)
+        self.assertEqual(net.libsbmlnetwork.getHeight("J0"), 30)
         net.libsbmlnetwork.setHeight("J0", 25)
         self.assertEqual(net.libsbmlnetwork.getHeight("J0"), 25)
         net.libsbmlnetwork.autolayout()
@@ -972,6 +972,21 @@ class TestSBMLNetwork(unittest.TestCase):
             self.assertEqual(net.libsbmlnetwork.getBorderColor(id=empty_species_glyph_id), "blue")
             net.libsbmlnetwork.setFillColor(id=empty_species_glyph_id, fill_color="yellow")
             self.assertEqual(net.libsbmlnetwork.getFillColor(id=empty_species_glyph_id), "yellow")
+
+    def test_alias_species_are_kept_after_autolayout(self):
+        model = '''
+        J0: S1 -> S2;
+        J1: S2 -> S3;
+        '''
+        r = te.loada(model)
+        net = sbmlnetwork.load(r.getSBML())
+
+        species_s2 = net.get_species("S2")
+        species_s2.create_alias("J0")
+        initial_species_s2_count = len(net.get_species_list("S2"))
+        net.auto_layout()
+        updated_species_s2_count = len(net.get_species_list("S2"))
+        self.assertEqual(initial_species_s2_count, updated_species_s2_count)
 
     @staticmethod
     def _get_max_position_y(network, species_list):

@@ -11,7 +11,7 @@ class ReactionGroup(list):
         return self._update_styles(network_obj, color)
 
     def _update_styles(self, network_obj, color: str = None):
-        color = self._get_color(network_obj, color)
+        color = self._get_color(color, network_obj)
         for reaction in self:
             if not self.set_color(color):
                 return False
@@ -29,7 +29,6 @@ class ReactionGroup(list):
                 return False
             if not reaction.move_arrow_head_relative_positions_to((-18, -8)):
                 return False
-            species_list = reaction.get_species_list()
 
         return True
 
@@ -46,18 +45,18 @@ class ReactionGroup(list):
                 raise ValueError("Reactions must be a list of reaction ids or Reaction objects")
 
     @staticmethod
-    def _get_color(network_obj, color):
-        if color is None:
+    def _get_color(color, network_obj = None):
+        if color is None and network_obj is not None:
             import random
 
             colors = network_obj.libsbmlnetwork.getPredefinedColorNames()
             color = colors[random.randint(0, len(colors) - 1)]
-
-        if isinstance(color, str):
+        elif isinstance(color, str):
             import webcolors as bc
 
             if color.startswith("#"):
                 if len(color) != 7:
+                    raise ValueError("Color must be a valid hex color")
                     raise ValueError("Color must be a valid hex color")
                 try:
                     int(color[1:], 16)
@@ -68,6 +67,8 @@ class ReactionGroup(list):
                     color = bc.name_to_hex(color)
                 except ValueError:
                     raise ValueError("Color must be a valid color name or hex color")
+        else:
+            raise TypeError("Color must be a string")
 
         return color
 
@@ -107,36 +108,8 @@ class ReactionGroup(list):
 
         return species_list
 
-    def hide(self):
-        results = []
-        for reaction in self:
-            reaction.get_species_list().hide()
-            results.append(reaction.hide(True))
-
-        return results
-
-    def show(self):
-        results = []
-        for reaction in self:
-            reaction.get_species_list().show()
-            results.append(reaction.show(True))
-
-        return results
-
-    def is_hidden(self):
-        hidden_status = []
-        for reaction in self:
-            species_list = reaction.get_species_list()
-            for species in species_list:
-                hidden_status.append(species.is_hidden())
-            hidden_status.append(reaction.is_hidden())
-
-        if all(hidden_status):
-            return True
-
-        return False
-
     def set_color(self, color: str):
+        color = self._get_color(color)
         for reaction in self:
             species_list = reaction.get_species_list()
             if not all(species_list.set_font_colors(self._darken_color(color))):
@@ -172,6 +145,7 @@ class ReactionGroup(list):
         return True
 
     def set_curve_colors(self, color: str):
+        color = self._get_color(color)
         for reaction in self:
             if not reaction.set_colors(color):
                 return False
@@ -204,6 +178,7 @@ class ReactionGroup(list):
         return True
 
     def set_species_border_colors(self, color: str):
+        color = self._get_color(color)
         for reaction in self:
             species_list = reaction.get_species_list()
             if not all(species_list.set_border_colors(color)):
@@ -212,6 +187,7 @@ class ReactionGroup(list):
         return True
 
     def set_species_fill_colors(self, color: str):
+        color = self._get_color(color)
         for reaction in self:
             species_list = reaction.get_species_list()
             if not all(species_list.set_fill_colors(color)):
@@ -220,6 +196,7 @@ class ReactionGroup(list):
         return True
 
     def set_species_font_colors(self, color: str):
+        color = self._get_color(color)
         for reaction in self:
             species_list = reaction.get_species_list()
             if not all(species_list.set_font_colors(color)):

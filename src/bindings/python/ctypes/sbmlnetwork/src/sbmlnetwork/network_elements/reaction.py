@@ -64,7 +64,7 @@ class Reaction(NetworkElementBase):
 
     def get_shape_type(self):
         if self.is_center_shapes():
-            return self.get_center_shapes_list().get_type()
+            return self.get_center_shapes_list().get_types()
 
         return None
 
@@ -74,13 +74,13 @@ class Reaction(NetworkElementBase):
 
     def get_border_color(self):
         if self.is_center_shapes():
-            return self.get_center_shapes_list().get_border_color()
+            return self.get_center_shapes_list().get_border_colors()
 
         return None
 
     def set_border_color(self, border_color: str):
         if self.is_center_shapes():
-            return self.get_center_shapes_list().set_border_color(border_color)
+            return self.get_center_shapes_list().set_border_colors(border_color)
 
         return False
 
@@ -89,13 +89,13 @@ class Reaction(NetworkElementBase):
 
     def get_border_thicknesses(self):
         if self.is_center_shapes():
-            return self.get_center_shapes_list().get_border_thickness()
+            return self.get_center_shapes_list().get_border_thicknesses()
 
         return None
 
     def set_border_thickness(self, thickness: float):
         if self.is_center_shapes():
-            return self.get_center_shapes_list().set_border_thickness(thickness)
+            return self.get_center_shapes_list().set_border_thicknesses(thickness)
 
         return False
 
@@ -104,13 +104,13 @@ class Reaction(NetworkElementBase):
 
     def get_fill_color(self):
         if self.is_center_shapes():
-            return self.get_center_shapes_list().get_fill_color()
+            return self.get_center_shapes_list().get_fill_colors()
 
         return None
 
     def set_fill_color(self, fill_color: str or tuple or list):
         if self.is_center_shapes():
-            return self.get_center_shapes_list().set_fill_color(fill_color)
+            return self.get_center_shapes_list().set_fill_colors(fill_color)
 
         return False
 
