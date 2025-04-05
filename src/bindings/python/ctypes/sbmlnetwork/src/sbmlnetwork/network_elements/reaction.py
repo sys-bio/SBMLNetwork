@@ -439,7 +439,7 @@ class Reaction(NetworkElementBase):
             if self.libsbmlnetwork.setSpeciesGlyphIndexInReactionGlyph(species_id=species.get_species_id(),
                                                                        reaction_id=self.element_id,
                                                                        reaction_glyph_index=self.graphical_object_index,
-                                                                       index=species.get_graphical_object_index()) == 0:
+                                                                       species_glyph_index=species.get_graphical_object_index()) == 0:
                 return True
 
         return False

@@ -319,8 +319,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return getNumSpeciesGlyphs(document, layoutIndex, speciesId);
     }
 
-    const int c_api_setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, const char* speciesId, const char* reactionId, int index, int reactionGlyphIndex, int layoutIndex) {
-        return setSpeciesGlyphIndexInReactionGlyph(document, layoutIndex, speciesId, reactionId, reactionGlyphIndex, index);
+    const int c_api_setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, const char* speciesId, int speciesGlyphIndex, const char* reactionId, int reactionGlyphIndex, int layoutIndex) {
+        return setSpeciesGlyphIndexInReactionGlyph(document, layoutIndex, speciesId, speciesGlyphIndex, reactionId, reactionGlyphIndex);
     }
 
     const int c_api_getSpeciesGlyphIndex(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex, int layoutIndex) {
