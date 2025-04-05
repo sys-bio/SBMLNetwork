@@ -51,6 +51,9 @@ SpeciesReferenceGlyph* set_layout_features_createEmptySpeciesReferenceGlyph(Layo
 
 void set_layout_features_setReactionBoundingBoxes(Layout* layout);
 
+SpeciesGlyph* set_layout_features_getSpeciesGlyph(Layout* layout, const std::string& speciesId, const std::string& speciesGlyphId, const std::vector<std::map<std::string, std::string>>& userData);
+
+
 SpeciesGlyph* set_layout_features_getSpeciesGlyph(Layout* layout, const std::string& speciesId, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData);
 
 void set_layout_features_setTextGlyphs(Layout* layout);
@@ -67,7 +70,7 @@ void set_layout_features_setReactionTextGlyphs(Layout* layout);
 
 CompartmentGlyph* set_layout_features_createCompartmentGlyph(Layout* layout, const std::string& compartmentId, const std::vector<std::map<std::string, std::string>>& userData = {});
 
-SpeciesGlyph* set_layout_features_createSpeciesGlyph(Layout* layout, const std::string& speciesId, const std::vector<std::map<std::string, std::string>>& userData = {});
+SpeciesGlyph* set_layout_features_createSpeciesGlyph(Layout* layout, const std::string& speciesId, const std::string& speciesGlyphId, const std::vector<std::map<std::string, std::string>>& userData = {});
 
 SpeciesGlyph* set_layout_features_createEmptySpeciesGlyph(Layout* layout, const std::string& reactionGlyphId, const std::vector<std::map<std::string, std::string>>& userData);
 
