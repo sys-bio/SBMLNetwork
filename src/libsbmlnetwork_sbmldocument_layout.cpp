@@ -346,12 +346,16 @@ SpeciesGlyph* getSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, 
     return getSpeciesGlyph(getLayout(document, layoutIndex), speciesGlyphIndex);
 }
 
-const int getSpeciesGlyphIndex(SBMLDocument* document, const char* speciesId, const char* reactionId, unsigned int reactionGlyphIndex) {
+const int getSpeciesGlyphIndex(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {
     return getSpeciesGlyphIndex(getLayout(document), speciesId, reactionId, reactionGlyphIndex);
 }
 
-const int getSpeciesGlyphIndex(SBMLDocument* document, unsigned int layoutIndex, const char* speciesId, const char* reactionId, unsigned int reactionGlyphIndex) {
+const int getSpeciesGlyphIndex(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {
     return getSpeciesGlyphIndex(getLayout(document, layoutIndex), speciesId, reactionId, reactionGlyphIndex);
+}
+
+std::vector<std::string> getConnectedReactionsFor(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, int speciesGlyphIndex) {
+    return getConnectedReactionsFor(getLayout(document, layoutIndex), speciesId, speciesGlyphIndex);
 }
 
 bool isSpeciesGlyph(SBMLDocument* document, const std::string& id) {

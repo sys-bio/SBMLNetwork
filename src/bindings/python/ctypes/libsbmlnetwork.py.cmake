@@ -1094,6 +1094,31 @@ class LibSBMLNetwork:
         """
         return lib.c_api_getSpeciesGlyphIndex(self.sbml_object, str(species_id).encode(), str(reaction_id).encode(), reaction_glyph_index, layout_index)
 
+    def getConnectedReactionsFor(self, species_id, species_glyph_index = 0, layout_index=0):
+        """
+        Returns the ids of connected reactions for the given species_id and species_glyph_index in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - species_id (string): a string that determines the id of the Species
+            - species_glyph_index (int): an integer that determines the index of the SpeciesGlyph
+            - reaction_id (string): a string that determines the id of the Reaction
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a list of connnected reactions for the given species_id and species_glyph_index in the Layout object with the given index in the given SBMLDocument
+
+        """
+        lib.c_api_getConnectedReactionsFor.restype = ctypes.c_char_p
+        list_of_connected_reactions = []
+        for n in range(lib.c_api_getNumConnectedReactionsFor(self.sbml_object, str(species_id).encode(), species_glyph_index, layout_index)):
+            list_of_connected_reactions.append(ctypes.c_char_p(lib.c_api_getConnectedReactionsFor(self.sbml_object, str(species_id).encode(), species_glyph_index, n, layout_index)).value.decode())
+
+        return list_of_connected_reactions
+
+
+
     def isSpeciesGlyph(self, species_id, layout_index=0):
         """
         Returns whether the given species_id is associated with a SpeciesGlyph in the Layout object with the given index in the given SBMLDocument

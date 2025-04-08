@@ -240,7 +240,7 @@ LIBSBMLNETWORK_EXTERN SpeciesGlyph* getSpeciesGlyph(Layout* layout, const unsign
 /// @param reactionId the id of the reaction the the SpeciesGlyph objects of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
 /// @return the index of the SpeciesGlyph object associated in the list of SpeciesGlyph objects among the list of SpeciesGlyph objects associated with the given species id that is associated with the given reaction id, or @c 0 if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const int getSpeciesGlyphIndex(Layout* layout, const char* speciesId, const char* reactionId, unsigned int reactionGlyphIndex = 0);
+LIBSBMLNETWORK_EXTERN const int getSpeciesGlyphIndex(Layout* layout, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0);
 
 /// Returns the id of the species associated with the SpeciesGlyph object with the given id of the Layout object.
 /// @param Layout a pointer to the Layout object.
@@ -254,6 +254,13 @@ LIBSBMLNETWORK_EXTERN const std::string getSpeciesId(Layout* layout, const std::
 /// @param speciesGlyph a pointer to the GraphicalObject object.
 /// @return the value of the "species" attribute, or @c "" if the object is not of type SpeciesGlyph or is @c NULL
 LIBSBMLNETWORK_EXTERN const std::string getSpeciesId(GraphicalObject* speciesGlyph);
+
+/// @brief Returns a vector of the ids of the Reactions which are connected to the SpeciesGlyph with the given id and index
+/// @param Layout a pointer to the Layout object.
+/// @param speciesId the id of the Species.
+/// @param speciesGlyphIndex the index of the SpeciesGlyph.
+/// @return a vector of the ids of the Reactions which are connected to the SpeciesGlyph with the given id and index.
+LIBSBMLNETWORK_EXTERN std::vector<std::string> getConnectedReactionsFor(Layout* layout, const std::string& speciesId, int speciesGlyphIndex = 0);
 
 /// @brief Predicate returning true if the abstract GraphicalObject with the given id of the Layout object is of type SpeciesGlyph.
 /// @param Layout a pointer to the Layout object.

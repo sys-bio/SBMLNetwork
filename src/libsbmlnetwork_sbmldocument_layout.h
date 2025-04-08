@@ -498,7 +498,7 @@ LIBSBMLNETWORK_EXTERN  SpeciesGlyph* getSpeciesGlyph(SBMLDocument* document, uns
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object to return.
 /// @return the index of the SpeciesGlyph object associated with the entered species id among the list of SpeciesGlyph objects associated with the entered reaction id,
 /// or @c -1 if the object is @c NULL or has no associated SpeciesGlyph objects
-LIBSBMLNETWORK_EXTERN const int getSpeciesGlyphIndex(SBMLDocument* document, const char* speciesId, const char* reactionId, unsigned int reactionGlyphIndex = 0);
+LIBSBMLNETWORK_EXTERN const int getSpeciesGlyphIndex(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0);
 
 /// @brief Returns the index of the SpeciesGlyph object associated in the list of SpeciesGlyph objects among the list of SpeciesGlyph objects associated with the given species id that is associated with the given reaction id with the given index in the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
@@ -508,7 +508,15 @@ LIBSBMLNETWORK_EXTERN const int getSpeciesGlyphIndex(SBMLDocument* document, con
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object to return.
 /// @return the index of the SpeciesGlyph object associated with the entered species id among the list of SpeciesGlyph objects associated with the entered reaction id,
 /// or @c -1 if the object is @c NULL or has no associated SpeciesGlyph objects
-LIBSBMLNETWORK_EXTERN const int getSpeciesGlyphIndex(SBMLDocument* document, unsigned int layoutIndex, const char* speciesId, const char* reactionId, unsigned int reactionGlyphIndex = 0);
+LIBSBMLNETWORK_EXTERN const int getSpeciesGlyphIndex(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0);
+
+/// @brief Returns a vector of the ids of the Reactions which are connected to the SpeciesGlyph with the given id and index in the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param speciesId the id of the Species.
+/// @param speciesGlyphIndex the index of the SpeciesGlyph.
+/// @return a vector of the ids of the Reactions which are connected to the SpeciesGlyph with the given id and index.
+LIBSBMLNETWORK_EXTERN std::vector<std::string> getConnectedReactionsFor(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, int speciesGlyphIndex = 0);
 
 /// @brief Predicate returning true if the abstract GraphicalObject with the given id in the first Layout object of the SBML document is of type SpeciesGlyph.
 /// @param document a pointer to the SBMLDocument object.

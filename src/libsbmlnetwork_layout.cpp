@@ -289,7 +289,7 @@ SpeciesGlyph* getSpeciesGlyph(Layout* layout, const unsigned int speciesGlyphInd
     return NULL;
 }
 
-const int getSpeciesGlyphIndex(Layout* layout, const char* speciesId, const char* reactionId, unsigned  int reactionGlyphIndex) {
+const int getSpeciesGlyphIndex(Layout* layout, const std::string& speciesId, const std::string& reactionId, unsigned  int reactionGlyphIndex) {
     return getIndexOfConnectedSpeciesGlyph(getSpeciesReferenceGlyphs(getReactionGlyph(layout, reactionId, reactionGlyphIndex)), getSpeciesGlyphs(layout, speciesId));
 }
 
@@ -302,6 +302,27 @@ const std::string getSpeciesId(GraphicalObject* speciesGlyph) {
         return ((SpeciesGlyph*)speciesGlyph)->getSpeciesId();
 
     return "";
+}
+
+std::vector<std::string> getConnectedReactionsFor(Layout* layout, const std::string& speciesId, int speciesGlyphIndex) {
+    std::vector<std::string> connectedReactions;
+    if (layout) {
+        SpeciesGlyph* speciesGlyph = getSpeciesGlyph(layout, speciesId, speciesGlyphIndex);
+        if (speciesGlyph) {
+            for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+                for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+                    SpeciesReferenceGlyph* speciesReferenceGlyph = layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j);
+                    if (speciesReferenceGlyph->getSpeciesGlyphId() == speciesGlyph->getId()) {
+                        std::string reactionId = layout->getReactionGlyph(i)->getReactionId();
+                        if (std::find(connectedReactions.begin(), connectedReactions.end(), reactionId) == connectedReactions.end())
+                            connectedReactions.push_back(reactionId);
+                    }
+                }
+            }
+        }
+    }
+
+    return connectedReactions;
 }
 
 bool isSpeciesGlyph(Layout* layout, const std::string& id, const unsigned int speciesGlyphIndex) {

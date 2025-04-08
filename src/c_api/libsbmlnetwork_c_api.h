@@ -481,6 +481,23 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return the index of the SpeciesGlyph object among the list of SpeciesGlyph objects associated with the given species id that is associated with the given reaction id,
     LIBSBMLNETWORK_EXTERN const int c_api_getSpeciesGlyphIndex(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex = 0, int layoutIndex = 0);
 
+    /// @brief Returns the number of connected reactions for the SpeciesGlyph with the given species id and index in the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param speciesId the id of the species the number of connected reactions is going to be returned.
+    /// @param speciesGlyphIndex the index of the SpeciesGlyph object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the number of connected reactions for the SpeciesGlyph with the given species id and index in the Layout object,
+    LIBSBMLNETWORK_EXTERN const int c_api_getNumConnectedReactionsFor(SBMLDocument* document, const char* speciesId, int speciesGlyphIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the id of the connected reaction for the SpeciesGlyph with the given species id and index in the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param speciesId the id of the species the id of the connected reaction is going to be returned.
+    /// @param speciesGlyphIndex the index of the SpeciesGlyph object.
+    /// @param index the index of the connected reaction.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the id of the connected reaction for the SpeciesGlyph with the given species id and index in the Layout object,
+    LIBSBMLNETWORK_EXTERN const char* c_api_getConnectedReactionsFor(SBMLDocument* document, const char* speciesId, int speciesGlyphIndex = 0, int index = 0, int layoutIndex = 0);
+
     /// @brief Predicate returning true if the abstract GraphicalObject with the given id in the Layout object with the given index of the SBML document is of type SpeciesGlyph.
     /// @param document a pointer to the SBMLDocument object.
     /// @param layoutIndex the index number of the Layout to return.
