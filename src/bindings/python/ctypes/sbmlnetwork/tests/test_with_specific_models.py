@@ -988,6 +988,26 @@ class TestSBMLNetwork(unittest.TestCase):
         updated_species_s2_count = len(net.get_species_list("S2"))
         self.assertEqual(initial_species_s2_count, updated_species_s2_count)
 
+    def test_connected_reactions_for_s2(self):
+        model = '''
+        J0: S1 -> S2;
+        J1: S2 -> S3;
+        J2: S2 -> S4;
+        J3: S2 -> S5;
+        J4: S2 -> S6;
+        '''
+        r = te.loada(model)
+        net = sbmlnetwork.load(r.getSBML())
+        net.auto_layout(max_num_connected_edges=3)
+
+        connected_reactions_glyph_0 = net.libsbmlnetwork.getConnectedReactionsFor("S2", 0)
+        connected_reactions_glyph_1 = net.libsbmlnetwork.getConnectedReactionsFor("S2", 1)
+
+        expected_reactions_glyph_0 = ["J0", "J1", "J2"]
+        self.assertEqual(sorted(connected_reactions_level_0), sorted(expected_reactions_glyph_0))
+        expected_reactions_glyph_1 = ["J3", "J4"]
+        self.assertEqual(sorted(connected_reactions_level_1), sorted(expected_reactions_glyph_1))
+
     @staticmethod
     def _get_max_position_y(network, species_list):
         max_position_y = -math.inf
