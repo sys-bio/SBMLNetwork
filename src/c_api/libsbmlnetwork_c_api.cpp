@@ -327,6 +327,18 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return getSpeciesGlyphIndex(document, layoutIndex, speciesId, reactionId, reactionGlyphIndex);
     }
 
+    const int c_api_getNumConnectedReactionsFor(SBMLDocument* document, const char* speciesId, int speciesGlyphIndex, int layoutIndex) {
+        return getConnectedReactionsFor(document, layoutIndex, speciesId, speciesGlyphIndex).size();
+    }
+
+    const char* c_api_getConnectedReactionsFor(SBMLDocument* document, const char* speciesId, int speciesGlyphIndex, int index, int layoutIndex) {
+        std::vector<std::string> connectedReactions = getConnectedReactionsFor(document, layoutIndex, speciesId, speciesGlyphIndex);
+        if (index < connectedReactions.size())
+            return strdup(connectedReactions[index].c_str());
+
+        return "";
+    }
+
     bool c_api_isSpeciesGlyph(SBMLDocument* document, const char* speciesId, int layoutIndex) {
         return isSpeciesGlyph(document, layoutIndex, speciesId);
     }
