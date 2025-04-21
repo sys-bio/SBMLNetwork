@@ -1,4 +1,3 @@
-from matplotlib.colors import LinearSegmentedColormap
 import tellurium as te
 from typing import Union, Dict
 import math
@@ -9,18 +8,16 @@ class DataIntegrationBase:
     def __init__(self, network_obj):
         self.network_obj = network_obj
         self._data_type = None
-        self._simulation_time = None
         self._data = None
         self._element_features_original_values = {}
         self._log_scale = False
+        self._min_threshold = None
 
-    def show(self, data: Union[float, Dict], log_scale: bool = False):
+    def show(self, data: Union[float, Dict], log_scale: bool = False, min_threshold: float = None):
         self._log_scale = log_scale
+        self._set_min_threshold(min_threshold)
         self.hide()
-
-        self._initialize_parameters(data)
-        if self._data is None:
-            self._data = self._get_data()
+        self._set_data(data)
 
     def hide(self):
         pass
@@ -31,23 +28,39 @@ class DataIntegrationBase:
     def _get_data(self):
         pass
 
-    def _initialize_parameters(self, data):
-        if data is not None:
-            if isinstance(data, dict):
-                self._data = data
-            elif isinstance(data, float) or isinstance(data, int):
-                self._simulation_time = data
+    def _set_min_threshold(self, min_threshold):
+        if min_threshold is None:
+            if self._log_scale:
+                self._min_threshold = 1e-10
+            else:
+                self._min_threshold = -math.inf
         else:
-            raise ValueError("Simulation data or time is not provided")
+            if self._log_scale and min_threshold < 0:
+                raise ValueError("Minimum threshold must be a positive value for log scale")
+            self._min_threshold = min_threshold
 
-    def get_simulation_time(self):
-        return self._simulation_time
+    def _set_data(self, data):
+        if data is None:
+            raise ValueError("Simulation data or time is not provided")
+        else:
+            if isinstance(data, dict):
+                if not all(isinstance(value, (float, int)) for value in data.values()):
+                    raise ValueError("Data values must be float or int")
+                if not all(isinstance(key, str) for key in data.keys()):
+                    raise ValueError("Data keys must be strings")
+                if not self._log_scale:
+                    self._data = {key: value for key, value in data.items() if value >= self._min_threshold}
+                else:
+                    self._data = {key: value for key, value in data.items() if abs(value) >= self._min_threshold}
+            elif isinstance(data, float) or isinstance(data, int):
+                self._data = self._simulate(data)
 
     def get_max_value(self):
         if self._data is None:
             raise ValueError("Data is not initialized")
 
-        max_value = max(self._data.values())
+        abs_values = [abs(value) for value in self._data.values()]
+        max_value = max(abs_values)
         if self._log_scale:
             max_value = math.log(max_value, 10)
 
@@ -57,11 +70,15 @@ class DataIntegrationBase:
         if self._data is None:
             raise ValueError("Data is not initialized")
 
-        min_value = min(self._data.values())
+        abs_values = [abs(value) for value in self._data.values()]
+        min_value = min(abs_values)
         if self._log_scale:
             min_value = math.log(min_value, 10)
 
         return min_value
+
+    def _simulate(self, simulation_time):
+        pass
 
 
 class ColorCodingDataIntegrationBase(DataIntegrationBase):
@@ -70,11 +87,11 @@ class ColorCodingDataIntegrationBase(DataIntegrationBase):
         super().__init__(network_obj)
         self._color_bar = None
 
-    def show(self, data: Union[float, Dict], log_scale: bool = False):
-        super().show(data, log_scale)
+    def show(self, data: Union[float, Dict], log_scale: bool = False, min_threshold: float = None):
+        super().show(data, log_scale, min_threshold)
         from .color_bar.color_bar_manager import ColorBarManager
 
-        self._color_bar = ColorBarManager().add_color_bar(self.network_obj, self._data_type)
+        self._color_bar = ColorBarManager().add_color_bar(self.network_obj, self._data_type, self._log_scale)
 
         return self.update_styles()
 
@@ -86,13 +103,10 @@ class ColorCodingDataIntegrationBase(DataIntegrationBase):
         self._color_bar = None
 
     def update_styles(self):
-        self._color_bar.set_max_value(max_value=self.get_max_value())
         self._color_bar.set_min_value(min_value=self.get_min_value())
+        self._color_bar.set_max_value(max_value=self.get_max_value())
         for element_id in self._data:
-            if self._log_scale:
-                color = self._get_color(self._color_bar, math.log(self._data[element_id], 10))
-            else:
-                color = self._get_color(self._color_bar, self._data[element_id])
+            color = self._color_bar.get_associated_color(self._data[element_id])
             self._update_element_features(element_id, color)
 
         return True
@@ -106,24 +120,6 @@ class ColorCodingDataIntegrationBase(DataIntegrationBase):
 
     def get_colors(self):
         return self._color_bar.get_gradient_colors()
-
-    @staticmethod
-    def _get_color(color_bar, value):
-        colors = color_bar.get_gradient_colors()[::-1]
-        max_value = color_bar.get_max_value()
-        min_value = color_bar.get_min_value()
-        if max_value == min_value:
-            normalized_value = 0
-            color_bar.set_gradient_colors([colors[0], colors[0]])
-            color_bar.set_number_of_tick_marks(2)
-        else:
-            normalized_value = (value - min_value) / (max_value - min_value)
-        camp = LinearSegmentedColormap.from_list('my_cmap', colors)
-        rgba = camp(normalized_value)
-        r, g, b, a = rgba
-        hex_color = '#{:02x}{:02x}{:02x}{:02x}'.format(int(r * 255), int(g * 255), int(b * 255), int(a * 255))
-
-        return hex_color
 
     def has_color_bar(self):
         if self._color_bar is not None:
@@ -150,13 +146,18 @@ class ColorCodingFluxes(ColorCodingDataIntegrationBase):
         super().__init__(network_obj)
         self._data_type = "fluxes"
 
-    def _get_data(self):
+    def _simulate(self, simulation_time):
         model = self.network_obj.save()
         r = te.loadSBMLModel(model)
-        r.simulate(start=0.0, end=self._simulation_time, steps=self._simulation_time * 100)
+        r.simulate(start=0.0, end=simulation_time, steps=simulation_time * 100)
         fluxes = {}
         for i, reaction in enumerate(r.getReactionIds()):
-            fluxes[reaction] = float(r.getReactionRates()[i])
+            if not self._log_scale:
+                if r.getReactionRates()[i] > self._min_threshold:
+                    fluxes[reaction] = float(r.getReactionRates()[i])
+            else:
+                if abs(r.getReactionRates()[i]) > self._min_threshold:
+                    fluxes[reaction] = float(r.getReactionRates()[i])
 
         return fluxes
 
@@ -167,7 +168,9 @@ class ColorCodingFluxes(ColorCodingDataIntegrationBase):
                 'color': reaction.get_curves_list().get_colors()[0],
                 'thickness': reaction.get_curves_list().get_thicknesses()[0],
                 'arrow_head_relative_positions': reaction.get_arrow_head_relative_positions()[0]}
+            font_color = reaction.get_font_color()
             reaction.set_colors(color)
+            reaction.set_font_color(font_color)
             reaction.set_thicknesses(8)
             reaction.move_arrow_head_relative_positions_by((-2, 0))
 
@@ -188,13 +191,18 @@ class ConcentrationDataIntegrationBase(DataIntegrationBase):
         super().__init__(network_obj)
         self._data_type = "concentrations"
 
-    def _get_data(self):
+    def _simulate(self, simulation_time):
         model = self.network_obj.save()
         r = te.loadSBMLModel(model)
-        r.simulate(start=0.0, end=self._simulation_time, steps=self._simulation_time * 10)
+        r.simulate(start=0.0, end=simulation_time, steps=simulation_time * 100)
         concentrations = {}
         for i, species in enumerate(r.getFloatingSpeciesIds()):
-            concentrations[species] = float(r.getFloatingSpeciesConcentrations()[i])
+            if not self._log_scale:
+                if r.getFloatingSpeciesConcentrations()[i] > self._min_threshold:
+                    concentrations[species] = float(r.getFloatingSpeciesConcentrations()[i])
+            else:
+                if abs(r.getFloatingSpeciesConcentrations()[i]) > self._min_threshold:
+                    concentrations[species] = float(r.getFloatingSpeciesConcentrations()[i])
 
         return concentrations
 
@@ -215,10 +223,10 @@ class ColorCodingConcentrations(ColorCodingDataIntegrationBase, ConcentrationDat
                 species.set_fill_color(self._element_features_original_values[species.get_id()])
 
 
-class SizeCodingConcentrations(DataIntegrationBase):
+class SizeCodingConcentrations(ConcentrationDataIntegrationBase):
 
-    def show(self, data: Union[float, Dict], log_scale: bool = False):
-        super().show(data, log_scale)
+    def show(self, data: Union[float, Dict], log_scale: bool = False, min_threshold: float = None):
+        super().show(data, log_scale, min_threshold)
         return self.update_styles()
 
     def hide(self):
@@ -229,6 +237,8 @@ class SizeCodingConcentrations(DataIntegrationBase):
 
     def update_styles(self):
         for element_id in self._data:
+            if self._data[element_id] < 0:
+                raise ValueError("Negative concentrations are not allowed for size coding")
             if self._log_scale:
                 size = self._get_size(math.log(self._data[element_id], 10))
             else:

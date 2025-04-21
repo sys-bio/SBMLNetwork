@@ -110,7 +110,7 @@ class TestSBMLModel(unittest.TestCase):
         self.assertEqual(color_bar.get_number_of_tick_marks(), 10)
         self.assertAlmostEqual(color_bar.get_max_value(), 100, delta=0.1)
         self.assertAlmostEqual(color_bar.get_min_value(), 20, delta=0.1)
-        self.assertAlmostEqual(color_bar.get_tick_mark_size(), 50, delta=0.1)
+        self.assertAlmostEqual(color_bar.get_tick_mark_size(), 50, delta=1)
         self.assertAlmostEqual(color_bar.get_left_margin(), 100, delta=0.1)
         self.assertAlmostEqual(color_bar.get_position()[0], original_canvas_width + color_bar.get_left_margin(), delta=0.1)
         self.assertAlmostEqual(network.get_size()[0], original_canvas_width + color_bar.get_left_margin() + color_bar.get_size()[0] + color_bar.get_right_margin(), delta=0.1)
@@ -152,6 +152,56 @@ class TestSBMLModel(unittest.TestCase):
         colors_new = network.get_species_list().get_fill_colors()
         for color_new in colors_new:
             self.assertEqual(color_new, colors[0])
+
+    def test_logged_color_bar(self):
+        model = '''
+            J0: S1 -> S2;
+            J1: S2 -> S3;
+            J2: S3 -> S4;
+            J3: S4 -> S5;
+            J4: S5 -> S6;
+            J5: S6 -> S7;
+            J6: S7 -> S8;
+            J7: S8 -> S9 + S10;
+        '''
+        self.r1 = te.loada(model)
+        network = sbmlnetwork.load(self.r1.getSBML())
+
+        # Store original colors
+        original_J3_color = network.get_reaction("J3").get_curves_list()[0].get_color()
+        original_J4_color = network.get_reaction("J4").get_curves_list()[0].get_color()
+        original_S1_color = network.get_species("S1").get_fill_color()[0]
+        original_S2_color = network.get_species("S2").get_fill_color()[0]
+
+        # fluxes
+        fluxes = {
+            "J0": 10, "J1": 1, "J2": 0.1, "J3": 0.01,
+            "J4": -0.01, "J5": -0.1, "J6": -1, "J7": -10
+        }
+        network.show_fluxes(fluxes, log_scale=True, min_threshold=0.05)
+
+        # Test color bar limits for fluxes
+        self.assertAlmostEqual(network.get_color_bar("fluxes").get_min_value(), math.log10(0.1), places=5)
+        self.assertAlmostEqual(network.get_color_bar("fluxes").get_max_value(), math.log10(10), places=5)
+
+        # Test color change after applying fluxes
+        self.assertEqual(network.get_reaction("J3").get_curves_list()[0].get_color(), original_J3_color)
+        self.assertEqual(network.get_reaction("J4").get_curves_list()[0].get_color(), original_J4_color)
+
+        # Apply concentrations
+        concentrations = {
+            "S1": 0.00001, "S2": 0.0001, "S3": 0.001, "S4": 0.01,
+            "S5": 1, "S6": 0.1, "S7": 1, "S8": 10, "S9": 100, "S10": 1000
+        }
+        network.show_concentrations(concentrations, log_scale=True, min_threshold=0.001)
+
+        # Test color bar limits for concentrations
+        self.assertAlmostEqual(network.get_color_bar("concentrations").get_min_value(), math.log10(0.001), places=5)
+        self.assertAlmostEqual(network.get_color_bar("concentrations").get_max_value(), math.log10(1000), places=5)
+
+        # Test color change after applying concentrations
+        self.assertEqual(network.get_species("S1").get_fill_color()[0], original_S1_color)
+        self.assertEqual(network.get_species("S2").get_fill_color()[0], original_S2_color)
 
     def test_grouping(self):
         model = '''

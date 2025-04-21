@@ -1004,9 +1004,9 @@ class TestSBMLNetwork(unittest.TestCase):
         connected_reactions_glyph_1 = net.libsbmlnetwork.getConnectedReactionsFor("S2", 1)
 
         expected_reactions_glyph_0 = ["J0", "J1", "J2"]
-        self.assertEqual(sorted(connected_reactions_level_0), sorted(expected_reactions_glyph_0))
+        self.assertEqual(sorted(connected_reactions_glyph_0), sorted(expected_reactions_glyph_0))
         expected_reactions_glyph_1 = ["J3", "J4"]
-        self.assertEqual(sorted(connected_reactions_level_1), sorted(expected_reactions_glyph_1))
+        self.assertEqual(sorted(connected_reactions_glyph_1), sorted(expected_reactions_glyph_1))
 
     @staticmethod
     def _get_max_position_y(network, species_list):

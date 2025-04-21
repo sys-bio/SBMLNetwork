@@ -1,6 +1,8 @@
 from ...network_elements.additional_element import AdditionalElement
+from matplotlib.colors import LinearSegmentedColormap
 
-class ColorBar(AdditionalElement):
+
+class ColorBarBase(AdditionalElement):
 
     def __init__(self, libsbmlnetwork, element_id):
         super().__init__(libsbmlnetwork, element_id)
@@ -13,12 +15,12 @@ class ColorBar(AdditionalElement):
         border_color = self.get_border_color()
         border_thickness = self.get_border_thickness()
         corner_radius = self.get_corner_radius()
-        gradient_colors = self.get_gradient_colors()
         number_of_tick_marks = self.get_number_of_tick_marks()
         tick_mark_size = self.get_tick_mark_size()
         tick_mark_thickness = self.get_tick_mark_thickness()
         tick_mark_color = self.get_tick_mark_color()
-        super().set_position((self._get_max_compartments_position_x() + left_margin, 0.125 * self.libsbmlnetwork.getCanvasHeight()))
+        super().set_position(
+            (self._get_max_compartments_position_x() + left_margin, 0.125 * self.libsbmlnetwork.getCanvasHeight()))
         super().set_size((self.default_width, 0.75 * self.libsbmlnetwork.getCanvasHeight()))
         self.libsbmlnetwork.setCanvasWidth(
             self._get_max_compartments_position_x() + left_margin + self.default_width + right_margin)
@@ -28,33 +30,12 @@ class ColorBar(AdditionalElement):
         self.get_shape().set_border_color(border_color)
         self.get_shape().set_border_thickness(border_thickness)
         self.get_shape().set_corner_radius((corner_radius, corner_radius))
-        self.libsbmlnetwork.setGeometricShapeFillColorAsGradient(id=self.element_id, geometric_shape_index=0,
-                                                                 stop_colors=gradient_colors,
-                                                                 stop_offsets=[i * 100 / (len(gradient_colors) - 1) for i in
-                                                                               range(len(gradient_colors))],
-                                                                 gradient_type="linear")
+        self.update_gradient_colors()
         self._update_tick_marks(number_of_tick_marks, tick_mark_size, tick_mark_thickness, tick_mark_color)
 
-    def _update_tick_marks(self, number_of_tick_marks: int, tick_mark_size: float = None, tick_mark_thickness: float = None, tick_mark_color: str = None):
-        max_value = self.get_max_value()
-        min_value = self.get_min_value()
-        if tick_mark_size is None:
-            tick_mark_size = self.get_tick_mark_size()
-        if tick_mark_thickness is None:
-            tick_mark_thickness = self.get_tick_mark_thickness()
-        if tick_mark_color is None:
-            tick_mark_color = self.get_tick_mark_color()
-        while self.libsbmlnetwork.getNumGeometricShapes(self.element_id) > 1:
-            self.libsbmlnetwork.removeGeometricShape(self.element_id, 1)
-        for i in range(number_of_tick_marks):
-            curve = self.add_shape("curve")
-            points = [(self.get_size()[0] + tick_mark_size, self.get_size()[1] * i / (number_of_tick_marks - 1)),
-                      (self.get_size()[0], self.get_size()[1] * i / (number_of_tick_marks - 1))]
-            curve.set_points(points)
-            curve.set_border_thickness(tick_mark_thickness)
-            curve.set_border_color(tick_mark_color)
-
-        return self._update_labels()
+    def _update_tick_marks(self, number_of_tick_marks: int, tick_mark_size: float = None,
+                           tick_mark_thickness: float = None, tick_mark_color: str = None):
+        pass
 
     def _update_labels(self):
         font_size = self.get_tick_mark_label_font_size()
@@ -88,32 +69,16 @@ class ColorBar(AdditionalElement):
         return 1.0
 
     def set_max_value(self, max_value: float):
-        if max_value < self.get_min_value():
-            raise ValueError("Max value must be greater than min value")
-        if self.get_labels_list() and len(self.get_labels_list()) > 0:
-            self.get_labels_list()[0].set_text(str(max_value))
-
-        return self._update_labels()
+        pass
 
     def get_min_value(self):
-        if self.get_labels_list() and len(self.get_labels_list()) > 0:
-            return float(self.get_labels_list()[-2].get_text())
-
-        return 0.0
+        pass
 
     def set_min_value(self, min_value: float):
-        if min_value > self.get_max_value():
-            raise ValueError("Min value must be less than max value")
-        if self.get_labels_list() and len(self.get_labels_list()) > 0:
-            self.get_labels_list()[-2].set_text(str(min_value))
-
-        return self._update_labels()
+        pass
 
     def get_number_of_tick_marks(self):
-        if self.get_shapes_list() and len(self.get_shapes_list()) > 1:
-            return len(self.get_shapes_list()) - 1
-
-        return 5
+        pass
 
     def set_number_of_tick_marks(self, number_of_tick_marks: int):
         if number_of_tick_marks < 2:
@@ -218,16 +183,13 @@ class ColorBar(AdditionalElement):
                         gradient_colors.append(self.libsbmlnetwork.getStopColor(gradient_id=gradient_id, gradient_stop_index=j))
                     return gradient_colors
 
-        return ['#D32F2F', '#FF7F32', '#A8D400', '#00B4B4', '#1E3A5F']
+        return None
 
     def set_gradient_colors(self, gradient_colors: list[str]):
-        if self.libsbmlnetwork.setGeometricShapeFillColorAsGradient(id=self.element_id, geometric_shape_index=0,
-                                                                    stop_colors=gradient_colors,
-                                                                    stop_offsets=[i * 100 / (len(gradient_colors) - 1) for i in range(len(gradient_colors))],
-                                                                    gradient_type="linear") == 0:
-            return True
+        pass
 
-        return False
+    def update_gradient_colors(self):
+        self.set_gradient_colors(self.get_gradient_colors())
 
     def get_tick_mark_thickness(self):
         if self.get_shapes_list() and len(self.get_shapes_list()) > 1:
@@ -274,6 +236,9 @@ class ColorBar(AdditionalElement):
 
         return True
 
+    def get_associated_color(self, value):
+        pass
+
     def _get_color_bar_id(self):
         return self.element_id
 
@@ -284,13 +249,7 @@ class ColorBar(AdditionalElement):
         return self.get_size()[1]
 
     def _add_legend_label(self):
-        label_text = "Conc."
-        if "flux" in self.get_id().lower():
-            label_text = "Flux"
-        label = self.add_label(label_text, (0, self.get_size()[1]))
-        label.set_size((2 * label.get_size()[0], 2 * label.get_size()[0]))
-        label.align_to_left()
-        return True
+        pass
 
     def get_info(self):
         return (
@@ -318,3 +277,308 @@ class ColorBar(AdditionalElement):
 
     def __repr__(self):
         return f"ColorBar(id={self.element_id})"
+
+
+class LinearColorBar(ColorBarBase):
+
+    def set_max_value(self, max_value: float):
+        if max_value < self.get_min_value():
+            raise ValueError("Max value must be greater than min value")
+        if self.get_labels_list() and len(self.get_labels_list()) > 0:
+            self.get_labels_list()[0].set_text(str(max_value))
+
+        return self._update_labels()
+
+    def get_min_value(self):
+        if self.get_labels_list() and len(self.get_labels_list()) > 1:
+            return float(self.get_labels_list()[-2].get_text())
+
+        return 0.0
+
+    def set_min_value(self, min_value: float):
+        if min_value > self.get_max_value():
+            raise ValueError("Min value must be less than max value")
+        if self.get_labels_list() and len(self.get_labels_list()) > 0:
+            self.get_labels_list()[-2].set_text(str(min_value))
+
+        return self._update_labels()
+
+    def get_number_of_tick_marks(self):
+        if self.get_shapes_list() and len(self.get_shapes_list()) > 1:
+            return len(self.get_shapes_list()) - 1
+
+        return 5
+
+    def get_gradient_colors(self):
+        gradient_colors = super().get_gradient_colors()
+        if gradient_colors is not None:
+            return gradient_colors
+
+        return ['#D32F2F', '#FF7F32', '#A8D400', '#00B4B4', '#1E3A5F']
+
+    def set_gradient_colors(self, gradient_colors: list[str]):
+        if self.libsbmlnetwork.setGeometricShapeFillColorAsGradient(id=self.element_id, geometric_shape_index=0,
+                                                                    stop_colors=gradient_colors,
+                                                                    stop_offsets=[i * 100 / (len(gradient_colors) - 1) for i in range(len(gradient_colors))],
+                                                                    gradient_type="linear") == 0:
+            return True
+
+        return False
+
+    def get_associated_color(self, value):
+        colors = self.get_gradient_colors()[::-1]
+        max_value = self.get_max_value()
+        min_value = self.get_min_value()
+        if max_value == min_value:
+            normalized_value = 0
+            self.set_gradient_colors([colors[0], colors[0]])
+            self.set_number_of_tick_marks(2)
+        else:
+            normalized_value = (value - min_value) / (max_value - min_value)
+        camp = LinearSegmentedColormap.from_list('my_cmap', colors)
+        rgba = camp(normalized_value)
+        r, g, b, a = rgba
+        hex_color = '#{:02x}{:02x}{:02x}{:02x}'.format(int(r * 255), int(g * 255), int(b * 255), int(a * 255))
+
+        return hex_color
+
+    def _update_tick_marks(self, number_of_tick_marks: int, tick_mark_size: float = None,
+                           tick_mark_thickness: float = None, tick_mark_color: str = None):
+        if tick_mark_size is None:
+            tick_mark_size = self.get_tick_mark_size()
+        if tick_mark_thickness is None:
+            tick_mark_thickness = self.get_tick_mark_thickness()
+        if tick_mark_color is None:
+            tick_mark_color = self.get_tick_mark_color()
+        while self.libsbmlnetwork.getNumGeometricShapes(self.element_id) > 1:
+            self.libsbmlnetwork.removeGeometricShape(self.element_id, 1)
+        for i in range(number_of_tick_marks):
+            curve = self.add_shape("curve")
+            points = [(self.get_size()[0] + 1 + tick_mark_size, self.get_size()[1] * i / (number_of_tick_marks - 1)),
+                      (self.get_size()[0] + 1, self.get_size()[1] * i / (number_of_tick_marks - 1))]
+            curve.set_points(points)
+            curve.set_border_thickness(tick_mark_thickness)
+            curve.set_border_color(tick_mark_color)
+
+        return self._update_labels()
+
+    def _update_labels(self):
+        font_size = self.get_tick_mark_label_font_size()
+        max_value = self.get_max_value()
+        min_value = self.get_min_value()
+        number_of_tick_marks = self.get_number_of_tick_marks()
+        tick_mark_size = self.get_tick_mark_size()
+        size = self.get_size()
+        while self.libsbmlnetwork.getNumTextGlyphs(self.element_id) > 0:
+            self.libsbmlnetwork.removeText(self.element_id, 0)
+        labels = [str(round(i * (max_value - min_value) / (number_of_tick_marks - 1) + min_value, 2))
+                  for i in range(number_of_tick_marks)]
+        for i in range(len(labels)):
+            y_position = (i / (number_of_tick_marks - 1) - 0.5) * size[
+                1]
+            label = self.add_label(labels[len(labels) - 1 - i], (size[0] + tick_mark_size, y_position + size[1] / 2))
+            if not label.set_size((1.5 * label.get_size()[0], 1.5 * label.get_size()[0])):
+                return False
+            else:
+                label.move_by((0.0, - label.get_size()[1] / 2))
+
+        if not self._add_legend_label():
+            return False
+
+        return self.get_labels_list().set_font_sizes(font_size)
+
+    def _add_legend_label(self):
+        label_text = "conc."
+        if "flux" in self.get_id().lower():
+            label_text = "flux"
+        label = self.add_label(label_text, (0, self.get_size()[1]))
+        label.set_size((2 * label.get_size()[0], 2 * label.get_size()[0]))
+        label.align_to_left()
+        return True
+
+
+class LogColorBar(ColorBarBase):
+
+    def __init__(self, libsbmlnetwork, element_id):
+        self._mid_padding = 30
+        super().__init__(libsbmlnetwork, element_id)
+
+    def set_max_value(self, max_value: float):
+        if max_value < self.get_min_value():
+            raise ValueError("Max value must be greater than min value")
+        if self.get_labels_list() and len(self.get_labels_list()) > 1:
+            self.get_labels_list()[0].set_text(str(max_value))
+            self.get_labels_list()[-2].set_text(str(max_value))
+
+        return self._update_labels()
+
+    def get_min_value(self):
+        if self.get_labels_list() and len(self.get_labels_list()) > 1:
+            if (len(self.get_labels_list()) - 1) % 2 == 0:
+                return float(self.get_labels_list()[int(0.5 * (len(self.get_labels_list())) - 1)].get_text())
+
+        return 0.0
+
+    def set_min_value(self, min_value: float):
+        if min_value > self.get_max_value():
+            raise ValueError("Min value must be less than max value")
+        if self.get_labels_list() and len(self.get_labels_list()) > 1 and (len(self.get_labels_list()) - 1) % 2 == 0:
+            self.get_labels_list()[int(0.5 * (len(self.get_labels_list())) - 1)].set_text(str(min_value))
+            self.get_labels_list()[int(0.5 * (len(self.get_labels_list())) - 1) + 1].set_text(str(min_value))
+
+        return self._update_labels()
+
+    def get_number_of_tick_marks(self):
+        if self.get_shapes_list() and len(self.get_shapes_list()) > 1 and (len(self.get_shapes_list()) - 1) % 2 == 0:
+            return int((len(self.get_shapes_list()) - 1) / 2)
+
+        return 3
+
+    def get_gradient_colors(self):
+        gradient_colors = super().get_gradient_colors()
+        if gradient_colors is not None:
+            return gradient_colors
+
+        return ['#D32F2F', '#F57C00', '#FFF176', '#FFFFFF', '#33CCCC', '#0288D1', '#1E3A5F']
+
+    def set_gradient_colors(self, gradient_colors: list[str]):
+        if len(gradient_colors) % 2 == 0:
+            raise ValueError("Number of gradient colors for a log color bar must be odd")
+        if len(gradient_colors) < 3:
+            raise ValueError("Number of gradient colors for a log color bar must be at least 3")
+        mid_padding_percent = self._mid_padding / self.get_size()[1] * 100
+
+        mid_index = len(gradient_colors) // 2
+        mid_color = gradient_colors[mid_index]
+        first_half = gradient_colors[:mid_index]
+        second_half = gradient_colors[mid_index + 1:]
+
+        # Mid band stops
+        mid_start = 50.0 - mid_padding_percent / 2
+        mid_end = 50.0 + mid_padding_percent / 2
+
+        # Construct stop colors and offsets
+        stop_colors = []
+        stop_offsets = []
+
+        # First half gradient
+        for i in range(len(first_half)):
+            stop_colors.append(first_half[i])
+            stop_offsets.append(i * mid_start / (len(first_half) - 1))
+
+        # mid_color at center
+        stop_colors.append(mid_color)
+        stop_offsets.append(50.0)
+
+        # Second half gradient
+        for i in range(len(second_half)):
+            stop_colors.append(second_half[i])
+            stop_offsets.append(mid_end + (100 - mid_end) * (i) / (len(second_half) - 1))
+
+        if self.libsbmlnetwork.setGeometricShapeFillColorAsGradient(
+                id=self.element_id,
+                geometric_shape_index=0,
+                stop_colors=stop_colors,
+                stop_offsets=stop_offsets,
+                gradient_type="linear") == 0:
+            return True
+
+        return False
+
+    def get_associated_color(self, value):
+        import math
+
+        gradient_colors = self.get_gradient_colors()
+        if value > 0:
+            colors = gradient_colors[:len(gradient_colors) // 2][::-1]
+        else:
+            colors = gradient_colors[len(gradient_colors) // 2 + 1:]
+        max_value = self.get_max_value()
+        min_value = self.get_min_value()
+        log10_value = math.log(abs(value), 10)
+        normalized_value = (log10_value - min_value) / (max_value - min_value)
+        camp = LinearSegmentedColormap.from_list('my_cmap', colors)
+        rgba = camp(normalized_value)
+        r, g, b, a = rgba
+        hex_color = '#{:02x}{:02x}{:02x}{:02x}'.format(int(r * 255), int(g * 255), int(b * 255), int(a * 255))
+
+        return hex_color
+
+    def _update_tick_marks(self, number_of_tick_marks: int, tick_mark_size: float = None,
+                           tick_mark_thickness: float = None, tick_mark_color: str = None):
+        if tick_mark_size is None:
+            tick_mark_size = self.get_tick_mark_size()
+        if tick_mark_thickness is None:
+            tick_mark_thickness = self.get_tick_mark_thickness()
+        if tick_mark_color is None:
+            tick_mark_color = self.get_tick_mark_color()
+        while self.libsbmlnetwork.getNumGeometricShapes(self.element_id) > 1:
+            self.libsbmlnetwork.removeGeometricShape(self.element_id, 1)
+        for i in range(number_of_tick_marks):
+            curve = self.add_shape("curve")
+            y_position = 0.5 * (self.get_size()[1] - self._mid_padding) * i / (number_of_tick_marks - 1)
+            points = [(self.get_size()[0] + 1 + tick_mark_size, y_position),
+                      (self.get_size()[0] + 1, y_position)]
+            curve.set_points(points)
+            curve.set_border_thickness(tick_mark_thickness)
+            curve.set_border_color(tick_mark_color)
+        for i in range(number_of_tick_marks):
+            curve = self.add_shape("curve")
+            y_position = 0.5 * (self.get_size()[1] +  self._mid_padding) + 0.5 * (
+                    self.get_size()[1] - self._mid_padding) * i / (number_of_tick_marks - 1)
+            points = [(self.get_size()[0] + 1 + tick_mark_size, y_position),
+                      (self.get_size()[0] + 1, y_position)]
+            curve.set_points(points)
+            curve.set_border_thickness(tick_mark_thickness)
+            curve.set_border_color(tick_mark_color)
+
+        return self._update_labels()
+
+    def _update_labels(self):
+        font_size = self.get_tick_mark_label_font_size()
+        max_value = self.get_max_value()
+        min_value = self.get_min_value()
+        number_of_tick_marks = self.get_number_of_tick_marks()
+        tick_mark_size = self.get_tick_mark_size()
+        size = self.get_size()
+
+        while self.libsbmlnetwork.getNumTextGlyphs(self.element_id) > 0:
+            self.libsbmlnetwork.removeText(self.element_id, 0)
+
+        labels = [str(round(i * (max_value - min_value) / (number_of_tick_marks - 1) + min_value, 2))
+                  for i in range(number_of_tick_marks)]
+
+        for i in range(number_of_tick_marks):
+            y_position = 0.5 * (size[1] - self._mid_padding) * i / (number_of_tick_marks - 1)
+            label = self.add_label(str(labels[number_of_tick_marks - 1 - i]),
+                                   (size[0] + tick_mark_size, y_position))
+            if not label.set_size((1.5 * label.get_size()[0], 1.5 * label.get_size()[0])):
+                return False
+            else:
+                label.move_by((0.0, -label.get_size()[1] / 2))
+            label.align_to_horizontal_center()
+
+        for i in range(number_of_tick_marks):
+            y_position = 0.5 * size[1] + 0.5 * self._mid_padding + 0.5 * (
+                    size[1] - self._mid_padding) * i / (number_of_tick_marks - 1)
+            label = self.add_label(str(labels[i]),
+                                   (size[0] + tick_mark_size, y_position))
+            if not label.set_size((1.5 * label.get_size()[0], 1.5 * label.get_size()[0])):
+                return False
+            else:
+                label.move_by((0.0, -label.get_size()[1] / 2))
+            label.align_to_horizontal_center()
+
+        if not self._add_legend_label():
+            return False
+
+        return self.get_labels_list().set_font_sizes(font_size)
+
+    def _add_legend_label(self):
+        label_text = "log(conc.)"
+        if "flux" in self.get_id().lower():
+            label_text = "log(flux)"
+        label = self.add_label(label_text, (0, self.get_size()[1]))
+        label.set_size((2 * label.get_size()[0], 2 * label.get_size()[0]))
+        label.align_to_left()
+        return True
