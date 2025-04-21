@@ -123,7 +123,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
                 {"species-text-vertical-alignment", "middle"},
                 {"species-border-radius-x", "6"},
                 {"species-border-radius-y", "3.6"},
-                {"reaction-geometric-shape", "ellipse"},
+                {"reaction-geometric-shape", "rectangle"},
                 {"reaction-line-color", "black"},
                 {"reaction-line-width", "2"},
                 {"reaction-border-color", "black"},

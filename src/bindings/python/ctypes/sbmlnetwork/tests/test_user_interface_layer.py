@@ -603,16 +603,16 @@ class TestSBMLModel(unittest.TestCase):
         reaction_list = network.get_reactions_list()
         for reaction in reaction_list:
             center = reaction.get_center()
-            self.assertTrue(center.is_curve())
-            center.switch_to_shapes()
             self.assertTrue(center.is_shapes())
             center.switch_to_curve()
             self.assertTrue(center.is_curve())
-            self.assertTrue(reaction.is_center_curve())
-            self.assertFalse(reaction.is_center_shapes())
-            reaction.switch_center_to_shapes()
-            self.assertTrue(reaction.is_center_shapes())
+            center.switch_to_shapes()
+            self.assertTrue(center.is_shapes())
             self.assertFalse(reaction.is_center_curve())
+            self.assertTrue(reaction.is_center_shapes())
+            reaction.switch_center_to_curve()
+            self.assertFalse(reaction.is_center_shapes())
+            self.assertTrue(reaction.is_center_curve())
 
     def test_reaction_center_curve(self):
         """ Test if the reaction center curve can be retrieved """

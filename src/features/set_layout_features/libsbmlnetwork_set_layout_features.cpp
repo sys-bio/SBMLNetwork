@@ -210,11 +210,6 @@ SpeciesReferenceGlyph* set_layout_features_createEmptySpeciesReferenceGlyph(Layo
     return emptySpeciesReferenceGlyph;
 }
 
-void set_layout_features_setReactionBoundingBoxes(Layout* layout) {
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++)
-        setReactionGlyphBoundingBox(layout->getReactionGlyph(i));
-}
-
 SpeciesGlyph* set_layout_features_getSpeciesGlyph(Layout* layout, const std::string& speciesId, const std::string& speciesGlyphId, const std::vector<std::map<std::string, std::string>>& userData) {
     if (!speciesGlyphId.empty()) {
         if (layout->getSpeciesGlyph(speciesGlyphId))
@@ -262,7 +257,7 @@ void set_layout_features_setSpeciesTextGlyphs(Layout* layout) {
 
 void set_layout_features_setReactionTextGlyphs(Layout* layout) {
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        double padding = 5.0;
+        double padding = 15.0;
         TextGlyph* textGlyph = createAssociatedTextGlyph(layout, layout->getReactionGlyph(i));
         setTextGlyphBoundingBox(textGlyph, layout->getReactionGlyph(i), padding);
     }
@@ -302,6 +297,8 @@ ReactionGlyph* set_layout_features_createReactionGlyph(Layout* layout, const std
     reactionGlyph->setId(set_layout_features_getReactionGlyphId(layout, reactionId));
     reactionGlyph->setReactionId(reactionId);
     setReactionGlyphCurve(reactionGlyph);
+    setReactionGlyphBoundingBox(reactionGlyph);
+    removeReactionGlyphCurve(reactionGlyph);
     user_data_setGraphicalObjectUserData(reactionGlyph, userData);
 
     return reactionGlyph;

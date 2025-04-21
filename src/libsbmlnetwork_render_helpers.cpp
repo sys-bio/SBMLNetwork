@@ -880,8 +880,8 @@ void setSpeciesGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
 }
 
 void setReactionGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
-    Ellipse* ellipse = renderGroup->createEllipse();
-    defaults_setDefaultEllipseShapeFeatures(ellipse);
+    Rectangle* rectangle = renderGroup->createRectangle();
+    defaults_setDefaultRectangleShapeFeatures(rectangle);
 }
 
 void setReactionGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {

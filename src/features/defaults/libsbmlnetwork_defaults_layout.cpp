@@ -47,11 +47,11 @@ const double defaults_getEmptySpeciesDefaultHeight() {
 }
 
 const double defaults_getReactionDefaultWidth() {
-    return 30.0;
+    return 20.0;
 }
 
 const double defaults_getReactionDefaultHeight() {
-    return 30.0;
+    return 20.0;
 }
 
 const double defaults_getDefaultAutoLayoutPadding() {

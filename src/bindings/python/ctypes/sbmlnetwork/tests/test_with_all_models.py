@@ -486,24 +486,14 @@ class TestSBMLNetwork(unittest.TestCase):
 
     def _check_reaction_is_bounded_by_its_compartment(self, network, reaction_id):
         compartment_id = self._get_associated_compartment_id(network, reaction_id)
-        self.assertGreater(network.getCurveSegmentStartPointX(reaction_id),
+        self.assertGreater(network.getX(reaction_id),
                            network.getX(compartment_id))
-        self.assertLess(network.getCurveSegmentStartPointX(reaction_id),
+        self.assertLess(network.getX(reaction_id) + network.getWidth(reaction_id),
                         network.getX(compartment_id) + network.getWidth(
                             compartment_id))
-        self.assertGreater(network.getCurveSegmentStartPointY(reaction_id),
+        self.assertGreater(network.getY(reaction_id),
                            network.getY(compartment_id))
-        self.assertLess(network.getCurveSegmentStartPointY(reaction_id),
-                        network.getY(compartment_id) + network.getHeight(
-                            compartment_id))
-        self.assertGreater(network.getCurveSegmentEndPointX(reaction_id),
-                           network.getX(compartment_id))
-        self.assertLess(network.getCurveSegmentEndPointX(reaction_id),
-                        network.getX(compartment_id) + network.getWidth(
-                            compartment_id))
-        self.assertGreater(network.getCurveSegmentEndPointY(reaction_id),
-                           network.getY(compartment_id))
-        self.assertLess(network.getCurveSegmentEndPointY(reaction_id),
+        self.assertLess(network.getY(reaction_id) + network.getHeight(reaction_id),
                         network.getY(compartment_id) + network.getHeight(
                             compartment_id))
         for species_reference_index in range(network.getNumSpeciesReferences(reaction_id)):
