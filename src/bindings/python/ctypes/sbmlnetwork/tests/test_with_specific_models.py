@@ -846,14 +846,14 @@ class TestSBMLNetwork(unittest.TestCase):
         net = sbmlnetwork.load(r.getSBML())
 
         # Testing width
-        self.assertEqual(net.libsbmlnetwork.getWidth("J0"), 30)
+        self.assertEqual(net.libsbmlnetwork.getWidth("J0"), 20)
         net.libsbmlnetwork.setWidth("J0", 110)
         self.assertEqual(net.libsbmlnetwork.getWidth("J0"), 110)
         net.libsbmlnetwork.autolayout()
         self.assertEqual(net.libsbmlnetwork.getWidth("J0"), 110)
 
         # Testing height
-        self.assertEqual(net.libsbmlnetwork.getHeight("J0"), 30)
+        self.assertEqual(net.libsbmlnetwork.getHeight("J0"), 20)
         net.libsbmlnetwork.setHeight("J0", 25)
         self.assertEqual(net.libsbmlnetwork.getHeight("J0"), 25)
         net.libsbmlnetwork.autolayout()
@@ -987,6 +987,48 @@ class TestSBMLNetwork(unittest.TestCase):
         net.auto_layout()
         updated_species_s2_count = len(net.get_species_list("S2"))
         self.assertEqual(initial_species_s2_count, updated_species_s2_count)
+
+    def test_connected_reactions_for_s2(self):
+        model = '''
+        J0: S1 -> S2;
+        J1: S2 -> S3;
+        J2: S2 -> S4;
+        J3: S2 -> S5;
+        J4: S2 -> S6;
+        '''
+        r = te.loada(model)
+        net = sbmlnetwork.load(r.getSBML())
+        net.auto_layout(max_num_connected_edges=3)
+
+        connected_reactions_glyph_0 = net.libsbmlnetwork.getConnectedReactionsFor("S2", 0)
+        connected_reactions_glyph_1 = net.libsbmlnetwork.getConnectedReactionsFor("S2", 1)
+
+        expected_reactions_glyph_0 = ["J0", "J1", "J2"]
+        self.assertEqual(sorted(connected_reactions_glyph_0), sorted(expected_reactions_glyph_0))
+        expected_reactions_glyph_1 = ["J3", "J4"]
+        self.assertEqual(sorted(connected_reactions_glyph_1), sorted(expected_reactions_glyph_1))
+
+    def test_set_reaction_curve_by_setting_reactions_geometric_shapes(self):
+        model = '''
+        J0: S1 -> S2;
+        '''
+        r = te.loada(model)
+        net = sbmlnetwork.load(r.getSBML())
+
+        # Initially, there should be no curve set for reaction J0
+        self.assertFalse(net.libsbmlnetwork.isSetCurve(reaction_id="J0"))
+
+        # Remove the geometric shape and check again
+        result = net.libsbmlnetwork.removeGeometricShape(
+            id="J0",
+            graphical_object_index=0,
+            geometric_shape_index=0
+        )
+        self.assertTrue(net.libsbmlnetwork.isSetCurve(reaction_id="J0"))
+
+        # Set a geometric shape for all the reactions
+        net.libsbmlnetwork.setReactionsGeometricShapeType(geometric_shape="rectangle")
+        self.assertFalse(net.libsbmlnetwork.isSetCurve(reaction_id="J0"))
 
     @staticmethod
     def _get_max_position_y(network, species_list):

@@ -29,18 +29,21 @@ class SBMLNetwork:
 
         return self
 
-    def save(self, file_name: str = None):
-        self.update_network_extents()
+    def save(self, file_name: str = None, update_network_extents: bool = True):
+        if update_network_extents:
+            self.update_network_extents()
         return self.libsbmlnetwork.save(file_name)
 
-    def draw(self, file_name: str = None):
+    def draw(self, file_name: str = None, update_network_extents: bool = True):
         """
         Draws the network of the SBML model. Saves the figure to the file_directory if specified, otherwise displays the figure.
 
         :param file_directory:
         :param file_name:
+        :param update_network_extents: If True, updates the network extents before drawing the figure.
         """
-        self.update_network_extents()
+        if update_network_extents:
+            self.update_network_extents()
         if file_name:
             networkinfotranslator.import_sbml_export_figure(self.libsbmlnetwork, file_name,
                                                             self.settings.compartment_labels,
@@ -569,9 +572,9 @@ class SBMLNetwork:
     def get_styles_options(self):
         return self.libsbmlnetwork.getListOfStyles()
 
-    def show_fluxes(self, data: Union[float, dict], log_scale: bool = False):
+    def show_fluxes(self, data: Union[float, dict], log_scale: bool = False, min_threshold: float = None):
         self.fluxes = ColorCodingFluxes(self)
-        return self.fluxes.show(data, log_scale)
+        return self.fluxes.show(data, log_scale, min_threshold)
 
     def hide_fluxes(self):
         if self.fluxes is None:
@@ -579,13 +582,13 @@ class SBMLNetwork:
 
         return self.fluxes.hide()
 
-    def show_concentrations(self, data: Union[float, dict], log_scale: bool = False, show_by = "color"):
+    def show_concentrations(self, data: Union[float, dict], log_scale: bool = False, min_threshold: float = None, show_by = "color"):
         if show_by == "size":
             self.concentrations = SizeCodingConcentrations(self)
         else:
             self.concentrations = ColorCodingConcentrations(self)
 
-        return self.concentrations.show(data, log_scale)
+        return self.concentrations.show(data, log_scale, min_threshold)
 
     def hide_concentrations(self):
         if self.concentrations is None:

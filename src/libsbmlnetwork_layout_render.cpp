@@ -1123,6 +1123,7 @@ int setReactionGeometricShapeType(Layout* layout, LocalRenderInformation* localR
             if (setGeometricShapeType(style, shape))
                 return -1;
         }
+        removeCurve(layout->getReactionGlyph(i));
     }
 
     return 0;
