@@ -1,5 +1,5 @@
-name: build-libsbmlnetworkjs-github-actions
-run-name: Building libsbmlnetworkjs
+name: build-libsbmlnetwork-webassembly-github-actions
+run-name: Building libsbmlnetwork-webassembly
 on:
   workflow_dispatch:
     inputs:
@@ -12,7 +12,7 @@ on:
         required: true
         default: '5.20.0'
 jobs:
-  build-new-version-libsbmlnetworkjs:
+  build-new-version-libsbmlnetwork-webassembly:
     runs-on: ubuntu-latest
     env:
       EMSDK: emsdk
@@ -88,23 +88,23 @@ jobs:
         run: emmake make install
         working-directory: SBMLNetwork/build
       - name: Generate SBMLNetwork javascript and wasm files
-        run: em++ -I$GITHUB_WORKSPACE/install/SBMLNetwork/include -I$GITHUB_WORKSPACE/install/sbml/include -I$GITHUB_WORKSPACE/install/expat/include $GITHUB_WORKSPACE/install/SBMLNetwork/lib/libsbmlnetwork.a $GITHUB_WORKSPACE/install/sbml/lib/libsbml-static.a $GITHUB_WORKSPACE/install/expat/lib/libexpat.a -o libsbmlnetwork.js -s WASM=1 -s LINKABLE=1 -s EXPORT_ALL=1 -s EXPORTED_RUNTIME_METHODS='["ccall", "cwrap", "allocateUTF8", "UTF8ToString"]'
+        run: em++ -I$GITHUB_WORKSPACE/install/SBMLNetwork/include -I$GITHUB_WORKSPACE/install/sbml/include -I$GITHUB_WORKSPACE/install/expat/include $GITHUB_WORKSPACE/install/SBMLNetwork/lib/libsbmlnetwork.a $GITHUB_WORKSPACE/install/sbml/lib/libsbml-static.a $GITHUB_WORKSPACE/install/expat/lib/libexpat.a -o libsbmlnetwork.js -s WASM=1 -s LINKABLE=1 -s EXPORT_ALL=1 -s MODULARIZE=1 -s EXPORTED_RUNTIME_METHODS='["ccall", "cwrap", "allocateUTF8", "UTF8ToString"]'
         working-directory: install
-      - name: List build libsbmlnetworkjs files
+      - name: List build libsbmlnetwork-webassembly files
         run: ls -l
         working-directory: install
       - name: Build output directory
         run: |
-          mkdir -p $GITHUB_WORKSPACE/libsbmlnetworkjs
-          echo "artifacts_path=$GITHUB_WORKSPACE/libsbmlnetworkjs" >> "${GITHUB_ENV}"
-      - name: Copy libsbmlnetworkjs files to the workspace
+          mkdir -p $GITHUB_WORKSPACE/libsbmlnetwork-webassembly
+          echo "artifacts_path=$GITHUB_WORKSPACE/libsbmlnetwork-webassembly" >> "${GITHUB_ENV}"
+      - name: Copy libsbmlnetwork-webassembly files to the workspace
         run: |
-          cp install/libsbmlnetwork.js $GITHUB_WORKSPACE/libsbmlnetworkjs/
-          cp install/libsbmlnetwork.wasm $GITHUB_WORKSPACE/libsbmlnetworkjs/
+          cp install/libsbmlnetwork.js $GITHUB_WORKSPACE/libsbmlnetwork-webassembly/
+          cp install/libsbmlnetwork.wasm $GITHUB_WORKSPACE/libsbmlnetwork-webassembly/
       - name: Verify copied files
-        run: ls -l $GITHUB_WORKSPACE/libsbmlnetworkjs
-      - name: Upload libsbmlnetworkjs files
+        run: ls -l $GITHUB_WORKSPACE/libsbmlnetwork-webassembly
+      - name: Upload libsbmlnetwork-webassembly files
         uses: actions/upload-artifact@v4
         with:
-          name: libsbmlnetworkjs
+          name: libsbmlnetwork-webassembly
           path: ${{env.artifacts_path}}
