@@ -1572,14 +1572,14 @@ unsigned int getStrokeDash(RenderGroup* renderGroup, unsigned int strokeDashInde
     if (isRenderGroup(renderGroup))
         return renderGroup->getDashByIndex(strokeDashIndex);
 
-    return NAN;
+    return 0;
 }
 
 unsigned int getStrokeDash(Transformation2D* transformation2D, unsigned int strokeDashIndex) {
     if (isGraphicalPrimitive1D(transformation2D))
         ((GraphicalPrimitive1D*)transformation2D)->getDashByIndex(strokeDashIndex);
 
-    return NAN;
+    return 0;
 }
 
 int setStrokeDash(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int dash) {

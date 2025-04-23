@@ -1056,21 +1056,18 @@ int setDimensionWidth(Layout* layout, const std::string& id, unsigned int graphi
 
 int setDimensionWidth(Layout* layout, GraphicalObject* graphicalObject, const double& width) {
     double changedWidth = width - getDimensionWidth(graphicalObject);
-    if ((isReactionGlyph(graphicalObject) && !setDimensionWidth(layout, (ReactionGlyph*)graphicalObject, width)) || !setDimensionWidth(getBoundingBox(graphicalObject), width)) {
+    if (isReactionGlyph(graphicalObject)) {
+        if (isSetCurve(graphicalObject))
+            if (setDimensionWidth(getCurve(graphicalObject), width))
+                return -1;
+    }
+    if (!setDimensionWidth(getBoundingBox(graphicalObject), width)) {
         fix_elements_fixGraphicalObjectWidth(graphicalObject);
         updateAssociatedTextGlyphsDimensionWidth(layout, graphicalObject, changedWidth);
         return 0;
     }
 
     return -1;
-}
-
-int setDimensionWidth(Layout* layout, ReactionGlyph* reactionGlyph, const double& x) {
-    if (isSetCurve(reactionGlyph))
-        if (setDimensionWidth(getCurve(reactionGlyph), x))
-            return -1;
-
-    return setDimensionWidth(getBoundingBox(reactionGlyph), x);
 }
 
 int setDimensionWidth(BoundingBox* boundingBox, const double& width) {
@@ -1143,21 +1140,18 @@ int setDimensionHeight(Layout* layout, const std::string& id, unsigned int graph
 
 int setDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, const double& height) {
     double changedHeight = height - getDimensionHeight(graphicalObject);
-    if ((isReactionGlyph(graphicalObject) && !setDimensionHeight(layout, (ReactionGlyph*)graphicalObject, height)) || !setDimensionHeight(getBoundingBox(graphicalObject), height)) {
+    if (isReactionGlyph(graphicalObject)) {
+        if (isSetCurve(graphicalObject))
+            if (setDimensionHeight(getCurve(graphicalObject), height))
+                return -1;
+    }
+    if (!setDimensionHeight(getBoundingBox(graphicalObject), height)) {
         fix_elements_fixGraphicalObjectHeight(graphicalObject);
         updateAssociatedTextGlyphsDimensionHeight(layout, graphicalObject, changedHeight);
         return 0;
     }
 
     return -1;
-}
-
-int setDimensionHeight(Layout* layout, ReactionGlyph* reactionGlyph, const double& x) {
-    if (isSetCurve(reactionGlyph))
-        if (setDimensionHeight(getCurve(reactionGlyph), x))
-            return -1;
-
-    return setDimensionHeight(getBoundingBox(reactionGlyph), x);
 }
 
 int setDimensionHeight(BoundingBox* boundingBox, const double& height) {
