@@ -83,9 +83,10 @@ class DataIntegrationBase:
 
 class ColorCodingDataIntegrationBase(DataIntegrationBase):
 
-    def __init__(self, network_obj):
+    def __init__(self, network_obj, skip_hidden_elements=True):
         super().__init__(network_obj)
         self._color_bar = None
+        self._skip_hidden_elements = skip_hidden_elements
 
     def show(self, data: Union[float, Dict], log_scale: bool = False, min_threshold: float = None):
         super().show(data, log_scale, min_threshold)
@@ -142,8 +143,8 @@ class ColorCodingDataIntegrationBase(DataIntegrationBase):
 
 class ColorCodingFluxes(ColorCodingDataIntegrationBase):
 
-    def __init__(self, network_obj):
-        super().__init__(network_obj)
+    def __init__(self, network_obj, skip_hidden_elements=True):
+        super().__init__(network_obj, skip_hidden_elements)
         self._data_type = "fluxes"
 
     def _simulate(self, simulation_time):
@@ -164,26 +165,57 @@ class ColorCodingFluxes(ColorCodingDataIntegrationBase):
     def _update_element_features(self, element_id, color):
         reactions_list = self.network_obj.get_reactions_list(element_id)
         for reaction in reactions_list:
-            self._element_features_original_values[reaction.get_id()] = {
-                'color': reaction.get_curves_list().get_colors()[0],
-                'thickness': reaction.get_curves_list().get_thicknesses()[0],
-                'arrow_head_relative_positions': reaction.get_arrow_head_relative_positions()[0]}
-            font_color = reaction.get_font_color()
-            reaction.set_colors(color)
-            reaction.set_font_color(font_color)
-            reaction.set_thicknesses(8)
-            reaction.move_arrow_head_relative_positions_by((-2, 0))
+            features = {'reaction_border_color': reaction.get_border_color()[0]}
+            curve_features = []
+            for curve in reaction.get_curves_list():
+                curve_data = {
+                    'color': curve.get_color(),
+                    'thickness': curve.get_thickness()
+                }
+
+                arrow_head = curve.get_arrow_head()
+                if arrow_head is not None:
+                    curve_data['arrow_head_features'] = {
+                        'fill_color': arrow_head.get_fill_color()[0],
+                        'border_color': arrow_head.get_border_color()[0],
+                        'thickness': arrow_head.get_border_thickness()[0],
+                        'relative_position': arrow_head.get_relative_position()
+                    }
+
+                curve_features.append(curve_data)
+
+            features['curves'] = curve_features
+            self._element_features_original_values[reaction.get_id()] = features
+            if not reaction.is_hidden() or not self._skip_hidden_elements:
+                reaction.get_shapes_list().set_border_colors(color)
+            for curve in reaction.get_curves_list():
+                if not curve.is_hidden() or not self._skip_hidden_elements:
+                    curve.set_color(color)
+                    curve.set_thickness(8)
+                    arrow_head = curve.get_arrow_head()
+                    if arrow_head is not None:
+                        arrow_head.move_relative_position_by((-2, 0))
+                        arrow_head.set_border_color(color)
+                        arrow_head.set_fill_color(color)
+                        arrow_head.set_border_thickness(8)
 
     def hide(self):
         super().hide()
         reactions_list = self.network_obj.get_reactions_list()
         for reaction in reactions_list:
             if reaction.get_id() in self._element_features_original_values:
-                reaction.set_colors(self._element_features_original_values[reaction.get_id()]['color'])
-                reaction.set_thicknesses(self._element_features_original_values[reaction.get_id()]['thickness'])
-                reaction.set_arrow_head_relative_positions(
-                    self._element_features_original_values[reaction.get_id()]['arrow_head_relative_positions'])
-
+                if not reaction.is_hidden() or not self._skip_hidden_elements:
+                    reaction.get_shapes_list().set_border_colors(self._element_features_original_values[reaction.get_id()]['reaction_border_color'])
+                for index, curve in enumerate(reaction.get_curves_list()):
+                    if not curve.is_hidden() or not self._skip_hidden_elements:
+                        curve.set_color(self._element_features_original_values[reaction.get_id()]['curves'][index]['color'])
+                        curve.set_thickness(self._element_features_original_values[reaction.get_id()]['curves'][index]['thickness'])
+                        arrow_head = curve.get_arrow_head()
+                        if arrow_head is not None:
+                            arrow_head.set_border_color(self._element_features_original_values[reaction.get_id()]['curves'][index]['arrow_head_features']['border_color'])
+                            arrow_head.set_fill_color(self._element_features_original_values[reaction.get_id()]['curves'][index]['arrow_head_features']['fill_color'])
+                            arrow_head.set_border_thickness(self._element_features_original_values[reaction.get_id()]['curves'][index]['arrow_head_features']['thickness'])
+                            arrow_head.set_relative_position(self._element_features_original_values[reaction.get_id()]['curves'][index]['arrow_head_features']['relative_position'])
 
 class ConcentrationDataIntegrationBase(DataIntegrationBase):
 
@@ -209,11 +241,16 @@ class ConcentrationDataIntegrationBase(DataIntegrationBase):
 
 class ColorCodingConcentrations(ColorCodingDataIntegrationBase, ConcentrationDataIntegrationBase):
 
+    def __init__(self, network_obj, skip_hidden_elements=True):
+        ColorCodingDataIntegrationBase.__init__(self, network_obj, skip_hidden_elements)
+        ConcentrationDataIntegrationBase.__init__(self, network_obj)
+
     def _update_element_features(self, element_id, color):
         species_list = self.network_obj.get_species_list(element_id)
         for species in species_list:
-            self._element_features_original_values[species.get_id()] = species.get_fill_color()[0]
-            species.set_fill_color(color)
+            if not species.is_hidden() or not self._skip_hidden_elements:
+                self._element_features_original_values[species.get_id()] = species.get_fill_color()[0]
+                species.set_fill_color(color)
 
     def hide(self):
         super().hide()

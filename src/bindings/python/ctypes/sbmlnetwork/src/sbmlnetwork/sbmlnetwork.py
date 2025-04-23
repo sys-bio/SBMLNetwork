@@ -572,8 +572,8 @@ class SBMLNetwork:
     def get_styles_options(self):
         return self.libsbmlnetwork.getListOfStyles()
 
-    def show_fluxes(self, data: Union[float, dict], log_scale: bool = False, min_threshold: float = None):
-        self.fluxes = ColorCodingFluxes(self)
+    def show_fluxes(self, data: Union[float, dict], log_scale: bool = False, min_threshold: float = None, skip_hidden_elements: bool = True):
+        self.fluxes = ColorCodingFluxes(self, skip_hidden_elements)
         return self.fluxes.show(data, log_scale, min_threshold)
 
     def hide_fluxes(self):
@@ -582,11 +582,11 @@ class SBMLNetwork:
 
         return self.fluxes.hide()
 
-    def show_concentrations(self, data: Union[float, dict], log_scale: bool = False, min_threshold: float = None, show_by = "color"):
+    def show_concentrations(self, data: Union[float, dict], log_scale: bool = False, min_threshold: float = None, show_by = "color", skip_hidden_elements: bool = True):
         if show_by == "size":
             self.concentrations = SizeCodingConcentrations(self)
         else:
-            self.concentrations = ColorCodingConcentrations(self)
+            self.concentrations = ColorCodingConcentrations(self, skip_hidden_elements)
 
         return self.concentrations.show(data, log_scale, min_threshold)
 
