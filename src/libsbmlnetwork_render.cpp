@@ -3495,7 +3495,7 @@ unsigned int getNumGeometricShapes(RenderGroup* renderGroup) {
     if (renderGroup)
         return renderGroup->getNumElements();
 
-    return -1;
+    return 0;
 }
 
 Transformation2D* getGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
