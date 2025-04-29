@@ -93,9 +93,6 @@ std::vector<GraphicalObject*> getGraphicalObjects(Layout* layout, const std::str
         graphicalObjects.insert(graphicalObjects.end(), speciesGlyphs.begin(), speciesGlyphs.end());
         std::vector<ReactionGlyph*> reactionGlyphs = getReactionGlyphs(layout, id);
         graphicalObjects.insert(graphicalObjects.end(), reactionGlyphs.begin(), reactionGlyphs.end());
-        GraphicalObject* graphicalObject = getGraphicalObjectUsingItsOwnId(layout, id);
-        if (graphicalObject)
-            graphicalObjects.push_back(graphicalObject);
     }
 
     return graphicalObjects;

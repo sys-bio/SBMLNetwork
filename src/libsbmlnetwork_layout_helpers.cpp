@@ -454,6 +454,9 @@ std::vector<CompartmentGlyph*> getAssociatedCompartmentGlyphsWithCompartmentId(L
             compartmentGlyphs.push_back(layout->getCompartmentGlyph(i));
     }
 
+    if (compartmentGlyphs.size() == 0 && layout->getCompartmentGlyph(compartmentId))
+        compartmentGlyphs.push_back(layout->getCompartmentGlyph(compartmentId));
+
     return compartmentGlyphs;
 }
 
@@ -492,6 +495,9 @@ std::vector<ReactionGlyph*> getAssociatedReactionGlyphsWithReactionId(Layout* la
         if (layout->getReactionGlyph(i)->getReactionId() == reactionId)
             reactionGlyphs.push_back(layout->getReactionGlyph(i));
     }
+
+    if (reactionGlyphs.size() == 0 && layout->getReactionGlyph(reactionId))
+        reactionGlyphs.push_back(layout->getReactionGlyph(reactionId));
 
     return reactionGlyphs;
 }
