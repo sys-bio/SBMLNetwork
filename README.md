@@ -24,7 +24,46 @@ To install the Python package, run the following command:
 
 ### Shared Library
 
-To install the shared library, download the latest release from the [releases page](https://github.com/adelhpour/SBMLNetwork/releases) and link it to your project.
+To install the shared library, download the latest release from the [releases page](https://github.com/sys-bio/SBMLNetwork/releases) and link it to your project.
+
+#### Pre-built binaries
+
+Download an archive for your OS from the [releases page](https://github.com/adelhpour/SBMLNetwork/releases) and link it in your build system.
+
+#### Build from source
+
+The steps below reproduce our CI workflow so you can compile the C/C++ core and the Python bindings locally on macOS, Linux, or Windows.
+
+#####  Clone the repo
+```bash
+git clone https://github.com/sys-bio/SBMLNetwork.git
+cd SBMLNetwork
+```
+
+#####  Download binary dependencies (libroadrunner-deps)
+```bash
+curl -L -O <matching-archive>.zip          # pick the archive for your OS/arch/build-type
+unzip <matching-archive>.zip -d $HOME/rr_deps
+export DEPENDENCIES_INSTALL_PREFIX=$HOME/rr_deps   # Windows PowerShell:  setx DEPENDENCIES_INSTALL_PREFIX C:\rr_deps
+```
+
+#####  Configure
+```bash
+mkdir build && cd build
+cmake .. -G Ninja \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DDEPENDENCIES_INSTALL_PREFIX=$DEPENDENCIES_INSTALL_PREFIX \
+  -DWITH_PYTHON=ON \
+  -DPYTHON_INSTALL_WITH_SETUP=ON \
+  -DCMAKE_INSTALL_PREFIX=$PWD/../install
+#  (macOS Apple-silicon: add -DCMAKE_OSX_ARCHITECTURES=arm64)
+#  (Windows: run from a “x64 Native Tools VS 2022” prompt)
+```
+
+#####  Build & install
+```bash
+cmake --build . --target install
+```
 
 ## Usage
 
