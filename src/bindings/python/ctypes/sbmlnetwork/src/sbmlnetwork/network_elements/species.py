@@ -303,9 +303,10 @@ class Species(NetworkElementBase):
         )
         super().set_size(size)
         self.set_position(new_position)
-        labels = self.get_labels_list()
-        for label in labels:
-            label.set_font_size(label.get_font_size() * size[0] / current_size[0])
+        if adjust_font_size:
+            labels = self.get_labels_list()
+            for label in labels:
+                label.set_font_size(label.get_font_size() * size[0] / current_size[0])
         center = (new_position[0] + size[0] / 2, new_position[1] + size[1] / 2)
         half_width, half_height = size[0] / 2, size[1] / 2
         for curve in self.get_connected_curves():

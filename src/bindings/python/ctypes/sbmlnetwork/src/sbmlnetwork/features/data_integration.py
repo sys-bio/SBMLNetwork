@@ -262,6 +262,11 @@ class ColorCodingConcentrations(ColorCodingDataIntegrationBase, ConcentrationDat
 
 class SizeCodingConcentrations(ConcentrationDataIntegrationBase):
 
+    def __init__(self, network_obj, min_size: float = 10, max_size: float = 100):
+        super().__init__(network_obj)
+        self._min_size = min_size
+        self._max_size = max_size
+
     def show(self, data: Union[float, Dict], log_scale: bool = False, min_threshold: float = None):
         super().show(data, log_scale, min_threshold)
         return self.update_styles()
@@ -270,7 +275,7 @@ class SizeCodingConcentrations(ConcentrationDataIntegrationBase):
         species_list = self.network_obj.get_species_list()
         for species in species_list:
             if species.get_id() in self._element_features_original_values:
-                species.set_size(self._element_features_original_values[species.get_id()])
+                species.set_size(self._element_features_original_values[species.get_id()], adjust_font_size=False)
 
     def update_styles(self):
         for element_id in self._data:
@@ -289,18 +294,12 @@ class SizeCodingConcentrations(ConcentrationDataIntegrationBase):
         species_list = self.network_obj.get_species_list(element_id)
         for species in species_list:
             self._element_features_original_values[species.get_id()] = species.get_size()
-            species.set_size((dimension, dimension))
+            species.set_size((dimension, dimension), adjust_font_size=False)
 
     def _get_size(self, value):
-        sizes = self.network_obj.get_species_list().get_sizes()
-        max_dimension = max(math.sqrt(size[0] ** 2 + size[1] ** 2) for size in sizes)
-        min_dimension = min(math.sqrt(size[0] ** 2 + size[1] ** 2) for size in sizes)
-        mean_dimension = 0.5 * (max_dimension + min_dimension)
         max_value = self.get_max_value()
         min_value = self.get_min_value()
         if max_value == min_value:
-            normalized_value = 0.5
+            return 0.5 * (self._max_size + self._min_size)
         else:
-            normalized_value = (value - min_value) / (max_value - min_value)
-
-        return mean_dimension * (0.75 + normalized_value * 0.5)
+            return ((value - min_value) / (max_value - min_value)) * (self._max_size - self._min_size) + self._min_size
