@@ -739,7 +739,7 @@ void addLocalStyles(Layout* layout, LocalRenderInformation* localRenderInformati
 Style* createLocalStyle(RenderInformationBase* localRenderInformation, Style* globalStyle, GraphicalObject* graphicalObject) {
     Style* localStyle = createLocalStyle(localRenderInformation, graphicalObject);
     if (localStyle && globalStyle)
-        localStyle->setGroup(globalStyle->getGroup()->clone());
+        localStyle->setGroup(globalStyle->getGroup());
 
     return localStyle;
 }

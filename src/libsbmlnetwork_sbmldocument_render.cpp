@@ -857,8 +857,8 @@ LineEnding* getLineEnding(SBMLDocument* document, unsigned int renderIndex, unsi
 LineEnding* createLocalLineEnding(SBMLDocument* document, LineEnding* globalLineEnding, SpeciesReferenceGlyph* speciesReferenceGlyph) {
     LineEnding* localLineEnding = createLocalLineEnding(document, getLocalRenderInformation(document), speciesReferenceGlyph);
     if (localLineEnding && globalLineEnding) {
-        localLineEnding->setGroup(globalLineEnding->getGroup()->clone());
-        localLineEnding->setBoundingBox(globalLineEnding->getBoundingBox()->clone());
+        localLineEnding->setGroup(globalLineEnding->getGroup());
+        localLineEnding->setBoundingBox(globalLineEnding->getBoundingBox());
         localLineEnding->getBoundingBox()->setId(localLineEnding->getId() + "_bb");
     }
 
