@@ -1015,7 +1015,7 @@ Style* getStyle(RenderInformationBase* renderInformationBase, const std::string&
 }
 
 Style* getTextGlyphStyle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
-    return getStyleByType(renderInformationBase, getTextGlyphStyleType(graphicalObject));
+    return getStyleByType(renderInformationBase, getTextGlyphStyleType(renderInformationBase, graphicalObject));
 }
 
 Style* getStyleById(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -1044,7 +1044,7 @@ Style* getStyleByRole(RenderInformationBase* renderInformationBase, const std::s
 }
 
 Style* getStyleByType(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
-    return getStyleByType(renderInformationBase, getStyleType(graphicalObject));
+    return getStyleByType(renderInformationBase, getStyleType(renderInformationBase, graphicalObject));
 }
 
 Style* getStyleByType(RenderInformationBase* renderInformationBase, const std::string& type) {
