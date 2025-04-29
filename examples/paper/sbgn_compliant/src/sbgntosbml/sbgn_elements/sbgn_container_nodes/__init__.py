@@ -1,0 +1,1 @@
+from .sbgn_compartment import SBGNCompartment
