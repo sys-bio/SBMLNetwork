@@ -116,12 +116,14 @@ int createAliasSpeciesGlyph(SBMLDocument* document, const std::string& speciesId
 }
 
 int createAliasSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, bool updateCurves) {
-    if (!alias_element_createAliasSpeciesGlyph(getLayout(document, layoutIndex), speciesId, getReactionGlyph(document, layoutIndex, reactionId, reactionGlyphIndex)), updateCurves) {
+    if (!alias_element_createAliasSpeciesGlyph(getLayout(document, layoutIndex), speciesId, getReactionGlyph(document, layoutIndex, reactionId, reactionGlyphIndex))) {
         if (updateCurves) {
             return updateLayoutCurves(document, getLayout(document, layoutIndex));
         }
+
         return 0;
     }
+
     return -1;
 }
 
