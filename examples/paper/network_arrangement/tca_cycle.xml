@@ -1,0 +1,2220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1" xmlns:render="http://www.sbml.org/sbml/level3/version1/render/version1" level="3" version="2" layout:required="false" render:required="false">
+  <model metaid="__main" id="__main">
+    <listOfCompartments>
+      <compartment sboTerm="SBO:0000410" id="default_compartment" spatialDimensions="3" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="Pyr" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="NAD" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="CoA" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="AcCoA" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="NADH" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="CO2" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Oxalo" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="H2O" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Cit" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="IsoCit" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="aKG" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="SCoA" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="GDP" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Pi" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Succ" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="GTP" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="FAD" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Fum" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="FADH2" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mal" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="J1" reversible="true">
+        <listOfReactants>
+          <speciesReference species="Pyr" stoichiometry="1" constant="true"/>
+          <speciesReference species="NAD" stoichiometry="1" constant="true"/>
+          <speciesReference species="CoA" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="AcCoA" stoichiometry="1" constant="true"/>
+          <speciesReference species="NADH" stoichiometry="1" constant="true"/>
+          <speciesReference species="CO2" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="J2" reversible="true">
+        <listOfReactants>
+          <speciesReference species="AcCoA" stoichiometry="1" constant="true"/>
+          <speciesReference species="Oxalo" stoichiometry="1" constant="true"/>
+          <speciesReference species="H2O" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Cit" stoichiometry="1" constant="true"/>
+          <speciesReference species="CoA" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="J3" reversible="true">
+        <listOfReactants>
+          <speciesReference species="Cit" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="IsoCit" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="J4" reversible="true">
+        <listOfReactants>
+          <speciesReference species="IsoCit" stoichiometry="1" constant="true"/>
+          <speciesReference species="NAD" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="aKG" stoichiometry="1" constant="true"/>
+          <speciesReference species="CO2" stoichiometry="1" constant="true"/>
+          <speciesReference species="NADH" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="J5" reversible="true">
+        <listOfReactants>
+          <speciesReference species="aKG" stoichiometry="1" constant="true"/>
+          <speciesReference species="CoA" stoichiometry="1" constant="true"/>
+          <speciesReference species="NAD" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="SCoA" stoichiometry="1" constant="true"/>
+          <speciesReference species="CO2" stoichiometry="1" constant="true"/>
+          <speciesReference species="NADH" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="J6" reversible="true">
+        <listOfReactants>
+          <speciesReference species="SCoA" stoichiometry="1" constant="true"/>
+          <speciesReference species="GDP" stoichiometry="1" constant="true"/>
+          <speciesReference species="Pi" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Succ" stoichiometry="1" constant="true"/>
+          <speciesReference species="CoA" stoichiometry="1" constant="true"/>
+          <speciesReference species="GTP" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="J7" reversible="true">
+        <listOfReactants>
+          <speciesReference species="Succ" stoichiometry="1" constant="true"/>
+          <speciesReference species="FAD" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Fum" stoichiometry="1" constant="true"/>
+          <speciesReference species="FADH2" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="J8" reversible="true">
+        <listOfReactants>
+          <speciesReference species="Fum" stoichiometry="1" constant="true"/>
+          <speciesReference species="H2O" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Mal" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="J9" reversible="true">
+        <listOfReactants>
+          <speciesReference species="Mal" stoichiometry="1" constant="true"/>
+          <speciesReference species="NAD" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Oxalo" stoichiometry="1" constant="true"/>
+          <speciesReference species="NADH" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+    </listOfReactions>
+    <layout:listOfLayouts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1">
+      <layout:layout layout:id="libSBMLNetwork_Layout">
+        <layout:dimensions layout:width="4440" layout:height="4940"/>
+        <layout:listOfCompartmentGlyphs>
+          <layout:compartmentGlyph layout:id="default_compartment_Glyph_0" layout:compartment="default_compartment">
+            <layout:boundingBox layout:id="default_compartment_Glyph_0_bb">
+              <layout:position layout:x="0" layout:y="0"/>
+              <layout:dimensions layout:width="4440" layout:height="4940"/>
+            </layout:boundingBox>
+          </layout:compartmentGlyph>
+        </layout:listOfCompartmentGlyphs>
+        <layout:listOfSpeciesGlyphs>
+          <layout:speciesGlyph layout:id="Pyr_Glyph_0" layout:species="Pyr">
+            <layout:boundingBox layout:id="Pyr_Glyph_0_bb">
+              <layout:position layout:x="2155.83" layout:y="240"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="NAD_Glyph_0" layout:species="NAD">
+            <layout:boundingBox layout:id="NAD_Glyph_0_bb">
+              <layout:position layout:x="1991.83" layout:y="404"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="CoA_Glyph_0" layout:species="CoA">
+            <layout:boundingBox layout:id="CoA_Glyph_0_bb">
+              <layout:position layout:x="2319.83" layout:y="404"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="AcCoA_Glyph_0" layout:species="AcCoA">
+            <layout:boundingBox layout:id="AcCoA_Glyph_0_bb">
+              <layout:position layout:x="2131.83" layout:y="910"/>
+              <layout:dimensions layout:width="130" layout:height="130"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="NADH_Glyph_0" layout:species="NADH">
+            <layout:boundingBox layout:id="NADH_Glyph_0_bb">
+              <layout:position layout:x="1895.83" layout:y="674"/>
+              <layout:dimensions layout:width="106" layout:height="106"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="CO2_Glyph_0" layout:species="CO2">
+            <layout:boundingBox layout:id="CO2_Glyph_0_bb">
+              <layout:position layout:x="2391.83" layout:y="674"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="Oxalo_Glyph_0" layout:species="Oxalo">
+            <layout:boundingBox layout:id="Oxalo_Glyph_0_bb">
+              <layout:position layout:x="1746.77143234622" layout:y="1286.1112605664"/>
+              <layout:dimensions layout:width="130" layout:height="130"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="H2O_Glyph_0" layout:species="H2O">
+            <layout:boundingBox layout:id="H2O_Glyph_0_bb">
+              <layout:position layout:x="2156.76876033311" layout:y="1519.00200743326"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="Cit_Glyph_0" layout:species="Cit">
+            <layout:boundingBox layout:id="Cit_Glyph_0_bb">
+              <layout:position layout:x="2895" layout:y="1445.96189432334"/>
+              <layout:dimensions layout:width="110" layout:height="110"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="IsoCit_Glyph_0" layout:species="IsoCit">
+            <layout:boundingBox layout:id="IsoCit_Glyph_0_bb">
+              <layout:position layout:x="3571.8887394336" layout:y="2334.77143234622"/>
+              <layout:dimensions layout:width="154" layout:height="154"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="aKG_Glyph_0" layout:species="aKG">
+            <layout:boundingBox layout:id="aKG_Glyph_0_bb">
+              <layout:position layout:x="3444.03810567666" layout:y="3495"/>
+              <layout:dimensions layout:width="110" layout:height="110"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="SCoA_Glyph_0" layout:species="SCoA">
+            <layout:boundingBox layout:id="SCoA_Glyph_0_bb">
+              <layout:position layout:x="2533.22856765378" layout:y="4193.8887394336"/>
+              <layout:dimensions layout:width="110" layout:height="110"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="GDP_Glyph_0" layout:species="GDP">
+            <layout:boundingBox layout:id="GDP_Glyph_0_bb">
+              <layout:position layout:x="2230.87401316878" layout:y="4477.49763637632"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="Pi_Glyph_0" layout:species="Pi">
+            <layout:boundingBox layout:id="Pi_Glyph_0_bb">
+              <layout:position layout:x="2218.487637707" layout:y="4043.88196195447"/>
+              <layout:dimensions layout:width="70" layout:height="70"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="Succ_Glyph_0" layout:species="Succ">
+            <layout:boundingBox layout:id="Succ_Glyph_0_bb">
+              <layout:position layout:x="1395" layout:y="4044.03810567666"/>
+              <layout:dimensions layout:width="110" layout:height="110"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="CoA_Glyph_1" layout:species="CoA">
+            <layout:boundingBox layout:id="CoA_Glyph_1_bb">
+              <layout:position layout:x="1776.33590115972" layout:y="3980.46149651095"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="GTP_Glyph_0" layout:species="GTP">
+            <layout:boundingBox layout:id="GTP_Glyph_0_bb">
+              <layout:position layout:x="1644.79511718338" layout:y="4400.33888593658"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="FAD_Glyph_0" layout:species="FAD">
+            <layout:boundingBox layout:id="FAD_Glyph_0_bb">
+              <layout:position layout:x="994.661269967981" layout:y="4024.98393423749"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="Fum_Glyph_0" layout:species="Fum">
+            <layout:boundingBox layout:id="Fum_Glyph_0_bb">
+              <layout:position layout:x="696.111260566398" layout:y="3133.22856765378"/>
+              <layout:dimensions layout:width="110" layout:height="110"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="FADH2_Glyph_0" layout:species="FADH2">
+            <layout:boundingBox layout:id="FADH2_Glyph_0_bb">
+              <layout:position layout:x="609.214296462259" layout:y="3612.25594149019"/>
+              <layout:dimensions layout:width="130" layout:height="130"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="Mal_Glyph_0" layout:species="Mal">
+            <layout:boundingBox layout:id="Mal_Glyph_0_bb">
+              <layout:position layout:x="845.961894323342" layout:y="1995"/>
+              <layout:dimensions layout:width="110" layout:height="110"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="NAD_Glyph_1" layout:species="NAD">
+            <layout:boundingBox layout:id="NAD_Glyph_1_bb">
+              <layout:position layout:x="893.016065762512" layout:y="1594.66126996798"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="NADH_Glyph_1" layout:species="NADH">
+            <layout:boundingBox layout:id="NADH_Glyph_1_bb">
+              <layout:position layout:x="1269.74405850981" layout:y="1221.21429646226"/>
+              <layout:dimensions layout:width="106" layout:height="106"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="CoA_Glyph_2" layout:species="CoA">
+            <layout:boundingBox layout:id="CoA_Glyph_2_bb">
+              <layout:position layout:x="2673.20488281662" layout:y="1117.66111406342"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="NAD_Glyph_2" layout:species="NAD">
+            <layout:boundingBox layout:id="NAD_Glyph_2_bb">
+              <layout:position layout:x="3965.07075830271" layout:y="2842.50099402923"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="NADH_Glyph_2" layout:species="NADH">
+            <layout:boundingBox layout:id="NADH_Glyph_2_bb">
+              <layout:position layout:x="3788.33888593658" layout:y="3261.20488281662"/>
+              <layout:dimensions layout:width="106" layout:height="106"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="CO2_Glyph_1" layout:species="CO2">
+            <layout:boundingBox layout:id="CO2_Glyph_1_bb">
+              <layout:position layout:x="3380.46149651094" layout:y="3141.66409884028"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="CoA_Glyph_3" layout:species="CoA">
+            <layout:boundingBox layout:id="CoA_Glyph_3_bb">
+              <layout:position layout:x="3101.12757896743" layout:y="3625.4846363029"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="NAD_Glyph_3" layout:species="NAD">
+            <layout:boundingBox layout:id="NAD_Glyph_3_bb">
+              <layout:position layout:x="3424.98393423749" layout:y="3923.33873003202"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="NADH_Glyph_3" layout:species="NADH">
+            <layout:boundingBox layout:id="NADH_Glyph_3_bb">
+              <layout:position layout:x="2944.00409691206" layout:y="4271.1996160298"/>
+              <layout:dimensions layout:width="106" layout:height="106"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="CO2_Glyph_2" layout:species="CO2">
+            <layout:boundingBox layout:id="CO2_Glyph_2_bb">
+              <layout:position layout:x="2752.11932793456" layout:y="3893.28808634776"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="H2O_Glyph_1" layout:species="H2O">
+            <layout:boundingBox layout:id="H2O_Glyph_1_bb">
+              <layout:position layout:x="440.502363623676" layout:y="2830.87401316878"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+        </layout:listOfSpeciesGlyphs>
+        <layout:listOfReactionGlyphs>
+          <layout:reactionGlyph layout:id="J1_Glyph_0" layout:reaction="J1">
+            <layout:curve>
+              <layout:listOfCurveSegments>
+                <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                  <layout:start layout:x="2196.83" layout:y="640"/>
+                  <layout:end layout:x="2196.83" layout:y="640"/>
+                  <layout:basePoint1 layout:x="2196.83" layout:y="640"/>
+                  <layout:basePoint2 layout:x="2196.83" layout:y="640"/>
+                </layout:curveSegment>
+              </layout:listOfCurveSegments>
+            </layout:curve>
+            <layout:listOfSpeciesReferenceGlyphs>
+              <layout:speciesReferenceGlyph layout:id="Pyr_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="Pyr_Glyph_0" layout:role="substrate">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="2196.83" layout:y="640"/>
+                      <layout:end layout:x="2196.83" layout:y="352"/>
+                      <layout:basePoint1 layout:x="2196.83" layout:y="640"/>
+                      <layout:basePoint2 layout:x="2196.83" layout:y="352"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="NAD_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="NAD_Glyph_0" layout:role="substrate">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="2196.83" layout:y="640"/>
+                      <layout:end layout:x="2103.83" layout:y="445"/>
+                      <layout:basePoint1 layout:x="2196.83" layout:y="445"/>
+                      <layout:basePoint2 layout:x="2196.83" layout:y="445"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="CoA_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="CoA_Glyph_0" layout:role="substrate">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="2196.83" layout:y="640"/>
+                      <layout:end layout:x="2289.83" layout:y="445"/>
+                      <layout:basePoint1 layout:x="2196.83" layout:y="445"/>
+                      <layout:basePoint2 layout:x="2196.83" layout:y="445"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="AcCoA_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="AcCoA_Glyph_0" layout:role="product">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="2196.83" layout:y="640"/>
+                      <layout:end layout:x="2196.83" layout:y="880"/>
+                      <layout:basePoint1 layout:x="2196.83" layout:y="640"/>
+                      <layout:basePoint2 layout:x="2196.83" layout:y="880"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="NADH_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="NADH_Glyph_0" layout:role="product">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="2196.83" layout:y="640"/>
+                      <layout:end layout:x="2031.83" layout:y="727"/>
+                      <layout:basePoint1 layout:x="2196.83" layout:y="727"/>
+                      <layout:basePoint2 layout:x="2196.83" layout:y="727"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="CO2_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="CO2_Glyph_0" layout:role="product">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="2196.83" layout:y="640"/>
+                      <layout:end layout:x="2361.83" layout:y="715"/>
+                      <layout:basePoint1 layout:x="2196.83" layout:y="715"/>
+                      <layout:basePoint2 layout:x="2196.83" layout:y="715"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+            </layout:listOfSpeciesReferenceGlyphs>
+          </layout:reactionGlyph>
+          <layout:reactionGlyph layout:id="J2_Glyph_0" layout:reaction="J2">
+            <layout:curve>
+              <layout:listOfCurveSegments>
+                <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                  <layout:start layout:x="2395.78928833008" layout:y="1312.83270793928"/>
+                  <layout:end layout:x="2395.78928833008" layout:y="1312.83270793928"/>
+                  <layout:basePoint1 layout:x="2395.78928833008" layout:y="1312.83270793928"/>
+                  <layout:basePoint2 layout:x="2395.78928833008" layout:y="1312.83270793928"/>
+                </layout:curveSegment>
+              </layout:listOfCurveSegments>
+            </layout:curve>
+            <layout:listOfSpeciesReferenceGlyphs>
+              <layout:speciesReferenceGlyph layout:id="AcCoA_Glyph_0_J2_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="AcCoA_Glyph_0" layout:role="substrate">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="2327.14816013362" layout:y="1305.39859983518"/>
+                      <layout:end layout:x="2205.25" layout:y="1069.89"/>
+                      <layout:basePoint1 layout:x="2197.30091975779" layout:y="1300.00242834668"/>
+                      <layout:basePoint2 layout:x="2205.25" layout:y="1069.89"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="Oxalo_Glyph_0_J2_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="Oxalo_Glyph_0" layout:role="substrate">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="2395.78928833008" layout:y="1312.83270793928"/>
+                      <layout:end layout:x="1905.75143234622" layout:y="1325.9312605664"/>
+                      <layout:basePoint1 layout:x="2200.49169683417" layout:y="1287.12129224604"/>
+                      <layout:basePoint2 layout:x="2002.04143234622" layout:y="1300.1312605664"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="H2O_Glyph_0_J2_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="H2O_Glyph_0" layout:role="substrate">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="2327.14816013362" layout:y="1305.39859983518"/>
+                      <layout:end layout:x="2203.79965989453" layout:y="1489.10997942996"/>
+                      <layout:basePoint1 layout:x="2197.30091975779" layout:y="1300.00242834668"/>
+                      <layout:basePoint2 layout:x="2203.79965989453" layout:y="1489.10997942996"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="Cit_Glyph_0_J2_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="Cit_Glyph_0" layout:role="product">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="2395.78928833008" layout:y="1312.83270793928"/>
+                      <layout:end layout:x="2869.02" layout:y="1454.21189432334"/>
+                      <layout:basePoint1 layout:x="2591.08687982599" layout:y="1338.54412363252"/>
+                      <layout:basePoint2 layout:x="2779.41" layout:y="1402.47189432334"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="CoA_Glyph_2_J2_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="CoA_Glyph_2" layout:role="product">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="2542.35395157064" layout:y="1339.59123124929"/>
+                      <layout:end layout:x="2686.93254244907" layout:y="1227.55506027686"/>
+                      <layout:basePoint1 layout:x="2648.43449082845" layout:y="1368.59980877624"/>
+                      <layout:basePoint2 layout:x="2686.93254244907" layout:y="1227.55506027686"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+            </layout:listOfSpeciesReferenceGlyphs>
+          </layout:reactionGlyph>
+          <layout:reactionGlyph layout:id="J3_Glyph_0" layout:reaction="J3">
+            <layout:curve>
+              <layout:listOfCurveSegments>
+                <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                  <layout:start layout:x="3390.03001043685" layout:y="1886.85785648692"/>
+                  <layout:end layout:x="3390.03001043685" layout:y="1886.85785648692"/>
+                  <layout:basePoint1 layout:x="3390.03001043685" layout:y="1886.85785648692"/>
+                  <layout:basePoint2 layout:x="3390.03001043685" layout:y="1886.85785648692"/>
+                </layout:curveSegment>
+              </layout:listOfCurveSegments>
+            </layout:curve>
+            <layout:listOfSpeciesReferenceGlyphs>
+              <layout:speciesReferenceGlyph layout:id="Cit_Glyph_0_J3_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="Cit_Glyph_0" layout:role="substrate">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="3390.03001043685" layout:y="1886.85785648692"/>
+                      <layout:end layout:x="3030.98076211353" layout:y="1547.71615912877"/>
+                      <layout:basePoint1 layout:x="3270.11447553129" layout:y="1730.58088880016"/>
+                      <layout:basePoint2 layout:x="3120.59211472337" layout:y="1599.45329768051"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="IsoCit_Glyph_0_J3_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="IsoCit_Glyph_0" layout:role="product">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="3390.03001043685" layout:y="1886.85785648692"/>
+                      <layout:end layout:x="3620.49208026333" layout:y="2305.79365755755"/>
+                      <layout:basePoint1 layout:x="3509.94554534242" layout:y="2043.13482417367"/>
+                      <layout:basePoint2 layout:x="3597.90583749819" layout:y="2221.50065200594"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+            </layout:listOfSpeciesReferenceGlyphs>
+          </layout:reactionGlyph>
+          <layout:reactionGlyph layout:id="J4_Glyph_0" layout:reaction="J4">
+            <layout:curve>
+              <layout:listOfCurveSegments>
+                <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                  <layout:start layout:x="3687.16729206072" layout:y="2995.78928833008"/>
+                  <layout:end layout:x="3687.16729206072" layout:y="2995.78928833008"/>
+                  <layout:basePoint1 layout:x="3687.16729206072" layout:y="2995.78928833008"/>
+                  <layout:basePoint2 layout:x="3687.16729206072" layout:y="2995.78928833008"/>
+                </layout:curveSegment>
+              </layout:listOfCurveSegments>
+            </layout:curve>
+            <layout:listOfSpeciesReferenceGlyphs>
+              <layout:speciesReferenceGlyph layout:id="IsoCit_Glyph_0_J4_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="IsoCit_Glyph_0" layout:role="substrate">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="3687.16729206072" layout:y="2995.78928833008"/>
+                      <layout:end layout:x="3677.2887394336" layout:y="2517.75143234622"/>
+                      <layout:basePoint1 layout:x="3712.87870775396" layout:y="2800.49169683417"/>
+                      <layout:basePoint2 layout:x="3699.8687394336" layout:y="2602.04143234622"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="NAD_Glyph_2_J4_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="NAD_Glyph_2" layout:role="substrate">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="3683.40957295849" layout:y="3022.47705242367"/>
+                      <layout:end layout:x="3935.11857182618" layout:y="2887.51164750459"/>
+                      <layout:basePoint1 layout:x="3698.39941230866" layout:y="2869.27626717027"/>
+                      <layout:basePoint2 layout:x="3935.11857182618" layout:y="2887.51164750459"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="aKG_Glyph_0_J4_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="aKG_Glyph_0" layout:role="product">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="3687.16729206072" layout:y="2995.78928833008"/>
+                      <layout:end layout:x="3545.78810567666" layout:y="3469.02"/>
+                      <layout:basePoint1 layout:x="3661.45587636748" layout:y="3191.08687982599"/>
+                      <layout:basePoint2 layout:x="3597.52810567666" layout:y="3379.41"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="CO2_Glyph_1_J4_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="CO2_Glyph_1" layout:role="product">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="3660.40876875071" layout:y="3142.35395157064"/>
+                      <layout:end layout:x="3491.66967188596" layout:y="3199.122536222"/>
+                      <layout:basePoint1 layout:x="3631.40019122376" layout:y="3248.43449082845"/>
+                      <layout:basePoint2 layout:x="3491.66967188596" layout:y="3199.122536222"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="NADH_Glyph_2_J4_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="NADH_Glyph_2" layout:role="product">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="3660.40876875071" layout:y="3142.35395157064"/>
+                      <layout:end layout:x="3760.44493972313" layout:y="3282.18222544159"/>
+                      <layout:basePoint1 layout:x="3631.40019122376" layout:y="3248.43449082845"/>
+                      <layout:basePoint2 layout:x="3760.44493972313" layout:y="3282.18222544159"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+            </layout:listOfSpeciesReferenceGlyphs>
+          </layout:reactionGlyph>
+          <layout:reactionGlyph layout:id="J5_Glyph_0" layout:reaction="J5">
+            <layout:curve>
+              <layout:listOfCurveSegments>
+                <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                  <layout:start layout:x="3113.14214351308" layout:y="3990.03001043685"/>
+                  <layout:end layout:x="3113.14214351308" layout:y="3990.03001043685"/>
+                  <layout:basePoint1 layout:x="3113.14214351308" layout:y="3990.03001043685"/>
+                  <layout:basePoint2 layout:x="3113.14214351308" layout:y="3990.03001043685"/>
+                </layout:curveSegment>
+              </layout:listOfCurveSegments>
+            </layout:curve>
+            <layout:listOfSpeciesReferenceGlyphs>
+              <layout:speciesReferenceGlyph layout:id="aKG_Glyph_0_J5_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="aKG_Glyph_0" layout:role="substrate">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="3113.14214351308" layout:y="3990.03001043685"/>
+                      <layout:end layout:x="3452.28384087123" layout:y="3630.98076211353"/>
+                      <layout:basePoint1 layout:x="3269.41911119984" layout:y="3870.11447553129"/>
+                      <layout:basePoint2 layout:x="3400.54670231949" layout:y="3720.59211472337"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="CoA_Glyph_3_J5_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="CoA_Glyph_3" layout:role="substrate">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="3226.69160352152" layout:y="3893.57411786235"/>
+                      <layout:end layout:x="3201.15386898545" layout:y="3729.35611866014"/>
+                      <layout:basePoint1 layout:x="3304.05575660246" layout:y="3815.41168316746"/>
+                      <layout:basePoint2 layout:x="3201.15386898545" layout:y="3729.35611866014"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="NAD_Glyph_3_J5_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="NAD_Glyph_3" layout:role="substrate">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="3226.69160352152" layout:y="3893.57411786235"/>
+                      <layout:end layout:x="3401.47423016723" layout:y="3913.20277029236"/>
+                      <layout:basePoint1 layout:x="3304.05575660246" layout:y="3815.41168316746"/>
+                      <layout:basePoint2 layout:x="3401.47423016723" layout:y="3913.20277029236"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="SCoA_Glyph_0_J5_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="SCoA_Glyph_0" layout:role="product">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="3113.14214351308" layout:y="3990.03001043685"/>
+                      <layout:end layout:x="2672.20634244245" layout:y="4226.38696249682"/>
+                      <layout:basePoint1 layout:x="2956.86517582632" layout:y="4109.94554534242"/>
+                      <layout:basePoint2 layout:x="2778.49934799406" layout:y="4197.90583749819"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="CO2_Glyph_2_J5_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="CO2_Glyph_2" layout:role="product">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="2990.58414296631" layout:y="4074.74574440954"/>
+                      <layout:end layout:x="2834.35878727698" layout:y="4000.78300123595"/>
+                      <layout:basePoint1 layout:x="2895.06171242331" layout:y="4129.24385118878"/>
+                      <layout:basePoint2 layout:x="2834.35878727698" layout:y="4000.78300123595"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="NADH_Glyph_3_J5_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="NADH_Glyph_3" layout:role="product">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="2990.58414296631" layout:y="4074.74574440954"/>
+                      <layout:end layout:x="2962.1491742243" layout:y="4243.66768037216"/>
+                      <layout:basePoint1 layout:x="2895.06171242331" layout:y="4129.24385118878"/>
+                      <layout:basePoint2 layout:x="2962.1491742243" layout:y="4243.66768037216"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+            </layout:listOfSpeciesReferenceGlyphs>
+          </layout:reactionGlyph>
+          <layout:reactionGlyph layout:id="J6_Glyph_0" layout:reaction="J6">
+            <layout:curve>
+              <layout:listOfCurveSegments>
+                <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                  <layout:start layout:x="2004.21071166992" layout:y="4287.16729206072"/>
+                  <layout:end layout:x="2004.21071166992" layout:y="4287.16729206072"/>
+                  <layout:basePoint1 layout:x="2004.21071166992" layout:y="4287.16729206072"/>
+                  <layout:basePoint2 layout:x="2004.21071166992" layout:y="4287.16729206072"/>
+                </layout:curveSegment>
+              </layout:listOfCurveSegments>
+            </layout:curve>
+            <layout:listOfSpeciesReferenceGlyphs>
+              <layout:speciesReferenceGlyph layout:id="SCoA_Glyph_0_J6_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="SCoA_Glyph_0" layout:role="substrate">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="2004.21071166992" layout:y="4287.16729206072"/>
+                      <layout:end layout:x="2504.24856765378" layout:y="4271.3887394336"/>
+                      <layout:basePoint1 layout:x="2199.50830316583" layout:y="4312.87870775396"/>
+                      <layout:basePoint2 layout:x="2397.95856765378" layout:y="4299.8687394336"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="GDP_Glyph_0_J6_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="GDP_Glyph_0" layout:role="substrate">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="2152.70692056679" layout:y="4299.25426950792"/>
+                      <layout:end layout:x="2263.68624712027" layout:y="4447.69624998869"/>
+                      <layout:basePoint1 layout:x="2262.68082543789" layout:y="4298.6897991654"/>
+                      <layout:basePoint2 layout:x="2263.68624712027" layout:y="4447.69624998869"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="Pi_Glyph_0_J6_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="Pi_Glyph_0" layout:role="substrate">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="2152.70692056679" layout:y="4299.25426950792"/>
+                      <layout:end layout:x="2251.43772204704" layout:y="4143.86704734463"/>
+                      <layout:basePoint1 layout:x="2262.68082543789" layout:y="4298.6897991654"/>
+                      <layout:basePoint2 layout:x="2251.43772204704" layout:y="4143.86704734463"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="Succ_Glyph_0_J6_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="Succ_Glyph_0" layout:role="product">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="2004.21071166992" layout:y="4287.16729206072"/>
+                      <layout:end layout:x="1530.98" layout:y="4145.78810567666"/>
+                      <layout:basePoint1 layout:x="1808.91312017401" layout:y="4261.45587636748"/>
+                      <layout:basePoint2 layout:x="1620.59" layout:y="4197.52810567666"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="CoA_Glyph_1_J6_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="CoA_Glyph_1" layout:role="product">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="1857.64604842936" layout:y="4260.40876875071"/>
+                      <layout:end layout:x="1800.877463778" layout:y="4091.66967188596"/>
+                      <layout:basePoint1 layout:x="1751.56550917155" layout:y="4231.40019122376"/>
+                      <layout:basePoint2 layout:x="1800.877463778" layout:y="4091.66967188596"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="GTP_Glyph_0_J6_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="GTP_Glyph_0" layout:role="product">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="1857.64604842936" layout:y="4260.40876875071"/>
+                      <layout:end layout:x="1713.06745755093" layout:y="4372.44493972314"/>
+                      <layout:basePoint1 layout:x="1751.56550917155" layout:y="4231.40019122376"/>
+                      <layout:basePoint2 layout:x="1713.06745755093" layout:y="4372.44493972314"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+            </layout:listOfSpeciesReferenceGlyphs>
+          </layout:reactionGlyph>
+          <layout:reactionGlyph layout:id="J7_Glyph_0" layout:reaction="J7">
+            <layout:curve>
+              <layout:listOfCurveSegments>
+                <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                  <layout:start layout:x="1009.96998956315" layout:y="3713.14214351308"/>
+                  <layout:end layout:x="1009.96998956315" layout:y="3713.14214351308"/>
+                  <layout:basePoint1 layout:x="1009.96998956315" layout:y="3713.14214351308"/>
+                  <layout:basePoint2 layout:x="1009.96998956315" layout:y="3713.14214351308"/>
+                </layout:curveSegment>
+              </layout:listOfCurveSegments>
+            </layout:curve>
+            <layout:listOfSpeciesReferenceGlyphs>
+              <layout:speciesReferenceGlyph layout:id="Succ_Glyph_0_J7_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="Succ_Glyph_0" layout:role="substrate">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="1009.96998956315" layout:y="3713.14214351308"/>
+                      <layout:end layout:x="1369.01923788647" layout:y="4052.28384087123"/>
+                      <layout:basePoint1 layout:x="1129.88552446871" layout:y="3869.41911119984"/>
+                      <layout:basePoint2 layout:x="1279.40788527663" layout:y="4000.54670231949"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="FAD_Glyph_0_J7_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="FAD_Glyph_0" layout:role="substrate">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="1106.42588213765" layout:y="3826.69160352152"/>
+                      <layout:end layout:x="1086.79722970764" layout:y="4001.47423016723"/>
+                      <layout:basePoint1 layout:x="1184.58831683254" layout:y="3904.05575660246"/>
+                      <layout:basePoint2 layout:x="1086.79722970764" layout:y="4001.47423016723"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="Fum_Glyph_0_J7_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="Fum_Glyph_0" layout:role="product">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="1009.96998956315" layout:y="3713.14214351308"/>
+                      <layout:end layout:x="773.611260566398" layout:y="3272.20856765378"/>
+                      <layout:basePoint1 layout:x="890.054454657584" layout:y="3556.86517582632"/>
+                      <layout:basePoint2 layout:x="802.091260566398" layout:y="3378.49856765378"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="FADH2_Glyph_0_J7_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="FADH2_Glyph_0" layout:role="product">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="969.211298992283" layout:y="3657.41423680257"/>
+                      <layout:end layout:x="766.418719589657" layout:y="3634.39489617394"/>
+                      <layout:basePoint1 layout:x="899.614457212153" layout:y="3547.66131377005"/>
+                      <layout:basePoint2 layout:x="766.418719589657" layout:y="3634.39489617394"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+            </layout:listOfSpeciesReferenceGlyphs>
+          </layout:reactionGlyph>
+          <layout:reactionGlyph layout:id="J8_Glyph_0" layout:reaction="J8">
+            <layout:curve>
+              <layout:listOfCurveSegments>
+                <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                  <layout:start layout:x="712.832707939284" layout:y="2604.21071166992"/>
+                  <layout:end layout:x="712.832707939284" layout:y="2604.21071166992"/>
+                  <layout:basePoint1 layout:x="712.832707939284" layout:y="2604.21071166992"/>
+                  <layout:basePoint2 layout:x="712.832707939284" layout:y="2604.21071166992"/>
+                </layout:curveSegment>
+              </layout:listOfCurveSegments>
+            </layout:curve>
+            <layout:listOfSpeciesReferenceGlyphs>
+              <layout:speciesReferenceGlyph layout:id="Fum_Glyph_0_J8_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="Fum_Glyph_0" layout:role="substrate">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="712.832707939284" layout:y="2604.21071166992"/>
+                      <layout:end layout:x="728.60948362961" layout:y="3104.25079286511"/>
+                      <layout:basePoint1 layout:x="687.121292246045" layout:y="2799.50830316583"/>
+                      <layout:basePoint2 layout:x="700.128358630981" layout:y="2997.9577873135"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="H2O_Glyph_1_J8_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="H2O_Glyph_1" layout:role="substrate">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="700.745730492081" layout:y="2752.70692056679"/>
+                      <layout:end layout:x="552.303750011312" layout:y="2863.68624712027"/>
+                      <layout:basePoint1 layout:x="701.310200834601" layout:y="2862.68082543789"/>
+                      <layout:basePoint2 layout:x="552.303750011312" layout:y="2863.68624712027"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="Mal_Glyph_0_J8_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="Mal_Glyph_0" layout:role="product">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="712.832707939284" layout:y="2604.21071166992"/>
+                      <layout:end layout:x="854.211894323342" layout:y="2130.98"/>
+                      <layout:basePoint1 layout:x="738.544123632524" layout:y="2408.91312017401"/>
+                      <layout:basePoint2 layout:x="802.471894323342" layout:y="2220.59"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+            </layout:listOfSpeciesReferenceGlyphs>
+          </layout:reactionGlyph>
+          <layout:reactionGlyph layout:id="J9_Glyph_0" layout:reaction="J9">
+            <layout:curve>
+              <layout:listOfCurveSegments>
+                <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                  <layout:start layout:x="1286.85785648692" layout:y="1609.96998956315"/>
+                  <layout:end layout:x="1286.85785648692" layout:y="1609.96998956315"/>
+                  <layout:basePoint1 layout:x="1286.85785648692" layout:y="1609.96998956315"/>
+                  <layout:basePoint2 layout:x="1286.85785648692" layout:y="1609.96998956315"/>
+                </layout:curveSegment>
+              </layout:listOfCurveSegments>
+            </layout:curve>
+            <layout:listOfSpeciesReferenceGlyphs>
+              <layout:speciesReferenceGlyph layout:id="Mal_Glyph_0_J9_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="Mal_Glyph_0" layout:role="substrate">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="1286.85785648692" layout:y="1609.96998956315"/>
+                      <layout:end layout:x="947.716159128771" layout:y="1969.01923788647"/>
+                      <layout:basePoint1 layout:x="1130.58088880016" layout:y="1729.88552446871"/>
+                      <layout:basePoint2 layout:x="999.453297680506" layout:y="1879.40788527663"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="NAD_Glyph_1_J9_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="NAD_Glyph_1" layout:role="substrate">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="1173.30839647848" layout:y="1706.42588213765"/>
+                      <layout:end layout:x="998.525769832772" layout:y="1686.79722970764"/>
+                      <layout:basePoint1 layout:x="1095.94424339754" layout:y="1784.58831683254"/>
+                      <layout:basePoint2 layout:x="998.525769832772" layout:y="1686.79722970764"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="Oxalo_Glyph_0_J9_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="Oxalo_Glyph_0" layout:role="product">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="1286.85785648692" layout:y="1609.96998956315"/>
+                      <layout:end layout:x="1717.79365755755" layout:y="1376.2925294275"/>
+                      <layout:basePoint1 layout:x="1443.13482417367" layout:y="1490.05445465758"/>
+                      <layout:basePoint2 layout:x="1621.50065200594" layout:y="1402.09416250181"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="NADH_Glyph_1_J9_Glyph_0_Stoichiometry_0_Glyph_0" layout:speciesGlyph="NADH_Glyph_1" layout:role="product">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
+                      <layout:start layout:x="1342.58576319743" layout:y="1569.21129899228"/>
+                      <layout:end layout:x="1360.02692735307" layout:y="1354.41871958966"/>
+                      <layout:basePoint1 layout:x="1452.33868622995" layout:y="1499.61445721215"/>
+                      <layout:basePoint2 layout:x="1360.02692735307" layout:y="1354.41871958966"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+            </layout:listOfSpeciesReferenceGlyphs>
+          </layout:reactionGlyph>
+        </layout:listOfReactionGlyphs>
+        <layout:listOfTextGlyphs>
+          <layout:textGlyph layout:id="default_compartment_Glyph_0_TextGlyph_0" layout:text="TCA Cycle" layout:graphicalObject="default_compartment_Glyph_0">
+            <layout:boundingBox layout:id="default_compartment_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="0" layout:y="800"/>
+              <layout:dimensions layout:width="4440" layout:height="4040"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="Pyr_Glyph_0_TextGlyph_0" layout:originOfText="Pyr" layout:graphicalObject="Pyr_Glyph_0">
+            <layout:boundingBox layout:id="Pyr_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="2155.83414895681" layout:y="239.997137838584"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="NAD_Glyph_0_TextGlyph_0" layout:originOfText="NAD" layout:graphicalObject="NAD_Glyph_0">
+            <layout:boundingBox layout:id="NAD_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="1991.8332354492" layout:y="403.996577092437"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="CoA_Glyph_0_TextGlyph_0" layout:originOfText="CoA" layout:graphicalObject="CoA_Glyph_0">
+            <layout:boundingBox layout:id="CoA_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="2319.83225833723" layout:y="403.997537939038"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="AcCoA_Glyph_0_TextGlyph_0" layout:originOfText="AcCoA" layout:graphicalObject="AcCoA_Glyph_0">
+            <layout:boundingBox layout:id="AcCoA_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="2131.83436425268" layout:y="910.004026291706"/>
+              <layout:dimensions layout:width="130" layout:height="130"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="NADH_Glyph_0_TextGlyph_0" layout:originOfText="NADH" layout:graphicalObject="NADH_Glyph_0">
+            <layout:boundingBox layout:id="NADH_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="1895.82854806772" layout:y="674.000535365914"/>
+              <layout:dimensions layout:width="106" layout:height="106"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="CO2_Glyph_0_TextGlyph_0" layout:originOfText="CO2" layout:graphicalObject="CO2_Glyph_0">
+            <layout:boundingBox layout:id="CO2_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="2391.83286329876" layout:y="674.001915566401"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="Oxalo_Glyph_0_TextGlyph_0" layout:originOfText="Oxalo" layout:graphicalObject="Oxalo_Glyph_0">
+            <layout:boundingBox layout:id="Oxalo_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="1746.76901212887" layout:y="1286.11612699092"/>
+              <layout:dimensions layout:width="130" layout:height="130"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="H2O_Glyph_0_TextGlyph_0" layout:originOfText="H2O" layout:graphicalObject="H2O_Glyph_0">
+            <layout:boundingBox layout:id="H2O_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="2156.7662594621" layout:y="1518.99792782221"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="Cit_Glyph_0_TextGlyph_0" layout:originOfText="Cit" layout:graphicalObject="Cit_Glyph_0">
+            <layout:boundingBox layout:id="Cit_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="2895.00099314763" layout:y="1445.96177723869"/>
+              <layout:dimensions layout:width="110" layout:height="110"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="IsoCit_Glyph_0_TextGlyph_0" layout:originOfText="IsoCit" layout:graphicalObject="IsoCit_Glyph_0">
+            <layout:boundingBox layout:id="IsoCit_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="3571.88782833935" layout:y="2334.77272303572"/>
+              <layout:dimensions layout:width="154" layout:height="154"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="aKG_Glyph_0_TextGlyph_0" layout:text="αKG" layout:graphicalObject="aKG_Glyph_0">
+            <layout:boundingBox layout:id="aKG_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="3444.03797574974" layout:y="3494.99609585112"/>
+              <layout:dimensions layout:width="110" layout:height="110"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="SCoA_Glyph_0_TextGlyph_0" layout:originOfText="SCoA" layout:graphicalObject="SCoA_Glyph_0">
+            <layout:boundingBox layout:id="SCoA_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="2533.22745805011" layout:y="4193.88831578993"/>
+              <layout:dimensions layout:width="110" layout:height="110"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="GDP_Glyph_0_TextGlyph_0" layout:originOfText="GDP" layout:graphicalObject="GDP_Glyph_0">
+            <layout:boundingBox layout:id="GDP_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="2230.87771937443" layout:y="4477.49763637632"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="Pi_Glyph_0_TextGlyph_0" layout:originOfText="Pi" layout:graphicalObject="Pi_Glyph_0">
+            <layout:boundingBox layout:id="Pi_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="2218.4841103019" layout:y="4043.87857586248"/>
+              <layout:dimensions layout:width="70" layout:height="70"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="Succ_Glyph_0_TextGlyph_0" layout:originOfText="Succ" layout:graphicalObject="Succ_Glyph_0">
+            <layout:boundingBox layout:id="Succ_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="1394.99608240496" layout:y="4044.03882041083"/>
+              <layout:dimensions layout:width="110" layout:height="110"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="CoA_Glyph_1_TextGlyph_0" layout:originOfText="CoA" layout:graphicalObject="CoA_Glyph_1">
+            <layout:boundingBox layout:id="CoA_Glyph_1_TextGlyph_0_bb">
+              <layout:position layout:x="1776.33861305044" layout:y="3980.45682991346"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="GTP_Glyph_0_TextGlyph_0" layout:originOfText="GTP" layout:graphicalObject="GTP_Glyph_0">
+            <layout:boundingBox layout:id="GTP_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="1644.79557655207" layout:y="4400.33552659647"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="FAD_Glyph_0_TextGlyph_0" layout:originOfText="FAD" layout:graphicalObject="FAD_Glyph_0">
+            <layout:boundingBox layout:id="FAD_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="994.658591323828" layout:y="4024.98461039926"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="Fum_Glyph_0_TextGlyph_0" layout:originOfText="Fum" layout:graphicalObject="Fum_Glyph_0">
+            <layout:boundingBox layout:id="Fum_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="696.115027482452" layout:y="3133.23134445206"/>
+              <layout:dimensions layout:width="110" layout:height="110"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="FADH2_Glyph_0_TextGlyph_0" layout:originOfText="FADH2" layout:graphicalObject="FADH2_Glyph_0">
+            <layout:boundingBox layout:id="FADH2_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="609.219004401767" layout:y="3612.2514214478"/>
+              <layout:dimensions layout:width="130" layout:height="130"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="Mal_Glyph_0_TextGlyph_0" layout:originOfText="Mal" layout:graphicalObject="Mal_Glyph_0">
+            <layout:boundingBox layout:id="Mal_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="845.962176786744" layout:y="1995.00413851325"/>
+              <layout:dimensions layout:width="110" layout:height="110"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="NAD_Glyph_1_TextGlyph_0" layout:originOfText="NAD" layout:graphicalObject="NAD_Glyph_1">
+            <layout:boundingBox layout:id="NAD_Glyph_1_TextGlyph_0_bb">
+              <layout:position layout:x="893.016333534111" layout:y="1594.65628233414"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="NADH_Glyph_1_TextGlyph_0" layout:originOfText="NADH" layout:graphicalObject="NADH_Glyph_1">
+            <layout:boundingBox layout:id="NADH_Glyph_1_TextGlyph_0_bb">
+              <layout:position layout:x="1269.74405850981" layout:y="1221.21413111078"/>
+              <layout:dimensions layout:width="106" layout:height="106"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="CoA_Glyph_2_TextGlyph_0" layout:originOfText="CoA" layout:graphicalObject="CoA_Glyph_2">
+            <layout:boundingBox layout:id="CoA_Glyph_2_TextGlyph_0_bb">
+              <layout:position layout:x="2673.20488281662" layout:y="1117.66111406342"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="NAD_Glyph_2_TextGlyph_0" layout:originOfText="NAD" layout:graphicalObject="NAD_Glyph_2">
+            <layout:boundingBox layout:id="NAD_Glyph_2_TextGlyph_0_bb">
+              <layout:position layout:x="3965.07075830271" layout:y="2842.50099402923"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="NADH_Glyph_2_TextGlyph_0" layout:originOfText="NADH" layout:graphicalObject="NADH_Glyph_2">
+            <layout:boundingBox layout:id="NADH_Glyph_2_TextGlyph_0_bb">
+              <layout:position layout:x="3788.33888593658" layout:y="3261.20488281662"/>
+              <layout:dimensions layout:width="106" layout:height="106"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="CO2_Glyph_1_TextGlyph_0" layout:originOfText="CO2" layout:graphicalObject="CO2_Glyph_1">
+            <layout:boundingBox layout:id="CO2_Glyph_1_TextGlyph_0_bb">
+              <layout:position layout:x="3380.46149651094" layout:y="3141.66409884028"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="CoA_Glyph_3_TextGlyph_0" layout:originOfText="CoA" layout:graphicalObject="CoA_Glyph_3">
+            <layout:boundingBox layout:id="CoA_Glyph_3_TextGlyph_0_bb">
+              <layout:position layout:x="3101.12757896743" layout:y="3625.4846363029"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="NAD_Glyph_3_TextGlyph_0" layout:originOfText="NAD" layout:graphicalObject="NAD_Glyph_3">
+            <layout:boundingBox layout:id="NAD_Glyph_3_TextGlyph_0_bb">
+              <layout:position layout:x="3424.98393423749" layout:y="3923.33873003202"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="NADH_Glyph_3_TextGlyph_0" layout:originOfText="NADH" layout:graphicalObject="NADH_Glyph_3">
+            <layout:boundingBox layout:id="NADH_Glyph_3_TextGlyph_0_bb">
+              <layout:position layout:x="2944.00409691206" layout:y="4271.1996160298"/>
+              <layout:dimensions layout:width="106" layout:height="106"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="CO2_Glyph_2_TextGlyph_0" layout:originOfText="CO2" layout:graphicalObject="CO2_Glyph_2">
+            <layout:boundingBox layout:id="CO2_Glyph_2_TextGlyph_0_bb">
+              <layout:position layout:x="2752.11932793456" layout:y="3893.28808634776"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="H2O_Glyph_1_TextGlyph_0" layout:originOfText="H2O" layout:graphicalObject="H2O_Glyph_1">
+            <layout:boundingBox layout:id="H2O_Glyph_1_TextGlyph_0_bb">
+              <layout:position layout:x="440.502363623676" layout:y="2830.87401316878"/>
+              <layout:dimensions layout:width="82" layout:height="82"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="J1_Glyph_0_TextGlyph_0" layout:originOfText="J1" layout:graphicalObject="J1_Glyph_0">
+            <layout:boundingBox layout:id="J1_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="2196.83" layout:y="665"/>
+              <layout:dimensions layout:width="0" layout:height="0"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="J2_Glyph_0_TextGlyph_0" layout:originOfText="J2" layout:graphicalObject="J2_Glyph_0">
+            <layout:boundingBox layout:id="J2_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="2425.79" layout:y="1367.83"/>
+              <layout:dimensions layout:width="0" layout:height="0"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="J3_Glyph_0_TextGlyph_0" layout:originOfText="J3" layout:graphicalObject="J3_Glyph_0">
+            <layout:boundingBox layout:id="J3_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="3420.03" layout:y="1941.86"/>
+              <layout:dimensions layout:width="0" layout:height="0"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="J4_Glyph_0_TextGlyph_0" layout:originOfText="J4" layout:graphicalObject="J4_Glyph_0">
+            <layout:boundingBox layout:id="J4_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="3717.17" layout:y="3050.79"/>
+              <layout:dimensions layout:width="0" layout:height="0"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="J5_Glyph_0_TextGlyph_0" layout:originOfText="J5" layout:graphicalObject="J5_Glyph_0">
+            <layout:boundingBox layout:id="J5_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="3143.14" layout:y="4045.03"/>
+              <layout:dimensions layout:width="0" layout:height="0"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="J6_Glyph_0_TextGlyph_0" layout:originOfText="J6" layout:graphicalObject="J6_Glyph_0">
+            <layout:boundingBox layout:id="J6_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="2034.21" layout:y="4342.17"/>
+              <layout:dimensions layout:width="0" layout:height="0"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="J7_Glyph_0_TextGlyph_0" layout:originOfText="J7" layout:graphicalObject="J7_Glyph_0">
+            <layout:boundingBox layout:id="J7_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="1039.97" layout:y="3768.14"/>
+              <layout:dimensions layout:width="0" layout:height="0"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="J8_Glyph_0_TextGlyph_0" layout:originOfText="J8" layout:graphicalObject="J8_Glyph_0">
+            <layout:boundingBox layout:id="J8_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="742.83" layout:y="2659.21"/>
+              <layout:dimensions layout:width="0" layout:height="0"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:id="J9_Glyph_0_TextGlyph_0" layout:originOfText="J9" layout:graphicalObject="J9_Glyph_0">
+            <layout:boundingBox layout:id="J9_Glyph_0_TextGlyph_0_bb">
+              <layout:position layout:x="1316.86" layout:y="1664.97"/>
+              <layout:dimensions layout:width="0" layout:height="0"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+        </layout:listOfTextGlyphs>
+        <render:listOfRenderInformation xmlns:render="http://www.sbml.org/sbml/level3/version1/render/version1">
+          <render:renderInformation render:id="libSBMLNetwork_Local_Render" render:referenceRenderInformation="libSBMLNetwork_Global_Render">
+            <render:listOfColorDefinitions>
+              <render:colorDefinition render:id="color_0" render:value="#8bc34a"/>
+              <render:colorDefinition render:id="color_1" render:value="#dcedc8"/>
+              <render:colorDefinition render:id="color_2" render:value="#9ccc65"/>
+              <render:colorDefinition render:id="color_3" render:value="#33691e"/>
+              <render:colorDefinition render:id="color_4" render:value="#43a047"/>
+              <render:colorDefinition render:id="color_5" render:value="#1b5e20"/>
+              <render:colorDefinition render:id="gold" render:value="#ffd700"/>
+              <render:colorDefinition render:id="darkgoldenrod" render:value="#b8860b"/>
+              <render:colorDefinition render:id="black" render:value="#000000"/>
+              <render:colorDefinition render:id="deepskyblue" render:value="#00bfff"/>
+              <render:colorDefinition render:id="color_6" render:value="#0077a3"/>
+              <render:colorDefinition render:id="orange" render:value="#ffa500"/>
+              <render:colorDefinition render:id="color_7" render:value="#cc8400"/>
+              <render:colorDefinition render:id="darkorange" render:value="#ff8c00"/>
+              <render:colorDefinition render:id="color_8" render:value="#b5651d"/>
+              <render:colorDefinition render:id="color_9" render:value="#ff7043"/>
+              <render:colorDefinition render:id="color_10" render:value="#d84315"/>
+              <render:colorDefinition render:id="white" render:value="#ffffff"/>
+              <render:colorDefinition render:id="color_11" render:value="#64b5f6"/>
+              <render:colorDefinition render:id="color_12" render:value="#1976d2"/>
+              <render:colorDefinition render:id="royalblue" render:value="#4169e1"/>
+              <render:colorDefinition render:id="color_13" render:value="#1e3a8a"/>
+              <render:colorDefinition render:id="teal" render:value="#008080"/>
+              <render:colorDefinition render:id="color_14" render:value="#005f5f"/>
+              <render:colorDefinition render:id="darkgray" render:value="#a9a9a9"/>
+              <render:colorDefinition render:id="dimgray" render:value="#696969"/>
+              <render:colorDefinition render:id="color_15" render:value="#ffeb3b"/>
+              <render:colorDefinition render:id="color_16" render:value="#fbc02d"/>
+            </render:listOfColorDefinitions>
+            <render:listOfLineEndings>
+              <render:lineEnding render:id="AcCoA_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0_productHead">
+                <layout:boundingBox layout:id="AcCoA_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0_productHead_bb">
+                  <layout:position layout:x="-18" layout:y="-9"/>
+                  <layout:dimensions layout:width="18" layout:height="18"/>
+                </layout:boundingBox>
+                <render:g render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                  <render:polygon render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                    <render:listOfElements>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="0"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="100%"/>
+                    </render:listOfElements>
+                  </render:polygon>
+                </render:g>
+              </render:lineEnding>
+              <render:lineEnding render:id="NADH_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0_productHead">
+                <layout:boundingBox layout:id="NADH_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0_productHead_bb">
+                  <layout:position layout:x="-18" layout:y="-9"/>
+                  <layout:dimensions layout:width="18" layout:height="18"/>
+                </layout:boundingBox>
+                <render:g render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                  <render:polygon render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                    <render:listOfElements>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="0"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="100%"/>
+                    </render:listOfElements>
+                  </render:polygon>
+                </render:g>
+              </render:lineEnding>
+              <render:lineEnding render:id="CO2_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0_productHead">
+                <layout:boundingBox layout:id="CO2_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0_productHead_bb">
+                  <layout:position layout:x="-18" layout:y="-9"/>
+                  <layout:dimensions layout:width="18" layout:height="18"/>
+                </layout:boundingBox>
+                <render:g render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                  <render:polygon render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                    <render:listOfElements>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="0"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="100%"/>
+                    </render:listOfElements>
+                  </render:polygon>
+                </render:g>
+              </render:lineEnding>
+              <render:lineEnding render:id="Cit_Glyph_0_J2_Glyph_0_Stoichiometry_0_Glyph_0_productHead">
+                <layout:boundingBox layout:id="Cit_Glyph_0_J2_Glyph_0_Stoichiometry_0_Glyph_0_productHead_bb">
+                  <layout:position layout:x="-18" layout:y="-9"/>
+                  <layout:dimensions layout:width="18" layout:height="18"/>
+                </layout:boundingBox>
+                <render:g render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                  <render:polygon render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                    <render:listOfElements>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="0"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="100%"/>
+                    </render:listOfElements>
+                  </render:polygon>
+                </render:g>
+              </render:lineEnding>
+              <render:lineEnding render:id="CoA_Glyph_2_J2_Glyph_0_Stoichiometry_0_Glyph_0_productHead">
+                <layout:boundingBox layout:id="CoA_Glyph_2_J2_Glyph_0_Stoichiometry_0_Glyph_0_productHead_bb">
+                  <layout:position layout:x="-18" layout:y="-9"/>
+                  <layout:dimensions layout:width="18" layout:height="18"/>
+                </layout:boundingBox>
+                <render:g render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                  <render:polygon render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                    <render:listOfElements>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="0"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="100%"/>
+                    </render:listOfElements>
+                  </render:polygon>
+                </render:g>
+              </render:lineEnding>
+              <render:lineEnding render:id="IsoCit_Glyph_0_J3_Glyph_0_Stoichiometry_0_Glyph_0_productHead">
+                <layout:boundingBox layout:id="IsoCit_Glyph_0_J3_Glyph_0_Stoichiometry_0_Glyph_0_productHead_bb">
+                  <layout:position layout:x="-18" layout:y="-9"/>
+                  <layout:dimensions layout:width="18" layout:height="18"/>
+                </layout:boundingBox>
+                <render:g render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                  <render:polygon render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                    <render:listOfElements>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="0"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="100%"/>
+                    </render:listOfElements>
+                  </render:polygon>
+                </render:g>
+              </render:lineEnding>
+              <render:lineEnding render:id="aKG_Glyph_0_J4_Glyph_0_Stoichiometry_0_Glyph_0_productHead">
+                <layout:boundingBox layout:id="aKG_Glyph_0_J4_Glyph_0_Stoichiometry_0_Glyph_0_productHead_bb">
+                  <layout:position layout:x="-18" layout:y="-9"/>
+                  <layout:dimensions layout:width="18" layout:height="18"/>
+                </layout:boundingBox>
+                <render:g render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                  <render:polygon render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                    <render:listOfElements>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="0"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="100%"/>
+                    </render:listOfElements>
+                  </render:polygon>
+                </render:g>
+              </render:lineEnding>
+              <render:lineEnding render:id="CO2_Glyph_1_J4_Glyph_0_Stoichiometry_0_Glyph_0_productHead">
+                <layout:boundingBox layout:id="CO2_Glyph_1_J4_Glyph_0_Stoichiometry_0_Glyph_0_productHead_bb">
+                  <layout:position layout:x="-18" layout:y="-9"/>
+                  <layout:dimensions layout:width="18" layout:height="18"/>
+                </layout:boundingBox>
+                <render:g render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                  <render:polygon render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                    <render:listOfElements>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="0"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="100%"/>
+                    </render:listOfElements>
+                  </render:polygon>
+                </render:g>
+              </render:lineEnding>
+              <render:lineEnding render:id="NADH_Glyph_2_J4_Glyph_0_Stoichiometry_0_Glyph_0_productHead">
+                <layout:boundingBox layout:id="NADH_Glyph_2_J4_Glyph_0_Stoichiometry_0_Glyph_0_productHead_bb">
+                  <layout:position layout:x="-18" layout:y="-9"/>
+                  <layout:dimensions layout:width="18" layout:height="18"/>
+                </layout:boundingBox>
+                <render:g render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                  <render:polygon render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                    <render:listOfElements>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="0"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="100%"/>
+                    </render:listOfElements>
+                  </render:polygon>
+                </render:g>
+              </render:lineEnding>
+              <render:lineEnding render:id="SCoA_Glyph_0_J5_Glyph_0_Stoichiometry_0_Glyph_0_productHead">
+                <layout:boundingBox layout:id="SCoA_Glyph_0_J5_Glyph_0_Stoichiometry_0_Glyph_0_productHead_bb">
+                  <layout:position layout:x="-18" layout:y="-9"/>
+                  <layout:dimensions layout:width="18" layout:height="18"/>
+                </layout:boundingBox>
+                <render:g render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                  <render:polygon render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                    <render:listOfElements>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="0"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="100%"/>
+                    </render:listOfElements>
+                  </render:polygon>
+                </render:g>
+              </render:lineEnding>
+              <render:lineEnding render:id="CO2_Glyph_2_J5_Glyph_0_Stoichiometry_0_Glyph_0_productHead">
+                <layout:boundingBox layout:id="CO2_Glyph_2_J5_Glyph_0_Stoichiometry_0_Glyph_0_productHead_bb">
+                  <layout:position layout:x="-18" layout:y="-9"/>
+                  <layout:dimensions layout:width="18" layout:height="18"/>
+                </layout:boundingBox>
+                <render:g render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                  <render:polygon render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                    <render:listOfElements>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="0"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="100%"/>
+                    </render:listOfElements>
+                  </render:polygon>
+                </render:g>
+              </render:lineEnding>
+              <render:lineEnding render:id="NADH_Glyph_3_J5_Glyph_0_Stoichiometry_0_Glyph_0_productHead">
+                <layout:boundingBox layout:id="NADH_Glyph_3_J5_Glyph_0_Stoichiometry_0_Glyph_0_productHead_bb">
+                  <layout:position layout:x="-18" layout:y="-9"/>
+                  <layout:dimensions layout:width="18" layout:height="18"/>
+                </layout:boundingBox>
+                <render:g render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                  <render:polygon render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                    <render:listOfElements>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="0"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="100%"/>
+                    </render:listOfElements>
+                  </render:polygon>
+                </render:g>
+              </render:lineEnding>
+              <render:lineEnding render:id="Succ_Glyph_0_J6_Glyph_0_Stoichiometry_0_Glyph_0_productHead">
+                <layout:boundingBox layout:id="Succ_Glyph_0_J6_Glyph_0_Stoichiometry_0_Glyph_0_productHead_bb">
+                  <layout:position layout:x="-18" layout:y="-9"/>
+                  <layout:dimensions layout:width="18" layout:height="18"/>
+                </layout:boundingBox>
+                <render:g render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                  <render:polygon render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                    <render:listOfElements>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="0"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="100%"/>
+                    </render:listOfElements>
+                  </render:polygon>
+                </render:g>
+              </render:lineEnding>
+              <render:lineEnding render:id="CoA_Glyph_1_J6_Glyph_0_Stoichiometry_0_Glyph_0_productHead">
+                <layout:boundingBox layout:id="CoA_Glyph_1_J6_Glyph_0_Stoichiometry_0_Glyph_0_productHead_bb">
+                  <layout:position layout:x="-18" layout:y="-9"/>
+                  <layout:dimensions layout:width="18" layout:height="18"/>
+                </layout:boundingBox>
+                <render:g render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                  <render:polygon render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                    <render:listOfElements>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="0"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="100%"/>
+                    </render:listOfElements>
+                  </render:polygon>
+                </render:g>
+              </render:lineEnding>
+              <render:lineEnding render:id="GTP_Glyph_0_J6_Glyph_0_Stoichiometry_0_Glyph_0_productHead">
+                <layout:boundingBox layout:id="GTP_Glyph_0_J6_Glyph_0_Stoichiometry_0_Glyph_0_productHead_bb">
+                  <layout:position layout:x="-18" layout:y="-9"/>
+                  <layout:dimensions layout:width="18" layout:height="18"/>
+                </layout:boundingBox>
+                <render:g render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                  <render:polygon render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                    <render:listOfElements>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="0"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="100%"/>
+                    </render:listOfElements>
+                  </render:polygon>
+                </render:g>
+              </render:lineEnding>
+              <render:lineEnding render:id="Fum_Glyph_0_J7_Glyph_0_Stoichiometry_0_Glyph_0_productHead">
+                <layout:boundingBox layout:id="Fum_Glyph_0_J7_Glyph_0_Stoichiometry_0_Glyph_0_productHead_bb">
+                  <layout:position layout:x="-18" layout:y="-9"/>
+                  <layout:dimensions layout:width="18" layout:height="18"/>
+                </layout:boundingBox>
+                <render:g render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                  <render:polygon render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                    <render:listOfElements>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="0"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="100%"/>
+                    </render:listOfElements>
+                  </render:polygon>
+                </render:g>
+              </render:lineEnding>
+              <render:lineEnding render:id="FADH2_Glyph_0_J7_Glyph_0_Stoichiometry_0_Glyph_0_productHead">
+                <layout:boundingBox layout:id="FADH2_Glyph_0_J7_Glyph_0_Stoichiometry_0_Glyph_0_productHead_bb">
+                  <layout:position layout:x="-18" layout:y="-9"/>
+                  <layout:dimensions layout:width="18" layout:height="18"/>
+                </layout:boundingBox>
+                <render:g render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                  <render:polygon render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                    <render:listOfElements>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="0"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="100%"/>
+                    </render:listOfElements>
+                  </render:polygon>
+                </render:g>
+              </render:lineEnding>
+              <render:lineEnding render:id="Mal_Glyph_0_J8_Glyph_0_Stoichiometry_0_Glyph_0_productHead">
+                <layout:boundingBox layout:id="Mal_Glyph_0_J8_Glyph_0_Stoichiometry_0_Glyph_0_productHead_bb">
+                  <layout:position layout:x="-18" layout:y="-9"/>
+                  <layout:dimensions layout:width="18" layout:height="18"/>
+                </layout:boundingBox>
+                <render:g render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                  <render:polygon render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                    <render:listOfElements>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="0"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="100%"/>
+                    </render:listOfElements>
+                  </render:polygon>
+                </render:g>
+              </render:lineEnding>
+              <render:lineEnding render:id="Oxalo_Glyph_0_J9_Glyph_0_Stoichiometry_0_Glyph_0_productHead">
+                <layout:boundingBox layout:id="Oxalo_Glyph_0_J9_Glyph_0_Stoichiometry_0_Glyph_0_productHead_bb">
+                  <layout:position layout:x="-18" layout:y="-9"/>
+                  <layout:dimensions layout:width="18" layout:height="18"/>
+                </layout:boundingBox>
+                <render:g render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                  <render:polygon render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                    <render:listOfElements>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="0"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="100%"/>
+                    </render:listOfElements>
+                  </render:polygon>
+                </render:g>
+              </render:lineEnding>
+              <render:lineEnding render:id="NADH_Glyph_1_J9_Glyph_0_Stoichiometry_0_Glyph_0_productHead">
+                <layout:boundingBox layout:id="NADH_Glyph_1_J9_Glyph_0_Stoichiometry_0_Glyph_0_productHead_bb">
+                  <layout:position layout:x="-18" layout:y="-9"/>
+                  <layout:dimensions layout:width="18" layout:height="18"/>
+                </layout:boundingBox>
+                <render:g render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                  <render:polygon render:stroke="color_4" render:stroke-width="22" render:fill="color_4">
+                    <render:listOfElements>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="0"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="100%"/>
+                    </render:listOfElements>
+                  </render:polygon>
+                </render:g>
+              </render:lineEnding>
+            </render:listOfLineEndings>
+            <render:listOfStyles>
+              <render:style render:id="default_compartment_Glyph_0_style" render:idList="default_compartment_Glyph_0">
+                <g stroke="mandy" stroke-width="3" fill="pewter" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="bottom" font-size="10">
+                  <rectangle stroke="white" stroke-width="30" fill="white" x="0" y="0" width="100%" height="100%" rx="100" ry="100"/>
+                </g>
+              </render:style>
+              <render:style render:id="default_compartment_Glyph_0_TextGlyph_0_style" render:idList="default_compartment_Glyph_0_TextGlyph_0">
+                <g stroke="color_0" stroke-width="3" fill="pewter" font-family="Helvetica" font-weight="bold" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="200">
+                  <rectangle stroke="color_0" stroke-width="3" fill="pewter" x="0" y="0" width="100%" height="100%" rx="25" ry="25"/>
+                </g>
+              </render:style>
+              <render:style render:id="Pyr_Glyph_0_style" render:idList="Pyr_Glyph_0">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_2" stroke-width="6" fill="color_1" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="NAD_Glyph_0_style" render:idList="NAD_Glyph_0">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_10" stroke-width="6" fill="color_9" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="NAD_Glyph_1_style" render:idList="NAD_Glyph_1">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_10" stroke-width="6" fill="color_9" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="NAD_Glyph_2_style" render:idList="NAD_Glyph_2">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_10" stroke-width="6" fill="color_9" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="NAD_Glyph_3_style" render:idList="NAD_Glyph_3">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_10" stroke-width="6" fill="color_9" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="CoA_Glyph_0_style" render:idList="CoA_Glyph_0">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_14" stroke-width="6" fill="teal" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="CoA_Glyph_1_style" render:idList="CoA_Glyph_1">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_14" stroke-width="6" fill="teal" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="CoA_Glyph_2_style" render:idList="CoA_Glyph_2">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_14" stroke-width="6" fill="teal" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="CoA_Glyph_3_style" render:idList="CoA_Glyph_3">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_14" stroke-width="6" fill="teal" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="AcCoA_Glyph_0_style" render:idList="AcCoA_Glyph_0">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="darkgoldenrod" stroke-width="6" fill="gold" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="NADH_Glyph_0_style" render:idList="NADH_Glyph_0">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_12" stroke-width="6" fill="color_11" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="NADH_Glyph_1_style" render:idList="NADH_Glyph_1">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_12" stroke-width="6" fill="color_11" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="NADH_Glyph_2_style" render:idList="NADH_Glyph_2">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_12" stroke-width="6" fill="color_11" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="NADH_Glyph_3_style" render:idList="NADH_Glyph_3">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_12" stroke-width="6" fill="color_11" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="CO2_Glyph_0_style" render:idList="CO2_Glyph_0">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="dimgray" stroke-width="6" fill="darkgray" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="CO2_Glyph_1_style" render:idList="CO2_Glyph_1">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="dimgray" stroke-width="6" fill="darkgray" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="CO2_Glyph_2_style" render:idList="CO2_Glyph_2">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="dimgray" stroke-width="6" fill="darkgray" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="Oxalo_Glyph_0_style" render:idList="Oxalo_Glyph_0">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_16" stroke-width="6" fill="color_15" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="H2O_Glyph_0_style" render:idList="H2O_Glyph_0">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_6" stroke-width="6" fill="deepskyblue" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="H2O_Glyph_1_style" render:idList="H2O_Glyph_1">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_6" stroke-width="6" fill="deepskyblue" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="Cit_Glyph_0_style" render:idList="Cit_Glyph_0">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_16" stroke-width="6" fill="color_15" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="IsoCit_Glyph_0_style" render:idList="IsoCit_Glyph_0">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_16" stroke-width="6" fill="color_15" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="aKG_Glyph_0_style" render:idList="aKG_Glyph_0">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_16" stroke-width="6" fill="color_15" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="SCoA_Glyph_0_style" render:idList="SCoA_Glyph_0">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_16" stroke-width="6" fill="color_15" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="GDP_Glyph_0_style" render:idList="GDP_Glyph_0">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_7" stroke-width="6" fill="orange" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="Pi_Glyph_0_style" render:idList="Pi_Glyph_0">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_8" stroke-width="6" fill="darkorange" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="Succ_Glyph_0_style" render:idList="Succ_Glyph_0">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_16" stroke-width="6" fill="color_15" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="GTP_Glyph_0_style" render:idList="GTP_Glyph_0">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_7" stroke-width="6" fill="orange" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="FAD_Glyph_0_style" render:idList="FAD_Glyph_0">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_13" stroke-width="6" fill="royalblue" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="Fum_Glyph_0_style" render:idList="Fum_Glyph_0">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_16" stroke-width="6" fill="color_15" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="FADH2_Glyph_0_style" render:idList="FADH2_Glyph_0">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_13" stroke-width="6" fill="royalblue" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="Mal_Glyph_0_style" render:idList="Mal_Glyph_0">
+                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                  <ellipse stroke="color_16" stroke-width="6" fill="color_15" ratio="1" cx="50%" cy="50%" rx="50%" ry="0"/>
+                </g>
+              </render:style>
+              <render:style render:id="Oxalo_Glyph_0_TextGlyph_0_style" render:idList="Oxalo_Glyph_0_TextGlyph_0">
+                <g stroke="black" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="47.2727">
+                  <rectangle stroke="black" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="Cit_Glyph_0_TextGlyph_0_style" render:idList="Cit_Glyph_0_TextGlyph_0">
+                <g stroke="black" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="40">
+                  <rectangle stroke="black" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="IsoCit_Glyph_0_TextGlyph_0_style" render:idList="IsoCit_Glyph_0_TextGlyph_0">
+                <g stroke="black" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="56">
+                  <rectangle stroke="black" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="aKG_Glyph_0_TextGlyph_0_style" render:idList="aKG_Glyph_0_TextGlyph_0">
+                <g stroke="black" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="40">
+                  <rectangle stroke="black" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="SCoA_Glyph_0_TextGlyph_0_style" render:idList="SCoA_Glyph_0_TextGlyph_0">
+                <g stroke="black" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="40">
+                  <rectangle stroke="black" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="Succ_Glyph_0_TextGlyph_0_style" render:idList="Succ_Glyph_0_TextGlyph_0">
+                <g stroke="black" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="40">
+                  <rectangle stroke="black" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="Fum_Glyph_0_TextGlyph_0_style" render:idList="Fum_Glyph_0_TextGlyph_0">
+                <g stroke="black" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="40">
+                  <rectangle stroke="black" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="Mal_Glyph_0_TextGlyph_0_style" render:idList="Mal_Glyph_0_TextGlyph_0">
+                <g stroke="black" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="40">
+                  <rectangle stroke="black" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="Pyr_Glyph_0_TextGlyph_0_style" render:idList="Pyr_Glyph_0_TextGlyph_0">
+                <g stroke="color_3" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="46.8571">
+                  <rectangle stroke="color_3" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="AcCoA_Glyph_0_TextGlyph_0_style" render:idList="AcCoA_Glyph_0_TextGlyph_0">
+                <g stroke="black" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="74.2857">
+                  <rectangle stroke="black" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="CoA_Glyph_0_TextGlyph_0_style" render:idList="CoA_Glyph_0_TextGlyph_0">
+                <g stroke="white" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="46.8571">
+                  <rectangle stroke="white" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="CoA_Glyph_1_TextGlyph_0_style" render:idList="CoA_Glyph_1_TextGlyph_0">
+                <g stroke="white" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="46.8571">
+                  <rectangle stroke="white" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="CoA_Glyph_2_TextGlyph_0_style" render:idList="CoA_Glyph_2_TextGlyph_0">
+                <g stroke="white" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="46.8571">
+                  <rectangle stroke="white" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="CoA_Glyph_3_TextGlyph_0_style" render:idList="CoA_Glyph_3_TextGlyph_0">
+                <g stroke="white" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="46.8571">
+                  <rectangle stroke="white" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="H2O_Glyph_0_TextGlyph_0_style" render:idList="H2O_Glyph_0_TextGlyph_0">
+                <g stroke="black" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="46.8571">
+                  <rectangle stroke="black" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="H2O_Glyph_1_TextGlyph_0_style" render:idList="H2O_Glyph_1_TextGlyph_0">
+                <g stroke="black" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="46.8571">
+                  <rectangle stroke="black" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="GDP_Glyph_0_TextGlyph_0_style" render:idList="GDP_Glyph_0_TextGlyph_0">
+                <g stroke="black" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="46.8571">
+                  <rectangle stroke="black" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="GTP_Glyph_0_TextGlyph_0_style" render:idList="GTP_Glyph_0_TextGlyph_0">
+                <g stroke="black" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="46.8571">
+                  <rectangle stroke="black" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="Pi_Glyph_0_TextGlyph_0_style" render:idList="Pi_Glyph_0_TextGlyph_0">
+                <g stroke="black" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="40">
+                  <rectangle stroke="black" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="NAD_Glyph_0_TextGlyph_0_style" render:idList="NAD_Glyph_0_TextGlyph_0">
+                <g stroke="white" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="46.8571">
+                  <rectangle stroke="white" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="NAD_Glyph_1_TextGlyph_0_style" render:idList="NAD_Glyph_1_TextGlyph_0">
+                <g stroke="white" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="46.8571">
+                  <rectangle stroke="white" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="NAD_Glyph_2_TextGlyph_0_style" render:idList="NAD_Glyph_2_TextGlyph_0">
+                <g stroke="white" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="46.8571">
+                  <rectangle stroke="white" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="NAD_Glyph_3_TextGlyph_0_style" render:idList="NAD_Glyph_3_TextGlyph_0">
+                <g stroke="white" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="46.8571">
+                  <rectangle stroke="white" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="NADH_Glyph_0_TextGlyph_0_style" render:idList="NADH_Glyph_0_TextGlyph_0">
+                <g stroke="white" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="60.5714">
+                  <rectangle stroke="white" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="NADH_Glyph_1_TextGlyph_0_style" render:idList="NADH_Glyph_1_TextGlyph_0">
+                <g stroke="white" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="60.5714">
+                  <rectangle stroke="white" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="NADH_Glyph_2_TextGlyph_0_style" render:idList="NADH_Glyph_2_TextGlyph_0">
+                <g stroke="white" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="60.5714">
+                  <rectangle stroke="white" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="NADH_Glyph_3_TextGlyph_0_style" render:idList="NADH_Glyph_3_TextGlyph_0">
+                <g stroke="white" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="60.5714">
+                  <rectangle stroke="white" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="FAD_Glyph_0_TextGlyph_0_style" render:idList="FAD_Glyph_0_TextGlyph_0">
+                <g stroke="white" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="46.8571">
+                  <rectangle stroke="white" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="FADH2_Glyph_0_TextGlyph_0_style" render:idList="FADH2_Glyph_0_TextGlyph_0">
+                <g stroke="white" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="74.2857">
+                  <rectangle stroke="white" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="CO2_Glyph_0_TextGlyph_0_style" render:idList="CO2_Glyph_0_TextGlyph_0">
+                <g stroke="black" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="46.8571">
+                  <rectangle stroke="black" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="CO2_Glyph_1_TextGlyph_0_style" render:idList="CO2_Glyph_1_TextGlyph_0">
+                <g stroke="black" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="46.8571">
+                  <rectangle stroke="black" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="CO2_Glyph_2_TextGlyph_0_style" render:idList="CO2_Glyph_2_TextGlyph_0">
+                <g stroke="black" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="46.8571">
+                  <rectangle stroke="black" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                </g>
+              </render:style>
+              <render:style render:id="J1_Glyph_0_TextGlyph_0_style" render:idList="J1_Glyph_0_TextGlyph_0">
+                <g stroke="color_5" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="20">
+                  <ellipse stroke="color_5" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J2_Glyph_0_TextGlyph_0_style" render:idList="J2_Glyph_0_TextGlyph_0">
+                <g stroke="color_5" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="20">
+                  <ellipse stroke="color_5" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J3_Glyph_0_TextGlyph_0_style" render:idList="J3_Glyph_0_TextGlyph_0">
+                <g stroke="color_5" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="20">
+                  <ellipse stroke="color_5" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J4_Glyph_0_TextGlyph_0_style" render:idList="J4_Glyph_0_TextGlyph_0">
+                <g stroke="color_5" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="20">
+                  <ellipse stroke="color_5" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J5_Glyph_0_TextGlyph_0_style" render:idList="J5_Glyph_0_TextGlyph_0">
+                <g stroke="color_5" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="20">
+                  <ellipse stroke="color_5" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J6_Glyph_0_TextGlyph_0_style" render:idList="J6_Glyph_0_TextGlyph_0">
+                <g stroke="color_5" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="20">
+                  <ellipse stroke="color_5" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J7_Glyph_0_TextGlyph_0_style" render:idList="J7_Glyph_0_TextGlyph_0">
+                <g stroke="color_5" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="20">
+                  <ellipse stroke="color_5" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J8_Glyph_0_TextGlyph_0_style" render:idList="J8_Glyph_0_TextGlyph_0">
+                <g stroke="color_5" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="20">
+                  <ellipse stroke="color_5" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J9_Glyph_0_TextGlyph_0_style" render:idList="J9_Glyph_0_TextGlyph_0">
+                <g stroke="color_5" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="20">
+                  <ellipse stroke="color_5" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="Pyr_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="Pyr_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22"/>
+              </render:style>
+              <render:style render:id="NAD_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="NAD_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22"/>
+              </render:style>
+              <render:style render:id="CoA_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="CoA_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22"/>
+              </render:style>
+              <render:style render:id="AcCoA_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="AcCoA_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22" endHead="AcCoA_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+              </render:style>
+              <render:style render:id="NADH_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="NADH_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22" endHead="NADH_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+              </render:style>
+              <render:style render:id="CO2_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="CO2_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22" endHead="CO2_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+              </render:style>
+              <render:style render:id="AcCoA_Glyph_0_J2_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="AcCoA_Glyph_0_J2_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22"/>
+              </render:style>
+              <render:style render:id="Oxalo_Glyph_0_J2_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="Oxalo_Glyph_0_J2_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22"/>
+              </render:style>
+              <render:style render:id="H2O_Glyph_0_J2_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="H2O_Glyph_0_J2_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22"/>
+              </render:style>
+              <render:style render:id="Cit_Glyph_0_J2_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="Cit_Glyph_0_J2_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22" endHead="Cit_Glyph_0_J2_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+              </render:style>
+              <render:style render:id="CoA_Glyph_2_J2_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="CoA_Glyph_2_J2_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22" endHead="CoA_Glyph_2_J2_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+              </render:style>
+              <render:style render:id="Cit_Glyph_0_J3_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="Cit_Glyph_0_J3_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22"/>
+              </render:style>
+              <render:style render:id="IsoCit_Glyph_0_J3_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="IsoCit_Glyph_0_J3_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22" endHead="IsoCit_Glyph_0_J3_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+              </render:style>
+              <render:style render:id="IsoCit_Glyph_0_J4_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="IsoCit_Glyph_0_J4_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22"/>
+              </render:style>
+              <render:style render:id="NAD_Glyph_2_J4_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="NAD_Glyph_2_J4_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22"/>
+              </render:style>
+              <render:style render:id="aKG_Glyph_0_J4_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="aKG_Glyph_0_J4_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22" endHead="aKG_Glyph_0_J4_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+              </render:style>
+              <render:style render:id="CO2_Glyph_1_J4_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="CO2_Glyph_1_J4_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22" endHead="CO2_Glyph_1_J4_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+              </render:style>
+              <render:style render:id="NADH_Glyph_2_J4_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="NADH_Glyph_2_J4_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22" endHead="NADH_Glyph_2_J4_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+              </render:style>
+              <render:style render:id="aKG_Glyph_0_J5_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="aKG_Glyph_0_J5_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22"/>
+              </render:style>
+              <render:style render:id="CoA_Glyph_3_J5_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="CoA_Glyph_3_J5_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22"/>
+              </render:style>
+              <render:style render:id="NAD_Glyph_3_J5_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="NAD_Glyph_3_J5_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22"/>
+              </render:style>
+              <render:style render:id="SCoA_Glyph_0_J5_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="SCoA_Glyph_0_J5_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22" endHead="SCoA_Glyph_0_J5_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+              </render:style>
+              <render:style render:id="CO2_Glyph_2_J5_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="CO2_Glyph_2_J5_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22" endHead="CO2_Glyph_2_J5_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+              </render:style>
+              <render:style render:id="NADH_Glyph_3_J5_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="NADH_Glyph_3_J5_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22" endHead="NADH_Glyph_3_J5_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+              </render:style>
+              <render:style render:id="SCoA_Glyph_0_J6_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="SCoA_Glyph_0_J6_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22"/>
+              </render:style>
+              <render:style render:id="GDP_Glyph_0_J6_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="GDP_Glyph_0_J6_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22"/>
+              </render:style>
+              <render:style render:id="Pi_Glyph_0_J6_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="Pi_Glyph_0_J6_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22"/>
+              </render:style>
+              <render:style render:id="Succ_Glyph_0_J6_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="Succ_Glyph_0_J6_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22" endHead="Succ_Glyph_0_J6_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+              </render:style>
+              <render:style render:id="CoA_Glyph_1_J6_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="CoA_Glyph_1_J6_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22" endHead="CoA_Glyph_1_J6_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+              </render:style>
+              <render:style render:id="GTP_Glyph_0_J6_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="GTP_Glyph_0_J6_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22" endHead="GTP_Glyph_0_J6_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+              </render:style>
+              <render:style render:id="Succ_Glyph_0_J7_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="Succ_Glyph_0_J7_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22"/>
+              </render:style>
+              <render:style render:id="FAD_Glyph_0_J7_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="FAD_Glyph_0_J7_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22"/>
+              </render:style>
+              <render:style render:id="Fum_Glyph_0_J7_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="Fum_Glyph_0_J7_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22" endHead="Fum_Glyph_0_J7_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+              </render:style>
+              <render:style render:id="FADH2_Glyph_0_J7_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="FADH2_Glyph_0_J7_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22" endHead="FADH2_Glyph_0_J7_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+              </render:style>
+              <render:style render:id="Fum_Glyph_0_J8_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="Fum_Glyph_0_J8_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22"/>
+              </render:style>
+              <render:style render:id="H2O_Glyph_1_J8_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="H2O_Glyph_1_J8_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22"/>
+              </render:style>
+              <render:style render:id="Mal_Glyph_0_J8_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="Mal_Glyph_0_J8_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22" endHead="Mal_Glyph_0_J8_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+              </render:style>
+              <render:style render:id="Mal_Glyph_0_J9_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="Mal_Glyph_0_J9_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22"/>
+              </render:style>
+              <render:style render:id="NAD_Glyph_1_J9_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="NAD_Glyph_1_J9_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22"/>
+              </render:style>
+              <render:style render:id="Oxalo_Glyph_0_J9_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="Oxalo_Glyph_0_J9_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22" endHead="Oxalo_Glyph_0_J9_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+              </render:style>
+              <render:style render:id="NADH_Glyph_1_J9_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="NADH_Glyph_1_J9_Glyph_0_Stoichiometry_0_Glyph_0">
+                <g stroke="color_4" stroke-width="22" endHead="NADH_Glyph_1_J9_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+              </render:style>
+              <render:style render:id="J1_Glyph_0_style" render:idList="J1_Glyph_0">
+                <g stroke="color_4" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="color_4" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J2_Glyph_0_style" render:idList="J2_Glyph_0">
+                <g stroke="color_4" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="color_4" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J3_Glyph_0_style" render:idList="J3_Glyph_0">
+                <g stroke="color_4" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="color_4" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J4_Glyph_0_style" render:idList="J4_Glyph_0">
+                <g stroke="color_4" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="color_4" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J5_Glyph_0_style" render:idList="J5_Glyph_0">
+                <g stroke="color_4" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="color_4" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J6_Glyph_0_style" render:idList="J6_Glyph_0">
+                <g stroke="color_4" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="color_4" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J7_Glyph_0_style" render:idList="J7_Glyph_0">
+                <g stroke="color_4" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="color_4" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J8_Glyph_0_style" render:idList="J8_Glyph_0">
+                <g stroke="color_4" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="color_4" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J9_Glyph_0_style" render:idList="J9_Glyph_0">
+                <g stroke="color_4" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="color_4" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+            </render:listOfStyles>
+          </render:renderInformation>
+        </render:listOfRenderInformation>
+      </layout:layout>
+      <render:listOfGlobalRenderInformation xmlns:render="http://www.sbml.org/sbml/level3/version1/render/version1">
+        <render:renderInformation render:id="libSBMLNetwork_Global_Render" render:backgroundColor="white">
+          <render:listOfColorDefinitions>
+            <render:colorDefinition render:id="white" render:value="#ffffff"/>
+            <render:colorDefinition render:id="black" render:value="#000000"/>
+            <render:colorDefinition render:id="lightgray" render:value="#d3d3d3"/>
+            <render:colorDefinition render:id="darkslategray" render:value="#2f4f4f"/>
+            <render:colorDefinition render:id="darkcyan" render:value="#008b8b"/>
+            <render:colorDefinition render:id="teal" render:value="#008080"/>
+            <render:colorDefinition render:id="silver" render:value="#c0c0c0"/>
+            <render:colorDefinition render:id="mandy" render:value="#d57c6b"/>
+            <render:colorDefinition render:id="pewter" render:value="#96a8a1"/>
+            <render:colorDefinition render:id="gondola" render:value="#211916"/>
+            <render:colorDefinition render:id="carnation" render:value="#f95a61"/>
+          </render:listOfColorDefinitions>
+          <render:listOfLineEndings>
+            <render:lineEnding render:id="productHead">
+              <layout:boundingBox layout:id="productHead_bb">
+                <layout:position layout:x="-12" layout:y="-6"/>
+                <layout:dimensions layout:width="12" layout:height="12"/>
+              </layout:boundingBox>
+              <render:g render:stroke="gondola" render:stroke-width="3" render:fill="gondola">
+                <render:polygon render:stroke="gondola" render:stroke-width="3" render:fill="gondola">
+                  <render:listOfElements>
+                    <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="0"/>
+                    <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
+                    <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="100%"/>
+                  </render:listOfElements>
+                </render:polygon>
+              </render:g>
+            </render:lineEnding>
+            <render:lineEnding render:id="modifierHead">
+              <layout:boundingBox layout:id="modifierHead_bb">
+                <layout:position layout:x="-12" layout:y="-6"/>
+                <layout:dimensions layout:width="12" layout:height="12"/>
+              </layout:boundingBox>
+              <render:g render:stroke="gondola" render:stroke-width="3" render:fill="gondola">
+                <render:ellipse render:stroke="gondola" render:stroke-width="3" render:fill="gondola" render:cx="50%" render:cy="50%" render:rx="50%"/>
+              </render:g>
+            </render:lineEnding>
+            <render:lineEnding render:id="activatorHead">
+              <layout:boundingBox layout:id="activatorHead_bb">
+                <layout:position layout:x="-12" layout:y="-6"/>
+                <layout:dimensions layout:width="12" layout:height="12"/>
+              </layout:boundingBox>
+              <render:g render:stroke="gondola" render:stroke-width="3" render:fill="gondola">
+                <render:polygon render:stroke="gondola" render:stroke-width="3" render:fill="gondola">
+                  <render:listOfElements>
+                    <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="50%"/>
+                    <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="50%" render:y="0"/>
+                    <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
+                    <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="50%" render:y="100%"/>
+                  </render:listOfElements>
+                </render:polygon>
+              </render:g>
+            </render:lineEnding>
+            <render:lineEnding render:id="inhibitorHead">
+              <layout:boundingBox layout:id="inhibitorHead_bb">
+                <layout:position layout:x="-12" layout:y="-6"/>
+                <layout:dimensions layout:width="12" layout:height="12"/>
+              </layout:boundingBox>
+              <render:g render:stroke="gondola" render:stroke-width="3" render:fill="gondola">
+                <render:rectangle render:stroke="gondola" render:stroke-width="3" render:fill="gondola" render:x="80%" render:y="0" render:width="20%" render:height="100%"/>
+              </render:g>
+            </render:lineEnding>
+          </render:listOfLineEndings>
+          <render:listOfStyles>
+            <render:style render:id="COMPARTMENTGLYPH_style_0" render:typeList="COMPARTMENTGLYPH">
+              <render:g render:stroke="mandy" render:stroke-width="3" render:fill="pewter" render:font-family="sans-serif" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="bottom" render:font-size="10">
+                <render:rectangle render:stroke="mandy" render:stroke-width="3" render:fill="pewter" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="25" render:ry="25"/>
+              </render:g>
+            </render:style>
+            <render:style render:id="SPECIESGLYPH_style_0" render:typeList="SPECIESGLYPH">
+              <render:g render:stroke="gondola" render:stroke-width="3" render:fill="carnation" render:font-family="sans-serif" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:rectangle render:stroke="gondola" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
+              </render:g>
+            </render:style>
+            <render:style render:id="REACTIONGLYPH_style_0" render:typeList="REACTIONGLYPH">
+              <render:g render:stroke="gondola" render:stroke-width="3" render:fill="white" render:font-family="sans-serif" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
+                <render:ellipse render:stroke="gondola" render:stroke-width="3" render:fill="white" render:cx="50%" render:cy="50%" render:rx="50%"/>
+              </render:g>
+            </render:style>
+            <render:style render:id="substrate_style_0" render:roleList="substrate">
+              <render:g render:stroke="gondola" render:stroke-width="3"/>
+            </render:style>
+            <render:style render:id="sidesubstrate_style_0" render:roleList="sidesubstrate">
+              <render:g render:stroke="gondola" render:stroke-width="3"/>
+            </render:style>
+            <render:style render:id="product_style_0" render:roleList="product">
+              <render:g render:stroke="gondola" render:stroke-width="3" render:endHead="productHead"/>
+            </render:style>
+            <render:style render:id="sideproduct_style_0" render:roleList="sideproduct">
+              <render:g render:stroke="gondola" render:stroke-width="3" render:endHead="productHead"/>
+            </render:style>
+            <render:style render:id="modifier_style_0" render:roleList="modifier">
+              <render:g render:stroke="gondola" render:stroke-width="3" render:endHead="modifierHead"/>
+            </render:style>
+            <render:style render:id="activator_style_0" render:roleList="activator">
+              <render:g render:stroke="gondola" render:stroke-width="3" render:endHead="activatorHead"/>
+            </render:style>
+            <render:style render:id="inhibitor_style_0" render:roleList="inhibitor">
+              <render:g render:stroke="gondola" render:stroke-width="3" render:endHead="inhibitorHead"/>
+            </render:style>
+            <render:style render:id="EMPTY_SPECIESGLYPH_style_0" render:typeList="EMPTY_SPECIESGLYPH">
+              <render:g>
+                <render:ellipse render:stroke="black" render:stroke-width="2" render:fill="white" render:cx="50%" render:cy="50%" render:rx="50%"/>
+                <render:curve render:stroke="black" render:stroke-width="2">
+                  <render:listOfElements>
+                    <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="0"/>
+                    <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="100%"/>
+                  </render:listOfElements>
+                </render:curve>
+              </render:g>
+            </render:style>
+            <render:style render:id="COMPARTMENTGLYPH_TEXTGLYPH_style_0" render:typeList="COMPARTMENTGLYPH_TEXTGLYPH">
+              <render:g render:stroke="gondola" render:font-family="sans-serif" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="bottom" render:font-size="10"/>
+            </render:style>
+            <render:style render:id="SPECIESGLYPH_TEXTGLYPH_style_0" render:typeList="SPECIESGLYPH_TEXTGLYPH">
+              <render:g render:stroke="gondola" render:font-family="sans-serif" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24"/>
+            </render:style>
+            <render:style render:id="REACTIONGLYPH_TEXTGLYPH_style_0" render:typeList="REACTIONGLYPH_TEXTGLYPH">
+              <render:g render:stroke="gondola" render:font-family="sans-serif" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12"/>
+            </render:style>
+            <render:style render:id="GRAPHICALOBJECT_style_0" render:typeList="GRAPHICALOBJECT">
+              <render:g render:stroke="black" render:font-family="sans-serif" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:rectangle render:stroke="black" render:stroke-width="2" render:fill="white" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
+              </render:g>
+            </render:style>
+          </render:listOfStyles>
+        </render:renderInformation>
+      </render:listOfGlobalRenderInformation>
+    </layout:listOfLayouts>
+  </model>
+</sbml>

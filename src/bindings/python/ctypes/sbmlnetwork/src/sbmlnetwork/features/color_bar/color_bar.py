@@ -444,8 +444,8 @@ class LogColorBar(ColorBarBase):
     def set_gradient_colors(self, gradient_colors: list[str]):
         if len(gradient_colors) % 2 == 0:
             raise ValueError("Number of gradient colors for a log color bar must be odd")
-        if len(gradient_colors) < 3:
-            raise ValueError("Number of gradient colors for a log color bar must be at least 3")
+        if len(gradient_colors) < 5:
+            raise ValueError("Number of gradient colors for a log color bar must be at least 5")
         mid_padding_percent = self._mid_padding / self.get_size()[1] * 100
 
         mid_index = len(gradient_colors) // 2

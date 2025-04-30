@@ -140,7 +140,7 @@ Style* findStyleByTypeList(GlobalRenderInformation* globalRenderInformation, con
     return NULL;
 }
 
-const std::string getStyleType(GraphicalObject* graphicalObject) {
+const std::string getStyleType(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
     if (graphicalObject) {
         if (isCompartmentGlyph(graphicalObject))
             return getCompartmentGlyphStyleType();
@@ -153,7 +153,7 @@ const std::string getStyleType(GraphicalObject* graphicalObject) {
         else if (isSpeciesReferenceGlyph(graphicalObject))
             return getSpeciesReferenceGlyphStyleType();
         else if (isTextGlyph(graphicalObject))
-            return getTextGlyphStyleType();
+            return getTextGlyphStyleType(renderInformationBase, graphicalObject);
 
         return getGraphicalObjectStyleType();
     }
@@ -161,12 +161,12 @@ const std::string getStyleType(GraphicalObject* graphicalObject) {
     return "";
 }
 
-const std::string getTextGlyphStyleType(GraphicalObject* graphicalObject) {
-    if (isCompartmentGlyph(graphicalObject))
+const std::string getTextGlyphStyleType(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
+    if (isCompartmentGlyph(graphicalObject) && findStyleByTypeList(renderInformationBase, getCompartmentGlyphTextGlyphStyleType()))
         return getCompartmentGlyphTextGlyphStyleType();
-    else if (isSpeciesGlyph(graphicalObject))
+    else if (isSpeciesGlyph(graphicalObject) && findStyleByTypeList(renderInformationBase, getSpeciesGlyphTextGlyphStyleType()))
         return getSpeciesGlyphTextGlyphStyleType();
-    else if (isReactionGlyph(graphicalObject))
+    else if (isReactionGlyph(graphicalObject) && findStyleByTypeList(renderInformationBase, getReactionGlyphTextGlyphStyleType()))
         return getReactionGlyphTextGlyphStyleType();
 
     return "TEXTGLYPH";

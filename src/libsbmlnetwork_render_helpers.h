@@ -41,9 +41,9 @@ Style* findStyleByTypeList(LocalRenderInformation* localRenderInformation, const
 
 Style* findStyleByTypeList(GlobalRenderInformation* globalRenderInformation, const std::string& type);
 
-const std::string getStyleType(GraphicalObject* graphicalObject);
+const std::string getStyleType(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
 
-const std::string getTextGlyphStyleType(GraphicalObject* graphicalObject);
+const std::string getTextGlyphStyleType(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
 
 const std::string getCompartmentGlyphStyleType();
 

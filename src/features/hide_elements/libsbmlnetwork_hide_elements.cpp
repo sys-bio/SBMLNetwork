@@ -391,12 +391,14 @@ bool hide_elements_isReactionGlyphVisible(SBMLDocument* document, ReactionGlyph*
             if (!hide_elements_is2DGraphicalObjectVisible(document, style))
                 return false;
             std::vector<TextGlyph*> textGlyphs = getTextGlyphs(getLayout(document), reactionGlyph);
-            for (std::vector<TextGlyph*>::const_iterator textGlyphIt = textGlyphs.cbegin(); textGlyphIt != textGlyphs.cend(); textGlyphIt++)
-                if (!hide_elements_isTextGlyphVisible(document, *textGlyphIt))
+            for (std::vector<TextGlyph*>::const_iterator textGlyphIt = textGlyphs.cbegin(); textGlyphIt != textGlyphs.cend(); textGlyphIt++) {
+                if (!hide_elements_isTextGlyphVisible(document, *textGlyphIt, reactionGlyph))
                     return false;
-            for (unsigned int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++)
+            }
+            for (unsigned int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++) {
                 if (!hide_elements_isSpeciesReferenceGlyphVisible(document, reactionGlyph->getSpeciesReferenceGlyph(i)))
                     return false;
+            }
 
             return true;
         }
@@ -483,9 +485,9 @@ int hide_elements_makeSpeciesReferenceGlyphInvisible(SBMLDocument* document, Spe
     return -1;
 }
 
-bool hide_elements_isTextGlyphVisible(SBMLDocument* document, TextGlyph* textGlyph) {
+bool hide_elements_isTextGlyphVisible(SBMLDocument* document, TextGlyph* textGlyph, GraphicalObject* graphicalObject) {
     if (textGlyph) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, graphicalObject);
         if (style)
             return hide_elements_isTextVisible(document, style);
     }
