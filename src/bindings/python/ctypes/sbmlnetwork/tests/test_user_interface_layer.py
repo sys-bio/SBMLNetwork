@@ -1886,7 +1886,7 @@ class TestSBMLModel(unittest.TestCase):
                 self.assertEqual(len(arrow_head.get_shapes_list()), 1)
                 self.assertEqual(arrow_head.get_shape().get_type(), "hexagon")
 
-    def test_show_hide_fluxes_and_concentrations_for_hidden_eleemtns(self):
+    def test_show_hide_fluxes_and_concentrations_for_hidden_elements(self):
         """Test hiding and showing of fluxes and concentrations with skip_hidden_elements flag."""
         model = '''
             J0: S1 -> S2;
