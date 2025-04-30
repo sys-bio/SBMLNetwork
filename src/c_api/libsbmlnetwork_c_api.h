@@ -267,8 +267,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param reactionId the id of the reaction to create an alias SpeciesGlyph for.
     /// @param reactionGlyphIndex the index of the ReactionGlyph object.
     /// @param layoutIndex the index number of the Layout to return.
+    /// @param updateCurves whether to re-run auto-layout after adding the glyph.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_createAliasSpeciesGlyph(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex, int layoutIndex);
+    LIBSBMLNETWORK_EXTERN int c_api_createAliasSpeciesGlyph(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex, int layoutIndex, int updateCurves);
 
     /// @brief Create an alias ReactionGlyph object for Reaction with the given id
     /// @param document a pointer to the SBMLDocument object.
