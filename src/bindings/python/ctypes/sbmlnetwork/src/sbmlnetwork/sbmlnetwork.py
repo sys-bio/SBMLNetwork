@@ -32,12 +32,12 @@ class SBMLNetwork:
 
         return self
 
-    def save(self, file_name: str = None, update_network_extents: bool = True):
+    def save(self, file_name: str = None, update_network_extents: bool = False):
         if update_network_extents:
             self.update_network_extents()
         return self.libsbmlnetwork.save(file_name)
 
-    def draw(self, file_name: str = None, update_network_extents: bool = True):
+    def draw(self, file_name: str = None, update_network_extents: bool = False):
         """
         Draws the network of the SBML model. Saves the figure to the file_directory if specified, otherwise displays the figure.
 

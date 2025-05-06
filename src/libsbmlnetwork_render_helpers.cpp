@@ -868,12 +868,13 @@ void setSpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
 void setEmptySpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     Ellipse* ellipse = renderGroup->createEllipse();
     defaults_setDefaultEllipseShapeFeatures(ellipse);
-    ellipse->setFill(getDefaultPredefinedStyleFeatures()["species-fill-color"]);
-    ellipse->setStroke(getDefaultPredefinedStyleFeatures()["species-border-color"]);
+    ellipse->setFill("white");
+    ellipse->setStroke("black");
+    ellipse->setStrokeWidth(2);
     RenderCurve* curve = renderGroup->createCurve();
     defaults_setDefaultDiagonalRenderCurveFeatures(curve);
-    curve->setStroke(getDefaultPredefinedStyleFeatures()["species-border-color"]);
-    curve->setStrokeWidth(std::stod(getDefaultPredefinedStyleFeatures()["species-border-width"]));
+    curve->setStroke("black");
+    curve->setStrokeWidth(2);
 }
 
 void setSpeciesGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {

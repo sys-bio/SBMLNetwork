@@ -317,13 +317,7 @@ const double AutoLayoutCentroidNode::calculateWidth() {
     if (isSetCurve())
         return getWidth();
 
-    ReactionGlyph* reactionGlyph = (ReactionGlyph*)_graphicalObject;
-    std::string displayedText = reactionGlyph->getReactionId();
-    Reaction *reaction = LIBSBMLNETWORK_CPP_NAMESPACE::findReactionGlyphReaction(_model, reactionGlyph);
-    if (reaction && reaction->isSetName() && _useNameAsTextLabel)
-        displayedText = reaction->getName();
-
-    return std::max(std::max(LIBSBMLNETWORK_CPP_NAMESPACE::defaults_getReactionDefaultWidth(), displayedText.size() * 9.0), getWidth());
+    return std::max(LIBSBMLNETWORK_CPP_NAMESPACE::defaults_getReactionDefaultWidth(), getWidth());
 }
 
 const double AutoLayoutCentroidNode::calculateHeight() {
