@@ -12,11 +12,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
     void defaults_addDefaultColors(GlobalRenderInformation* globalRenderInformation) {
         addColor(globalRenderInformation, "white");
         addColor(globalRenderInformation, "black");
-        addColor(globalRenderInformation, "lightgray");
+        addColor(globalRenderInformation, "orange");
+        addColor(globalRenderInformation, "navy");
+        addColor(globalRenderInformation, "orangered");
         addColor(globalRenderInformation, "darkslategray");
-        addColor(globalRenderInformation, "darkcyan");
-        addColor(globalRenderInformation, "teal");
-        addColor(globalRenderInformation, "silver");
     }
 
     void defaults_addColorsOfDefaultGeometricShapes(SBMLDocument* document, LineEnding* lineEnding) {

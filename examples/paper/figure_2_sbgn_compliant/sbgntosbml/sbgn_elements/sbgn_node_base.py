@@ -65,6 +65,12 @@ class SBGNNodeBase(SBGN2DElementBase):
     def set_font_size(self, font_size):
         self.font_size = font_size
 
+    def get_font_color(self):
+        return "black"
+
+    def set_font_color(self, font_color):
+        pass
+
     def get_text_vertical_alignment(self):
         return self.text_vertical_alignment
 
@@ -101,6 +107,7 @@ class SBGNNodeBase(SBGN2DElementBase):
             sbmlnetwork_object.libsbmlnetwork.addText(parent_element.get_id(), self.get_text())
             text_glyph_index = sbmlnetwork_object.libsbmlnetwork.getNumTextGlyphs(parent_element.get_id()) - 1
             sbmlnetwork_object.libsbmlnetwork.setFontSize(parent_element.get_id(), self.get_font_size(), text_glyph_index=text_glyph_index)
+            sbmlnetwork_object.libsbmlnetwork.setFontColor(parent_element.get_id(), self.get_font_color(), text_glyph_index=text_glyph_index)
             sbmlnetwork_object.libsbmlnetwork.setTextX(parent_element.get_id(), self.get_text_x(), text_glyph_index=text_glyph_index)
             sbmlnetwork_object.libsbmlnetwork.setTextY(parent_element.get_id(), self.get_text_y(), text_glyph_index=text_glyph_index)
             sbmlnetwork_object.libsbmlnetwork.setTextWidth(parent_element.get_id(), self.get_text_width(), text_glyph_index=text_glyph_index)

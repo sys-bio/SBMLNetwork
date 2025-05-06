@@ -29,6 +29,7 @@ class SBGNEmptySet(SBGNEntityPoolNodeBase):
         self.initialize_sbml_info(sbmlnetwork_object, parent_element)
         self.add_geometric_shape(sbmlnetwork_object, parent_element)
         self.load_sbml_info_with_sub_elements(sbmlnetwork_object, parent_element)
+        sbmlnetwork_object.libsbmlnetwork.setId(self.get_id_in_model(sbmlnetwork_object), self.get_id())
 
     def initialize_sbml_info(self, sbmlnetwork_object, parent_element):
         if parent_element.get_id() == self.get_id():
@@ -46,3 +47,19 @@ class SBGNEmptySet(SBGNEntityPoolNodeBase):
                 sbmlnetwork_object.libsbmlnetwork.removeText(empty_species_glyph_id)
             else:
                 raise ValueError("Empty set node must be associated with an empty species glyph.")
+
+    def get_id_in_model(self, sbmlnetwork_object):
+        model_id = ""
+        for reaction_glyph_index in range(
+                sbmlnetwork_object.libsbmlnetwork.getNumReactionGlyphs(self.get_reaction_id())):
+            for species_reference_index in range(
+                    sbmlnetwork_object.libsbmlnetwork.getNumSpeciesReferences(reaction_id=self.get_reaction_id(),
+                                                                              reaction_glyph_index=reaction_glyph_index)):
+                if sbmlnetwork_object.libsbmlnetwork.isSetSpeciesReferenceEmptySpeciesGlyph(
+                        reaction_id=self.get_reaction_id(), reaction_glyph_index=reaction_glyph_index,
+                        species_reference_index=species_reference_index):
+                    model_id = sbmlnetwork_object.libsbmlnetwork.getSpeciesReferenceEmptySpeciesGlyphId(
+                        reaction_id=self.get_reaction_id(), reaction_glyph_index=reaction_glyph_index,
+                        species_reference_index=species_reference_index)
+                    break
+        return model_id

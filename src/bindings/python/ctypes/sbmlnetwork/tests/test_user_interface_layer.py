@@ -138,7 +138,7 @@ class TestSBMLModel(unittest.TestCase):
         colors_new = network.get_reactions_list().get_curves_list().get_colors()
         for color_new in colors_new:
             self.assertEqual(color_new, colors[0])
-        network.save()
+        network.save(update_network_extents=True)
         original_canvas_width = network.get_size()[0]
         colors = network.get_species_list().get_fill_colors()
         network.show_concentrations(10)

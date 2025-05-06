@@ -305,8 +305,8 @@
               <layout:dimensions layout:width="90" layout:height="40"/>
             </layout:boundingBox>
           </layout:speciesGlyph>
-          <layout:speciesGlyph layout:id="glyph64_Glyph_0_EmptySpeciesGlyph">
-            <layout:boundingBox layout:id="glyph64_Glyph_0_EmptySpeciesGlyph_bb">
+          <layout:speciesGlyph layout:id="glyph51">
+            <layout:boundingBox layout:id="glyph51_bb">
               <layout:position layout:x="95" layout:y="1110"/>
               <layout:dimensions layout:width="40" layout:height="40"/>
             </layout:boundingBox>
@@ -323,8 +323,8 @@
               <layout:dimensions layout:width="80" layout:height="40"/>
             </layout:boundingBox>
           </layout:speciesGlyph>
-          <layout:speciesGlyph layout:id="glyph68_Glyph_0_EmptySpeciesGlyph">
-            <layout:boundingBox layout:id="glyph68_Glyph_0_EmptySpeciesGlyph_bb">
+          <layout:speciesGlyph layout:id="glyph52">
+            <layout:boundingBox layout:id="glyph52_bb">
               <layout:position layout:x="285" layout:y="675"/>
               <layout:dimensions layout:width="40" layout:height="40"/>
             </layout:boundingBox>
@@ -347,8 +347,8 @@
               <layout:dimensions layout:width="90" layout:height="40"/>
             </layout:boundingBox>
           </layout:speciesGlyph>
-          <layout:speciesGlyph layout:id="glyph66_Glyph_0_EmptySpeciesGlyph">
-            <layout:boundingBox layout:id="glyph66_Glyph_0_EmptySpeciesGlyph_bb">
+          <layout:speciesGlyph layout:id="glyph53">
+            <layout:boundingBox layout:id="glyph53_bb">
               <layout:position layout:x="605" layout:y="1110"/>
               <layout:dimensions layout:width="40" layout:height="40"/>
             </layout:boundingBox>
@@ -359,8 +359,8 @@
               <layout:dimensions layout:width="90" layout:height="40"/>
             </layout:boundingBox>
           </layout:speciesGlyph>
-          <layout:speciesGlyph layout:id="glyph61_Glyph_0_EmptySpeciesGlyph">
-            <layout:boundingBox layout:id="glyph61_Glyph_0_EmptySpeciesGlyph_bb">
+          <layout:speciesGlyph layout:id="glyph55">
+            <layout:boundingBox layout:id="glyph55_bb">
               <layout:position layout:x="1045" layout:y="775"/>
               <layout:dimensions layout:width="40" layout:height="40"/>
             </layout:boundingBox>
@@ -383,14 +383,14 @@
               <layout:dimensions layout:width="130" layout:height="180"/>
             </layout:boundingBox>
           </layout:speciesGlyph>
-          <layout:speciesGlyph layout:id="glyph57_Glyph_0_EmptySpeciesGlyph">
-            <layout:boundingBox layout:id="glyph57_Glyph_0_EmptySpeciesGlyph_bb">
+          <layout:speciesGlyph layout:id="glyph56">
+            <layout:boundingBox layout:id="glyph56_bb">
               <layout:position layout:x="545" layout:y="770"/>
               <layout:dimensions layout:width="40" layout:height="40"/>
             </layout:boundingBox>
           </layout:speciesGlyph>
-          <layout:speciesGlyph layout:id="glyph75_Glyph_0_EmptySpeciesGlyph">
-            <layout:boundingBox layout:id="glyph75_Glyph_0_EmptySpeciesGlyph_bb">
+          <layout:speciesGlyph layout:id="glyph54">
+            <layout:boundingBox layout:id="glyph54_bb">
               <layout:position layout:x="780" layout:y="680"/>
               <layout:dimensions layout:width="40" layout:height="40"/>
             </layout:boundingBox>
@@ -713,7 +713,7 @@
                   </layout:listOfCurveSegments>
                 </layout:curve>
               </layout:speciesReferenceGlyph>
-              <layout:speciesReferenceGlyph layout:id="glyph64_Glyph_0_EmptySpeciesReferenceGlyph" layout:speciesGlyph="glyph64_Glyph_0_EmptySpeciesGlyph" layout:role="substrate">
+              <layout:speciesReferenceGlyph layout:id="glyph64_Glyph_0_EmptySpeciesReferenceGlyph" layout:speciesGlyph="glyph51" layout:role="substrate">
                 <layout:curve>
                   <layout:listOfCurveSegments>
                     <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
@@ -789,7 +789,7 @@
                   </layout:listOfCurveSegments>
                 </layout:curve>
               </layout:speciesReferenceGlyph>
-              <layout:speciesReferenceGlyph layout:id="glyph68_Glyph_0_EmptySpeciesReferenceGlyph" layout:speciesGlyph="glyph68_Glyph_0_EmptySpeciesGlyph" layout:role="substrate">
+              <layout:speciesReferenceGlyph layout:id="glyph68_Glyph_0_EmptySpeciesReferenceGlyph" layout:speciesGlyph="glyph52" layout:role="substrate">
                 <layout:curve>
                   <layout:listOfCurveSegments>
                     <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
@@ -901,7 +901,7 @@
                   </layout:listOfCurveSegments>
                 </layout:curve>
               </layout:speciesReferenceGlyph>
-              <layout:speciesReferenceGlyph layout:id="glyph66_Glyph_0_EmptySpeciesReferenceGlyph" layout:speciesGlyph="glyph66_Glyph_0_EmptySpeciesGlyph" layout:role="substrate">
+              <layout:speciesReferenceGlyph layout:id="glyph66_Glyph_0_EmptySpeciesReferenceGlyph" layout:speciesGlyph="glyph53" layout:role="substrate">
                 <layout:curve>
                   <layout:listOfCurveSegments>
                     <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
@@ -965,7 +965,7 @@
                   </layout:listOfCurveSegments>
                 </layout:curve>
               </layout:speciesReferenceGlyph>
-              <layout:speciesReferenceGlyph layout:id="glyph61_Glyph_0_EmptySpeciesReferenceGlyph" layout:speciesGlyph="glyph61_Glyph_0_EmptySpeciesGlyph" layout:role="product">
+              <layout:speciesReferenceGlyph layout:id="glyph61_Glyph_0_EmptySpeciesReferenceGlyph" layout:speciesGlyph="glyph55" layout:role="product">
                 <layout:curve>
                   <layout:listOfCurveSegments>
                     <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
@@ -1041,7 +1041,7 @@
                   </layout:listOfCurveSegments>
                 </layout:curve>
               </layout:speciesReferenceGlyph>
-              <layout:speciesReferenceGlyph layout:id="glyph57_Glyph_0_EmptySpeciesReferenceGlyph" layout:speciesGlyph="glyph57_Glyph_0_EmptySpeciesGlyph" layout:role="product">
+              <layout:speciesReferenceGlyph layout:id="glyph57_Glyph_0_EmptySpeciesReferenceGlyph" layout:speciesGlyph="glyph56" layout:role="product">
                 <layout:curve>
                   <layout:listOfCurveSegments>
                     <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
@@ -1085,7 +1085,7 @@
                   </layout:listOfCurveSegments>
                 </layout:curve>
               </layout:speciesReferenceGlyph>
-              <layout:speciesReferenceGlyph layout:id="glyph75_Glyph_0_EmptySpeciesReferenceGlyph" layout:speciesGlyph="glyph75_Glyph_0_EmptySpeciesGlyph" layout:role="substrate">
+              <layout:speciesReferenceGlyph layout:id="glyph75_Glyph_0_EmptySpeciesReferenceGlyph" layout:speciesGlyph="glyph54" layout:role="substrate">
                 <layout:curve>
                   <layout:listOfCurveSegments>
                     <layout:curveSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CubicBezier">
@@ -1779,121 +1779,121 @@
           </layout:textGlyph>
           <layout:textGlyph layout:id="glyph59_Glyph_0_TextGlyph_0" layout:originOfText="glyph59" layout:graphicalObject="glyph59_Glyph_0">
             <layout:boundingBox layout:id="glyph59_Glyph_0_TextGlyph_0_bb">
-              <layout:position layout:x="792.996892207089" layout:y="298"/>
+              <layout:position layout:x="788.000686039255" layout:y="293"/>
               <layout:dimensions layout:width="24" layout:height="24"/>
             </layout:boundingBox>
           </layout:textGlyph>
           <layout:textGlyph layout:id="glyph72_Glyph_0_TextGlyph_0" layout:originOfText="glyph72" layout:graphicalObject="glyph72_Glyph_0">
             <layout:boundingBox layout:id="glyph72_Glyph_0_TextGlyph_0_bb">
-              <layout:position layout:x="433" layout:y="298"/>
+              <layout:position layout:x="428" layout:y="293"/>
               <layout:dimensions layout:width="24" layout:height="24"/>
             </layout:boundingBox>
           </layout:textGlyph>
           <layout:textGlyph layout:id="glyph74_Glyph_0_TextGlyph_0" layout:originOfText="glyph74" layout:graphicalObject="glyph74_Glyph_0">
             <layout:boundingBox layout:id="glyph74_Glyph_0_TextGlyph_0_bb">
-              <layout:position layout:x="243.003934157063" layout:y="542.997959208378"/>
+              <layout:position layout:x="238.002705324936" layout:y="537.999135288731"/>
               <layout:dimensions layout:width="24" layout:height="24"/>
             </layout:boundingBox>
           </layout:textGlyph>
           <layout:textGlyph layout:id="glyph77_Glyph_0_TextGlyph_0" layout:originOfText="glyph77" layout:graphicalObject="glyph77_Glyph_0">
             <layout:boundingBox layout:id="glyph77_Glyph_0_TextGlyph_0_bb">
-              <layout:position layout:x="113" layout:y="633"/>
+              <layout:position layout:x="108" layout:y="628"/>
               <layout:dimensions layout:width="24" layout:height="24"/>
             </layout:boundingBox>
           </layout:textGlyph>
           <layout:textGlyph layout:id="glyph73_Glyph_0_TextGlyph_0" layout:originOfText="glyph73" layout:graphicalObject="glyph73_Glyph_0">
             <layout:boundingBox layout:id="glyph73_Glyph_0_TextGlyph_0_bb">
-              <layout:position layout:x="113" layout:y="893"/>
+              <layout:position layout:x="108" layout:y="888"/>
               <layout:dimensions layout:width="24" layout:height="24"/>
             </layout:boundingBox>
           </layout:textGlyph>
           <layout:textGlyph layout:id="glyph64_Glyph_0_TextGlyph_0" layout:originOfText="glyph64" layout:graphicalObject="glyph64_Glyph_0">
             <layout:boundingBox layout:id="glyph64_Glyph_0_TextGlyph_0_bb">
-              <layout:position layout:x="212.998566610304" layout:y="1138.00166311935"/>
+              <layout:position layout:x="208.004361739398" layout:y="1133.0021443615"/>
               <layout:dimensions layout:width="24" layout:height="24"/>
             </layout:boundingBox>
           </layout:textGlyph>
           <layout:textGlyph layout:id="glyph71_Glyph_0_TextGlyph_0" layout:originOfText="glyph71" layout:graphicalObject="glyph71_Glyph_0">
             <layout:boundingBox layout:id="glyph71_Glyph_0_TextGlyph_0_bb">
-              <layout:position layout:x="403" layout:y="893"/>
+              <layout:position layout:x="398" layout:y="888"/>
               <layout:dimensions layout:width="24" layout:height="24"/>
             </layout:boundingBox>
           </layout:textGlyph>
           <layout:textGlyph layout:id="glyph68_Glyph_0_TextGlyph_0" layout:originOfText="glyph68" layout:graphicalObject="glyph68_Glyph_0">
             <layout:boundingBox layout:id="glyph68_Glyph_0_TextGlyph_0_bb">
-              <layout:position layout:x="402.999378560242" layout:y="702.999447403097"/>
+              <layout:position layout:x="398.004850598413" layout:y="697.999862512739"/>
               <layout:dimensions layout:width="24" layout:height="24"/>
             </layout:boundingBox>
           </layout:textGlyph>
           <layout:textGlyph layout:id="glyph76_Glyph_0_TextGlyph_0" layout:originOfText="glyph76" layout:graphicalObject="glyph76_Glyph_0">
             <layout:boundingBox layout:id="glyph76_Glyph_0_TextGlyph_0_bb">
-              <layout:position layout:x="613" layout:y="893"/>
+              <layout:position layout:x="608" layout:y="888"/>
               <layout:dimensions layout:width="24" layout:height="24"/>
             </layout:boundingBox>
           </layout:textGlyph>
           <layout:textGlyph layout:id="glyph66_Glyph_0_TextGlyph_0" layout:originOfText="glyph66" layout:graphicalObject="glyph66_Glyph_0">
             <layout:boundingBox layout:id="glyph66_Glyph_0_TextGlyph_0_bb">
-              <layout:position layout:x="693.003619347904" layout:y="1138.00420258597"/>
+              <layout:position layout:x="687.999891014345" layout:y="1132.99662962923"/>
               <layout:dimensions layout:width="24" layout:height="24"/>
             </layout:boundingBox>
           </layout:textGlyph>
           <layout:textGlyph layout:id="glyph63_Glyph_0_TextGlyph_0" layout:originOfText="glyph63" layout:graphicalObject="glyph63_Glyph_0">
             <layout:boundingBox layout:id="glyph63_Glyph_0_TextGlyph_0_bb">
-              <layout:position layout:x="888" layout:y="893"/>
+              <layout:position layout:x="883" layout:y="888"/>
               <layout:dimensions layout:width="24" layout:height="24"/>
             </layout:boundingBox>
           </layout:textGlyph>
           <layout:textGlyph layout:id="glyph61_Glyph_0_TextGlyph_0" layout:originOfText="glyph61" layout:graphicalObject="glyph61_Glyph_0">
             <layout:boundingBox layout:id="glyph61_Glyph_0_TextGlyph_0_bb">
-              <layout:position layout:x="978" layout:y="803"/>
+              <layout:position layout:x="973" layout:y="798"/>
               <layout:dimensions layout:width="24" layout:height="24"/>
             </layout:boundingBox>
           </layout:textGlyph>
           <layout:textGlyph layout:id="glyph65_Glyph_0_TextGlyph_0" layout:originOfText="glyph65" layout:graphicalObject="glyph65_Glyph_0">
             <layout:boundingBox layout:id="glyph65_Glyph_0_TextGlyph_0_bb">
-              <layout:position layout:x="1028.00154556024" layout:y="557.997569857632"/>
+              <layout:position layout:x="1023.00148068645" layout:y="553.004045071688"/>
               <layout:dimensions layout:width="24" layout:height="24"/>
             </layout:boundingBox>
           </layout:textGlyph>
           <layout:textGlyph layout:id="glyph57_Glyph_0_TextGlyph_0" layout:originOfText="glyph57" layout:graphicalObject="glyph57_Glyph_0">
             <layout:boundingBox layout:id="glyph57_Glyph_0_TextGlyph_0_bb">
-              <layout:position layout:x="493" layout:y="798"/>
+              <layout:position layout:x="488" layout:y="793"/>
               <layout:dimensions layout:width="24" layout:height="24"/>
             </layout:boundingBox>
           </layout:textGlyph>
           <layout:textGlyph layout:id="glyph75_Glyph_0_TextGlyph_0" layout:originOfText="glyph75" layout:graphicalObject="glyph75_Glyph_0">
             <layout:boundingBox layout:id="glyph75_Glyph_0_TextGlyph_0_bb">
-              <layout:position layout:x="887.99625914237" layout:y="708.00498302996"/>
+              <layout:position layout:x="883.001975294779" layout:y="703.002449371142"/>
               <layout:dimensions layout:width="24" layout:height="24"/>
             </layout:boundingBox>
           </layout:textGlyph>
           <layout:textGlyph layout:id="glyph69_Glyph_0_TextGlyph_0" layout:originOfText="glyph69" layout:graphicalObject="glyph69_Glyph_0">
             <layout:boundingBox layout:id="glyph69_Glyph_0_TextGlyph_0_bb">
-              <layout:position layout:x="1273" layout:y="348"/>
+              <layout:position layout:x="1268" layout:y="343"/>
               <layout:dimensions layout:width="24" layout:height="24"/>
             </layout:boundingBox>
           </layout:textGlyph>
           <layout:textGlyph layout:id="glyph70_Glyph_0_TextGlyph_0" layout:originOfText="glyph70" layout:graphicalObject="glyph70_Glyph_0">
             <layout:boundingBox layout:id="glyph70_Glyph_0_TextGlyph_0_bb">
-              <layout:position layout:x="1413.00259979069" layout:y="642.996512478341"/>
+              <layout:position layout:x="1408.00242523813" layout:y="638.003077191693"/>
               <layout:dimensions layout:width="24" layout:height="24"/>
             </layout:boundingBox>
           </layout:textGlyph>
           <layout:textGlyph layout:id="glyph67_Glyph_0_TextGlyph_0" layout:originOfText="glyph67" layout:graphicalObject="glyph67_Glyph_0">
             <layout:boundingBox layout:id="glyph67_Glyph_0_TextGlyph_0_bb">
-              <layout:position layout:x="1503" layout:y="348"/>
+              <layout:position layout:x="1498" layout:y="343"/>
               <layout:dimensions layout:width="24" layout:height="24"/>
             </layout:boundingBox>
           </layout:textGlyph>
           <layout:textGlyph layout:id="glyph62_Glyph_0_TextGlyph_0" layout:originOfText="glyph62" layout:graphicalObject="glyph62_Glyph_0">
             <layout:boundingBox layout:id="glyph62_Glyph_0_TextGlyph_0_bb">
-              <layout:position layout:x="1563.00428792533" layout:y="792.996487881871"/>
+              <layout:position layout:x="1558.00369254363" layout:y="787.997680145894"/>
               <layout:dimensions layout:width="24" layout:height="24"/>
             </layout:boundingBox>
           </layout:textGlyph>
           <layout:textGlyph layout:id="glyph60_Glyph_0_TextGlyph_0" layout:originOfText="glyph60" layout:graphicalObject="glyph60_Glyph_0">
             <layout:boundingBox layout:id="glyph60_Glyph_0_TextGlyph_0_bb">
-              <layout:position layout:x="1273.00494985325" layout:y="792.997015958701"/>
+              <layout:position layout:x="1268.00355764775" layout:y="787.999691178337"/>
               <layout:dimensions layout:width="24" layout:height="24"/>
             </layout:boundingBox>
           </layout:textGlyph>
@@ -2337,12 +2337,12 @@
                   <layout:position layout:x="-15.5" layout:y="-6"/>
                   <layout:dimensions layout:width="12" layout:height="12"/>
                 </layout:boundingBox>
-                <render:g render:stroke="gondola" render:stroke-width="3" render:fill="gondola">
-                  <render:polygon render:stroke="gondola" render:stroke-width="3" render:fill="gondola">
+                <render:g render:stroke="black" render:stroke-width="2" render:fill="black">
+                  <render:polygon render:stroke="black" render:stroke-width="2" render:fill="black">
                     <render:listOfElements>
                       <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="0"/>
-                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
-                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="100%"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="12" render:y="6"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="12"/>
                     </render:listOfElements>
                   </render:polygon>
                 </render:g>
@@ -2352,12 +2352,12 @@
                   <layout:position layout:x="-15.5" layout:y="-6"/>
                   <layout:dimensions layout:width="12" layout:height="12"/>
                 </layout:boundingBox>
-                <render:g render:stroke="gondola" render:stroke-width="3" render:fill="gondola">
-                  <render:polygon render:stroke="gondola" render:stroke-width="3" render:fill="gondola">
+                <render:g render:stroke="black" render:stroke-width="2" render:fill="black">
+                  <render:polygon render:stroke="black" render:stroke-width="2" render:fill="black">
                     <render:listOfElements>
                       <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="0"/>
-                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
-                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="100%"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="12" render:y="6"/>
+                      <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="12"/>
                     </render:listOfElements>
                   </render:polygon>
                 </render:g>
@@ -2434,64 +2434,64 @@
             </render:listOfLineEndings>
             <render:listOfStyles>
               <render:style render:id="glyph2_Glyph_0_style" render:idList="glyph2_Glyph_0">
-                <g stroke="mandy" stroke-width="3" fill="pewter" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="bottom" font-size="10">
+                <g stroke="orangered" stroke-width="4" fill="white" font-family="sans-serif" font-weight="bold" font-style="normal" text-anchor="middle" vtext-anchor="bottom" font-size="10">
                   <rectangle id="glyph2" stroke="black" stroke-width="12" fill="sbmlnetwork_local_color_0" x="0" y="0" width="1760" height="150" rx="44" ry="3.75"/>
                 </g>
               </render:style>
               <render:style render:id="glyph2_Glyph_0_TextGlyph_0_style" render:idList="glyph2_Glyph_0_TextGlyph_0">
-                <g stroke="black" stroke-width="3" fill="pewter" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="bottom" font-size="12">
-                  <rectangle stroke="black" stroke-width="3" fill="pewter" x="0" y="0" width="100%" height="100%" rx="25" ry="25"/>
+                <g stroke="black" stroke-width="4" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="bottom" font-size="12">
+                  <rectangle stroke="black" stroke-width="4" fill="white" x="0" y="0" width="100%" height="100%" rx="25" ry="25"/>
                 </g>
               </render:style>
               <render:style render:id="glyph58_Glyph_0_style" render:idList="glyph58_Glyph_0">
-                <g stroke="mandy" stroke-width="3" fill="pewter" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="bottom" font-size="10">
+                <g stroke="orangered" stroke-width="4" fill="white" font-family="sans-serif" font-weight="bold" font-style="normal" text-anchor="middle" vtext-anchor="bottom" font-size="10">
                   <rectangle id="glyph58" stroke="black" stroke-width="12" fill="sbmlnetwork_local_color_0" x="0" y="0" width="1760" height="260" rx="44" ry="6.5"/>
                 </g>
               </render:style>
               <render:style render:id="glyph58_Glyph_0_TextGlyph_0_style" render:idList="glyph58_Glyph_0_TextGlyph_0">
-                <g stroke="black" stroke-width="3" fill="pewter" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="bottom" font-size="12">
-                  <rectangle stroke="black" stroke-width="3" fill="pewter" x="0" y="0" width="100%" height="100%" rx="25" ry="25"/>
+                <g stroke="black" stroke-width="4" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="bottom" font-size="12">
+                  <rectangle stroke="black" stroke-width="4" fill="white" x="0" y="0" width="100%" height="100%" rx="25" ry="25"/>
                 </g>
               </render:style>
               <render:style render:id="glyph0_Glyph_0_style" render:idList="glyph0_Glyph_0">
-                <g stroke="mandy" stroke-width="3" fill="pewter" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="bottom" font-size="10">
+                <g stroke="orangered" stroke-width="4" fill="white" font-family="sans-serif" font-weight="bold" font-style="normal" text-anchor="middle" vtext-anchor="bottom" font-size="10">
                   <rectangle id="glyph0" stroke="black" stroke-width="12" fill="sbmlnetwork_local_color_0" x="0" y="0" width="1760" height="500" rx="44" ry="12.5"/>
                 </g>
               </render:style>
               <render:style render:id="glyph0_Glyph_0_TextGlyph_0_style" render:idList="glyph0_Glyph_0_TextGlyph_0">
-                <g stroke="black" stroke-width="3" fill="pewter" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="bottom" font-size="12">
-                  <rectangle stroke="black" stroke-width="3" fill="pewter" x="0" y="0" width="100%" height="100%" rx="25" ry="25"/>
+                <g stroke="black" stroke-width="4" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="bottom" font-size="12">
+                  <rectangle stroke="black" stroke-width="4" fill="white" x="0" y="0" width="100%" height="100%" rx="25" ry="25"/>
                 </g>
               </render:style>
               <render:style render:id="glyph1_Glyph_0_style" render:idList="glyph1_Glyph_0">
-                <g stroke="mandy" stroke-width="3" fill="pewter" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="bottom" font-size="10">
+                <g stroke="orangered" stroke-width="4" fill="white" font-family="sans-serif" font-weight="bold" font-style="normal" text-anchor="middle" vtext-anchor="bottom" font-size="10">
                   <rectangle id="glyph1" stroke="black" stroke-width="12" fill="sbmlnetwork_local_color_0" x="0" y="0" width="1760" height="270" rx="44" ry="6.75"/>
                 </g>
               </render:style>
               <render:style render:id="glyph1_Glyph_0_TextGlyph_0_style" render:idList="glyph1_Glyph_0_TextGlyph_0">
-                <g stroke="black" stroke-width="3" fill="pewter" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="bottom" font-size="12">
-                  <rectangle stroke="black" stroke-width="3" fill="pewter" x="0" y="0" width="100%" height="100%" rx="25" ry="25"/>
+                <g stroke="black" stroke-width="4" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="bottom" font-size="12">
+                  <rectangle stroke="black" stroke-width="4" fill="white" x="0" y="0" width="100%" height="100%" rx="25" ry="25"/>
                 </g>
               </render:style>
               <render:style render:id="glyph16_Glyph_0_style" render:idList="glyph16_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <rectangle id="glyph16" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_1" x="10" y="10" width="80" height="40" rx="8" ry="8"/>
                   <rectangle id="glyph16_1" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_1" x="0" y="0" width="80" height="40" rx="8" ry="8"/>
                   <rectangle id="glyph16a" stroke="black" stroke-width="4" fill="white" x="4.5" y="-8" width="31" height="16"/>
                 </g>
               </render:style>
               <render:style render:id="glyph16_Glyph_0_TextGlyph_0_style" render:idList="glyph16_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph16_Glyph_0_TextGlyph_1_style" render:idList="glyph16_Glyph_0_TextGlyph_1">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph7_Glyph_0_style" render:idList="glyph7_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <polygon id="glyph7" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_2">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="11.5" y="0"/>
@@ -2516,37 +2516,37 @@
                 </g>
               </render:style>
               <render:style render:id="glyph7_Glyph_0_TextGlyph_0_style" render:idList="glyph7_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph7_Glyph_0_TextGlyph_1_style" render:idList="glyph7_Glyph_0_TextGlyph_1">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph7_Glyph_0_TextGlyph_2_style" render:idList="glyph7_Glyph_0_TextGlyph_2">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph7_Glyph_0_TextGlyph_3_style" render:idList="glyph7_Glyph_0_TextGlyph_3">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph7_Glyph_0_TextGlyph_4_style" render:idList="glyph7_Glyph_0_TextGlyph_4">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph7_Glyph_0_TextGlyph_5_style" render:idList="glyph7_Glyph_0_TextGlyph_5">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph5_Glyph_0_style" render:idList="glyph5_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <polygon id="glyph5" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_2">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="11.5" y="0"/>
@@ -2574,47 +2574,47 @@
                 </g>
               </render:style>
               <render:style render:id="glyph5_Glyph_0_TextGlyph_0_style" render:idList="glyph5_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph5_Glyph_0_TextGlyph_1_style" render:idList="glyph5_Glyph_0_TextGlyph_1">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph5_Glyph_0_TextGlyph_2_style" render:idList="glyph5_Glyph_0_TextGlyph_2">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph5_Glyph_0_TextGlyph_3_style" render:idList="glyph5_Glyph_0_TextGlyph_3">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph5_Glyph_0_TextGlyph_4_style" render:idList="glyph5_Glyph_0_TextGlyph_4">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph5_Glyph_0_TextGlyph_5_style" render:idList="glyph5_Glyph_0_TextGlyph_5">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph5_Glyph_0_TextGlyph_6_style" render:idList="glyph5_Glyph_0_TextGlyph_6">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph5_Glyph_0_TextGlyph_7_style" render:idList="glyph5_Glyph_0_TextGlyph_7">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph6_Glyph_0_style" render:idList="glyph6_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <polygon id="glyph6" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_2">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="11.5" y="0"/>
@@ -2642,79 +2642,79 @@
                 </g>
               </render:style>
               <render:style render:id="glyph6_Glyph_0_TextGlyph_0_style" render:idList="glyph6_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph6_Glyph_0_TextGlyph_1_style" render:idList="glyph6_Glyph_0_TextGlyph_1">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph6_Glyph_0_TextGlyph_2_style" render:idList="glyph6_Glyph_0_TextGlyph_2">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph6_Glyph_0_TextGlyph_3_style" render:idList="glyph6_Glyph_0_TextGlyph_3">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph6_Glyph_0_TextGlyph_4_style" render:idList="glyph6_Glyph_0_TextGlyph_4">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph6_Glyph_0_TextGlyph_5_style" render:idList="glyph6_Glyph_0_TextGlyph_5">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph6_Glyph_0_TextGlyph_6_style" render:idList="glyph6_Glyph_0_TextGlyph_6">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph6_Glyph_0_TextGlyph_7_style" render:idList="glyph6_Glyph_0_TextGlyph_7">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph6_Glyph_0_TextGlyph_8_style" render:idList="glyph6_Glyph_0_TextGlyph_8">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph11_Glyph_0_style" render:idList="glyph11_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <rectangle id="glyph11" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_1" x="0" y="0" width="100" height="40" rx="8" ry="8"/>
                   <ellipse id="glyph11a" stroke="black" stroke-width="4" fill="white" cx="75" cy="40" rx="12" ry="10"/>
                 </g>
               </render:style>
               <render:style render:id="glyph11_Glyph_0_TextGlyph_0_style" render:idList="glyph11_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph11_Glyph_0_TextGlyph_1_style" render:idList="glyph11_Glyph_0_TextGlyph_1">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph13_Glyph_0_style" render:idList="glyph13_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <rectangle id="glyph13" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_1" x="0" y="0" width="90" height="40" rx="8" ry="8"/>
                   <ellipse id="glyph13a" stroke="black" stroke-width="4" fill="white" cx="67.5" cy="40" rx="10"/>
                 </g>
               </render:style>
               <render:style render:id="glyph13_Glyph_0_TextGlyph_0_style" render:idList="glyph13_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph10_Glyph_0_style" render:idList="glyph10_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <rectangle id="glyph10" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_1" x="10" y="10" width="100" height="40" rx="8" ry="8"/>
                   <rectangle id="glyph10_1" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_1" x="0" y="0" width="100" height="40" rx="8" ry="8"/>
                   <rectangle id="glyph10a" stroke="black" stroke-width="4" fill="white" x="9.5" y="-8" width="31" height="16"/>
@@ -2722,39 +2722,39 @@
                 </g>
               </render:style>
               <render:style render:id="glyph10_Glyph_0_TextGlyph_0_style" render:idList="glyph10_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph10_Glyph_0_TextGlyph_1_style" render:idList="glyph10_Glyph_0_TextGlyph_1">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph10_Glyph_0_TextGlyph_2_style" render:idList="glyph10_Glyph_0_TextGlyph_2">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph9_Glyph_0_style" render:idList="glyph9_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <rectangle id="glyph9" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_1" x="10" y="10" width="100" height="40" rx="8" ry="8"/>
                   <rectangle id="glyph9_1" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_1" x="0" y="0" width="100" height="40" rx="8" ry="8"/>
                   <ellipse id="glyph9a" stroke="black" stroke-width="4" fill="white" cx="75" cy="40" rx="12" ry="10"/>
                 </g>
               </render:style>
               <render:style render:id="glyph9_Glyph_0_TextGlyph_0_style" render:idList="glyph9_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph9_Glyph_0_TextGlyph_1_style" render:idList="glyph9_Glyph_0_TextGlyph_1">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph25_Glyph_0_style" render:idList="glyph25_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <polygon id="glyph25" stroke="black" stroke-width="4" fill="white">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="0" y="0"/>
@@ -2771,17 +2771,17 @@
                 </g>
               </render:style>
               <render:style render:id="glyph25_Glyph_0_TextGlyph_0_style" render:idList="glyph25_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph25_Glyph_0_TextGlyph_1_style" render:idList="glyph25_Glyph_0_TextGlyph_1">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph26_Glyph_0_style" render:idList="glyph26_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <polygon id="glyph26" stroke="black" stroke-width="4" fill="white">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="0" y="0"/>
@@ -2798,17 +2798,17 @@
                 </g>
               </render:style>
               <render:style render:id="glyph26_Glyph_0_TextGlyph_0_style" render:idList="glyph26_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph26_Glyph_0_TextGlyph_1_style" render:idList="glyph26_Glyph_0_TextGlyph_1">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph29_Glyph_0_style" render:idList="glyph29_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <polygon id="glyph29" stroke="black" stroke-width="4" fill="white">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="0" y="0"/>
@@ -2825,37 +2825,37 @@
                 </g>
               </render:style>
               <render:style render:id="glyph29_Glyph_0_TextGlyph_0_style" render:idList="glyph29_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph29_Glyph_0_TextGlyph_1_style" render:idList="glyph29_Glyph_0_TextGlyph_1">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph48_Glyph_0_style" render:idList="glyph48_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <rectangle id="glyph48" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_1" x="0" y="0" width="80" height="40" rx="8" ry="8"/>
                 </g>
               </render:style>
               <render:style render:id="glyph48_Glyph_0_TextGlyph_0_style" render:idList="glyph48_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph39_Glyph_0_style" render:idList="glyph39_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <rectangle id="glyph39" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_1" x="0" y="0" width="80" height="40" rx="8" ry="8"/>
                 </g>
               </render:style>
               <render:style render:id="glyph39_Glyph_0_TextGlyph_0_style" render:idList="glyph39_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph28_Glyph_0_style" render:idList="glyph28_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <polygon id="glyph28" stroke="black" stroke-width="4" fill="white">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="0" y="0"/>
@@ -2872,17 +2872,17 @@
                 </g>
               </render:style>
               <render:style render:id="glyph28_Glyph_0_TextGlyph_0_style" render:idList="glyph28_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph28_Glyph_0_TextGlyph_1_style" render:idList="glyph28_Glyph_0_TextGlyph_1">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph24_Glyph_0_style" render:idList="glyph24_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <polygon id="glyph24" stroke="black" stroke-width="4" fill="white">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="0" y="0"/>
@@ -2899,17 +2899,17 @@
                 </g>
               </render:style>
               <render:style render:id="glyph24_Glyph_0_TextGlyph_0_style" render:idList="glyph24_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph24_Glyph_0_TextGlyph_1_style" render:idList="glyph24_Glyph_0_TextGlyph_1">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph27_Glyph_0_style" render:idList="glyph27_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <polygon id="glyph27" stroke="black" stroke-width="4" fill="white">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="0" y="0"/>
@@ -2926,37 +2926,37 @@
                 </g>
               </render:style>
               <render:style render:id="glyph27_Glyph_0_TextGlyph_0_style" render:idList="glyph27_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph27_Glyph_0_TextGlyph_1_style" render:idList="glyph27_Glyph_0_TextGlyph_1">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph3_Glyph_0_style" render:idList="glyph3_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <rectangle id="glyph3" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_1" x="0" y="0" width="80" height="40" rx="8" ry="8"/>
                 </g>
               </render:style>
               <render:style render:id="glyph3_Glyph_0_TextGlyph_0_style" render:idList="glyph3_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph4_Glyph_0_style" render:idList="glyph4_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <rectangle id="glyph4" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_1" x="0" y="0" width="80" height="40" rx="8" ry="8"/>
                 </g>
               </render:style>
               <render:style render:id="glyph4_Glyph_0_TextGlyph_0_style" render:idList="glyph4_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph8_Glyph_0_style" render:idList="glyph8_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <polygon id="glyph8" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_2">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="6.5" y="0"/>
@@ -2978,143 +2978,143 @@
                 </g>
               </render:style>
               <render:style render:id="glyph8_Glyph_0_TextGlyph_0_style" render:idList="glyph8_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph8_Glyph_0_TextGlyph_1_style" render:idList="glyph8_Glyph_0_TextGlyph_1">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph8_Glyph_0_TextGlyph_2_style" render:idList="glyph8_Glyph_0_TextGlyph_2">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph8_Glyph_0_TextGlyph_3_style" render:idList="glyph8_Glyph_0_TextGlyph_3">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph8_Glyph_0_TextGlyph_4_style" render:idList="glyph8_Glyph_0_TextGlyph_4">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="11">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph33_Glyph_0_style" render:idList="glyph33_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <ellipse id="glyph33" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_3" cx="30" cy="30" rx="30"/>
                 </g>
               </render:style>
               <render:style render:id="glyph33_Glyph_0_TextGlyph_0_style" render:idList="glyph33_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph37_Glyph_0_style" render:idList="glyph37_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <ellipse id="glyph37" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_3" cx="30" cy="30" rx="30"/>
                 </g>
               </render:style>
               <render:style render:id="glyph37_Glyph_0_TextGlyph_0_style" render:idList="glyph37_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph36_Glyph_0_style" render:idList="glyph36_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <ellipse id="glyph36" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_3" cx="30" cy="30" rx="30"/>
                 </g>
               </render:style>
               <render:style render:id="glyph36_Glyph_0_TextGlyph_0_style" render:idList="glyph36_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph35_Glyph_0_style" render:idList="glyph35_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <ellipse id="glyph35" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_3" cx="30" cy="30" rx="30"/>
                 </g>
               </render:style>
               <render:style render:id="glyph35_Glyph_0_TextGlyph_0_style" render:idList="glyph35_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph34_Glyph_0_style" render:idList="glyph34_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <ellipse id="glyph34" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_3" cx="30" cy="30" rx="30"/>
                 </g>
               </render:style>
               <render:style render:id="glyph34_Glyph_0_TextGlyph_0_style" render:idList="glyph34_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph31_Glyph_0_style" render:idList="glyph31_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <ellipse id="glyph31" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_3" cx="30" cy="30" rx="30"/>
                 </g>
               </render:style>
               <render:style render:id="glyph31_Glyph_0_TextGlyph_0_style" render:idList="glyph31_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph32_Glyph_0_style" render:idList="glyph32_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <ellipse id="glyph32" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_3" cx="30" cy="30" rx="30"/>
                 </g>
               </render:style>
               <render:style render:id="glyph32_Glyph_0_TextGlyph_0_style" render:idList="glyph32_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph44_Glyph_0_style" render:idList="glyph44_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <rectangle id="glyph44" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_1" x="0" y="0" width="80" height="40" rx="8" ry="8"/>
                 </g>
               </render:style>
               <render:style render:id="glyph44_Glyph_0_TextGlyph_0_style" render:idList="glyph44_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph38_Glyph_0_style" render:idList="glyph38_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <ellipse id="glyph38" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_3" cx="30" cy="30" rx="30"/>
                 </g>
               </render:style>
               <render:style render:id="glyph38_Glyph_0_TextGlyph_0_style" render:idList="glyph38_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph45_Glyph_0_style" render:idList="glyph45_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <rectangle id="glyph45" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_1" x="0" y="0" width="80" height="40" rx="8" ry="8"/>
                 </g>
               </render:style>
               <render:style render:id="glyph45_Glyph_0_TextGlyph_0_style" render:idList="glyph45_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph30_Glyph_0_style" render:idList="glyph30_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="orangered" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <ellipse id="glyph30" stroke="black" stroke-width="4" fill="sbmlnetwork_local_color_3" cx="30" cy="30" rx="30"/>
                 </g>
               </render:style>
               <render:style render:id="glyph30_Glyph_0_TextGlyph_0_style" render:idList="glyph30_Glyph_0_TextGlyph_0">
-                <g stroke="gondola" stroke-width="3" fill="carnation" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
-                  <rectangle stroke="gondola" stroke-width="3" fill="carnation" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
+                <g stroke="black" stroke-width="4" fill="orange" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                  <rectangle stroke="black" stroke-width="4" fill="orange" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph59_Glyph_0_style" render:idList="glyph59_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <rectangle id="glyph59" stroke="gondola" stroke-width="3" fill="white" x="0" y="0" width="24" height="24"/>
+                <g stroke="navy" stroke-width="6" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="8">
+                  <rectangle id="glyph59" stroke="black" stroke-width="2" fill="white" x="0" y="0" width="24" height="24"/>
                   <curve id="glyph59_1" stroke="black" stroke-width="2">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="0" y="12"/>
@@ -3130,11 +3130,11 @@
                 </g>
               </render:style>
               <render:style render:id="glyph5_Glyph_0_glyph59_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph5_Glyph_0_glyph59_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph5_Glyph_0_glyph59_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph5_Glyph_0_glyph59_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
               </render:style>
               <render:style render:id="glyph72_Glyph_0_style" render:idList="glyph72_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <rectangle id="glyph72" stroke="gondola" stroke-width="3" fill="white" x="0" y="0" width="24" height="24"/>
+                <g stroke="navy" stroke-width="6" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="8">
+                  <rectangle id="glyph72" stroke="black" stroke-width="2" fill="white" x="0" y="0" width="24" height="24"/>
                   <curve id="glyph72_1" stroke="black" stroke-width="2">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="0" y="12"/>
@@ -3150,11 +3150,11 @@
                 </g>
               </render:style>
               <render:style render:id="glyph6_Glyph_0_glyph72_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph6_Glyph_0_glyph72_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph6_Glyph_0_glyph72_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph6_Glyph_0_glyph72_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
               </render:style>
               <render:style render:id="glyph73_Glyph_0_style" render:idList="glyph73_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <rectangle id="glyph73" stroke="gondola" stroke-width="3" fill="white" x="0" y="0" width="24" height="24"/>
+                <g stroke="navy" stroke-width="6" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="8">
+                  <rectangle id="glyph73" stroke="black" stroke-width="2" fill="white" x="0" y="0" width="24" height="24"/>
                   <curve id="glyph73_1" stroke="black" stroke-width="2">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="12" y="0"/>
@@ -3170,11 +3170,11 @@
                 </g>
               </render:style>
               <render:style render:id="glyph9_Glyph_0_glyph73_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph9_Glyph_0_glyph73_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph9_Glyph_0_glyph73_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph9_Glyph_0_glyph73_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
               </render:style>
               <render:style render:id="glyph64_Glyph_0_style" render:idList="glyph64_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <rectangle id="glyph64" stroke="gondola" stroke-width="3" fill="white" x="0" y="0" width="24" height="24"/>
+                <g stroke="navy" stroke-width="6" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="8">
+                  <rectangle id="glyph64" stroke="black" stroke-width="2" fill="white" x="0" y="0" width="24" height="24"/>
                   <curve id="glyph64_1" stroke="black" stroke-width="2">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="0" y="12"/>
@@ -3190,7 +3190,7 @@
                 </g>
               </render:style>
               <render:style render:id="glyph26_Glyph_0_glyph64_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph26_Glyph_0_glyph64_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph26_Glyph_0_glyph64_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph26_Glyph_0_glyph64_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
               </render:style>
               <render:style render:id="glyph9_Glyph_0_glyph64_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph9_Glyph_0_glyph64_Glyph_0_Stoichiometry_0_Glyph_0">
                 <g stroke="black" stroke-width="2" endHead="glyph9_Glyph_0_glyph64_Glyph_0_Stoichiometry_0_Glyph_0_modifierHead"/>
@@ -3199,8 +3199,8 @@
                 <g stroke="black" stroke-width="2" endHead="glyph25_Glyph_0_glyph64_Glyph_0_Stoichiometry_0_Glyph_0_modifierHead"/>
               </render:style>
               <render:style render:id="glyph66_Glyph_0_style" render:idList="glyph66_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <rectangle id="glyph66" stroke="gondola" stroke-width="3" fill="white" x="0" y="0" width="24" height="24"/>
+                <g stroke="navy" stroke-width="6" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="8">
+                  <rectangle id="glyph66" stroke="black" stroke-width="2" fill="white" x="0" y="0" width="24" height="24"/>
                   <curve id="glyph66_1" stroke="black" stroke-width="2">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="0" y="12"/>
@@ -3216,7 +3216,7 @@
                 </g>
               </render:style>
               <render:style render:id="glyph24_Glyph_0_glyph66_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph24_Glyph_0_glyph66_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph24_Glyph_0_glyph66_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph24_Glyph_0_glyph66_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
               </render:style>
               <render:style render:id="glyph28_Glyph_0_glyph66_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph28_Glyph_0_glyph66_Glyph_0_Stoichiometry_0_Glyph_0">
                 <g stroke="black" stroke-width="2" endHead="glyph28_Glyph_0_glyph66_Glyph_0_Stoichiometry_0_Glyph_0_modifierHead"/>
@@ -3225,8 +3225,8 @@
                 <g stroke="black" stroke-width="2" endHead="glyph39_Glyph_0_glyph66_Glyph_0_Stoichiometry_0_Glyph_0_modifierHead"/>
               </render:style>
               <render:style render:id="glyph68_Glyph_0_style" render:idList="glyph68_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <rectangle id="glyph68" stroke="gondola" stroke-width="3" fill="white" x="0" y="0" width="24" height="24"/>
+                <g stroke="navy" stroke-width="6" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="8">
+                  <rectangle id="glyph68" stroke="black" stroke-width="2" fill="white" x="0" y="0" width="24" height="24"/>
                   <curve id="glyph68_1" stroke="black" stroke-width="2">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="0" y="12"/>
@@ -3242,14 +3242,14 @@
                 </g>
               </render:style>
               <render:style render:id="glyph48_Glyph_0_glyph68_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph48_Glyph_0_glyph68_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph48_Glyph_0_glyph68_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph48_Glyph_0_glyph68_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
               </render:style>
               <render:style render:id="glyph29_Glyph_0_glyph68_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph29_Glyph_0_glyph68_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph29_Glyph_0_glyph68_Glyph_0_Stoichiometry_0_Glyph_0_modifierHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph29_Glyph_0_glyph68_Glyph_0_Stoichiometry_0_Glyph_0_modifierHead"/>
               </render:style>
               <render:style render:id="glyph71_Glyph_0_style" render:idList="glyph71_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <rectangle id="glyph71" stroke="gondola" stroke-width="3" fill="white" x="0" y="0" width="24" height="24"/>
+                <g stroke="navy" stroke-width="6" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="8">
+                  <rectangle id="glyph71" stroke="black" stroke-width="2" fill="white" x="0" y="0" width="24" height="24"/>
                   <curve id="glyph71_1" stroke="black" stroke-width="2">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="12" y="0"/>
@@ -3265,11 +3265,11 @@
                 </g>
               </render:style>
               <render:style render:id="glyph29_Glyph_0_glyph71_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph29_Glyph_0_glyph71_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph29_Glyph_0_glyph71_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph29_Glyph_0_glyph71_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
               </render:style>
               <render:style render:id="glyph76_Glyph_0_style" render:idList="glyph76_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <rectangle id="glyph76" stroke="gondola" stroke-width="3" fill="white" x="0" y="0" width="24" height="24"/>
+                <g stroke="navy" stroke-width="6" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="8">
+                  <rectangle id="glyph76" stroke="black" stroke-width="2" fill="white" x="0" y="0" width="24" height="24"/>
                   <curve id="glyph76_1" stroke="black" stroke-width="2">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="12" y="0"/>
@@ -3285,11 +3285,11 @@
                 </g>
               </render:style>
               <render:style render:id="glyph39_Glyph_0_glyph76_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph39_Glyph_0_glyph76_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph39_Glyph_0_glyph76_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph39_Glyph_0_glyph76_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
               </render:style>
               <render:style render:id="glyph75_Glyph_0_style" render:idList="glyph75_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <rectangle id="glyph75" stroke="gondola" stroke-width="3" fill="white" x="0" y="0" width="24" height="24"/>
+                <g stroke="navy" stroke-width="6" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="8">
+                  <rectangle id="glyph75" stroke="black" stroke-width="2" fill="white" x="0" y="0" width="24" height="24"/>
                   <curve id="glyph75_1" stroke="black" stroke-width="2">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="0" y="12"/>
@@ -3305,14 +3305,14 @@
                 </g>
               </render:style>
               <render:style render:id="glyph3_Glyph_0_glyph75_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph3_Glyph_0_glyph75_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph3_Glyph_0_glyph75_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph3_Glyph_0_glyph75_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
               </render:style>
               <render:style render:id="glyph27_Glyph_0_glyph75_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph27_Glyph_0_glyph75_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph27_Glyph_0_glyph75_Glyph_0_Stoichiometry_0_Glyph_0_modifierHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph27_Glyph_0_glyph75_Glyph_0_Stoichiometry_0_Glyph_0_modifierHead"/>
               </render:style>
               <render:style render:id="glyph63_Glyph_0_style" render:idList="glyph63_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <rectangle id="glyph63" stroke="gondola" stroke-width="3" fill="white" x="0" y="0" width="24" height="24"/>
+                <g stroke="navy" stroke-width="6" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="8">
+                  <rectangle id="glyph63" stroke="black" stroke-width="2" fill="white" x="0" y="0" width="24" height="24"/>
                   <curve id="glyph63_1" stroke="black" stroke-width="2">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="12" y="0"/>
@@ -3328,11 +3328,11 @@
                 </g>
               </render:style>
               <render:style render:id="glyph27_Glyph_0_glyph63_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph27_Glyph_0_glyph63_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph27_Glyph_0_glyph63_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph27_Glyph_0_glyph63_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
               </render:style>
               <render:style render:id="glyph70_Glyph_0_style" render:idList="glyph70_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <rectangle id="glyph70" stroke="gondola" stroke-width="3" fill="white" x="0" y="0" width="24" height="24"/>
+                <g stroke="navy" stroke-width="6" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="8">
+                  <rectangle id="glyph70" stroke="black" stroke-width="2" fill="white" x="0" y="0" width="24" height="24"/>
                   <curve id="glyph70_1" stroke="black" stroke-width="2">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="0" y="12"/>
@@ -3348,17 +3348,17 @@
                 </g>
               </render:style>
               <render:style render:id="glyph31_Glyph_0_glyph70_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph31_Glyph_0_glyph70_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph31_Glyph_0_glyph70_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph31_Glyph_0_glyph70_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
               </render:style>
               <render:style render:id="glyph34_Glyph_0_glyph70_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph34_Glyph_0_glyph70_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph34_Glyph_0_glyph70_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph34_Glyph_0_glyph70_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
               </render:style>
               <render:style render:id="glyph8_Glyph_0_glyph70_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph8_Glyph_0_glyph70_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph8_Glyph_0_glyph70_Glyph_0_Stoichiometry_0_Glyph_0_modifierHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph8_Glyph_0_glyph70_Glyph_0_Stoichiometry_0_Glyph_0_modifierHead"/>
               </render:style>
               <render:style render:id="glyph60_Glyph_0_style" render:idList="glyph60_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <rectangle id="glyph60" stroke="gondola" stroke-width="3" fill="white" x="0" y="0" width="24" height="24"/>
+                <g stroke="navy" stroke-width="6" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="8">
+                  <rectangle id="glyph60" stroke="black" stroke-width="2" fill="white" x="0" y="0" width="24" height="24"/>
                   <curve id="glyph60_1" stroke="black" stroke-width="2">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="12" y="0"/>
@@ -3374,17 +3374,17 @@
                 </g>
               </render:style>
               <render:style render:id="glyph36_Glyph_0_glyph60_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph36_Glyph_0_glyph60_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph36_Glyph_0_glyph60_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph36_Glyph_0_glyph60_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
               </render:style>
               <render:style render:id="glyph30_Glyph_0_glyph60_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph30_Glyph_0_glyph60_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph30_Glyph_0_glyph60_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph30_Glyph_0_glyph60_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
               </render:style>
               <render:style render:id="glyph45_Glyph_0_glyph60_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph45_Glyph_0_glyph60_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph45_Glyph_0_glyph60_Glyph_0_Stoichiometry_0_Glyph_0_modifierHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph45_Glyph_0_glyph60_Glyph_0_Stoichiometry_0_Glyph_0_modifierHead"/>
               </render:style>
               <render:style render:id="glyph69_Glyph_0_style" render:idList="glyph69_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <rectangle id="glyph69" stroke="gondola" stroke-width="3" fill="white" x="0" y="0" width="24" height="24"/>
+                <g stroke="navy" stroke-width="6" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="8">
+                  <rectangle id="glyph69" stroke="black" stroke-width="2" fill="white" x="0" y="0" width="24" height="24"/>
                   <curve id="glyph69_1" stroke="black" stroke-width="2">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="12" y="0"/>
@@ -3400,11 +3400,11 @@
                 </g>
               </render:style>
               <render:style render:id="glyph36_Glyph_0_glyph69_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph36_Glyph_0_glyph69_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph36_Glyph_0_glyph69_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph36_Glyph_0_glyph69_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
               </render:style>
               <render:style render:id="glyph67_Glyph_0_style" render:idList="glyph67_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <rectangle id="glyph67" stroke="gondola" stroke-width="3" fill="white" x="0" y="0" width="24" height="24"/>
+                <g stroke="navy" stroke-width="6" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="8">
+                  <rectangle id="glyph67" stroke="black" stroke-width="2" fill="white" x="0" y="0" width="24" height="24"/>
                   <curve id="glyph67_1" stroke="black" stroke-width="2">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="12" y="0"/>
@@ -3420,11 +3420,11 @@
                 </g>
               </render:style>
               <render:style render:id="glyph37_Glyph_0_glyph67_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph37_Glyph_0_glyph67_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph37_Glyph_0_glyph67_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph37_Glyph_0_glyph67_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
               </render:style>
               <render:style render:id="glyph77_Glyph_0_style" render:idList="glyph77_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <rectangle id="glyph77" stroke="gondola" stroke-width="3" fill="white" x="0" y="0" width="24" height="24"/>
+                <g stroke="navy" stroke-width="6" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="8">
+                  <rectangle id="glyph77" stroke="black" stroke-width="2" fill="white" x="0" y="0" width="24" height="24"/>
                   <curve id="glyph77_1" stroke="black" stroke-width="2">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="12" y="0"/>
@@ -3440,11 +3440,11 @@
                 </g>
               </render:style>
               <render:style render:id="glyph10_Glyph_0_glyph77_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph10_Glyph_0_glyph77_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph10_Glyph_0_glyph77_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph10_Glyph_0_glyph77_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
               </render:style>
               <render:style render:id="glyph57_Glyph_0_style" render:idList="glyph57_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <rectangle id="glyph57" stroke="gondola" stroke-width="3" fill="white" x="0" y="0" width="24" height="24"/>
+                <g stroke="navy" stroke-width="6" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="8">
+                  <rectangle id="glyph57" stroke="black" stroke-width="2" fill="white" x="0" y="0" width="24" height="24"/>
                   <curve id="glyph57_1" stroke="black" stroke-width="2">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="0" y="12"/>
@@ -3460,11 +3460,11 @@
                 </g>
               </render:style>
               <render:style render:id="glyph57_Glyph_0_EmptySpeciesReferenceGlyph_style" render:idList="glyph57_Glyph_0_EmptySpeciesReferenceGlyph">
-                <g stroke="gondola" stroke-width="2" endHead="glyph57_Glyph_0_EmptySpeciesReferenceGlyph_productHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph57_Glyph_0_EmptySpeciesReferenceGlyph_productHead"/>
               </render:style>
               <render:style render:id="glyph61_Glyph_0_style" render:idList="glyph61_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <rectangle id="glyph61" stroke="gondola" stroke-width="3" fill="white" x="0" y="0" width="24" height="24"/>
+                <g stroke="navy" stroke-width="6" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="8">
+                  <rectangle id="glyph61" stroke="black" stroke-width="2" fill="white" x="0" y="0" width="24" height="24"/>
                   <curve id="glyph61_1" stroke="black" stroke-width="2">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="0" y="12"/>
@@ -3480,11 +3480,11 @@
                 </g>
               </render:style>
               <render:style render:id="glyph61_Glyph_0_EmptySpeciesReferenceGlyph_style" render:idList="glyph61_Glyph_0_EmptySpeciesReferenceGlyph">
-                <g stroke="gondola" stroke-width="2" endHead="glyph61_Glyph_0_EmptySpeciesReferenceGlyph_productHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph61_Glyph_0_EmptySpeciesReferenceGlyph_productHead"/>
               </render:style>
               <render:style render:id="glyph74_Glyph_0_style" render:idList="glyph74_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <rectangle id="glyph74" stroke="gondola" stroke-width="3" fill="white" x="0" y="0" width="24" height="24"/>
+                <g stroke="navy" stroke-width="6" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="8">
+                  <rectangle id="glyph74" stroke="black" stroke-width="2" fill="white" x="0" y="0" width="24" height="24"/>
                   <curve id="glyph74_1" stroke="black" stroke-width="2">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="0" y="12"/>
@@ -3500,14 +3500,14 @@
                 </g>
               </render:style>
               <render:style render:id="glyph11_Glyph_0_glyph74_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph11_Glyph_0_glyph74_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph11_Glyph_0_glyph74_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph11_Glyph_0_glyph74_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
               </render:style>
               <render:style render:id="glyph6_Glyph_0_glyph74_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph6_Glyph_0_glyph74_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph6_Glyph_0_glyph74_Glyph_0_Stoichiometry_0_Glyph_0_modifierHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph6_Glyph_0_glyph74_Glyph_0_Stoichiometry_0_Glyph_0_modifierHead"/>
               </render:style>
               <render:style render:id="glyph62_Glyph_0_style" render:idList="glyph62_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <rectangle id="glyph62" stroke="gondola" stroke-width="3" fill="white" x="0" y="0" width="24" height="24"/>
+                <g stroke="navy" stroke-width="6" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="8">
+                  <rectangle id="glyph62" stroke="black" stroke-width="2" fill="white" x="0" y="0" width="24" height="24"/>
                   <curve id="glyph62_1" stroke="black" stroke-width="2">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="12" y="0"/>
@@ -3523,14 +3523,14 @@
                 </g>
               </render:style>
               <render:style render:id="glyph38_Glyph_0_glyph62_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph38_Glyph_0_glyph62_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph38_Glyph_0_glyph62_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph38_Glyph_0_glyph62_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
               </render:style>
               <render:style render:id="glyph44_Glyph_0_glyph62_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph44_Glyph_0_glyph62_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph44_Glyph_0_glyph62_Glyph_0_Stoichiometry_0_Glyph_0_modifierHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph44_Glyph_0_glyph62_Glyph_0_Stoichiometry_0_Glyph_0_modifierHead"/>
               </render:style>
               <render:style render:id="glyph65_Glyph_0_style" render:idList="glyph65_Glyph_0">
-                <g stroke="gondola" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <rectangle id="glyph65" stroke="gondola" stroke-width="3" fill="white" x="0" y="0" width="24" height="24"/>
+                <g stroke="navy" stroke-width="6" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="8">
+                  <rectangle id="glyph65" stroke="black" stroke-width="2" fill="white" x="0" y="0" width="24" height="24"/>
                   <curve id="glyph65_1" stroke="black" stroke-width="2">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
                       <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="0" y="12"/>
@@ -3546,97 +3546,97 @@
                 </g>
               </render:style>
               <render:style render:id="glyph8_Glyph_0_glyph65_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph8_Glyph_0_glyph65_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2" endHead="glyph8_Glyph_0_glyph65_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
+                <g stroke="black" stroke-width="2" endHead="glyph8_Glyph_0_glyph65_Glyph_0_Stoichiometry_0_Glyph_0_productHead"/>
               </render:style>
               <render:style render:id="glyph5_Glyph_0_glyph72_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph5_Glyph_0_glyph72_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2"/>
+                <g stroke="black" stroke-width="2"/>
               </render:style>
               <render:style render:id="glyph10_Glyph_0_glyph73_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph10_Glyph_0_glyph73_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2"/>
+                <g stroke="black" stroke-width="2"/>
               </render:style>
               <render:style render:id="glyph64_Glyph_0_EmptySpeciesReferenceGlyph_style" render:idList="glyph64_Glyph_0_EmptySpeciesReferenceGlyph">
-                <g stroke="gondola" stroke-width="2"/>
+                <g stroke="black" stroke-width="2"/>
               </render:style>
               <render:style render:id="glyph66_Glyph_0_EmptySpeciesReferenceGlyph_style" render:idList="glyph66_Glyph_0_EmptySpeciesReferenceGlyph">
-                <g stroke="gondola" stroke-width="2"/>
+                <g stroke="black" stroke-width="2"/>
               </render:style>
               <render:style render:id="glyph68_Glyph_0_EmptySpeciesReferenceGlyph_style" render:idList="glyph68_Glyph_0_EmptySpeciesReferenceGlyph">
-                <g stroke="gondola" stroke-width="2"/>
+                <g stroke="black" stroke-width="2"/>
               </render:style>
               <render:style render:id="glyph48_Glyph_0_glyph76_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph48_Glyph_0_glyph76_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2"/>
+                <g stroke="black" stroke-width="2"/>
               </render:style>
               <render:style render:id="glyph26_Glyph_0_glyph71_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph26_Glyph_0_glyph71_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2"/>
+                <g stroke="black" stroke-width="2"/>
               </render:style>
               <render:style render:id="glyph75_Glyph_0_EmptySpeciesReferenceGlyph_style" render:idList="glyph75_Glyph_0_EmptySpeciesReferenceGlyph">
-                <g stroke="gondola" stroke-width="2"/>
+                <g stroke="black" stroke-width="2"/>
               </render:style>
               <render:style render:id="glyph24_Glyph_0_glyph63_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph24_Glyph_0_glyph63_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2"/>
+                <g stroke="black" stroke-width="2"/>
               </render:style>
               <render:style render:id="glyph32_Glyph_0_glyph62_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph32_Glyph_0_glyph62_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2"/>
+                <g stroke="black" stroke-width="2"/>
               </render:style>
               <render:style render:id="glyph34_Glyph_0_glyph62_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph34_Glyph_0_glyph62_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2"/>
+                <g stroke="black" stroke-width="2"/>
               </render:style>
               <render:style render:id="glyph36_Glyph_0_glyph70_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph36_Glyph_0_glyph70_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2"/>
+                <g stroke="black" stroke-width="2"/>
               </render:style>
               <render:style render:id="glyph35_Glyph_0_glyph70_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph35_Glyph_0_glyph70_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2"/>
+                <g stroke="black" stroke-width="2"/>
               </render:style>
               <render:style render:id="glyph38_Glyph_0_glyph60_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph38_Glyph_0_glyph60_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2"/>
+                <g stroke="black" stroke-width="2"/>
               </render:style>
               <render:style render:id="glyph33_Glyph_0_glyph69_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph33_Glyph_0_glyph69_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2"/>
+                <g stroke="black" stroke-width="2"/>
               </render:style>
               <render:style render:id="glyph31_Glyph_0_glyph67_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph31_Glyph_0_glyph67_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2"/>
+                <g stroke="black" stroke-width="2"/>
               </render:style>
               <render:style render:id="glyph11_Glyph_0_glyph77_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph11_Glyph_0_glyph77_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2"/>
+                <g stroke="black" stroke-width="2"/>
               </render:style>
               <render:style render:id="glyph27_Glyph_0_glyph61_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph27_Glyph_0_glyph61_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2"/>
+                <g stroke="black" stroke-width="2"/>
               </render:style>
               <render:style render:id="glyph29_Glyph_0_glyph57_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph29_Glyph_0_glyph57_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2"/>
+                <g stroke="black" stroke-width="2"/>
               </render:style>
               <render:style render:id="glyph13_Glyph_0_glyph74_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph13_Glyph_0_glyph74_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2"/>
+                <g stroke="black" stroke-width="2"/>
               </render:style>
               <render:style render:id="glyph4_Glyph_0_glyph65_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph4_Glyph_0_glyph65_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2"/>
+                <g stroke="black" stroke-width="2"/>
               </render:style>
               <render:style render:id="glyph3_Glyph_0_glyph65_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph3_Glyph_0_glyph65_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2"/>
+                <g stroke="black" stroke-width="2"/>
               </render:style>
               <render:style render:id="glyph7_Glyph_0_glyph59_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph7_Glyph_0_glyph59_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2"/>
+                <g stroke="black" stroke-width="2"/>
               </render:style>
               <render:style render:id="glyph16_Glyph_0_glyph59_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyph16_Glyph_0_glyph59_Glyph_0_Stoichiometry_0_Glyph_0">
-                <g stroke="gondola" stroke-width="2"/>
+                <g stroke="black" stroke-width="2"/>
               </render:style>
               <render:style render:id="glyph49_style" render:idList="glyph49">
-                <g stroke="black" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="darkslategray" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <ellipse stroke="black" stroke-width="2" fill="white" cx="21" cy="21" rx="21"/>
                 </g>
               </render:style>
               <render:style render:id="glyph49_TextGlyph_0_style" render:idList="glyph49_TextGlyph_0">
-                <g stroke="black" font-family="sans-serif" font-weight="bold" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                <g stroke="darkslategray" font-family="sans-serif" font-weight="bold" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
                   <rectangle stroke="black" stroke-width="2" fill="white" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
               <render:style render:id="glyph50_style" render:idList="glyph50">
-                <g stroke="black" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
+                <g stroke="darkslategray" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <ellipse stroke="black" stroke-width="2" fill="white" cx="21" cy="21" rx="21"/>
                 </g>
               </render:style>
               <render:style render:id="glyph50_TextGlyph_0_style" render:idList="glyph50_TextGlyph_0">
-                <g stroke="black" font-family="sans-serif" font-weight="bold" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
+                <g stroke="darkslategray" font-family="sans-serif" font-weight="bold" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="14">
                   <rectangle stroke="black" stroke-width="2" fill="white" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
@@ -3649,15 +3649,10 @@
           <render:listOfColorDefinitions>
             <render:colorDefinition render:id="white" render:value="#ffffff"/>
             <render:colorDefinition render:id="black" render:value="#000000"/>
-            <render:colorDefinition render:id="lightgray" render:value="#d3d3d3"/>
+            <render:colorDefinition render:id="orange" render:value="#ffa500"/>
+            <render:colorDefinition render:id="navy" render:value="#000080"/>
+            <render:colorDefinition render:id="orangered" render:value="#ff4500"/>
             <render:colorDefinition render:id="darkslategray" render:value="#2f4f4f"/>
-            <render:colorDefinition render:id="darkcyan" render:value="#008b8b"/>
-            <render:colorDefinition render:id="teal" render:value="#008080"/>
-            <render:colorDefinition render:id="silver" render:value="#c0c0c0"/>
-            <render:colorDefinition render:id="mandy" render:value="#d57c6b"/>
-            <render:colorDefinition render:id="pewter" render:value="#96a8a1"/>
-            <render:colorDefinition render:id="gondola" render:value="#211916"/>
-            <render:colorDefinition render:id="carnation" render:value="#f95a61"/>
           </render:listOfColorDefinitions>
           <render:listOfLineEndings>
             <render:lineEnding render:id="productHead">
@@ -3665,8 +3660,8 @@
                 <layout:position layout:x="-12" layout:y="-6"/>
                 <layout:dimensions layout:width="12" layout:height="12"/>
               </layout:boundingBox>
-              <render:g render:stroke="gondola" render:stroke-width="3" render:fill="gondola">
-                <render:polygon render:stroke="gondola" render:stroke-width="3" render:fill="gondola">
+              <render:g render:stroke="navy" render:stroke-width="5" render:fill="navy">
+                <render:polygon render:stroke="navy" render:stroke-width="5" render:fill="navy">
                   <render:listOfElements>
                     <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="0"/>
                     <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="100%" render:y="50%"/>
@@ -3680,8 +3675,8 @@
                 <layout:position layout:x="-12" layout:y="-6"/>
                 <layout:dimensions layout:width="12" layout:height="12"/>
               </layout:boundingBox>
-              <render:g render:stroke="gondola" render:stroke-width="3" render:fill="gondola">
-                <render:ellipse render:stroke="gondola" render:stroke-width="3" render:fill="gondola" render:cx="50%" render:cy="50%" render:rx="50%"/>
+              <render:g render:stroke="navy" render:stroke-width="5" render:fill="navy">
+                <render:ellipse render:stroke="navy" render:stroke-width="5" render:fill="navy" render:cx="50%" render:cy="50%" render:rx="50%"/>
               </render:g>
             </render:lineEnding>
             <render:lineEnding render:id="activatorHead">
@@ -3689,8 +3684,8 @@
                 <layout:position layout:x="-12" layout:y="-6"/>
                 <layout:dimensions layout:width="12" layout:height="12"/>
               </layout:boundingBox>
-              <render:g render:stroke="gondola" render:stroke-width="3" render:fill="gondola">
-                <render:polygon render:stroke="gondola" render:stroke-width="3" render:fill="gondola">
+              <render:g render:stroke="navy" render:stroke-width="5" render:fill="navy">
+                <render:polygon render:stroke="navy" render:stroke-width="5" render:fill="navy">
                   <render:listOfElements>
                     <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="0" render:y="50%"/>
                     <render:element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" render:x="50%" render:y="0"/>
@@ -3705,47 +3700,47 @@
                 <layout:position layout:x="-12" layout:y="-6"/>
                 <layout:dimensions layout:width="12" layout:height="12"/>
               </layout:boundingBox>
-              <render:g render:stroke="gondola" render:stroke-width="3" render:fill="gondola">
-                <render:rectangle render:stroke="gondola" render:stroke-width="3" render:fill="gondola" render:x="80%" render:y="0" render:width="20%" render:height="100%"/>
+              <render:g render:stroke="navy" render:stroke-width="5" render:fill="navy">
+                <render:rectangle render:stroke="navy" render:stroke-width="5" render:fill="navy" render:x="80%" render:y="0" render:width="20%" render:height="100%"/>
               </render:g>
             </render:lineEnding>
           </render:listOfLineEndings>
           <render:listOfStyles>
             <render:style render:id="COMPARTMENTGLYPH_style_0" render:typeList="COMPARTMENTGLYPH">
-              <render:g render:stroke="mandy" render:stroke-width="3" render:fill="pewter" render:font-family="sans-serif" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="bottom" render:font-size="10">
-                <render:rectangle render:stroke="mandy" render:stroke-width="3" render:fill="pewter" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="25" render:ry="25"/>
+              <render:g render:stroke="orangered" render:stroke-width="4" render:fill="white" render:font-family="sans-serif" render:font-weight="bold" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="bottom" render:font-size="10">
+                <render:rectangle render:stroke="orangered" render:stroke-width="4" render:fill="white" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="25" render:ry="25"/>
               </render:g>
             </render:style>
             <render:style render:id="SPECIESGLYPH_style_0" render:typeList="SPECIESGLYPH">
-              <render:g render:stroke="gondola" render:stroke-width="3" render:fill="carnation" render:font-family="sans-serif" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
-                <render:rectangle render:stroke="gondola" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
+              <render:g render:stroke="orangered" render:stroke-width="4" render:fill="orange" render:font-family="sans-serif" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:rectangle render:stroke="orangered" render:stroke-width="4" render:fill="orange" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
               </render:g>
             </render:style>
             <render:style render:id="REACTIONGLYPH_style_0" render:typeList="REACTIONGLYPH">
-              <render:g render:stroke="gondola" render:stroke-width="3" render:fill="white" render:font-family="sans-serif" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
-                <render:ellipse render:stroke="gondola" render:stroke-width="3" render:fill="white" render:cx="50%" render:cy="50%" render:rx="50%"/>
+              <render:g render:stroke="navy" render:stroke-width="6" render:fill="white" render:font-family="sans-serif" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="8">
+                <render:rectangle render:stroke="navy" render:stroke-width="6" render:fill="white" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="10%" render:ry="10%"/>
               </render:g>
             </render:style>
             <render:style render:id="substrate_style_0" render:roleList="substrate">
-              <render:g render:stroke="gondola" render:stroke-width="3"/>
+              <render:g render:stroke="navy" render:stroke-width="6"/>
             </render:style>
             <render:style render:id="sidesubstrate_style_0" render:roleList="sidesubstrate">
-              <render:g render:stroke="gondola" render:stroke-width="3"/>
+              <render:g render:stroke="navy" render:stroke-width="6"/>
             </render:style>
             <render:style render:id="product_style_0" render:roleList="product">
-              <render:g render:stroke="gondola" render:stroke-width="3" render:endHead="productHead"/>
+              <render:g render:stroke="navy" render:stroke-width="6" render:endHead="productHead"/>
             </render:style>
             <render:style render:id="sideproduct_style_0" render:roleList="sideproduct">
-              <render:g render:stroke="gondola" render:stroke-width="3" render:endHead="productHead"/>
+              <render:g render:stroke="navy" render:stroke-width="6" render:endHead="productHead"/>
             </render:style>
             <render:style render:id="modifier_style_0" render:roleList="modifier">
-              <render:g render:stroke="gondola" render:stroke-width="3" render:endHead="modifierHead"/>
+              <render:g render:stroke="navy" render:stroke-width="6" render:endHead="modifierHead"/>
             </render:style>
             <render:style render:id="activator_style_0" render:roleList="activator">
-              <render:g render:stroke="gondola" render:stroke-width="3" render:endHead="activatorHead"/>
+              <render:g render:stroke="navy" render:stroke-width="6" render:endHead="activatorHead"/>
             </render:style>
             <render:style render:id="inhibitor_style_0" render:roleList="inhibitor">
-              <render:g render:stroke="gondola" render:stroke-width="3" render:endHead="inhibitorHead"/>
+              <render:g render:stroke="navy" render:stroke-width="6" render:endHead="inhibitorHead"/>
             </render:style>
             <render:style render:id="EMPTY_SPECIESGLYPH_style_0" render:typeList="EMPTY_SPECIESGLYPH">
               <render:g>
@@ -3759,16 +3754,16 @@
               </render:g>
             </render:style>
             <render:style render:id="COMPARTMENTGLYPH_TEXTGLYPH_style_0" render:typeList="COMPARTMENTGLYPH_TEXTGLYPH">
-              <render:g render:stroke="gondola" render:font-family="sans-serif" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="bottom" render:font-size="10"/>
+              <render:g render:stroke="darkslategray" render:font-family="sans-serif" render:font-weight="bold" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="bottom" render:font-size="10"/>
             </render:style>
             <render:style render:id="SPECIESGLYPH_TEXTGLYPH_style_0" render:typeList="SPECIESGLYPH_TEXTGLYPH">
-              <render:g render:stroke="gondola" render:font-family="sans-serif" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24"/>
+              <render:g render:stroke="darkslategray" render:font-family="sans-serif" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24"/>
             </render:style>
             <render:style render:id="REACTIONGLYPH_TEXTGLYPH_style_0" render:typeList="REACTIONGLYPH_TEXTGLYPH">
-              <render:g render:stroke="gondola" render:font-family="sans-serif" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12"/>
+              <render:g render:stroke="darkslategray" render:font-family="sans-serif" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="8"/>
             </render:style>
             <render:style render:id="GRAPHICALOBJECT_style_0" render:typeList="GRAPHICALOBJECT">
-              <render:g render:stroke="black" render:font-family="sans-serif" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+              <render:g render:stroke="darkslategray" render:font-family="sans-serif" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
                 <render:rectangle render:stroke="black" render:stroke-width="2" render:fill="white" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
               </render:g>
             </render:style>

@@ -165,7 +165,10 @@ class ColorCodingFluxes(ColorCodingDataIntegrationBase):
     def _update_element_features(self, element_id, color):
         reactions_list = self.network_obj.get_reactions_list(element_id)
         for reaction in reactions_list:
-            features = {'reaction_border_color': reaction.get_border_color()[0]}
+            if reaction.is_shapes():
+                features = {'reaction_border_color': reaction.get_border_color()[0]}
+            else:
+                features = {'reaction_border_color': "white"}
             curve_features = []
             for curve in reaction.get_curves_list():
                 curve_data = {

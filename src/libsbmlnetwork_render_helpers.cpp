@@ -852,6 +852,8 @@ void setCompartmentGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     setGeneralTextGlyphRenderGroupFeatures(renderGroup);
     renderGroup->setStroke(getDefaultPredefinedStyleFeatures()["compartment-font-color"]);
     renderGroup->setFontSize(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["compartment-font-size"]), 0.0));
+    renderGroup->setFontWeight(getDefaultPredefinedStyleFeatures()["compartment-font-weight"]);
+    renderGroup->setFontStyle(getDefaultPredefinedStyleFeatures()["compartment-font-style"]);
     renderGroup->setTextAnchor(getDefaultPredefinedStyleFeatures()["compartment-text-horizontal-alignment"]);
     renderGroup->setVTextAnchor(getDefaultPredefinedStyleFeatures()["compartment-text-vertical-alignment"]);
 }
@@ -866,12 +868,13 @@ void setSpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
 void setEmptySpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     Ellipse* ellipse = renderGroup->createEllipse();
     defaults_setDefaultEllipseShapeFeatures(ellipse);
-    ellipse->setFill(getDefaultPredefinedStyleFeatures()["species-fill-color"]);
-    ellipse->setStroke(getDefaultPredefinedStyleFeatures()["species-border-color"]);
+    ellipse->setFill("white");
+    ellipse->setStroke("black");
+    ellipse->setStrokeWidth(2);
     RenderCurve* curve = renderGroup->createCurve();
     defaults_setDefaultDiagonalRenderCurveFeatures(curve);
-    curve->setStroke(getDefaultPredefinedStyleFeatures()["species-border-color"]);
-    curve->setStrokeWidth(std::stod(getDefaultPredefinedStyleFeatures()["species-border-width"]));
+    curve->setStroke("black");
+    curve->setStrokeWidth(2);
 }
 
 void setSpeciesGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {

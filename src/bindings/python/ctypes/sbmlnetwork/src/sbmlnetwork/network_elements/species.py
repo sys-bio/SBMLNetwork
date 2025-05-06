@@ -272,27 +272,25 @@ class Species(NetworkElementBase):
                             move_connected_curves)
 
     def move_by(self, position: tuple[float, float], move_connected_curves: bool = True):
-        if self._can_move_by(position):
-            is_moved = super().move_by(position)
-            if not is_moved:
-                return False
+        self._adjust_position(position)
+        is_moved = super().move_by(position)
+        if not is_moved:
+            return False
 
-            if move_connected_curves:
-                curves = self.get_connected_curves()
-                for curve in curves:
-                    role = self.get_role(curve.get_reaction())
-                    if role in self.get_modifier_role_options():
-                        if not curve.move_start_by(position):
-                            return False
-                    else:
-                        if not curve.move_end_by(position, adjust_end_point_for_uni_uni_reaction=True):
-                            return False
+        if move_connected_curves:
+            curves = self.get_connected_curves()
+            for curve in curves:
+                role = self.get_role(curve.get_reaction())
+                if role in self.get_modifier_role_options():
+                    if not curve.move_start_by(position):
+                        return False
+                else:
+                    if not curve.move_end_by(position, adjust_end_point_for_uni_uni_reaction=True):
+                        return False
 
-            return True
+        return True
 
-        raise ValueError(f"Species {self.get_species_id()} cannot be moved by {position} because it would lead to negative coordinates.")
-
-    def set_size(self, size: tuple[float, float], adjust_font_size: bool = True):
+    def set_size(self, size: tuple[float, float], adjust_font_size: bool = False):
         current_size = self.get_size()
         current_position = self.get_position()
         delta_width = size[0] - current_size[0]
@@ -336,7 +334,7 @@ class Species(NetworkElementBase):
 
         return True
 
-    def set_font_size(self, font_size: float, adjust_size: bool = True):
+    def set_font_size(self, font_size: float, adjust_size: bool = False):
         labels = self.get_labels_list()
         for label in labels:
             label.set_font_size(font_size)

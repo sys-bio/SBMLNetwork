@@ -24,14 +24,12 @@ class NetworkElementBase:
                 self.libsbmlnetwork.getY(id=self.element_id, graphical_object_index=self.graphical_object_index))
 
     def set_position(self, position: tuple[float, float]):
-        if self._can_move_to(position):
-            if self.libsbmlnetwork.setX(id=self.element_id, graphical_object_index=self.graphical_object_index, x=position[0], update_curves=False) == 0 and \
-                    self.libsbmlnetwork.setY(id=self.element_id, graphical_object_index=self.graphical_object_index, y=position[1], update_curves=False) == 0:
-                return True
+        self._adjust_position(position)
+        if self.libsbmlnetwork.setX(id=self.element_id, graphical_object_index=self.graphical_object_index, x=position[0], update_curves=False) == 0 and \
+                self.libsbmlnetwork.setY(id=self.element_id, graphical_object_index=self.graphical_object_index, y=position[1], update_curves=False) == 0:
+            return True
 
-            return False
-
-        raise ValueError(f"The network element {self.get_id()} cannot be moved to {position} because it would lead to negative coordinates.")
+        return False
 
     @property
     def position(self):
@@ -398,24 +396,26 @@ class NetworkElementBase:
         return self.move_by((position[0] - self.get_position()[0], position[1] - self.get_position()[1]))
 
     def move_by(self, delta: tuple[float, float]):
-        if self._can_move_by(delta):
-            current_position = self.get_position()
-            new_position = (current_position[0] + delta[0], current_position[1] + delta[1])
-            return self.set_position(new_position)
-
-        raise ValueError(f"The network element {self.get_id()} cannot be moved by {delta} because it would lead to negative coordinates.")
-
-    @staticmethod
-    def _can_move_to(position: tuple[float, float]):
-        if position[0] < 0 or position[1] < 0:
-            return False
-
-        return True
-
-    def _can_move_by(self, delta: tuple[float, float]):
+        self._adjust_delta_position(delta)
         current_position = self.get_position()
         new_position = (current_position[0] + delta[0], current_position[1] + delta[1])
-        if new_position[0] < 0 or new_position[1] < 0:
-            return False
+        return self.set_position(new_position)
 
-        return True
+    @staticmethod
+    def _adjust_position(position: tuple[float, float]):
+        if position[0] < 0:
+            position = (0, position[1])
+        if position[1] < 0:
+            position = (position[0], 0)
+
+        return position
+
+    def _adjust_delta_position(self, delta: tuple[float, float]):
+        current_position = self.get_position()
+        new_position = (current_position[0] + delta[0], current_position[1] + delta[1])
+        if new_position[0] < 0:
+            delta = (0 - current_position[0], delta[1])
+        if new_position[1] < 0:
+            delta = (delta[0], 0 - current_position[1])
+
+        return delta

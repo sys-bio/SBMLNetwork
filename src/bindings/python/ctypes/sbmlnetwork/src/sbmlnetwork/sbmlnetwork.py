@@ -1,5 +1,7 @@
 import libsbmlnetwork
 import networkinfotranslator
+import os
+import tellurium as te
 from IPython.display import display
 from .settings import Settings
 from .features.data_integration import ColorCodingFluxes
@@ -18,23 +20,24 @@ class SBMLNetwork:
         self.concentrations = None
 
     def load(self, sbml: str):
-        self.libsbmlnetwork.load(sbml)
+        if os.path.exists(sbml) or sbml.startswith("<?xml"):
+            self.libsbmlnetwork.load(sbml)
+        else:
+            self.libsbmlnetwork.load(te.loada(sbml).getSBML())
         self.populate_settings()
         if self.libsbmlnetwork.getNumLayouts() == 0:
             self.auto_layout()
-            self.set_style("power")
         elif self.libsbmlnetwork.getNumGlobalRenderInformation() == 0 and self.libsbmlnetwork.getNumLocalRenderInformation() == 0:
             self.auto_style()
-            self.set_style("power")
 
         return self
 
-    def save(self, file_name: str = None, update_network_extents: bool = True):
+    def save(self, file_name: str = None, update_network_extents: bool = False):
         if update_network_extents:
             self.update_network_extents()
         return self.libsbmlnetwork.save(file_name)
 
-    def draw(self, file_name: str = None, update_network_extents: bool = True):
+    def draw(self, file_name: str = None, update_network_extents: bool = False):
         """
         Draws the network of the SBML model. Saves the figure to the file_directory if specified, otherwise displays the figure.
 
@@ -607,6 +610,12 @@ class SBMLNetwork:
         reaction_group = ReactionGroup()
         reaction_group.group(self, reactions, color)
         return reaction_group
+
+    def create_aliases(self, alias_map):
+        for reaction_id, species_ids in alias_map.items():
+            reaction = self.get_reaction(reaction_id)
+            for species_id in species_ids:
+                self.get_species(species_id).create_alias(reaction)
 
     # ToDo: Implement the following functions on the list of elements
     # def show_compartment_labels(self):
