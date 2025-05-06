@@ -28,4 +28,10 @@ class SBGNPort(SBGNPortBase):
                                                         self.get_relative_y(sbmlnetwork_object.libsbmlnetwork.getY(parent_element.get_id())),
                                                         segment_index=1, geometric_shape_index=geometric_shape_index)
 
+        # set the style of the process node
+        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeBorderColor(parent_element.get_id(), "black",
+                                                           geometric_shape_index=geometric_shape_index)
+        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeBorderWidth(parent_element.get_id(), 2.0,
+                                                           geometric_shape_index=geometric_shape_index)
+
 

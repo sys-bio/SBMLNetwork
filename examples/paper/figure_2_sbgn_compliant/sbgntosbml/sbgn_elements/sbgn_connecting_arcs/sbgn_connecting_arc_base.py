@@ -71,6 +71,7 @@ class SBGNConnectingArcBase(SBGNElementBase):
         species_reference_index = species.get_connected_species_reference_index(sbmlnetwork_object, reaction.get_id())
 
         sbmlnetwork_object.libsbmlnetwork.setSpeciesReferenceLineWidth(reaction.get_id(), species_reference_index=species_reference_index, line_width=2.0)
+        sbmlnetwork_object.libsbmlnetwork.setSpeciesReferenceLineColor(reaction.get_id(), species_reference_index=species_reference_index, color="black")
 
         # curve points
         while sbmlnetwork_object.libsbmlnetwork.getNumSpeciesReferenceCurveSegments(reaction.get_id(), species_reference_index=species_reference_index) > 0:

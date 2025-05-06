@@ -1235,46 +1235,46 @@
               <layout:dimensions layout:width="0" layout:height="0"/>
             </layout:boundingBox>
           </layout:textGlyph>
-          <layout:textGlyph layout:id="SBMLNetwork_Fluxes_ColorBar_TextGlyph_0" layout:text="116.83" layout:graphicalObject="SBMLNetwork_Fluxes_ColorBar">
-            <layout:boundingBox layout:id="SBMLNetwork_Fluxes_ColorBar_TextGlyph_0_bb">
-              <layout:position layout:x="709" layout:y="-200.245"/>
-              <layout:dimensions layout:width="30" layout:height="600.75"/>
+          <layout:textGlyph layout:id="SBMLNetwork_Fluxes_LinearColorBar_TextGlyph_0" layout:text="116.83" layout:graphicalObject="SBMLNetwork_Fluxes_LinearColorBar">
+            <layout:boundingBox layout:id="SBMLNetwork_Fluxes_LinearColorBar_TextGlyph_0_bb">
+              <layout:position layout:x="711" layout:y="85.13"/>
+              <layout:dimensions layout:width="30" layout:height="30"/>
             </layout:boundingBox>
           </layout:textGlyph>
-          <layout:textGlyph layout:id="SBMLNetwork_Fluxes_ColorBar_TextGlyph_1" layout:text="89.59" layout:graphicalObject="SBMLNetwork_Fluxes_ColorBar">
-            <layout:boundingBox layout:id="SBMLNetwork_Fluxes_ColorBar_TextGlyph_1_bb">
-              <layout:position layout:x="709" layout:y="-50.0575"/>
-              <layout:dimensions layout:width="30" layout:height="600.75"/>
+          <layout:textGlyph layout:id="SBMLNetwork_Fluxes_LinearColorBar_TextGlyph_1" layout:text="89.59" layout:graphicalObject="SBMLNetwork_Fluxes_LinearColorBar">
+            <layout:boundingBox layout:id="SBMLNetwork_Fluxes_LinearColorBar_TextGlyph_1_bb">
+              <layout:position layout:x="711" layout:y="235.32"/>
+              <layout:dimensions layout:width="30" layout:height="30"/>
             </layout:boundingBox>
           </layout:textGlyph>
-          <layout:textGlyph layout:id="SBMLNetwork_Fluxes_ColorBar_TextGlyph_2" layout:text="62.36" layout:graphicalObject="SBMLNetwork_Fluxes_ColorBar">
-            <layout:boundingBox layout:id="SBMLNetwork_Fluxes_ColorBar_TextGlyph_2_bb">
-              <layout:position layout:x="709" layout:y="100.13"/>
-              <layout:dimensions layout:width="30" layout:height="600.75"/>
+          <layout:textGlyph layout:id="SBMLNetwork_Fluxes_LinearColorBar_TextGlyph_2" layout:text="62.36" layout:graphicalObject="SBMLNetwork_Fluxes_LinearColorBar">
+            <layout:boundingBox layout:id="SBMLNetwork_Fluxes_LinearColorBar_TextGlyph_2_bb">
+              <layout:position layout:x="711" layout:y="385.51"/>
+              <layout:dimensions layout:width="30" layout:height="30"/>
             </layout:boundingBox>
           </layout:textGlyph>
-          <layout:textGlyph layout:id="SBMLNetwork_Fluxes_ColorBar_TextGlyph_3" layout:text="35.12" layout:graphicalObject="SBMLNetwork_Fluxes_ColorBar">
-            <layout:boundingBox layout:id="SBMLNetwork_Fluxes_ColorBar_TextGlyph_3_bb">
-              <layout:position layout:x="709" layout:y="250.3175"/>
-              <layout:dimensions layout:width="30" layout:height="600.75"/>
+          <layout:textGlyph layout:id="SBMLNetwork_Fluxes_LinearColorBar_TextGlyph_3" layout:text="35.12" layout:graphicalObject="SBMLNetwork_Fluxes_LinearColorBar">
+            <layout:boundingBox layout:id="SBMLNetwork_Fluxes_LinearColorBar_TextGlyph_3_bb">
+              <layout:position layout:x="711" layout:y="535.69"/>
+              <layout:dimensions layout:width="30" layout:height="30"/>
             </layout:boundingBox>
           </layout:textGlyph>
-          <layout:textGlyph layout:id="SBMLNetwork_Fluxes_ColorBar_TextGlyph_4" layout:text="7.88" layout:graphicalObject="SBMLNetwork_Fluxes_ColorBar">
-            <layout:boundingBox layout:id="SBMLNetwork_Fluxes_ColorBar_TextGlyph_4_bb">
-              <layout:position layout:x="709" layout:y="400.505"/>
-              <layout:dimensions layout:width="30" layout:height="600.75"/>
+          <layout:textGlyph layout:id="SBMLNetwork_Fluxes_LinearColorBar_TextGlyph_4" layout:text="7.88" layout:graphicalObject="SBMLNetwork_Fluxes_LinearColorBar">
+            <layout:boundingBox layout:id="SBMLNetwork_Fluxes_LinearColorBar_TextGlyph_4_bb">
+              <layout:position layout:x="711" layout:y="685.88"/>
+              <layout:dimensions layout:width="30" layout:height="30"/>
             </layout:boundingBox>
           </layout:textGlyph>
-          <layout:textGlyph layout:id="SBMLNetwork_Fluxes_ColorBar_TextGlyph_5" layout:text="Flux" layout:graphicalObject="SBMLNetwork_Fluxes_ColorBar">
-            <layout:boundingBox layout:id="SBMLNetwork_Fluxes_ColorBar_TextGlyph_5_bb">
+          <layout:textGlyph layout:id="SBMLNetwork_Fluxes_LinearColorBar_TextGlyph_5" layout:text="flux" layout:graphicalObject="SBMLNetwork_Fluxes_LinearColorBar">
+            <layout:boundingBox layout:id="SBMLNetwork_Fluxes_LinearColorBar_TextGlyph_5_bb">
               <layout:position layout:x="683" layout:y="700.88"/>
               <layout:dimensions layout:width="40" layout:height="40"/>
             </layout:boundingBox>
           </layout:textGlyph>
         </layout:listOfTextGlyphs>
         <layout:listOfAdditionalGraphicalObjects>
-          <layout:graphicalObject layout:id="SBMLNetwork_Fluxes_ColorBar">
-            <layout:boundingBox layout:id="SBMLNetwork_Fluxes_ColorBar_bb">
+          <layout:graphicalObject layout:id="SBMLNetwork_Fluxes_LinearColorBar">
+            <layout:boundingBox layout:id="SBMLNetwork_Fluxes_LinearColorBar_bb">
               <layout:position layout:x="683" layout:y="100.13"/>
               <layout:dimensions layout:width="20" layout:height="600.75"/>
             </layout:boundingBox>
@@ -1308,6 +1308,8 @@
               <render:colorDefinition render:id="sbmlnetwork_local_color_17" render:value="#c8b412"/>
               <render:colorDefinition render:id="sbmlnetwork_local_color_18" render:value="#1e3a5f"/>
               <render:colorDefinition render:id="sbmlnetwork_local_color_19" render:value="#d32f2f"/>
+              <render:colorDefinition render:id="gondola_transparent" render:value="#21191600"/>
+              <render:colorDefinition render:id="white_transparent" render:value="#ffffff00"/>
             </render:listOfColorDefinitions>
             <render:listOfGradientDefinitions>
               <render:linearGradient render:id="gradient_0">
@@ -1666,7 +1668,7 @@
                 </render:g>
               </render:style>
               <render:style render:id="External_glucose_Glyph_0_TextGlyph_0_style" render:idList="External_glucose_Glyph_0_TextGlyph_0">
-                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
                   <render:rectangle render:stroke="black" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
                 </render:g>
               </render:style>
@@ -1676,7 +1678,7 @@
                 </render:g>
               </render:style>
               <render:style render:id="Glucose_Glyph_0_TextGlyph_0_style" render:idList="Glucose_Glyph_0_TextGlyph_0">
-                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
                   <render:rectangle render:stroke="black" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
                 </render:g>
               </render:style>
@@ -1686,7 +1688,7 @@
                 </render:g>
               </render:style>
               <render:style render:id="ATP_Glyph_0_TextGlyph_0_style" render:idList="ATP_Glyph_0_TextGlyph_0">
-                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
                   <render:rectangle render:stroke="black" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
                 </render:g>
               </render:style>
@@ -1696,7 +1698,7 @@
                 </render:g>
               </render:style>
               <render:style render:id="ADP_Glyph_0_TextGlyph_0_style" render:idList="ADP_Glyph_0_TextGlyph_0">
-                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
                   <render:rectangle render:stroke="black" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
                 </render:g>
               </render:style>
@@ -1706,7 +1708,7 @@
                 </render:g>
               </render:style>
               <render:style render:id="fructose_1_6_bisphosphate_Glyph_0_TextGlyph_0_style" render:idList="fructose_1_6_bisphosphate_Glyph_0_TextGlyph_0">
-                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
                   <render:rectangle render:stroke="black" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
                 </render:g>
               </render:style>
@@ -1716,7 +1718,7 @@
                 </render:g>
               </render:style>
               <render:style render:id="glyceraldehyde_3_phosphate_Glyph_0_TextGlyph_0_style" render:idList="glyceraldehyde_3_phosphate_Glyph_0_TextGlyph_0">
-                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
                   <render:rectangle render:stroke="black" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
                 </render:g>
               </render:style>
@@ -1726,7 +1728,7 @@
                 </render:g>
               </render:style>
               <render:style render:id="NAD_Glyph_0_TextGlyph_0_style" render:idList="NAD_Glyph_0_TextGlyph_0">
-                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
                   <render:rectangle render:stroke="black" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
                 </render:g>
               </render:style>
@@ -1736,7 +1738,7 @@
                 </render:g>
               </render:style>
               <render:style render:id="NADH_Glyph_1_TextGlyph_0_style" render:idList="NADH_Glyph_1_TextGlyph_0">
-                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
                   <render:rectangle render:stroke="black" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
                 </render:g>
               </render:style>
@@ -1746,7 +1748,7 @@
                 </render:g>
               </render:style>
               <render:style render:id="Glycerol_Glyph_0_TextGlyph_0_style" render:idList="Glycerol_Glyph_0_TextGlyph_0">
-                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
                   <render:rectangle render:stroke="black" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
                 </render:g>
               </render:style>
@@ -1756,7 +1758,7 @@
                 </render:g>
               </render:style>
               <render:style render:id="glycerate_3_phosphate_Glyph_0_TextGlyph_0_style" render:idList="glycerate_3_phosphate_Glyph_0_TextGlyph_0">
-                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
                   <render:rectangle render:stroke="black" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
                 </render:g>
               </render:style>
@@ -1766,7 +1768,7 @@
                 </render:g>
               </render:style>
               <render:style render:id="NADH_Glyph_2_TextGlyph_0_style" render:idList="NADH_Glyph_2_TextGlyph_0">
-                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
                   <render:rectangle render:stroke="black" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
                 </render:g>
               </render:style>
@@ -1776,7 +1778,7 @@
                 </render:g>
               </render:style>
               <render:style render:id="NAD_Glyph_1_TextGlyph_0_style" render:idList="NAD_Glyph_1_TextGlyph_0">
-                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
                   <render:rectangle render:stroke="black" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
                 </render:g>
               </render:style>
@@ -1786,7 +1788,7 @@
                 </render:g>
               </render:style>
               <render:style render:id="ADP_Glyph_1_TextGlyph_0_style" render:idList="ADP_Glyph_1_TextGlyph_0">
-                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
                   <render:rectangle render:stroke="black" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
                 </render:g>
               </render:style>
@@ -1796,7 +1798,7 @@
                 </render:g>
               </render:style>
               <render:style render:id="ATP_Glyph_1_TextGlyph_0_style" render:idList="ATP_Glyph_1_TextGlyph_0">
-                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
                   <render:rectangle render:stroke="black" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
                 </render:g>
               </render:style>
@@ -1806,7 +1808,7 @@
                 </render:g>
               </render:style>
               <render:style render:id="pyruvate_Glyph_0_TextGlyph_0_style" render:idList="pyruvate_Glyph_0_TextGlyph_0">
-                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
                   <render:rectangle render:stroke="black" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
                 </render:g>
               </render:style>
@@ -1816,7 +1818,7 @@
                 </render:g>
               </render:style>
               <render:style render:id="ADP_Glyph_2_TextGlyph_0_style" render:idList="ADP_Glyph_2_TextGlyph_0">
-                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
                   <render:rectangle render:stroke="black" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
                 </render:g>
               </render:style>
@@ -1826,7 +1828,7 @@
                 </render:g>
               </render:style>
               <render:style render:id="ATP_Glyph_2_TextGlyph_0_style" render:idList="ATP_Glyph_2_TextGlyph_0">
-                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
                   <render:rectangle render:stroke="black" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
                 </render:g>
               </render:style>
@@ -1836,7 +1838,7 @@
                 </render:g>
               </render:style>
               <render:style render:id="Acetyladehyde_Glyph_0_TextGlyph_0_style" render:idList="Acetyladehyde_Glyph_0_TextGlyph_0">
-                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
                   <render:rectangle render:stroke="black" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
                 </render:g>
               </render:style>
@@ -1846,7 +1848,7 @@
                 </render:g>
               </render:style>
               <render:style render:id="ethanol_Glyph_0_TextGlyph_0_style" render:idList="ethanol_Glyph_0_TextGlyph_0">
-                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
                   <render:rectangle render:stroke="black" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
                 </render:g>
               </render:style>
@@ -1856,7 +1858,7 @@
                 </render:g>
               </render:style>
               <render:style render:id="NADH_Glyph_0_TextGlyph_0_style" render:idList="NADH_Glyph_0_TextGlyph_0">
-                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
                   <render:rectangle render:stroke="black" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
                 </render:g>
               </render:style>
@@ -1866,7 +1868,7 @@
                 </render:g>
               </render:style>
               <render:style render:id="NAD_Glyph_2_TextGlyph_0_style" render:idList="NAD_Glyph_2_TextGlyph_0">
-                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
                   <render:rectangle render:stroke="black" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
                 </render:g>
               </render:style>
@@ -1876,7 +1878,7 @@
                 </render:g>
               </render:style>
               <render:style render:id="External_acetaldehyde_Glyph_0_TextGlyph_0_style" render:idList="External_acetaldehyde_Glyph_0_TextGlyph_0">
-                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
                   <render:rectangle render:stroke="black" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
                 </render:g>
               </render:style>
@@ -1886,7 +1888,7 @@
                 </render:g>
               </render:style>
               <render:style render:id="Sink_Glyph_0_TextGlyph_0_style" render:idList="Sink_Glyph_0_TextGlyph_0">
-                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="24">
+                <render:g render:stroke="black" render:stroke-width="3" render:fill="carnation" render:font-family="Arial" render:font-weight="normal" render:font-style="normal" render:text-anchor="middle" render:vtext-anchor="middle" render:font-size="12">
                   <render:rectangle render:stroke="black" render:stroke-width="3" render:fill="carnation" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="6" render:ry="3.6"/>
                 </render:g>
               </render:style>
@@ -1960,67 +1962,67 @@
                   <render:rectangle render:stroke="mandy_transparent" render:stroke-width="3" render:fill="pewter" render:x="0" render:y="0" render:width="100%" render:height="100%" render:rx="25" render:ry="25"/>
                 </render:g>
               </render:style>
-              <render:style render:id="SBMLNetwork_Fluxes_ColorBar_style" render:idList="SBMLNetwork_Fluxes_ColorBar">
+              <render:style render:id="SBMLNetwork_Fluxes_LinearColorBar_style" render:idList="SBMLNetwork_Fluxes_LinearColorBar">
                 <g stroke="black" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="24">
                   <rectangle stroke="sbmlnetwork_local_color_5" stroke-width="3" fill="gradient_1" x="0" y="0" width="100%" height="100%" rx="1" ry="1"/>
                   <curve stroke="sbmlnetwork_local_color_5" stroke-width="1">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
-                      <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="26" y="0"/>
-                      <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="20" y="0"/>
+                      <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="28" y="0"/>
+                      <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="21" y="0"/>
                     </listOfElements>
                   </curve>
                   <curve stroke="sbmlnetwork_local_color_5" stroke-width="1">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
-                      <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="26" y="150.188"/>
-                      <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="20" y="150.188"/>
+                      <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="28" y="150.188"/>
+                      <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="21" y="150.188"/>
                     </listOfElements>
                   </curve>
                   <curve stroke="sbmlnetwork_local_color_5" stroke-width="1">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
-                      <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="26" y="300.375"/>
-                      <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="20" y="300.375"/>
+                      <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="28" y="300.375"/>
+                      <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="21" y="300.375"/>
                     </listOfElements>
                   </curve>
                   <curve stroke="sbmlnetwork_local_color_5" stroke-width="1">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
-                      <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="26" y="450.562"/>
-                      <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="20" y="450.562"/>
+                      <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="28" y="450.562"/>
+                      <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="21" y="450.562"/>
                     </listOfElements>
                   </curve>
                   <curve stroke="sbmlnetwork_local_color_5" stroke-width="1">
                     <listOfElements xmlns="http://www.sbml.org/sbml/level3/version1/render/version1">
-                      <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="26" y="600.75"/>
-                      <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="20" y="600.75"/>
+                      <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="28" y="600.75"/>
+                      <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RenderPoint" x="21" y="600.75"/>
                     </listOfElements>
                   </curve>
                 </g>
               </render:style>
-              <render:style render:id="SBMLNetwork_Fluxes_ColorBar_TextGlyph_5_style" render:idList="SBMLNetwork_Fluxes_ColorBar_TextGlyph_5">
+              <render:style render:id="SBMLNetwork_Fluxes_LinearColorBar_TextGlyph_5_style" render:idList="SBMLNetwork_Fluxes_LinearColorBar_TextGlyph_5">
                 <g stroke="black" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="start" vtext-anchor="middle" font-size="10">
                   <rectangle stroke="black" stroke-width="2" fill="white" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
-              <render:style render:id="SBMLNetwork_Fluxes_ColorBar_TextGlyph_0_style" render:idList="SBMLNetwork_Fluxes_ColorBar_TextGlyph_0">
+              <render:style render:id="SBMLNetwork_Fluxes_LinearColorBar_TextGlyph_0_style" render:idList="SBMLNetwork_Fluxes_LinearColorBar_TextGlyph_0">
                 <g stroke="black" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="10">
                   <rectangle stroke="black" stroke-width="2" fill="white" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
-              <render:style render:id="SBMLNetwork_Fluxes_ColorBar_TextGlyph_1_style" render:idList="SBMLNetwork_Fluxes_ColorBar_TextGlyph_1">
+              <render:style render:id="SBMLNetwork_Fluxes_LinearColorBar_TextGlyph_1_style" render:idList="SBMLNetwork_Fluxes_LinearColorBar_TextGlyph_1">
                 <g stroke="black" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="10">
                   <rectangle stroke="black" stroke-width="2" fill="white" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
-              <render:style render:id="SBMLNetwork_Fluxes_ColorBar_TextGlyph_2_style" render:idList="SBMLNetwork_Fluxes_ColorBar_TextGlyph_2">
+              <render:style render:id="SBMLNetwork_Fluxes_LinearColorBar_TextGlyph_2_style" render:idList="SBMLNetwork_Fluxes_LinearColorBar_TextGlyph_2">
                 <g stroke="black" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="10">
                   <rectangle stroke="black" stroke-width="2" fill="white" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
-              <render:style render:id="SBMLNetwork_Fluxes_ColorBar_TextGlyph_3_style" render:idList="SBMLNetwork_Fluxes_ColorBar_TextGlyph_3">
+              <render:style render:id="SBMLNetwork_Fluxes_LinearColorBar_TextGlyph_3_style" render:idList="SBMLNetwork_Fluxes_LinearColorBar_TextGlyph_3">
                 <g stroke="black" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="10">
                   <rectangle stroke="black" stroke-width="2" fill="white" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
               </render:style>
-              <render:style render:id="SBMLNetwork_Fluxes_ColorBar_TextGlyph_4_style" render:idList="SBMLNetwork_Fluxes_ColorBar_TextGlyph_4">
+              <render:style render:id="SBMLNetwork_Fluxes_LinearColorBar_TextGlyph_4_style" render:idList="SBMLNetwork_Fluxes_LinearColorBar_TextGlyph_4">
                 <g stroke="black" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="10">
                   <rectangle stroke="black" stroke-width="2" fill="white" x="0" y="0" width="100%" height="100%" rx="6" ry="3.6"/>
                 </g>
@@ -2028,60 +2030,20 @@
               <render:style render:id="External_glucose_Glyph_0_J0_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="External_glucose_Glyph_0_J0_Glyph_0_Stoichiometry_0_Glyph_0">
                 <g stroke="sbmlnetwork_local_color_11" stroke-width="5"/>
               </render:style>
-              <render:style render:id="J0_Glyph_0_style" render:idList="J0_Glyph_0">
-                <g stroke="sbmlnetwork_local_color_11" stroke-width="5" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <ellipse stroke="sbmlnetwork_local_color_11" stroke-width="5" fill="white" cx="50%" cy="50%" rx="50%"/>
-                </g>
-              </render:style>
-              <render:style render:id="J0_Glyph_0_TextGlyph_0_style" render:idList="J0_Glyph_0_TextGlyph_0">
-                <g stroke="sbmlnetwork_local_color_11" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <ellipse stroke="sbmlnetwork_local_color_11" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
-                </g>
-              </render:style>
               <render:style render:id="Glucose_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="Glucose_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0">
                 <g stroke="sbmlnetwork_local_color_12" stroke-width="5"/>
               </render:style>
               <render:style render:id="ATP_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="ATP_Glyph_0_J1_Glyph_0_Stoichiometry_0_Glyph_0">
                 <g stroke="sbmlnetwork_local_color_12" stroke-width="5"/>
               </render:style>
-              <render:style render:id="J1_Glyph_0_style" render:idList="J1_Glyph_0">
-                <g stroke="sbmlnetwork_local_color_12" stroke-width="5" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <ellipse stroke="sbmlnetwork_local_color_12" stroke-width="5" fill="white" cx="50%" cy="50%" rx="50%"/>
-                </g>
-              </render:style>
-              <render:style render:id="J1_Glyph_0_TextGlyph_0_style" render:idList="J1_Glyph_0_TextGlyph_0">
-                <g stroke="sbmlnetwork_local_color_12" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <ellipse stroke="sbmlnetwork_local_color_12" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
-                </g>
-              </render:style>
               <render:style render:id="fructose_1_6_bisphosphate_Glyph_0_J2_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="fructose_1_6_bisphosphate_Glyph_0_J2_Glyph_0_Stoichiometry_0_Glyph_0">
                 <g stroke="sbmlnetwork_local_color_13" stroke-width="5"/>
-              </render:style>
-              <render:style render:id="J2_Glyph_0_style" render:idList="J2_Glyph_0">
-                <g stroke="sbmlnetwork_local_color_13" stroke-width="5" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <ellipse stroke="sbmlnetwork_local_color_13" stroke-width="5" fill="white" cx="50%" cy="50%" rx="50%"/>
-                </g>
-              </render:style>
-              <render:style render:id="J2_Glyph_0_TextGlyph_0_style" render:idList="J2_Glyph_0_TextGlyph_0">
-                <g stroke="sbmlnetwork_local_color_13" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <ellipse stroke="sbmlnetwork_local_color_13" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
-                </g>
               </render:style>
               <render:style render:id="glyceraldehyde_3_phosphate_Glyph_0_J3_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyceraldehyde_3_phosphate_Glyph_0_J3_Glyph_0_Stoichiometry_0_Glyph_0">
                 <g stroke="sbmlnetwork_local_color_14" stroke-width="5"/>
               </render:style>
               <render:style render:id="NADH_Glyph_1_J3_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="NADH_Glyph_1_J3_Glyph_0_Stoichiometry_0_Glyph_0">
                 <g stroke="sbmlnetwork_local_color_14" stroke-width="5"/>
-              </render:style>
-              <render:style render:id="J3_Glyph_0_style" render:idList="J3_Glyph_0">
-                <g stroke="sbmlnetwork_local_color_14" stroke-width="5" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <ellipse stroke="sbmlnetwork_local_color_14" stroke-width="5" fill="white" cx="50%" cy="50%" rx="50%"/>
-                </g>
-              </render:style>
-              <render:style render:id="J3_Glyph_0_TextGlyph_0_style" render:idList="J3_Glyph_0_TextGlyph_0">
-                <g stroke="sbmlnetwork_local_color_14" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <ellipse stroke="sbmlnetwork_local_color_14" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
-                </g>
               </render:style>
               <render:style render:id="glyceraldehyde_3_phosphate_Glyph_0_J4_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glyceraldehyde_3_phosphate_Glyph_0_J4_Glyph_0_Stoichiometry_0_Glyph_0">
                 <g stroke="sbmlnetwork_local_color_15" stroke-width="5"/>
@@ -2092,44 +2054,14 @@
               <render:style render:id="NAD_Glyph_1_J4_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="NAD_Glyph_1_J4_Glyph_0_Stoichiometry_0_Glyph_0">
                 <g stroke="sbmlnetwork_local_color_15" stroke-width="5"/>
               </render:style>
-              <render:style render:id="J4_Glyph_0_style" render:idList="J4_Glyph_0">
-                <g stroke="sbmlnetwork_local_color_15" stroke-width="5" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <ellipse stroke="sbmlnetwork_local_color_15" stroke-width="5" fill="white" cx="50%" cy="50%" rx="50%"/>
-                </g>
-              </render:style>
-              <render:style render:id="J4_Glyph_0_TextGlyph_0_style" render:idList="J4_Glyph_0_TextGlyph_0">
-                <g stroke="sbmlnetwork_local_color_15" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <ellipse stroke="sbmlnetwork_local_color_15" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
-                </g>
-              </render:style>
               <render:style render:id="glycerate_3_phosphate_Glyph_0_J5_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="glycerate_3_phosphate_Glyph_0_J5_Glyph_0_Stoichiometry_0_Glyph_0">
                 <g stroke="sbmlnetwork_local_color_15" stroke-width="5"/>
               </render:style>
               <render:style render:id="ADP_Glyph_2_J5_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="ADP_Glyph_2_J5_Glyph_0_Stoichiometry_0_Glyph_0">
                 <g stroke="sbmlnetwork_local_color_15" stroke-width="5"/>
               </render:style>
-              <render:style render:id="J5_Glyph_0_style" render:idList="J5_Glyph_0">
-                <g stroke="sbmlnetwork_local_color_15" stroke-width="5" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <ellipse stroke="sbmlnetwork_local_color_15" stroke-width="5" fill="white" cx="50%" cy="50%" rx="50%"/>
-                </g>
-              </render:style>
-              <render:style render:id="J5_Glyph_0_TextGlyph_0_style" render:idList="J5_Glyph_0_TextGlyph_0">
-                <g stroke="sbmlnetwork_local_color_15" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <ellipse stroke="sbmlnetwork_local_color_15" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
-                </g>
-              </render:style>
               <render:style render:id="pyruvate_Glyph_0_J6_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="pyruvate_Glyph_0_J6_Glyph_0_Stoichiometry_0_Glyph_0">
                 <g stroke="sbmlnetwork_local_color_16" stroke-width="5"/>
-              </render:style>
-              <render:style render:id="J6_Glyph_0_style" render:idList="J6_Glyph_0">
-                <g stroke="sbmlnetwork_local_color_16" stroke-width="5" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <ellipse stroke="sbmlnetwork_local_color_16" stroke-width="5" fill="white" cx="50%" cy="50%" rx="50%"/>
-                </g>
-              </render:style>
-              <render:style render:id="J6_Glyph_0_TextGlyph_0_style" render:idList="J6_Glyph_0_TextGlyph_0">
-                <g stroke="sbmlnetwork_local_color_16" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <ellipse stroke="sbmlnetwork_local_color_16" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
-                </g>
               </render:style>
               <render:style render:id="Acetyladehyde_Glyph_0_J7_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="Acetyladehyde_Glyph_0_J7_Glyph_0_Stoichiometry_0_Glyph_0">
                 <g stroke="sbmlnetwork_local_color_17" stroke-width="5"/>
@@ -2137,53 +2069,123 @@
               <render:style render:id="NADH_Glyph_0_J7_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="NADH_Glyph_0_J7_Glyph_0_Stoichiometry_0_Glyph_0">
                 <g stroke="sbmlnetwork_local_color_17" stroke-width="5"/>
               </render:style>
-              <render:style render:id="J7_Glyph_0_style" render:idList="J7_Glyph_0">
-                <g stroke="sbmlnetwork_local_color_17" stroke-width="5" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <ellipse stroke="sbmlnetwork_local_color_17" stroke-width="5" fill="white" cx="50%" cy="50%" rx="50%"/>
-                </g>
-              </render:style>
-              <render:style render:id="J7_Glyph_0_TextGlyph_0_style" render:idList="J7_Glyph_0_TextGlyph_0">
-                <g stroke="sbmlnetwork_local_color_17" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <ellipse stroke="sbmlnetwork_local_color_17" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
-                </g>
-              </render:style>
               <render:style render:id="Acetyladehyde_Glyph_0_J8_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="Acetyladehyde_Glyph_0_J8_Glyph_0_Stoichiometry_0_Glyph_0">
                 <g stroke="sbmlnetwork_local_color_18" stroke-width="5"/>
-              </render:style>
-              <render:style render:id="J8_Glyph_0_style" render:idList="J8_Glyph_0">
-                <g stroke="sbmlnetwork_local_color_18" stroke-width="5" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <ellipse stroke="sbmlnetwork_local_color_18" stroke-width="5" fill="white" cx="50%" cy="50%" rx="50%"/>
-                </g>
-              </render:style>
-              <render:style render:id="J8_Glyph_0_TextGlyph_0_style" render:idList="J8_Glyph_0_TextGlyph_0">
-                <g stroke="sbmlnetwork_local_color_18" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <ellipse stroke="sbmlnetwork_local_color_18" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
-                </g>
               </render:style>
               <render:style render:id="ATP_Glyph_0_J9_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="ATP_Glyph_0_J9_Glyph_0_Stoichiometry_0_Glyph_0">
                 <g stroke="sbmlnetwork_local_color_19" stroke-width="5"/>
               </render:style>
-              <render:style render:id="J9_Glyph_0_style" render:idList="J9_Glyph_0">
-                <g stroke="sbmlnetwork_local_color_19" stroke-width="5" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <ellipse stroke="sbmlnetwork_local_color_19" stroke-width="5" fill="white" cx="50%" cy="50%" rx="50%"/>
-                </g>
-              </render:style>
-              <render:style render:id="J9_Glyph_0_TextGlyph_0_style" render:idList="J9_Glyph_0_TextGlyph_0">
-                <g stroke="sbmlnetwork_local_color_19" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <ellipse stroke="sbmlnetwork_local_color_19" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
-                </g>
-              </render:style>
               <render:style render:id="External_acetaldehyde_Glyph_0_J10_Glyph_0_Stoichiometry_0_Glyph_0_style" render:idList="External_acetaldehyde_Glyph_0_J10_Glyph_0_Stoichiometry_0_Glyph_0">
                 <g stroke="sbmlnetwork_local_color_18" stroke-width="5"/>
               </render:style>
+              <render:style render:id="J0_Glyph_0_style" render:idList="J0_Glyph_0">
+                <g stroke="gondola_transparent" stroke-width="3" fill="white_transparent" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="gondola_transparent" stroke-width="3" fill="white_transparent" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J0_Glyph_0_TextGlyph_0_style" render:idList="J0_Glyph_0_TextGlyph_0">
+                <g stroke="gondola_transparent" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="gondola_transparent" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J1_Glyph_0_style" render:idList="J1_Glyph_0">
+                <g stroke="gondola_transparent" stroke-width="3" fill="white_transparent" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="gondola_transparent" stroke-width="3" fill="white_transparent" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J1_Glyph_0_TextGlyph_0_style" render:idList="J1_Glyph_0_TextGlyph_0">
+                <g stroke="gondola_transparent" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="gondola_transparent" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J2_Glyph_0_style" render:idList="J2_Glyph_0">
+                <g stroke="gondola_transparent" stroke-width="3" fill="white_transparent" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="gondola_transparent" stroke-width="3" fill="white_transparent" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J2_Glyph_0_TextGlyph_0_style" render:idList="J2_Glyph_0_TextGlyph_0">
+                <g stroke="gondola_transparent" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="gondola_transparent" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J3_Glyph_0_style" render:idList="J3_Glyph_0">
+                <g stroke="gondola_transparent" stroke-width="3" fill="white_transparent" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="gondola_transparent" stroke-width="3" fill="white_transparent" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J3_Glyph_0_TextGlyph_0_style" render:idList="J3_Glyph_0_TextGlyph_0">
+                <g stroke="gondola_transparent" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="gondola_transparent" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J4_Glyph_0_style" render:idList="J4_Glyph_0">
+                <g stroke="gondola_transparent" stroke-width="3" fill="white_transparent" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="gondola_transparent" stroke-width="3" fill="white_transparent" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J4_Glyph_0_TextGlyph_0_style" render:idList="J4_Glyph_0_TextGlyph_0">
+                <g stroke="gondola_transparent" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="gondola_transparent" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J5_Glyph_0_style" render:idList="J5_Glyph_0">
+                <g stroke="gondola_transparent" stroke-width="3" fill="white_transparent" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="gondola_transparent" stroke-width="3" fill="white_transparent" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J5_Glyph_0_TextGlyph_0_style" render:idList="J5_Glyph_0_TextGlyph_0">
+                <g stroke="gondola_transparent" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="gondola_transparent" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J6_Glyph_0_style" render:idList="J6_Glyph_0">
+                <g stroke="gondola_transparent" stroke-width="3" fill="white_transparent" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="gondola_transparent" stroke-width="3" fill="white_transparent" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J6_Glyph_0_TextGlyph_0_style" render:idList="J6_Glyph_0_TextGlyph_0">
+                <g stroke="gondola_transparent" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="gondola_transparent" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J7_Glyph_0_style" render:idList="J7_Glyph_0">
+                <g stroke="gondola_transparent" stroke-width="3" fill="white_transparent" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="gondola_transparent" stroke-width="3" fill="white_transparent" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J7_Glyph_0_TextGlyph_0_style" render:idList="J7_Glyph_0_TextGlyph_0">
+                <g stroke="gondola_transparent" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="gondola_transparent" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J8_Glyph_0_style" render:idList="J8_Glyph_0">
+                <g stroke="gondola_transparent" stroke-width="3" fill="white_transparent" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="gondola_transparent" stroke-width="3" fill="white_transparent" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J8_Glyph_0_TextGlyph_0_style" render:idList="J8_Glyph_0_TextGlyph_0">
+                <g stroke="gondola_transparent" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="gondola_transparent" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J9_Glyph_0_style" render:idList="J9_Glyph_0">
+                <g stroke="gondola_transparent" stroke-width="3" fill="white_transparent" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="gondola_transparent" stroke-width="3" fill="white_transparent" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
+              <render:style render:id="J9_Glyph_0_TextGlyph_0_style" render:idList="J9_Glyph_0_TextGlyph_0">
+                <g stroke="gondola_transparent" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="gondola_transparent" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                </g>
+              </render:style>
               <render:style render:id="J10_Glyph_0_style" render:idList="J10_Glyph_0">
-                <g stroke="sbmlnetwork_local_color_18" stroke-width="5" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <ellipse stroke="sbmlnetwork_local_color_18" stroke-width="5" fill="white" cx="50%" cy="50%" rx="50%"/>
+                <g stroke="gondola_transparent" stroke-width="3" fill="white_transparent" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="gondola_transparent" stroke-width="3" fill="white_transparent" cx="50%" cy="50%" rx="50%"/>
                 </g>
               </render:style>
               <render:style render:id="J10_Glyph_0_TextGlyph_0_style" render:idList="J10_Glyph_0_TextGlyph_0">
-                <g stroke="sbmlnetwork_local_color_18" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
-                  <ellipse stroke="sbmlnetwork_local_color_18" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
+                <g stroke="gondola_transparent" stroke-width="3" fill="white" font-family="sans-serif" font-weight="normal" font-style="normal" text-anchor="middle" vtext-anchor="middle" font-size="12">
+                  <ellipse stroke="gondola_transparent" stroke-width="3" fill="white" cx="50%" cy="50%" rx="50%"/>
                 </g>
               </render:style>
             </render:listOfStyles>
