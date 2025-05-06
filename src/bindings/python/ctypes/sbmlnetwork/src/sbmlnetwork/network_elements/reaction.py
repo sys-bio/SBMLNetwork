@@ -449,54 +449,52 @@ class Reaction(NetworkElementBase):
                             move_connected_species)
 
     def move_by(self, delta: tuple[float, float], move_connected_species: bool = True):
-        if self._can_move_by(delta):
-            is_moved = super().move_by(delta)
-            if not is_moved:
-                return False
+        self._adjust_delta_position(delta)
+        is_moved = super().move_by(delta)
+        if not is_moved:
+            return False
 
-            is_moved = self.get_curves_list().move_by(delta)
+        is_moved = self.get_curves_list().move_by(delta)
+        if not all(is_moved):
+            return False
+
+        if move_connected_species:
+            is_moved = self.get_species_list().move_by(delta, move_connected_curves=False)
             if not all(is_moved):
                 return False
 
-            if move_connected_species:
-                is_moved = self.get_species_list().move_by(delta, move_connected_curves=False)
-                if not all(is_moved):
-                    return False
+        other_curves = self.get_species_list().get_connected_curves()
+        for curve in other_curves:
+            if curve.get_reaction().get_id() != self.get_id():
+                if curve.get_role() in curve.get_modifier_role_options():
+                    curve.move_start_by(delta)
+                else:
+                    curve.move_end_by(delta, adjust_end_point_for_uni_uni_reaction=True)
 
-            other_curves = self.get_species_list().get_connected_curves()
-            for curve in other_curves:
-                if curve.get_reaction().get_id() != self.get_id():
-                    if curve.get_role() in curve.get_modifier_role_options():
-                        curve.move_start_by(delta)
-                    else:
-                        curve.move_end_by(delta, adjust_end_point_for_uni_uni_reaction=True)
+        return True
 
-            return True
-
-        raise ValueError(f"Reaction {self.get_reaction_id()} cannot be moved by {delta} because it would lead to negative coordinates.")
-
-    def align_horizontal(self, center_at: tuple[float, float] = None, spread_width: float = None,
+    def align_horizontal(self, center_at: tuple[float, float] = None, spread: float = None,
                          reactants_order: list = None, products_order: list = None, modifiers_order: list = None,
                          reactants_placement: str = "both", products_placement: str = "both", modifiers_placement: str = "both"):
         from ..features.align import HorizontalAlign
 
         horizontal_align = HorizontalAlign(self.libsbmlnetwork)
-        return horizontal_align.align(self, center_at, spread_width,
+        return horizontal_align.align(self, center_at, spread,
                                       reactants_order, products_order, modifiers_order,
                                       reactants_placement, products_placement, modifiers_placement)
 
-    def align_vertical(self, center_at: tuple[float, float] = None, spread_height: float = None,
+    def align_vertical(self, center_at: tuple[float, float] = None, spread: float = None,
                        reactants_order: list = None, products_order: list = None, modifiers_order: list = None,
                        reactants_placement: str = "both", products_placement: str = "both", modifiers_placement: str = "both"):
         from ..features.align import VerticalAlign
 
         vertical_align = VerticalAlign(self.libsbmlnetwork)
-        return vertical_align.align(self, center_at, spread_height,
+        return vertical_align.align(self, center_at, spread,
                                     reactants_order, products_order, modifiers_order,
                                     reactants_placement, products_placement, modifiers_placement)
 
     def align_circle(self, center_at: tuple[float, float] = None, radius: float = None, arc_start: float = -180,
-                     arc_end: float = -90, clockwise: bool = False,
+                     arc_end: float = -90, clockwise: bool = True,
                      reactants_order: list = None, products_order: list = None, modifiers_order: list = None,
                      reactants_placement: str = "both", products_placement: str = "both", modifiers_placement: str = "both"):
         from ..features.align import CircleAlign

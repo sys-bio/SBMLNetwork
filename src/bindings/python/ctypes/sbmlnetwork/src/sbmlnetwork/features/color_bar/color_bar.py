@@ -282,12 +282,15 @@ class ColorBarBase(AdditionalElement):
 class LinearColorBar(ColorBarBase):
 
     def set_max_value(self, max_value: float):
-        if max_value < self.get_min_value():
-            raise ValueError("Max value must be greater than min value")
         if self.get_labels_list() and len(self.get_labels_list()) > 0:
             self.get_labels_list()[0].set_text(str(max_value))
 
-        return self._update_labels()
+        if self._update_labels():
+            if self.get_min_value() > self.get_max_value():
+                return self.set_min_value(self.get_max_value())
+            return True
+
+        return False
 
     def get_min_value(self):
         if self.get_labels_list() and len(self.get_labels_list()) > 1:
@@ -296,12 +299,16 @@ class LinearColorBar(ColorBarBase):
         return 0.0
 
     def set_min_value(self, min_value: float):
-        if min_value > self.get_max_value():
-            raise ValueError("Min value must be less than max value")
         if self.get_labels_list() and len(self.get_labels_list()) > 0:
             self.get_labels_list()[-2].set_text(str(min_value))
 
-        return self._update_labels()
+        if self._update_labels():
+            if self.get_min_value() > self.get_max_value():
+                return self.set_max_value(self.get_min_value())
+            return True
+
+        return False
+
 
     def get_number_of_tick_marks(self):
         if self.get_shapes_list() and len(self.get_shapes_list()) > 1:

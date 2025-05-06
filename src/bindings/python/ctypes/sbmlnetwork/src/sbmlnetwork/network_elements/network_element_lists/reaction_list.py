@@ -506,6 +506,26 @@ class ReactionList(NetworkElementBaseList):
                 successful_assignments.extend(reaction)
         return successful_assignments
 
+    def align_circle(self, center_at: tuple[float, float] = None, radius: float = None, arc_start: float = -180,
+                     arc_end: float = -90, clockwise: bool = True,
+                     reactants_placement: str = "both", products_placement: str = "both", modifiers_placement: str = "both"):
+        temp_arc_start = arc_start
+        temp_arc_end = arc_end
+        arc_step = (arc_end - arc_start) / len(self.get_ids())
+        for idx, reaction in enumerate(self):
+            temp_arc_start = arc_start + idx * arc_step
+            temp_arc_end = temp_arc_start + arc_step
+            reaction.align_circle(
+                arc_start=temp_arc_start,
+                arc_end=temp_arc_end,
+                center_at=center_at,
+                radius=radius,
+                clockwise=clockwise,
+                reactants_placement=reactants_placement,
+                products_placement=products_placement,
+                modifiers_placement=modifiers_placement
+            )
+
     def move(self, delta: tuple[float, float], move_connected_species: bool = True):
         results = []
         for reaction in self:

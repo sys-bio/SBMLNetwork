@@ -852,6 +852,8 @@ void setCompartmentGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     setGeneralTextGlyphRenderGroupFeatures(renderGroup);
     renderGroup->setStroke(getDefaultPredefinedStyleFeatures()["compartment-font-color"]);
     renderGroup->setFontSize(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["compartment-font-size"]), 0.0));
+    renderGroup->setFontWeight(getDefaultPredefinedStyleFeatures()["compartment-font-weight"]);
+    renderGroup->setFontStyle(getDefaultPredefinedStyleFeatures()["compartment-font-style"]);
     renderGroup->setTextAnchor(getDefaultPredefinedStyleFeatures()["compartment-text-horizontal-alignment"]);
     renderGroup->setVTextAnchor(getDefaultPredefinedStyleFeatures()["compartment-text-vertical-alignment"]);
 }
