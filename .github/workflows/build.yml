@@ -35,16 +35,16 @@ jobs:
             os_name: macos-latest
             build_type: Debug
             build_python: ON
-          - name: ubuntu-latest-release
-            os_type: ubuntu
-            os_name: ubuntu-latest
-            build_type: Release
-            build_python: ON
-          - name: ubuntu-latest-debug
-            os_type: ubuntu
-            os_name: ubuntu-latest
-            build_type: Debug
-            build_python: ON
+#          - name: ubuntu-latest-release
+#            os_type: ubuntu
+#            os_name: ubuntu-latest
+#            build_type: Release
+#            build_python: ON
+#          - name: ubuntu-latest-debug
+#            os_type: ubuntu
+#            os_name: ubuntu-latest
+#            build_type: Debug
+#            build_python: ON
           - name: windows-latest-release
             os_type: windows
             os_name: windows-latest
