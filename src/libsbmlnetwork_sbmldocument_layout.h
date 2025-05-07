@@ -94,8 +94,9 @@ LIBSBMLNETWORK_EXTERN int setUseNameAsTextLabel(SBMLDocument* document, unsigned
 /// @param speciesId the id of the Species to create an alias SpeciesGlyph for.
 /// @param reactionId the id of the Reaction to create an alias SpeciesGlyph for.
 /// @param reactionGlyphIndex the index of the ReactionGlyph object to create an alias SpeciesGlyph for.
+/// @param updateCurves whether to run autolayout after adding the glyph.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int createAliasSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex);
+LIBSBMLNETWORK_EXTERN int createAliasSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, bool updateCurves = true);
 
 /// @brief Create an alias SpeciesGlyph object for Species with the given id and connect all the SpeciesReferences in the ReactionGlyph object with the given id and index that contain Species as a participant to the alias SpeciesGlyph in the Layout object with the given index in the ListOfLayouts of the SBMLDocument.
 /// @param document a pointer to the SBMLDocument object.
@@ -103,8 +104,9 @@ LIBSBMLNETWORK_EXTERN int createAliasSpeciesGlyph(SBMLDocument* document, const 
 /// @param speciesId the id of the Species to create an alias SpeciesGlyph for.
 /// @param reactionId the id of the Reaction to create an alias SpeciesGlyph for.
 /// @param reactionGlyphIndex the index of the ReactionGlyph object to create an alias SpeciesGlyph for.
+/// @param updateCurves whether to run autolayout after adding the glyph.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int createAliasSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex);
+LIBSBMLNETWORK_EXTERN int createAliasSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, bool updateCurves = true);
 
 /// @brief Creates an alias ReactionGlyph object for the Reaction with the given id in the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.

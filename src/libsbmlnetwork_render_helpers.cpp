@@ -140,7 +140,7 @@ Style* findStyleByTypeList(GlobalRenderInformation* globalRenderInformation, con
     return NULL;
 }
 
-const std::string getStyleType(GraphicalObject* graphicalObject) {
+const std::string getStyleType(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
     if (graphicalObject) {
         if (isCompartmentGlyph(graphicalObject))
             return getCompartmentGlyphStyleType();
@@ -153,7 +153,7 @@ const std::string getStyleType(GraphicalObject* graphicalObject) {
         else if (isSpeciesReferenceGlyph(graphicalObject))
             return getSpeciesReferenceGlyphStyleType();
         else if (isTextGlyph(graphicalObject))
-            return getTextGlyphStyleType();
+            return getTextGlyphStyleType(renderInformationBase, graphicalObject);
 
         return getGraphicalObjectStyleType();
     }
@@ -161,12 +161,12 @@ const std::string getStyleType(GraphicalObject* graphicalObject) {
     return "";
 }
 
-const std::string getTextGlyphStyleType(GraphicalObject* graphicalObject) {
-    if (isCompartmentGlyph(graphicalObject))
+const std::string getTextGlyphStyleType(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
+    if (isCompartmentGlyph(graphicalObject) && findStyleByTypeList(renderInformationBase, getCompartmentGlyphTextGlyphStyleType()))
         return getCompartmentGlyphTextGlyphStyleType();
-    else if (isSpeciesGlyph(graphicalObject))
+    else if (isSpeciesGlyph(graphicalObject) && findStyleByTypeList(renderInformationBase, getSpeciesGlyphTextGlyphStyleType()))
         return getSpeciesGlyphTextGlyphStyleType();
-    else if (isReactionGlyph(graphicalObject))
+    else if (isReactionGlyph(graphicalObject) && findStyleByTypeList(renderInformationBase, getReactionGlyphTextGlyphStyleType()))
         return getReactionGlyphTextGlyphStyleType();
 
     return "TEXTGLYPH";
@@ -852,6 +852,8 @@ void setCompartmentGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     setGeneralTextGlyphRenderGroupFeatures(renderGroup);
     renderGroup->setStroke(getDefaultPredefinedStyleFeatures()["compartment-font-color"]);
     renderGroup->setFontSize(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["compartment-font-size"]), 0.0));
+    renderGroup->setFontWeight(getDefaultPredefinedStyleFeatures()["compartment-font-weight"]);
+    renderGroup->setFontStyle(getDefaultPredefinedStyleFeatures()["compartment-font-style"]);
     renderGroup->setTextAnchor(getDefaultPredefinedStyleFeatures()["compartment-text-horizontal-alignment"]);
     renderGroup->setVTextAnchor(getDefaultPredefinedStyleFeatures()["compartment-text-vertical-alignment"]);
 }
@@ -866,12 +868,13 @@ void setSpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
 void setEmptySpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     Ellipse* ellipse = renderGroup->createEllipse();
     defaults_setDefaultEllipseShapeFeatures(ellipse);
-    ellipse->setFill(getDefaultPredefinedStyleFeatures()["species-fill-color"]);
-    ellipse->setStroke(getDefaultPredefinedStyleFeatures()["species-border-color"]);
+    ellipse->setFill("white");
+    ellipse->setStroke("black");
+    ellipse->setStrokeWidth(2);
     RenderCurve* curve = renderGroup->createCurve();
     defaults_setDefaultDiagonalRenderCurveFeatures(curve);
-    curve->setStroke(getDefaultPredefinedStyleFeatures()["species-border-color"]);
-    curve->setStrokeWidth(std::stod(getDefaultPredefinedStyleFeatures()["species-border-width"]));
+    curve->setStroke("black");
+    curve->setStrokeWidth(2);
 }
 
 void setSpeciesGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {

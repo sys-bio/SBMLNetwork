@@ -207,8 +207,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setUseNameAsTextLabel(document, layoutIndex, useNameAsTextLabels);
     }
 
-    int c_api_createAliasSpeciesGlyph(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex, int layoutIndex) {
-        return createAliasSpeciesGlyph(document, layoutIndex, speciesId, reactionId, reactionGlyphIndex);
+    int c_api_createAliasSpeciesGlyph(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex, int layoutIndex, int updateCurves) {
+        return createAliasSpeciesGlyph(document, layoutIndex, speciesId, reactionId, reactionGlyphIndex, updateCurves);
     }
 
     int c_api_createAliasReactionGlyph(SBMLDocument* document, const char* reactionId, int layoutIndex) {

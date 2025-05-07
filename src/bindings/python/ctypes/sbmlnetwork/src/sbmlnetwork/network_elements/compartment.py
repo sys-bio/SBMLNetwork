@@ -54,9 +54,7 @@ class Compartment(NetworkElementBase):
         return self.get_reactions()
 
     def set_position(self, position: tuple[float, float]):
-        if position[0] < 0 or position[1] < 0:
-            raise ValueError(f"The compartment {self.get_compartment_id()} cannot be moved to {position} because it would lead to negative coordinates.")
-
+        self._adjust_position(position)
         if super().set_position(position):
             if self.get_position()[0] + self.get_size()[0] > self.libsbmlnetwork.getCanvasWidth():
                 self.libsbmlnetwork.setCanvasWidth(self.get_position()[0] + self.get_size()[0])

@@ -33,7 +33,6 @@ class AlignBase:
     @staticmethod
     def _get_species_order(species_list, species_order):
         if species_order is None or len(species_order) == 0:
-            species_list.sort(key=lambda x: x.get_position()[0])
             return species_list
 
         ordered_species = []
@@ -96,10 +95,10 @@ class HorizontalAlign(AlignBase):
         product_species = self._get_species_order(product_species, products_order)
         modifier_species = self._get_species_order(modifier_species, modifiers_order)
         try:
-            reactant_species[0].move_to((x_min, y_center - 0.5 * reactant_species[0].get_size()[1]))
-            product_species[-1].move_to((x_max - product_species[-1].get_size()[0], y_center - 0.5 * product_species[-1].get_size()[1]))
+            reactant_species[0].move_to((x_min, y_center - 0.5 * reactant_species[0].get_size()[1]), move_connected_curves=False)
+            product_species[-1].move_to((x_max - product_species[-1].get_size()[0], y_center - 0.5 * product_species[-1].get_size()[1]), move_connected_curves=False)
         except ValueError:
-            raise ValueError(f"Using this 'center_at' or 'spread_width' for the reaction \"{reaction.get_reaction_id()}\" will cause the species to be placed outside the canvas.")
+            raise ValueError(f"Using this 'center_at' or 'spread' for the reaction \"{reaction.get_reaction_id()}\" will cause the species to be placed outside the canvas.")
 
         if len(reactant_species) == 1 and len(product_species) == 1 and len(modifier_species) == 0:
             return True
@@ -151,7 +150,7 @@ class HorizontalAlign(AlignBase):
 
         return True
 
-    def _get_positional_parameters(self, center_at, species_list, spread_width):
+    def _get_positional_parameters(self, center_at, species_list, spread):
         x_max, x_min, y_max, y_min = self._get_extents(species_list)
         x_center = (x_min + x_max) / 2
         y_center = (y_min + y_max) / 2
@@ -162,11 +161,11 @@ class HorizontalAlign(AlignBase):
             y_min = (y_min - y_center) + center_at[1]
             y_max = (y_max - y_center) + center_at[1]
             y_center = center_at[1]
-        if spread_width is not None:
-            x_min = x_center - spread_width / 2
-            x_max = x_center + spread_width / 2
+        if spread is not None:
+            x_min = x_center - spread / 2
+            x_max = x_center + spread / 2
 
-        if center_at is None and spread_width is None:
+        if center_at is None and spread is None:
             if x_min < 0:
                 x_center = x_center - x_min + 100
                 x_min = 100
@@ -209,9 +208,9 @@ class HorizontalAlign(AlignBase):
                     new_position_y = y_center + default_vertical_padding
                     new_curve_position_y = new_position_y - self.padding
             try:
-                species.move_to((new_position_x, new_position_y))
+                species.move_to((new_position_x, new_position_y), move_connected_curves=False)
             except ValueError:
-                raise ValueError(f"Using this 'center_at' or 'spread_width' for the reaction \"{reaction.get_reaction_id()}\" will cause the species to be placed outside the canvas.")
+                raise ValueError(f"Using this 'center_at' or 'spread' for the reaction \"{reaction.get_reaction_id()}\" will cause the species to be placed outside the canvas.")
 
             curves = reaction.get_curves_list(species=species)
             for curve in curves:
@@ -251,9 +250,9 @@ class HorizontalAlign(AlignBase):
                     new_position_y = y_center + default_vertical_padding
                     new_curve_position_y = new_position_y - self.padding
             try:
-                species.move_to((new_position_x, new_position_y))
+                species.move_to((new_position_x, new_position_y), move_connected_curves=False)
             except ValueError:
-                raise ValueError(f"Using this 'center_at' or 'spread_width' for the reaction \"{reaction.get_reaction_id()}\" will cause the species to be placed outside the canvas.")
+                raise ValueError(f"Using this 'center_at' or 'spread' for the reaction \"{reaction.get_reaction_id()}\" will cause the species to be placed outside the canvas.")
 
             curves = reaction.get_curves_list(species=species)
             for curve in curves:
@@ -307,9 +306,9 @@ class HorizontalAlign(AlignBase):
                 # ToDo: Implement the case when the placement is "both"
 
             try:
-                species.move_to((new_position_x, new_position_y))
+                species.move_to((new_position_x, new_position_y), move_connected_curves=False)
             except ValueError:
-                raise ValueError(f"Using this 'center_at' or 'spread_width' for the reaction \"{reaction.get_reaction_id()}\" will cause the species to be placed outside the canvas.")
+                raise ValueError(f"Using this 'center_at' or 'spread' for the reaction \"{reaction.get_reaction_id()}\" will cause the species to be placed outside the canvas.")
 
             curves = reaction.get_curves_list(species=species)
             for curve in curves:
@@ -339,10 +338,10 @@ class VerticalAlign(AlignBase):
         product_species = self._get_species_order(product_species, products_order)
         modifier_species = self._get_species_order(modifier_species, modifiers_order)
         try :
-            reactant_species[0].move_to((x_center - 0.5 * reactant_species[0].get_size()[0], y_min))
-            product_species[-1].move_to((x_center - 0.5 * product_species[-1].get_size()[0], y_max - product_species[-1].get_size()[1]))
+            reactant_species[0].move_to((x_center - 0.5 * reactant_species[0].get_size()[0], y_min), move_connected_curves=False)
+            product_species[-1].move_to((x_center - 0.5 * product_species[-1].get_size()[0], y_max - product_species[-1].get_size()[1]), move_connected_curves=False)
         except ValueError:
-            raise ValueError(f"Using this 'center_at' or 'spread_height' for the reaction \"{reaction.get_reaction_id()}\" will cause the species to be placed outside the canvas.")
+            raise ValueError(f"Using this 'center_at' or 'spread' for the reaction \"{reaction.get_reaction_id()}\" will cause the species to be placed outside the canvas.")
 
         if len(reactant_species) == 1 and len(product_species) == 1:
             return True
@@ -394,7 +393,7 @@ class VerticalAlign(AlignBase):
 
         return True
 
-    def _get_positional_parameters(self, center_at, species_list, spread_height):
+    def _get_positional_parameters(self, center_at, species_list, spread):
         x_max, x_min, y_max, y_min = self._get_extents(species_list)
         x_center = (x_min + x_max) / 2
         y_center = (y_min + y_max) / 2
@@ -405,11 +404,11 @@ class VerticalAlign(AlignBase):
             y_min = (y_min - y_center) + center_at[1]
             y_max = (y_max - y_center) + center_at[1]
             y_center = center_at[1]
-        if spread_height is not None:
-            y_min = y_center - spread_height / 2
-            y_max = y_center + spread_height / 2
+        if spread is not None:
+            y_min = y_center - spread / 2
+            y_max = y_center + spread / 2
 
-        if center_at is None and spread_height is None:
+        if center_at is None and spread is None:
             if x_min < 0:
                 x_center = x_center - x_min + 100
                 x_min = 100
@@ -452,9 +451,9 @@ class VerticalAlign(AlignBase):
                     new_position_x = x_center + default_horizontal_padding
                     new_curve_position_x = new_position_x - self.padding
             try:
-                species.move_to((new_position_x, new_position_y))
+                species.move_to((new_position_x, new_position_y), move_connected_curves=False)
             except ValueError:
-                raise ValueError(f"Using this 'center_at' or 'spread_height' for the reaction \"{reaction.get_reaction_id()}\" will cause the species to be placed outside the canvas.")
+                raise ValueError(f"Using this 'center_at' or 'spread' for the reaction \"{reaction.get_reaction_id()}\" will cause the species to be placed outside the canvas.")
 
             curves = reaction.get_curves_list(species=species)
             for curve in curves:
@@ -494,9 +493,9 @@ class VerticalAlign(AlignBase):
                     new_position_x = x_center + default_horizontal_padding
                     new_curve_position_x = new_position_x - self.padding
             try:
-                species.move_to((new_position_x, new_position_y))
+                species.move_to((new_position_x, new_position_y), move_connected_curves=False)
             except ValueError:
-                raise ValueError(f"Using this 'center_at' or 'spread_height' for the reaction \"{reaction.get_reaction_id()}\" will cause the species to be placed outside the canvas.")
+                raise ValueError(f"Using this 'center_at' or 'spread' for the reaction \"{reaction.get_reaction_id()}\" will cause the species to be placed outside the canvas.")
 
             curves = reaction.get_curves_list(species=species)
             for curve in curves:
@@ -550,9 +549,9 @@ class VerticalAlign(AlignBase):
                 # ToDo: Implement the case when the placement is "both"
 
             try:
-                species.move_to((new_position_x, new_position_y))
+                species.move_to((new_position_x, new_position_y), move_connected_curves=False)
             except ValueError:
-                raise ValueError(f"Using this 'center_at' or 'spread_height' for the reaction \"{reaction.get_reaction_id()}\" will cause the species to be placed outside the canvas.")
+                raise ValueError(f"Using this 'center_at' or 'spread' for the reaction \"{reaction.get_reaction_id()}\" will cause the species to be placed outside the canvas.")
 
             curves = reaction.get_curves_list(species=species)
             for curve in curves:
@@ -585,10 +584,10 @@ class CircleAlign(AlignBase):
         try:
             reactant_species[0].move_to(
                 (x_center + radius * math.cos(arc_start_rad) - 0.5 * reactant_species[0].get_size()[0],
-                 y_center - radius * math.sin(arc_start_rad) - 0.5 * reactant_species[0].get_size()[1]))
+                 y_center - radius * math.sin(arc_start_rad) - 0.5 * reactant_species[0].get_size()[1]), move_connected_curves=False)
             product_species[-1].move_to(
                 (x_center + radius * math.cos(arc_end_rad) - 0.5 * product_species[-1].get_size()[0],
-                 y_center - radius * math.sin(arc_end_rad) - 0.5 * product_species[-1].get_size()[1]))
+                 y_center - radius * math.sin(arc_end_rad) - 0.5 * product_species[-1].get_size()[1]), move_connected_curves=False)
         except ValueError:
             raise ValueError(f"Using this 'center_at' or 'radius' for the reaction \"{reaction.get_reaction_id()}\" will cause the species to be placed outside the canvas.")
 
@@ -753,7 +752,7 @@ class CircleAlign(AlignBase):
             new_curve_end_position_x = new_position_x + offset_x
             new_curve_end_position_y = new_position_y + offset_y
             try:
-                species.move_to((new_position_x - 0.5 * species.get_size()[0], new_position_y - 0.5 * species.get_size()[1]))
+                species.move_to((new_position_x - 0.5 * species.get_size()[0], new_position_y - 0.5 * species.get_size()[1]), move_connected_curves=False)
             except ValueError:
                 raise ValueError(f"Using this 'center_at' or 'radius' for the reaction \"{reaction.get_reaction_id()}\" will cause the species to be placed outside the canvas.")
 
@@ -837,7 +836,7 @@ class CircleAlign(AlignBase):
             new_curve_end_position_x = new_position_x + offset_x
             new_curve_end_position_y = new_position_y + offset_y
             try:
-                species.move_to((new_position_x - 0.5 * species.get_size()[0], new_position_y - 0.5 * species.get_size()[1]))
+                species.move_to((new_position_x - 0.5 * species.get_size()[0], new_position_y - 0.5 * species.get_size()[1]), move_connected_curves=False)
             except ValueError:
                 raise ValueError(f"Using this 'center_at' or 'radius' for the reaction \"{reaction.get_reaction_id()}\" will cause the species to be placed outside the canvas.")
 
@@ -898,7 +897,7 @@ class CircleAlign(AlignBase):
             new_curve_start_position_y = new_position_y + offset_y
             if not species.move_to(
                     (new_position_x - 0.5 * species.get_size()[0],
-                     new_position_y - 0.5 * species.get_size()[1])):
+                     new_position_y - 0.5 * species.get_size()[1]), move_connected_curves=False):
                 return False
             curves = reaction.get_curves_list(species=species)
             for curve in curves:

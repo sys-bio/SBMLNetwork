@@ -115,7 +115,7 @@ int setDefaultLocalRenderInformationFeatures(SBMLDocument* document, unsigned in
 
 int createDefaultRenderInformation(SBMLDocument* document) {
     if (!createDefaultGlobalRenderInformation(document) && !createDefaultLocalRenderInformation(document))
-        return 0;
+        return setStyle(document, 0, "default");
 
     return -1;
 }

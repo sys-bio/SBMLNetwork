@@ -1,5 +1,7 @@
 # SBMLNetwork
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15360020.svg)](https://doi.org/10.5281/zenodo.15360020)
+
 SBMLNetwork is a library designed to enable software developers and systems biologists to interact with the graphical representation of SBML (Systems Biology Markup Language) models. It makes use of SBML Layout and Render extensions and provides the following features: (i) a built-in high-performance autolayout algorithm that automatically generates and adds graphical representation data to SBML models that don’t have them (ii) a robust API that provides the users and developers with seamless access to the graphical representation attributes of SBML models (iii) a drawing tool to render an image of the graphical representation of SBML models using their Layout and Render data.
 
 **Important Note**: As of tag [v0.3.1](https://github.com/adelhpour/SBMLNetwork/releases/tag/v0.3.1) this repository has been forked and is now under active development and maintenance at the [UW Sauro Lab](https://github.com/sys-bio/SBMLNetwork) GitHub account, where further enhancements and updates are being implemented.
@@ -24,7 +26,46 @@ To install the Python package, run the following command:
 
 ### Shared Library
 
-To install the shared library, download the latest release from the [releases page](https://github.com/adelhpour/SBMLNetwork/releases) and link it to your project.
+To install the shared library, download the latest release from the [releases page](https://github.com/sys-bio/SBMLNetwork/releases) and link it to your project.
+
+#### Pre-built binaries
+
+Download an archive for your OS from the [releases page](https://github.com/adelhpour/SBMLNetwork/releases) and link it in your build system.
+
+#### Build from source
+
+The steps below reproduce our CI workflow so you can compile the C/C++ core and the Python bindings locally on macOS, Linux, or Windows.
+
+#####  Clone the repo
+```bash
+git clone https://github.com/sys-bio/SBMLNetwork.git
+cd SBMLNetwork
+```
+
+#####  Download binary dependencies (libroadrunner-deps)
+```bash
+curl -L -O <matching-archive>.zip          # pick the archive for your OS/arch/build-type
+unzip <matching-archive>.zip -d $HOME/rr_deps
+export DEPENDENCIES_INSTALL_PREFIX=$HOME/rr_deps   # Windows PowerShell:  setx DEPENDENCIES_INSTALL_PREFIX C:\rr_deps
+```
+
+#####  Configure
+```bash
+mkdir build && cd build
+cmake .. -G Ninja \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DDEPENDENCIES_INSTALL_PREFIX=$DEPENDENCIES_INSTALL_PREFIX \
+  -DWITH_PYTHON=ON \
+  -DPYTHON_INSTALL_WITH_SETUP=ON \
+  -DCMAKE_INSTALL_PREFIX=$PWD/../install
+#  (macOS Apple-silicon: add -DCMAKE_OSX_ARCHITECTURES=arm64)
+#  (Windows: run from a “x64 Native Tools VS 2022” prompt)
+```
+
+#####  Build & install
+```bash
+cmake --build . --target install
+```
 
 ## Usage
 

@@ -69,7 +69,7 @@ int hide_elements_makeSpeciesReferenceGlyphVisible(SBMLDocument* document, Speci
 
 int hide_elements_makeSpeciesReferenceGlyphInvisible(SBMLDocument* document, SpeciesReferenceGlyph* speciesReferenceGlyph);
 
-bool hide_elements_isTextGlyphVisible(SBMLDocument* document, TextGlyph* textGlyph);
+bool hide_elements_isTextGlyphVisible(SBMLDocument* document, TextGlyph* textGlyph, GraphicalObject* graphicalObject);
 
 int hide_elements_makeTextGlyphVisible(SBMLDocument* document, TextGlyph* textGlyph, GraphicalObject* graphicalObject);
 

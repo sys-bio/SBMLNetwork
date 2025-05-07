@@ -138,7 +138,7 @@ class TestSBMLModel(unittest.TestCase):
         colors_new = network.get_reactions_list().get_curves_list().get_colors()
         for color_new in colors_new:
             self.assertEqual(color_new, colors[0])
-        network.save()
+        network.save(update_network_extents=True)
         original_canvas_width = network.get_size()[0]
         colors = network.get_species_list().get_fill_colors()
         network.show_concentrations(10)
@@ -1885,6 +1885,41 @@ class TestSBMLModel(unittest.TestCase):
                 arrow_head.remove_shape(shapes_list[0])
                 self.assertEqual(len(arrow_head.get_shapes_list()), 1)
                 self.assertEqual(arrow_head.get_shape().get_type(), "hexagon")
+
+    def test_show_hide_fluxes_and_concentrations_for_hidden_elements(self):
+        """Test hiding and showing of fluxes and concentrations with skip_hidden_elements flag."""
+        model = '''
+            J0: S1 -> S2;
+            J1: S2 -> S3;
+            J2: S3 -> S4;
+            J3: S4 -> S5;
+        '''
+
+        r = te.loada(model)
+        net = sbmlnetwork.load(r.getSBML())
+
+        fluxes = {"J0": 1, "J1": 2, "J2": 3, "J3": 4}
+        concentrations = {"S1": 1, "S2": 2, "S3": 3, "S4": 4}
+
+        # Hide a reaction curve and a species
+        net.get_reaction("J0").get_curves_list()[0].hide()
+        net.get_species("S1").hide()
+
+        # Show fluxes and concentrations (hidden elements should be skipped)
+        net.show_fluxes(fluxes)
+        self.assertTrue(net.get_reaction("J0").get_curves_list()[0].is_hidden())
+
+        net.show_concentrations(concentrations)
+        self.assertTrue(net.get_species("S1").is_hidden())
+
+        # Show fluxes and concentrations including hidden elements
+        net.hide_fluxes()
+        net.show_fluxes(fluxes, skip_hidden_elements=False)
+        self.assertFalse(net.get_reaction("J0").get_curves_list()[0].is_hidden())
+
+        net.hide_concentrations()
+        net.show_concentrations(concentrations, skip_hidden_elements=False)
+        self.assertFalse(net.get_species("S1").is_hidden())
 
 
 if __name__ == '__main__':
