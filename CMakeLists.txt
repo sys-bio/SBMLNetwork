@@ -58,7 +58,7 @@ if (NOT DEFINED DEPENDENCIES_INCLUDE_DIR)
 endif ()
 
 ## whether to build the dynamic version of the library
-set(BUILD_SHARED_LIBS ON CACHE BOOL "Build the dynamic version of the library")
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build the dynamic version of the library")
 
 ## whether to build the static version of the library
 set(BUILD_STATIC_LIBS ON CACHE BOOL "Build the static version of the library")
