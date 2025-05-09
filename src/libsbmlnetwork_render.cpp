@@ -3601,7 +3601,7 @@ int removeGeometricShape(Style* style, unsigned int geometricShapeIndex) {
 
 int removeGeometricShape(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
     if (renderGroup) {
-        renderGroup->removeElement(geometricShapeIndex);
+        delete renderGroup->removeElement(geometricShapeIndex);
         return 0;
     }
 

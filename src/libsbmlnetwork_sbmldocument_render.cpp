@@ -57,7 +57,7 @@ int removeAllGlobalRenderInformation(SBMLDocument* document) {
     ListOfGlobalRenderInformation* listOfGlobalRenderInformation = getListOfGlobalRenderInformation(document);
     if (listOfGlobalRenderInformation) {
         while(listOfGlobalRenderInformation->size())
-            listOfGlobalRenderInformation->remove(0);
+            delete listOfGlobalRenderInformation->remove(0);
         return 0;
     }
 

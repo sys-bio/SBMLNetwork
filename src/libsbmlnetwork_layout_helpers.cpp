@@ -86,7 +86,7 @@ int setSpeciesGlyphIndexInReactionGlyph(Layout* layout, const std::string specie
         }
         if (!getSpeciesReferencesAssociatedWithSpeciesGlyph(layout, originalSpeciesGlyph->getId()).size()) {
             user_data_freeUserData(originalSpeciesGlyph);
-            layout->removeSpeciesGlyph(originalSpeciesGlyph->getId());
+            delete layout->removeSpeciesGlyph(originalSpeciesGlyph->getId());
         }
 
         return 0;

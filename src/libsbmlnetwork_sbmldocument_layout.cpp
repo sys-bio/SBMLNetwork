@@ -57,7 +57,7 @@ int removeAllLayouts(SBMLDocument* document) {
     ListOfLayouts* listOfLayouts = getListOfLayouts(document);
     if (listOfLayouts) {
         while (listOfLayouts->size())
-            listOfLayouts->remove(0);
+            delete listOfLayouts->remove(0);
         return 0;
     }
 
