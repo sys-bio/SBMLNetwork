@@ -57,7 +57,7 @@ int removeAllGlobalRenderInformation(SBMLDocument* document) {
     ListOfGlobalRenderInformation* listOfGlobalRenderInformation = getListOfGlobalRenderInformation(document);
     if (listOfGlobalRenderInformation) {
         while(listOfGlobalRenderInformation->size())
-            listOfGlobalRenderInformation->remove(0);
+            delete listOfGlobalRenderInformation->remove(0);
         return 0;
     }
 
@@ -857,8 +857,8 @@ LineEnding* getLineEnding(SBMLDocument* document, unsigned int renderIndex, unsi
 LineEnding* createLocalLineEnding(SBMLDocument* document, LineEnding* globalLineEnding, SpeciesReferenceGlyph* speciesReferenceGlyph) {
     LineEnding* localLineEnding = createLocalLineEnding(document, getLocalRenderInformation(document), speciesReferenceGlyph);
     if (localLineEnding && globalLineEnding) {
-        localLineEnding->setGroup(globalLineEnding->getGroup()->clone());
-        localLineEnding->setBoundingBox(globalLineEnding->getBoundingBox()->clone());
+        localLineEnding->setGroup(globalLineEnding->getGroup());
+        localLineEnding->setBoundingBox(globalLineEnding->getBoundingBox());
         localLineEnding->getBoundingBox()->setId(localLineEnding->getId() + "_bb");
     }
 

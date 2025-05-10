@@ -51,7 +51,7 @@ int removeAllLocalRenderInformation(Layout* layout) {
     ListOfLocalRenderInformation* listOfLocalRenderInformation = getListOfLocalRenderInformation(layout);
     if (listOfLocalRenderInformation) {
         while(listOfLocalRenderInformation->size())
-            listOfLocalRenderInformation->remove(0);
+            delete listOfLocalRenderInformation->remove(0);
         return 0;
     }
 

@@ -693,8 +693,11 @@ int removeText(Layout* layout, const std::string& id, unsigned int graphicalObje
 
 int removeText(Layout* layout, GraphicalObject* textGlyph) {
     if (isTextGlyph(textGlyph)) {
-        if (layout->removeTextGlyph(textGlyph->getId()))
+        TextGlyph* tg = layout->removeTextGlyph(textGlyph->getId());
+        if (tg) {
+            delete tg;
             return 0;
+        }
     }
 
     return -1;
@@ -1428,8 +1431,7 @@ int removeCurveSegment(Curve* curve, unsigned int curveSegmentIndex) {
     if (curve) {
         ListOfLineSegments* listOfLineSegments = curve->getListOfCurveSegments();
         if (listOfLineSegments) {
-            LineSegment* lineSegment = listOfLineSegments->remove(curveSegmentIndex);
-            delete lineSegment;
+            delete listOfLineSegments->remove(curveSegmentIndex);
             return 0;
         }
     }

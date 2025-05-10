@@ -334,8 +334,11 @@ GraphicalObject* set_layout_features_createAdditionalGraphicalObject(Layout* lay
 }
 
 int set_layout_features_removeAdditionalGraphicalObject(Layout* layout, const std::string& id) {
-    if (layout->removeAdditionalGraphicalObject(id))
+    GraphicalObject* go = layout->removeAdditionalGraphicalObject(id);
+    if (go) {
+        delete go;
         return 0;
+    }
 
     return -1;
 }
