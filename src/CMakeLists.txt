@@ -76,7 +76,7 @@ set(HEADERS
 add_library(libsbml STATIC IMPORTED)
 set_target_properties(libsbml PROPERTIES IMPORTED_LOCATION ${LIBSBML_LIBRARY})
 add_library(libexpat STATIC IMPORTED)
-set_target_properties(libexpat PROPERTIES IMPORTED_LOCATION ${LIBEXPAT_LIBRARY})
+set_target_properties(libexpat PROPERTIES IMPORTED_LOCATION ${EXPAT_LIBRARY})
 add_library(libz STATIC IMPORTED)
 set_target_properties(libz PROPERTIES IMPORTED_LOCATION ${LIBZ_LIBRARY})
 
