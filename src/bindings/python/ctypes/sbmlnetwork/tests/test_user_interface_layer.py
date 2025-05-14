@@ -1921,6 +1921,36 @@ class TestSBMLModel(unittest.TestCase):
         net.show_concentrations(concentrations, skip_hidden_elements=False)
         self.assertFalse(net.get_species("S1").is_hidden())
 
+    def test_orphan_species(self):
+        model = '''
+        species S1, S2, S3, S4, S5, S6;
+        S4 -> S5 + S6;
+        '''
+
+        r = te.loada(model)
+        net = sbmlnetwork.load(r.getSBML())
+
+        # Set initial manual positions
+        net.get_species("S1").set_position((100, 100))
+        net.get_species("S2").set_position((200, 200))
+        net.get_species("S3").set_position((300, 300))
+
+        initial_positions = {
+            "S1": net.get_species("S1").get_position(),
+            "S2": net.get_species("S2").get_position(),
+            "S3": net.get_species("S3").get_position(),
+        }
+
+        self.assertNotEqual(net.get_species("S1").get_position(), initial_positions["S1"])
+        self.assertNotEqual(net.get_species("S2").get_position(), initial_positions["S2"])
+        self.assertNotEqual(net.get_species("S3").get_position(), initial_positions["S3"])
+
+        net.auto_layout()
+
+        self.assertNotEqual(net.get_species("S1").get_position(), initial_positions["S1"])
+        self.assertNotEqual(net.get_species("S2").get_position(), initial_positions["S2"])
+        self.assertNotEqual(net.get_species("S3").get_position(), initial_positions["S3"])
+
 
 if __name__ == '__main__':
     unittest.main()
