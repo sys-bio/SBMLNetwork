@@ -35,12 +35,13 @@ class ReactionGroup(list):
     def _populate_reaction_items(self, network_obj, reactions):
         for reaction in reactions:
             if isinstance(reaction, str):
-                reaction_obj = network_obj.get_reaction(reaction)
-                if reaction is None:
+                reaction_objs = network_obj.get_reactions_list(reaction)
+                if not reaction_objs:
                     raise ValueError(f"Reaction with id {reaction} not found")
-                self.append(reaction_obj)
+                self.extend(r for r in reaction_objs if r not in self)
             elif isinstance(reaction, Reaction):
-                self.append(reaction)
+                if reaction not in self:
+                    self.append(reaction)
             else:
                 raise ValueError("Reactions must be a list of reaction ids or Reaction objects")
 
