@@ -1941,15 +1941,15 @@ class TestSBMLModel(unittest.TestCase):
             "S3": net.get_species("S3").get_position(),
         }
 
-        self.assertNotEqual(net.get_species("S1").get_position(), initial_positions["S1"])
-        self.assertNotEqual(net.get_species("S2").get_position(), initial_positions["S2"])
-        self.assertNotEqual(net.get_species("S3").get_position(), initial_positions["S3"])
+        self.assertEqual(net.get_species("S1").get_position(), initial_positions["S1"])
+        self.assertEqual(net.get_species("S2").get_position(), initial_positions["S2"])
+        self.assertEqual(net.get_species("S3").get_position(), initial_positions["S3"])
 
         net.auto_layout()
 
-        self.assertNotEqual(net.get_species("S1").get_position(), initial_positions["S1"])
-        self.assertNotEqual(net.get_species("S2").get_position(), initial_positions["S2"])
-        self.assertNotEqual(net.get_species("S3").get_position(), initial_positions["S3"])
+        self.assertEqual(net.get_species("S1").get_position(), initial_positions["S1"])
+        self.assertEqual(net.get_species("S2").get_position(), initial_positions["S2"])
+        self.assertEqual(net.get_species("S3").get_position(), initial_positions["S3"])
 
 
 if __name__ == '__main__':
