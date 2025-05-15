@@ -18,6 +18,7 @@ int set_layout_features_setDefaultLayoutFeatures(SBMLDocument* document, Layout*
             set_layout_features_clearGraphicalObjects(layout);
             set_layout_features_setCompartmentGlyphs(model, layout);
             set_layout_features_setReactionGlyphs(model, layout, maxNumConnectedEdges);
+            set_layout_features_setOrphanSpeciesGlyphs(model, layout);
             set_layout_features_setTextGlyphs(layout);
             user_data_setUserData(layout, "max_num_connected_edges", std::to_string(maxNumConnectedEdges));
             return 0;
@@ -40,6 +41,7 @@ int set_layout_features_setDefaultLayoutLocations(SBMLDocument* document, Layout
             set_layout_features_clearGraphicalObjects(layout);
             set_layout_features_setCompartmentGlyphs(model, layout, userData);
             set_layout_features_setReactionGlyphs(model, layout, maxNumConnectedEdges, userData);
+            set_layout_features_setOrphanSpeciesGlyphs(model, layout, userData);
             autolayout_locateGlyphs(model, layout);
             set_layout_features_setTextGlyphs(layout);
             user_data_setUserData(layout, "max_num_connected_edges", std::to_string(maxNumConnectedEdges));
@@ -174,6 +176,19 @@ void set_layout_features_setEmptySpeciesReferenceGlyphs(Model* model, Layout* la
     else if (reaction->getNumProducts() == 0) {
         SpeciesReferenceGlyph* emptyProductGlyph = set_layout_features_createEmptySpeciesReferenceGlyph(model, layout, reactionGlyph, userData);
         emptyProductGlyph->setRole(SPECIES_ROLE_PRODUCT);
+    }
+}
+
+void set_layout_features_setOrphanSpeciesGlyphs(Model* model, Layout* layout, const std::vector<std::map<std::string, std::string>>& userData) {
+    for (unsigned int i = 0; i < model->getNumSpecies(); i++) {
+        std::vector<SpeciesGlyph*> speciesGlyphs = getAssociatedSpeciesGlyphsWithSpeciesId(layout, model->getSpecies(i)->getId());
+        if (speciesGlyphs.size() == 0) {
+            std::string speciesId = model->getSpecies(i)->getId();
+            std::string speciesGlyphId = set_layout_features_getSpeciesGlyphId(layout, speciesId);
+            SpeciesGlyph* speciesGlyph = set_layout_features_createSpeciesGlyph(layout, speciesId, speciesGlyphId, userData);
+            set_layout_features_setGraphicalObjectBoundingBox(speciesGlyph);
+            user_data_setGraphicalObjectUserData(speciesGlyph, userData);
+        }
     }
 }
 

@@ -41,6 +41,8 @@ void set_layout_features_setModifierGlyphs(Layout* layout, Reaction* reaction, R
 
 void set_layout_features_setEmptySpeciesReferenceGlyphs(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData);
 
+void set_layout_features_setOrphanSpeciesGlyphs(Model* model, Layout* layout, const std::vector<std::map<std::string, std::string>>& userData= {});
+
 SpeciesReferenceGlyph* set_layout_features_createEmptySpeciesReferenceGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData);
 
 SpeciesGlyph* set_layout_features_createEmptySpeciesGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData);
@@ -50,7 +52,6 @@ SpeciesGlyph* set_layout_features_createEmptySpeciesGlyph(ReactionGlyph* reactio
 SpeciesReferenceGlyph* set_layout_features_createEmptySpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, SpeciesGlyph* EmptySpeciesGlyph, const std::vector<std::map<std::string, std::string>>& userData);
 
 SpeciesGlyph* set_layout_features_getSpeciesGlyph(Layout* layout, const std::string& speciesId, const std::string& speciesGlyphId, const std::vector<std::map<std::string, std::string>>& userData);
-
 
 SpeciesGlyph* set_layout_features_getSpeciesGlyph(Layout* layout, const std::string& speciesId, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData);
 
