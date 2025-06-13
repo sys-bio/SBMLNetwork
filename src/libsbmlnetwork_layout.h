@@ -780,6 +780,18 @@ LIBSBMLNETWORK_EXTERN bool isTextGlyph(const Layout* layout, const std::string& 
 /// @return @c true if this abstract GraphicalObject is of type TextGlyph, false otherwise
 LIBSBMLNETWORK_EXTERN bool isTextGlyph(const GraphicalObject* graphicalObject);
 
+LIBSBMLNETWORK_EXTERN const unsigned int getNumIndependentTextGlyphs(Layout* layout);
+
+LIBSBMLNETWORK_EXTERN TextGlyph* getIndependentTextGlyph(Layout* layout, const unsigned int independentTextGlyphIndex);
+
+LIBSBMLNETWORK_EXTERN const std::string getIndependentTextGlyphId(Layout* layout, const unsigned int independentTextGlyphIndex);
+
+LIBSBMLNETWORK_EXTERN GraphicalObject* addIndependentTextGlyph(Layout* layout, const std::string& text, const double& x, const double& y, const double& width, const double& height);
+
+LIBSBMLNETWORK_EXTERN int removeIndependentTextGlyph(Layout* layout, const unsigned int independentTextGlyphIndex);
+
+LIBSBMLNETWORK_EXTERN int removeIndependentTextGlyph(Layout* layout, const std::string& id);
+
 /// @brief Returns the number of additional GraphicalObject objects of the Layout object.
 /// @param Layout a pointer to the Layout object.
 /// @return the number of additional GraphicalObject objects of the Layout object, or @c 0 if the object is @c NULL

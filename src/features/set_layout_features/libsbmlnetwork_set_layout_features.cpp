@@ -340,6 +340,32 @@ SpeciesReferenceGlyph* set_layout_features_createSpeciesReferenceGlyph(ReactionG
     return speciesReferenceGlyph;
 }
 
+TextGlyph* set_layout_features_createIndependentTextGlyph(Layout* layout, const std::string& text, const double& x, const double& y, const double& width, const double& height) {
+    TextGlyph* textGlyph = createIndependentTextGlyph(layout, text);
+    setTextGlyphBoundingBox(textGlyph, x, y, width, height);
+
+    return textGlyph;
+}
+
+int set_layout_features_removeIndependentTextGlyph(Layout* layout, const unsigned int independentTextGlyphIndex) {
+    std::vector<TextGlyph*> independentTextGlyphs = getIndependentTextGlyphs(layout);
+    if (independentTextGlyphIndex < independentTextGlyphs.size())
+        return set_layout_features_removeIndependentTextGlyph(layout, independentTextGlyphs.at(independentTextGlyphIndex)->getId());
+
+    return -1;
+}
+
+int set_layout_features_removeIndependentTextGlyph(Layout* layout, const std::string& id) {
+    TextGlyph* textGlyph = layout->removeTextGlyph(id);
+    if (textGlyph) {
+        user_data_freeUserData(textGlyph);
+        delete textGlyph;
+        return 0;
+    }
+
+    return -1;
+}
+
 GraphicalObject* set_layout_features_createAdditionalGraphicalObject(Layout* layout, const std::string& id) {
     GraphicalObject* graphicalObject = layout->createAdditionalGraphicalObject();
     graphicalObject->setId(id);

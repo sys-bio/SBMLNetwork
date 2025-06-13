@@ -7,6 +7,7 @@ from .settings import Settings
 from .features.data_integration import ColorCodingFluxes
 from .features.data_integration import ColorCodingConcentrations, SizeCodingConcentrations
 from .network_elements import *
+from .network_elements.visual_elements import *
 from typing import Union
 import warnings
 
@@ -203,6 +204,42 @@ class SBMLNetwork:
     @property
     def reaction_ids(self):
         return self.get_reaction_ids()
+
+    def get_independent_label(self, label: str):
+        for i in range(self.libsbmlnetwork.getNumAllIndependentTextGlyphs()):
+            if self.libsbmlnetwork.getIndependentTextGlyphId(i) == label or self.libsbmlnetwork.getText(self.libsbmlnetwork.getIndependentTextGlyphId(i)) == label:
+                return Label(self.libsbmlnetwork, self.libsbmlnetwork.getIndependentTextGlyphId(i), 0, 0)
+
+        return None
+
+    def get_independent_labels(self):
+        independent_lables = LabelList()
+        for i in range(self.libsbmlnetwork.getNumAllIndependentTextGlyphs()):
+            tg_id = self.libsbmlnetwork.getIndependentTextGlyphId(i)
+            independent_lables.append(Label(self.libsbmlnetwork, tg_id, 0, 0))
+
+        return independent_lables
+
+    @property
+    def independent_labels(self):
+        return self.get_independent_labels()
+
+    def add_independent_label(self, text, x, y, width, height):
+        if self.libsbmlnetwork.addIndependentTextGlyph(text, x, y, width, height) == 0:
+            tg_id = self.libsbmlnetwork.getIndependentTextGlyphId(self.libsbmlnetwork.getNumAllIndependentTextGlyphs() - 1)
+            return Label(self.libsbmlnetwork, tg_id, 0, 0)
+
+        return None
+
+    def remove_independent_label(self, label):
+        for i in range(self.libsbmlnetwork.getNumAllIndependentTextGlyphs()):
+            if self.libsbmlnetwork.getIndependentTextGlyphId(i) == label or self.libsbmlnetwork.getText(self.libsbmlnetwork.getIndependentTextGlyphId(i)) == label:
+                if self.libsbmlnetwork.removeIndependentTextGlyph(i) == 0:
+                    return True
+                else:
+                    return False
+
+        return False
 
     def get_additional_element(self, element_id: str):
         for i in range(self.libsbmlnetwork.getNumAllAdditionalGraphicalObjects()):
@@ -760,6 +797,18 @@ class SBMLNetwork:
                             current_width = x + width
                         if y + height > current_height:
                             current_height = y + height
+
+        # independent text glyphs
+        for independent_text_glyph_index in range(self.libsbmlnetwork.getNumAllIndependentTextGlyphs()):
+            independent_text_glyph_id = self.libsbmlnetwork.getIndependentTextGlyphId(independent_text_glyph_index=independent_text_glyph_index)
+            x = self.libsbmlnetwork.getTextX(id=independent_text_glyph_id, graphical_object_index=0)
+            y = self.libsbmlnetwork.getTextY(id=independent_text_glyph_id, graphical_object_index=0)
+            width = self.libsbmlnetwork.getTextWidth(id=independent_text_glyph_id, graphical_object_index=0)
+            height = self.libsbmlnetwork.getTextHeight(id=independent_text_glyph_id, graphical_object_index=0)
+            if x + width > current_width:
+                current_width = x + width
+            if y + height > current_height:
+                current_height = y + height
 
         # additional graphical objects
         for graphical_object_index in range(self.libsbmlnetwork.getNumAllAdditionalGraphicalObjects()):

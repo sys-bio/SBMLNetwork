@@ -693,9 +693,18 @@ void addSpeciesReferenceGlyphGlobalStyles(GlobalRenderInformation* globalRenderI
 }
 
 void addTextGlyphsGlobalStyles(GlobalRenderInformation* globalRenderInformation) {
+    addTextGlyphGlobalStyle(globalRenderInformation);
     addCompartmentGlyphTextGlyphGlobalStyle(globalRenderInformation);
     addSpeciesGlyphTextGlyphGlobalStyle(globalRenderInformation);
     addReactionGlyphTextGlyphGlobalStyle(globalRenderInformation);
+}
+
+void addTextGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation) {
+    if (!findStyleByTypeList(globalRenderInformation, getTextGlyphStyleType())) {
+        GlobalStyle* globalStyle = createGlobalStyleByType(globalRenderInformation, getTextGlyphStyleType());
+        RenderGroup* renderGroup = globalStyle->createGroup();
+        setTextGlyphRenderGroupFeatures(renderGroup);
+    }
 }
 
 void addCompartmentGlyphTextGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation) {
@@ -846,6 +855,10 @@ void setCompartmentGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     rectangle->setFill(getDefaultPredefinedStyleFeatures()["compartment-fill-color"]);
     rectangle->setRX(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["compartment-border-radius-x"]), 0.0));
     rectangle->setRY(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["compartment-border-radius-y"]), 0.0));
+}
+
+void setTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
+    setGeneralTextGlyphRenderGroupFeatures(renderGroup);
 }
 
 void setCompartmentGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {

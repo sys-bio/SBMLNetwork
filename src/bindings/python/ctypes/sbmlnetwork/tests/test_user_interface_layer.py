@@ -1951,6 +1951,39 @@ class TestSBMLModel(unittest.TestCase):
         self.assertEqual(net.get_species("S2").get_position(), initial_positions["S2"])
         self.assertEqual(net.get_species("S3").get_position(), initial_positions["S3"])
 
+    def test_independent_labels(self):
+        model = '''
+        S1 -> S2;
+        '''
+
+        sb = sbmlnetwork.load(model)
+
+        # Initial state: no independent labels
+        self.assertEqual(len(sb.get_independent_labels()), 0)
+
+        # Add a label
+        sb.add_independent_label("Label_1", 1000, 10, 100, 20)
+
+        labels = sb.get_independent_labels()
+        self.assertEqual(len(labels), 1)
+
+        label = sb.get_independent_label("Label_1")
+        self.assertEqual(label.get_text(), "Label_1")
+        self.assertEqual(label.get_position(), (1000, 10))
+        self.assertEqual(label.get_size(), (100, 20))
+
+        # Modify font color and size
+        label.set_font_color("red")
+        self.assertEqual(label.get_font_color(), "red")
+
+        label.set_font_size(15)
+        self.assertEqual(label.get_font_size(), 15)
+
+        # Remove the label
+        sb.remove_independent_label("Label_1")
+        self.assertEqual(len(sb.get_independent_labels()), 0)
+
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1784,6 +1784,49 @@ LIBSBMLNETWORK_EXTERN bool isTextGlyph(SBMLDocument* document, const std::string
 /// @return @c true if this abstract GraphicalObject is of type TextGlyph, false otherwise
 LIBSBMLNETWORK_EXTERN bool isTextGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex = 0);
 
+/// @brief Returns the number of independent TextGlyph objects associated with the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @return the number of independent TextGlyph objects associated with the Layout object, or @c 0 if the object is @c NULL
+LIBSBMLNETWORK_EXTERN const unsigned int getNumIndependentTextGlyphs(SBMLDocument* document, unsigned int layoutIndex);
+
+/// @brief Returns the independent TextGlyph object with the given index associated with the first Layout object of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param independentTextGlyphIndex the index of the independent TextGlyph to return.
+//// @return a pointer to the independent TextGlyph object with the given index, or @c NULL if the object is @c NULL
+LIBSBMLNETWORK_EXTERN GraphicalObject* getIndependentTextGlyph(SBMLDocument* document, unsigned int independentTextGlyphIndex);
+
+/// @brief Returns the id of the independent TextGlyph object with the given index associated with the first Layout object of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param independentTextGlyphIndex the index of the independent TextGlyph to return.
+/// @return the id of the independent TextGlyph object with the given index, or @c empty string if the object is @c NULL
+LIBSBMLNETWORK_EXTERN const std::string getIndependentTextGlyphId(SBMLDocument* document, unsigned int layoutIndex, unsigned int independentTextGlyphIndex);
+
+/// @brief Adds a new independent TextGlyph object to the first Layout object of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param text the text of the independent TextGlyph object to be added.
+/// @param x the x position of the independent TextGlyph object to be added.
+/// @param y the y position of the independent TextGlyph object to be added.
+/// @param width the width dimension of the independent TextGlyph object to be added.
+/// @param height the height dimension of the independent TextGlyph object to be added.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addIndependentTextGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& text, const double& x, const double& y, const double& width, const double& height);
+
+/// @brief Removes the independent TextGlyph object object with the given index associated with the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to remove.
+/// @param independentTextGlyphIndex the index of the independent TextGlyph object to remove.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int removeIndependentTextGlyph(SBMLDocument* document, unsigned int layoutIndex, unsigned int independentTextGlyphIndex);
+
+/// @brief Removes the independent TextGlyph object with the given index associated with the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the independent TextGlyph to remove.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int removeIndependentTextGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id);
+
 /// @brief Returns the number of additional GraphicalObject objects associated with the Layout object with the given index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.

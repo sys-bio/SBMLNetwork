@@ -2221,6 +2221,68 @@ class LibSBMLNetwork:
         """
         return lib.c_api_removeText(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
 
+    def getNumAllIndependentTextGlyphs(self, layout_index=0):
+        """
+        Returns the number of independent TextGlyphs in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            an integer that determines the number of independent TextGlyphs in the Layout object with the given index in the given SBMLDocument
+        """
+        return lib.c_api_getNumAllIndependentTextGlyphs(self.sbml_object, layout_index)
+
+    def getIndependentTextGlyphId(self, independent_text_glyph_index=0, layout_index=0):
+        """
+        Returns the id of the independent TextGlyph with the given independent_text_glyph_index and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - independent_text_glyph_index (int): an integer that determines the index of the independent TextGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the id of the independent TextGlyph with the given independent_text_glyph_index and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getIndependentTextGlyphId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getIndependentTextGlyphId(self.sbml_object, independent_text_glyph_index, layout_index)).value.decode()
+
+    def addIndependentTextGlyph(self, text, x, y, width, height, layout_index=0):
+        """
+        Adds an independent TextGlyph with the given text, x, y, width, height, and layout_index to the given SBMLDocument
+        :Parameters:
+
+            - text (string): a string that determines the text of the independent TextGlyph
+            - x (float): a float that determines the x-coordinate of the independent TextGlyph
+            - y (float): a float that determines the y-coordinate of the independent TextGlyph
+            - width (float): a float that determines the width of the independent TextGlyph
+            - height (float): a float that determines the height of the independent TextGlyph
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+            true on success and false if the independent TextGlyph could not be added
+        """
+        return lib.c_api_addIndependentTextGlyph(self.sbml_object, str(text).encode(), ctypes.c_double(x), ctypes.c_double(y), ctypes.c_double(width), ctypes.c_double(height), layout_index)
+
+    def removeIndependentTextGlyph(self, independent_text_glyph_index, layout_index=0):
+        """
+        Removes the independent TextGlyph with the given independent_text_glyph_index and layout_index from the given SBMLDocument
+
+        :Parameters:
+
+            - independent_text_glyph_index (int): an integer that determines the index of the independent TextGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the independent TextGlyph could not be removed
+        """
+        return lib.c_api_removeIndependentTextGlyph(self.sbml_object, independent_text_glyph_index, layout_index)
+
     def getNumAllAdditionalGraphicalObjects(self, layout_index=0):
         """
         Returns the number of AdditionalGraphicalObjects in the Layout object with the given index in the given SBMLDocument
