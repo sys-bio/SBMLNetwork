@@ -667,8 +667,8 @@ class SBMLNetwork:
     #
     #     return False
 
-    def auto_layout(self, max_num_connected_edges: int = 3, reset_fixed_position_elements: bool = False, fixed_position_nodes: list = []):
-        self.libsbmlnetwork.autolayout(max_num_connected_edges, reset_fixed_position_elements, fixed_position_nodes)
+    def auto_layout(self, max_num_connected_edges: int = 3, reset_fixed_position_elements: bool = False, fixed_position_nodes: list = [], iterations: int = -1):
+        self.libsbmlnetwork.autolayout(max_num_connected_edges, reset_fixed_position_elements, fixed_position_nodes, iterations)
 
     def auto_style(self, max_num_connected_edges: int = 3):
         self.libsbmlnetwork.autorender(max_num_connected_edges)

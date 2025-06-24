@@ -46,9 +46,9 @@ public:
 
     void fixedPositionNodes();
 
-    void apply();
+    void apply(const int& iterations = -1);
 
-    void initialize();
+    void initialize(const int& iterations = -1);
 
     void iterate();
 

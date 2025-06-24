@@ -57,7 +57,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return isSetModel(document);
     }
 
-    int c_api_autolayout(SBMLDocument *document, const int maxNumConnectedEdges, bool resetFixedPositionElements, const char ***fixedPositionNodes, const int fixedPositionNodesSize) {
+    int c_api_autolayout(SBMLDocument *document, const int maxNumConnectedEdges, bool resetFixedPositionElements, const char ***fixedPositionNodes, const int fixedPositionNodesSize, const int iterations) {
         std::set<std::pair<std::string, int> > fixedPositionNodesSet = std::set<std::pair<std::string, int> >();
         if (fixedPositionNodes) {
             for (int i = 0; i < fixedPositionNodesSize; i++) {
@@ -68,7 +68,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
             }
         }
 
-        return autolayout(document, maxNumConnectedEdges, resetFixedPositionElements, fixedPositionNodesSet);
+        return autolayout(document, maxNumConnectedEdges, resetFixedPositionElements, fixedPositionNodesSet, iterations);
     }
 
     int c_api_autorender(SBMLDocument *document, const int maxNumConnectedEdges) {
@@ -179,7 +179,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges, bool resetFixedPositionElements,
-                                  const char ***fixedPositionNodes, const int fixedPositionNodesSize) {
+                                  const char ***fixedPositionNodes, const int fixedPositionNodesSize, const int iterations) {
         std::set<std::pair<std::string, int> > fixedPositionNodesSet = std::set<std::pair<std::string, int> >();
         for (int i = 0; i < fixedPositionNodesSize; i++) {
             const char **fixedPositionNode = fixedPositionNodes[i];
@@ -188,7 +188,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
             fixedPositionNodesSet.insert(std::make_pair(id, index));
         }
 
-        return createDefaultLayoutLocations(document, maxNumConnectedEdges, resetFixedPositionElements, fixedPositionNodesSet);
+        return createDefaultLayoutLocations(document, maxNumConnectedEdges, resetFixedPositionElements, fixedPositionNodesSet, iterations);
     }
 
     bool c_api_getStoichiometricSpeciesReference(SBMLDocument* document) {

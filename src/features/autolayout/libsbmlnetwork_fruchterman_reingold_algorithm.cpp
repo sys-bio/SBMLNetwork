@@ -113,8 +113,8 @@ void FruchtermanReingoldAlgorithmBase::updateConnectionsFixedPositionStatus() {
         ((AutoLayoutConnection *) _connections.at(i))->updateFixedPositionStatus();
 }
 
-void FruchtermanReingoldAlgorithmBase::apply() {
-    initialize();
+void FruchtermanReingoldAlgorithmBase::apply(const int& iterations) {
+    initialize(iterations);
     iterate();
     updateNodesDimensions();
     scaleCoordinates();
@@ -122,8 +122,11 @@ void FruchtermanReingoldAlgorithmBase::apply() {
     updateConnectionsControlPoints();
 }
 
-void FruchtermanReingoldAlgorithmBase::initialize() {
-    _maximumIterations = int(100 * std::log(_nodes.size() - _connections.size() + 2));
+void FruchtermanReingoldAlgorithmBase::initialize(const int& iterations) {
+    if (iterations > 0)
+        _maximumIterations = iterations;
+    else
+        _maximumIterations = int(100 * std::log(_nodes.size() - _connections.size() + 2));
     _initialTemperature = 1000 * std::log(_nodes.size() - _connections.size() + 2);
     _currentTemperature = _initialTemperature;
     _time = 0.0;

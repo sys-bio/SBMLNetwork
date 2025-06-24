@@ -29,7 +29,7 @@ int set_layout_features_setDefaultLayoutFeatures(SBMLDocument* document, Layout*
 }
 
 int set_layout_features_setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges,
-                      bool resetFixedPositionElements, const std::set<std::pair<std::string, int> > fixedPositionNodesSet) {
+                      bool resetFixedPositionElements, const std::set<std::pair<std::string, int> > fixedPositionNodesSet, const int iterations) {
     if (document && layout) {
         user_data_passUserData(document, layout);
         defaults_setDefaultLayoutId(layout);
@@ -42,7 +42,7 @@ int set_layout_features_setDefaultLayoutLocations(SBMLDocument* document, Layout
             set_layout_features_setCompartmentGlyphs(model, layout, userData);
             set_layout_features_setReactionGlyphs(model, layout, maxNumConnectedEdges, userData);
             set_layout_features_setOrphanSpeciesGlyphs(model, layout, userData);
-            autolayout_locateGlyphs(model, layout);
+            autolayout_locateGlyphs(model, layout, iterations);
             set_layout_features_setTextGlyphs(layout);
             user_data_setUserData(layout, "max_num_connected_edges", std::to_string(maxNumConnectedEdges));
             return 0;

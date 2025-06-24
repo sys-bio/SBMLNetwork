@@ -114,7 +114,7 @@ class LibSBMLNetwork:
 
         return self.save(file_name)
 
-    def autolayout(self, max_num_connected_edges=3, reset_fixed_position_elements=False, fixed_position_nodes=[]):
+    def autolayout(self, max_num_connected_edges=3, reset_fixed_position_elements=False, fixed_position_nodes=[], iterations=-1):
         """
         checks if a Layout object, a GlobalRenderInformation object, and LocalRenderInformation object does not exists in the SBMLDocument, then adds them to it, and set all the necessary features for them.
 
@@ -127,6 +127,7 @@ class LibSBMLNetwork:
                     - 'id' (str): the ID of the node that must not be moved when autolayout algorithm is applied.
                     - 'index' (int): the index of the graphical object associated with the node that must not be moved when autolayout algorithm is applied.
                 - or a list of node IDs (str) that must not be moved when autolayout algorithm is applied.
+            - iterations (int, optional): an integer (default: -1) that determines the number of iterations to be applied in the autolayout algorithm. If set to -1, the algorithm will set it based on the number of species and reactions
 
         :Returns:
 
@@ -148,7 +149,7 @@ class LibSBMLNetwork:
                     raise Exception("The fixed_position_nodes parameter should be a list of lists or a list of strings.")
                 fixed_position_nodes_ptr[i] = fixed_position_node_ptr
 
-        return lib.c_api_autolayout(self.sbml_object, ctypes.c_int(max_num_connected_edges), ctypes.c_bool(reset_fixed_position_elements), fixed_position_nodes_ptr, len(fixed_position_nodes))
+        return lib.c_api_autolayout(self.sbml_object, ctypes.c_int(max_num_connected_edges), ctypes.c_bool(reset_fixed_position_elements), fixed_position_nodes_ptr, len(fixed_position_nodes), ctypes.c_int(iterations))
     
     def autorender(self, max_num_connected_edges=3):
         """
@@ -405,7 +406,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_createDefaultLayoutFeatures(self.sbml_object)
 
-    def createDefaultLayoutLocations(self, max_num_connected_edges=3, reset_fixed_position_elements=False, fixed_position_nodes=[]):
+    def createDefaultLayoutLocations(self, max_num_connected_edges=3, reset_fixed_position_elements=False, fixed_position_nodes=[], iterations=-1):
         """
         Creates a default Layout object in the given SBMLDocument and sets the locations of all the graphical objects in the Layout object
 
@@ -414,6 +415,7 @@ class LibSBMLNetwork:
             - max_num_connected_edges (int, optional): an integer (default: 3) that determines the maximum number of connected edges to a node in the autolayout algorithm (will set the criteria for creating alias nodes).
             - reset_fixed_position_elements (boolean, optional): a boolean (default: False) that determines whether to reset the fixed position elements before applying the autolayout algorithm.
             - fixed_position_nodes (list, optional): a list (default: []) that determines the list of nodes that should not be moved during the autolayout algorithm.
+            - iterations (int, optional): an integer (default: -1) that determines the number of iterations to be applied in the autolayout algorithm. If set to -1, the algorithm will set it based on the number of species and reactions
 
         :Returns:
 
@@ -425,7 +427,7 @@ class LibSBMLNetwork:
             for i in range(len(fixed_position_nodes)):
                 fixed_position_nodes_ptr[i] = ctypes.c_char_p(fixed_position_nodes[i].encode())
 
-        return lib.c_api_createDefaultLayoutLocations(self.sbml_object, ctypes.c_int(max_num_connected_edges), ctypes.c_bool(reset_fixed_position_elements), fixed_position_nodes_ptr, len(fixed_position_nodes))
+        return lib.c_api_createDefaultLayoutLocations(self.sbml_object, ctypes.c_int(max_num_connected_edges), ctypes.c_bool(reset_fixed_position_elements), fixed_position_nodes_ptr, len(fixed_position_nodes), iterations)
 
     def createAliasSpeciesGlyph(self, species_id, reaction_id, reaction_glyph_index=0, layout_index=0):
         """

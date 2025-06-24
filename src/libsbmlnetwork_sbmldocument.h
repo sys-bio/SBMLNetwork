@@ -82,8 +82,9 @@ LIBSBMLNETWORK_EXTERN bool isSetModel(SBMLDocument* document);
 /// @param maxNumConnectedEdges the maximum number of connected edges to a node in the autolayout algorithm..
 /// @param resetFixedPositionElements a variable that determines whether to reset the fixed position elements in the autolayout algorithm.
 /// @param fixedPositionNodesSet a set of fixed position nodes and their graphical object indices to be used in the autolayout algorithm.
+/// @param iterations the number of iterations to run the autolayout algorithm for. If -1, the algorithm will set it based on the number of species and reactions.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int autolayout(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool resetFixedPositionElements = false, std::set<std::pair<std::string, int> > fixedPositionNodesSet = {});
+LIBSBMLNETWORK_EXTERN int autolayout(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool resetFixedPositionElements = false, std::set<std::pair<std::string, int> > fixedPositionNodesSet = {}, const int iterations = -1);
 
 /// @brief Create a Render object and add it to the the SBML document if it does not exist.
 /// @param document a pointer to the SBMLDocument object.

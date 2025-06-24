@@ -77,9 +77,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param resetFixedPositionElements a variable that determines whether to reset the fixed position elements in the autolayout algorithm.
     /// @param fixedPositionNodeIds an array of strings containing the ids of the nodes and the indices of their associated graphical objects that must have fixed position in the autolayout algorithm.
     /// @param fixedPositionNodesSize the size of fixedPositionNodeIds
+    /// @param iterations the number of iterations to run the autolayout algorithm for. If -1, the algorithm will set it based on the number of species and reactions
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_autolayout(SBMLDocument* document, const int maxNumConnectedEdges = 3,
-                                                bool resetFixedPositionElements = false, const char ***fixedPositionNodes = NULL, const int fixedPositionNodesSize = 0);
+                                                bool resetFixedPositionElements = false, const char ***fixedPositionNodes = NULL, const int fixedPositionNodesSize = 0, const int iterations = -1);
 
     /// @brief Create a Render object, add it to the the SBML document, and set all the necessary features for it.
     /// @param document a pointer to the SBMLDocument object.
@@ -235,7 +236,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param fixedPositionNodeIds an array of strings containing the ids of the nodes that must have fixed position in the autolayout algorithm.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges = 3,
-                                                               bool resetFixedPositionElements = false, const char*** fixedPositionNodeIds = NULL, const int fixedPositionNodesSize = 0);
+                                                               bool resetFixedPositionElements = false, const char*** fixedPositionNodeIds = NULL, const int fixedPositionNodesSize = 0, const int iterations = -1);
 
     /// @brief Returns the value of the option to generate stoichiometric species reference in the autolayout algorithm.
     /// @param document a pointer to the SBMLDocument object.
