@@ -42,6 +42,12 @@ class StyleManager:
             reactions_list.move_arrow_head_relative_positions_to((-2, -3))
             reactions_list.set_arrow_head_sizes((4, 6))
 
+            independent_labels = self.network_obj.get_independent_labels()
+            for independent_label in independent_labels:
+                independent_label.set_font_size(38)
+                independent_label.set_font_color("black")
+                independent_label.set_bold(True)
+                independent_label.set_italic(True)
     def _update_species_features(self, species):
         if species.get_size()[0] > 30 or species.get_size()[1] > 30:
             species.set_size((30, 30))

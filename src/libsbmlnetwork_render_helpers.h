@@ -163,6 +163,8 @@ void addSpeciesReferenceGlyphGlobalStyles(GlobalRenderInformation* globalRenderI
 
 void addTextGlyphsGlobalStyles(GlobalRenderInformation* globalRenderInformation);
 
+void addTextGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation);
+
 void addCompartmentGlyphTextGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation);
 
 void addSpeciesGlyphTextGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation);
@@ -210,6 +212,8 @@ void addSpeciesReferenceGlyphsLocalStyles(ReactionGlyph* reactionGlyph, LocalRen
 void addSpeciesReferenceGlyphLocalStyle(SpeciesReferenceGlyph* speciesReferenceGlyph, LocalRenderInformation* localRenderInformation);
 
 void setCompartmentGlyphRenderGroupFeatures(RenderGroup* renderGroup);
+
+void setTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
 void setCompartmentGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
