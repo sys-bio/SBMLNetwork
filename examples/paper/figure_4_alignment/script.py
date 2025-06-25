@@ -71,4 +71,4 @@ net.get_reactions_list([
 
 net.set_size((4500, 5000))
 net.draw("figure_4_alignment.pdf")
-net.draw("figure_4_alignment.xml")
+net.save("figure_4_alignment.xml")
