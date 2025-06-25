@@ -616,6 +616,22 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return removeText(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex);
     }
 
+    const int c_api_getNumAllIndependentTextGlyphs(SBMLDocument* document, int layoutIndex) {
+        return getNumIndependentTextGlyphs(document, layoutIndex);
+    }
+
+    const char* c_api_getIndependentTextGlyphId(SBMLDocument* document, int independentTextGlyphIndex, int layoutIndex) {
+        return strdup(getIndependentTextGlyphId(document, layoutIndex, independentTextGlyphIndex).c_str());
+    }
+
+    int c_api_addIndependentTextGlyph(SBMLDocument* document, const char* text, double x, double y, double width, double height, int layoutIndex) {
+        return addIndependentTextGlyph(document, layoutIndex, text, x, y, width, height);
+    }
+
+    int c_api_removeIndependentTextGlyph(SBMLDocument* document, int independentTextGlyphIndex, int layoutIndex) {
+        return removeIndependentTextGlyph(document, layoutIndex, independentTextGlyphIndex);
+    }
+
     const int c_api_getNumAllAdditionalGraphicalObjects(SBMLDocument* document, int layoutIndex) {
         return getNumAdditionalGraphicalObjects(document, layoutIndex);
     }

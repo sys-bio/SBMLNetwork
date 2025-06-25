@@ -44,6 +44,8 @@ const int getIndexOfConnectedSpeciesGlyph(std::vector<SpeciesReferenceGlyph*> sp
 
 TextGlyph* createAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObject);
 
+TextGlyph* createIndependentTextGlyph(Layout* layout, const std::string& text);
+
 void setReactionGlyphCurve(ReactionGlyph* reactionGlyph);
 
 int removeReactionGlyphCurve(ReactionGlyph* reactionGlyph);
@@ -51,6 +53,8 @@ int removeReactionGlyphCurve(ReactionGlyph* reactionGlyph);
 void setReactionGlyphBoundingBox(ReactionGlyph* reactionGlyph);
 
 void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject, const double& padding = 0.0);
+
+void setTextGlyphBoundingBox(TextGlyph* textGlyph, const double& x, const double& y, const double& width, const double& height);
 
 Compartment* findCompartmentGlyphCompartment(Model* model, CompartmentGlyph* compartmentGlyph);
 
@@ -78,6 +82,8 @@ bool textGlyphBelongs(TextGlyph* textGlyph, GraphicalObject* graphicalObject);
 
 std::vector<TextGlyph*> getAssociatedTextGlyphsWithGraphicalObject(Layout* layout, GraphicalObject* graphicalObject);
 
+std::vector<TextGlyph*> getIndependentTextGlyphs(Layout* layout);
+
 GraphicalObject* getGraphicalObjectUsingItsOwnId(Layout* layout, const std::string& graphicalObjectId);
 
 int removeGraphicalObjectUsingItsOwnId(Layout* layout, const std::string& graphicalObjectId);
@@ -99,6 +105,8 @@ std::vector<ReactionGlyph*> getAssociatedReactionGlyphsWithReactionId(Layout* la
 std::vector<SpeciesReferenceGlyph*> getSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph);
 
 const std::string getTextGlyphUniqueId(Layout* layout, GraphicalObject* graphicalObject);
+
+const std::string getTextGlyphUniqueId(Layout* layout);
 
 const std::string getIdOfSpeciesReferenceGlyphConnectedToNewSpeciesGlyph(std::string speciesReferenceGlyphId, const std::string& originalSpeciesGlyphId, const std::string& aliasSpeciesGlyphId);
 

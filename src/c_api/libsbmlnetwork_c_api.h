@@ -1189,6 +1189,37 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_removeText(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex = 0, int layoutIndex = 0);
 
+    /// @brief Returns the number of independent text glyphs of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the number of independent text glyphs of this Layout object, or @c 0 if the object is @c NULL
+    LIBSBMLNETWORK_EXTERN const int c_api_getNumAllIndependentTextGlyphs(SBMLDocument* document, int layoutIndex = 0);
+
+    /// @brief Returns the id of the independent text glyph with the given index of the Layout object with the given index in the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param independentTextGlyphIndex the index of the independent text glyph to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the id of the independent text glyph with the given index, or @c NULL if the object is @c NULL
+    LIBSBMLNETWORK_EXTERN const char* c_api_getIndependentTextGlyphId(SBMLDocument* document, int independentTextGlyphIndex, int layoutIndex = 0);
+
+    /// @brief Adds a new independent text glyph to the Layout object with the given index in the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param text the displayed text of the independent text glyph
+    /// @param x the x position of the independent text glyph
+    /// @param y the y position of the independent text glyph
+    /// @param width the width dimension of the independent text glyph
+    /// @param height the height position of the independent text glyph
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_addIndependentTextGlyph(SBMLDocument* document, const char* text, double x, double y, double width, double height, int layoutIndex = 0);
+
+    /// @brief Removes the independent text glyph with the given index of the Layout object with the given index in the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param independentTextGlyphIndex the index of the independent text glyph to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_removeIndependentTextGlyph(SBMLDocument* document, int independentTextGlyphIndex, int layoutIndex = 0);
+
     /// @brief Returns the number of additional graphical objects of the Layout object with the given index in the ListOfLayouts of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param layoutIndex the index number of the Layout to return.

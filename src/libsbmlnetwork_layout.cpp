@@ -796,6 +796,43 @@ bool isTextGlyph(const GraphicalObject* graphicalObject) {
     return false;
 }
 
+const unsigned int getNumIndependentTextGlyphs(Layout* layout) {
+    if (layout)
+        return getIndependentTextGlyphs(layout).size();
+
+    return 0;
+}
+
+TextGlyph* getIndependentTextGlyph(Layout* layout, const unsigned int independentTextGlyphIndex) {
+    if (layout) {
+        std::vector<TextGlyph*> independentTextGlyphs = getIndependentTextGlyphs(layout);
+        if (independentTextGlyphIndex < independentTextGlyphs.size())
+            return independentTextGlyphs.at(independentTextGlyphIndex);
+    }
+
+    return NULL;
+}
+
+const std::string getIndependentTextGlyphId(Layout* layout, const unsigned int independentTextGlyphIndex) {
+    TextGlyph* independentTextGlyph = getIndependentTextGlyph(layout, independentTextGlyphIndex);
+    if (independentTextGlyph)
+        return independentTextGlyph->getId();
+
+    return "";
+}
+
+GraphicalObject* addIndependentTextGlyph(Layout* layout, const std::string& text, const double& x, const double& y, const double& width, const double& height) {
+    return set_layout_features_createIndependentTextGlyph(layout, text, x, y, width, height);
+}
+
+int removeIndependentTextGlyph(Layout* layout, const unsigned int independentTextGlyphIndex) {
+    return set_layout_features_removeIndependentTextGlyph(layout, independentTextGlyphIndex);
+}
+
+int removeIndependentTextGlyph(Layout* layout, const std::string& id) {
+    return set_layout_features_removeIndependentTextGlyph(layout, id);
+}
+
 const unsigned int getNumAdditionalGraphicalObjects(Layout* layout) {
     if (layout)
         return layout->getNumAdditionalGraphicalObjects();

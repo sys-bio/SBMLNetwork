@@ -79,6 +79,12 @@ SpeciesReferenceGlyph* set_layout_features_createSpeciesReferenceGlyph(Layout* l
 
 SpeciesReferenceGlyph* set_layout_features_createSpeciesReferenceGlyph(ReactionGlyph* reactionGlyph, const std::string& speciesId, unsigned int stoichiometryIndex);
 
+TextGlyph* set_layout_features_createIndependentTextGlyph(Layout* layout, const std::string& text, const double& x, const double& y, const double& width, const double& height);
+
+int set_layout_features_removeIndependentTextGlyph(Layout* layout, const unsigned int independentTextGlyphIndex);
+
+int set_layout_features_removeIndependentTextGlyph(Layout* layout, const std::string& id);
+
 GraphicalObject* set_layout_features_createAdditionalGraphicalObject(Layout* layout, const std::string& id);
 
 int set_layout_features_removeAdditionalGraphicalObject(Layout* layout, const std::string& id);

@@ -900,6 +900,33 @@ bool isTextGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::st
     return isTextGlyph(getLayout(document, layoutIndex), id, textGlyphIndex);
 }
 
+const unsigned int getNumIndependentTextGlyphs(SBMLDocument* document, unsigned int layoutIndex) {
+    return getNumIndependentTextGlyphs(getLayout(document, layoutIndex));
+}
+
+GraphicalObject* getIndependentTextGlyph(SBMLDocument* document, unsigned int independentTextGlyphIndex) {
+    return getIndependentTextGlyph(getLayout(document), independentTextGlyphIndex);
+}
+
+const std::string getIndependentTextGlyphId(SBMLDocument* document, unsigned int layoutIndex, unsigned int independentTextGlyphIndex) {
+    return getIndependentTextGlyphId(getLayout(document, layoutIndex), independentTextGlyphIndex);
+}
+
+int addIndependentTextGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& text, const double& x, const double& y, const double& width, const double& height) {
+    if (set_layout_features_createIndependentTextGlyph(getLayout(document, layoutIndex), text, x, y, width, height))
+        return 0;
+
+    return -1;
+}
+
+int removeIndependentTextGlyph(SBMLDocument* document, unsigned int layoutIndex, unsigned int independentTextGlyphIndex) {
+    return set_layout_features_removeIndependentTextGlyph(getLayout(document, layoutIndex), independentTextGlyphIndex);
+}
+
+int removeIndependentTextGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id) {
+    return set_layout_features_removeIndependentTextGlyph(getLayout(document, layoutIndex), id);
+}
+
 const unsigned int getNumAdditionalGraphicalObjects(SBMLDocument* document, unsigned int layoutIndex) {
     return getNumAdditionalGraphicalObjects(getLayout(document, layoutIndex));
 }

@@ -216,6 +216,14 @@ TextGlyph* createAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalO
     return textGlyph;
 }
 
+TextGlyph* createIndependentTextGlyph(Layout* layout, const std::string& text) {
+    TextGlyph* textGlyph = layout->createTextGlyph();
+    textGlyph->setId(getTextGlyphUniqueId(layout));
+    textGlyph->setText(text);
+
+    return textGlyph;
+}
+
 void setReactionGlyphCurve(ReactionGlyph* reactionGlyph) {
     if (!reactionGlyph->isSetCurve()) {
         double x = reactionGlyph->getBoundingBox()->x();
@@ -269,6 +277,14 @@ void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObj
     textGlyph->getBoundingBox()->setY(graphicalObject->getBoundingBox()->y() + padding);
     textGlyph->getBoundingBox()->setWidth(graphicalObject->getBoundingBox()->width());
     textGlyph->getBoundingBox()->setHeight(graphicalObject->getBoundingBox()->height());
+}
+
+void setTextGlyphBoundingBox(TextGlyph* textGlyph, const double& x, const double& y, const double& width, const double& height) {
+    textGlyph->getBoundingBox()->setId(textGlyph->getId() + "_bb");
+    textGlyph->getBoundingBox()->setX(x);
+    textGlyph->getBoundingBox()->setY(y);
+    textGlyph->getBoundingBox()->setWidth(width);
+    textGlyph->getBoundingBox()->setHeight(height);
 }
 
 Compartment* findCompartmentGlyphCompartment(Model* model, CompartmentGlyph* compartmentGlyph) {
@@ -360,8 +376,10 @@ const std::string getSpeciesReferenceGlyphSpeciesId(Layout* layout, SpeciesRefer
 }
 
 bool textGlyphBelongs(TextGlyph* textGlyph, GraphicalObject* graphicalObject) {
-    if (textGlyph && graphicalObject)
-        return textGlyph->getGraphicalObjectId() == graphicalObject->getId() ? true : false;
+    if (textGlyph && graphicalObject) {
+        if (textGlyph->getGraphicalObjectId() == graphicalObject->getId() || textGlyph->getId() == graphicalObject->getId())
+        return true;
+    }
 
     return false;
 }
@@ -370,6 +388,16 @@ std::vector<TextGlyph*> getAssociatedTextGlyphsWithGraphicalObject(Layout* layou
     std::vector<TextGlyph*> textGlyphs;
     for (unsigned int i = 0; i < layout->getNumTextGlyphs(); i++) {
         if (textGlyphBelongs(layout->getTextGlyph(i), graphicalObject))
+            textGlyphs.push_back(layout->getTextGlyph(i));
+    }
+
+    return textGlyphs;
+}
+
+std::vector<TextGlyph*> getIndependentTextGlyphs(Layout* layout) {
+    std::vector<TextGlyph*> textGlyphs;
+    for (unsigned int i = 0; i < layout->getNumTextGlyphs(); i++) {
+        if (layout->getTextGlyph(i)->getGraphicalObjectId().empty() && layout->getTextGlyph(i)->getOriginOfTextId().empty())
             textGlyphs.push_back(layout->getTextGlyph(i));
     }
 
@@ -386,6 +414,9 @@ GraphicalObject* getGraphicalObjectUsingItsOwnId(Layout* layout, const std::stri
     ReactionGlyph* reactionGlyph = layout->getReactionGlyph(graphicalObjectId);
     if (reactionGlyph)
         return reactionGlyph;
+    TextGlyph* textGlyph = layout->getTextGlyph(graphicalObjectId);
+    if (textGlyph)
+        return textGlyph;
     GraphicalObject* additionalGraphicalObject = layout->getAdditionalGraphicalObject(graphicalObjectId);
     if (additionalGraphicalObject)
         return additionalGraphicalObject;
@@ -532,6 +563,25 @@ const std::string getTextGlyphUniqueId(Layout* layout, GraphicalObject* graphica
     return textGlyphUniqueId;
 }
 
+const std::string getTextGlyphUniqueId(Layout* layout) {
+    std::string textGlyphUniqueId = "";
+    int textGlyphIndex = 0;
+    while (true) {
+        textGlyphUniqueId = "TextGlyph_" + std::to_string(textGlyphIndex++);
+        bool isUniqueId = true;
+        for (unsigned int i = 0; i < layout->getNumTextGlyphs(); i++) {
+            if (textGlyphUniqueId == layout->getTextGlyph(i)->getId()) {
+                isUniqueId = false;
+                break;
+            }
+        }
+        if (isUniqueId)
+            break;
+    }
+
+    return textGlyphUniqueId;
+}
+
 const std::string getIdOfSpeciesReferenceGlyphConnectedToNewSpeciesGlyph(std::string speciesReferenceGlyphId, const std::string& originalSpeciesGlyphId, const std::string& newSpeciesGlyphId) {
     std::string::size_type pos = speciesReferenceGlyphId.find(originalSpeciesGlyphId);
     if (pos != std::string::npos)
@@ -574,14 +624,18 @@ const int getStoichiometryAsInteger(Layout* layout, SimpleSpeciesReference* spec
 
 void updateAssociatedTextGlyphsPositionX(Layout* layout, GraphicalObject* graphicalObject, const double& movedDistanceX) {
     std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
-    for (unsigned int i = 0; i < textGlyphs.size(); i++)
-        textGlyphs.at(i)->getBoundingBox()->setX(textGlyphs.at(i)->getBoundingBox()->x() + movedDistanceX);
+    for (unsigned int i = 0; i < textGlyphs.size(); i++) {
+        if (textGlyphs.at(i)->getId() != graphicalObject->getId())
+            textGlyphs.at(i)->getBoundingBox()->setX(textGlyphs.at(i)->getBoundingBox()->x() + movedDistanceX);
+    }
 }
 
 void updateAssociatedTextGlyphsPositionY(Layout* layout, GraphicalObject* graphicalObject, const double& movedDistanceY) {
     std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
-    for (unsigned int i = 0; i < textGlyphs.size(); i++)
-        textGlyphs.at(i)->getBoundingBox()->setY(textGlyphs.at(i)->getBoundingBox()->y() + movedDistanceY);
+    for (unsigned int i = 0; i < textGlyphs.size(); i++) {
+        if (textGlyphs.at(i)->getId() != graphicalObject->getId())
+            textGlyphs.at(i)->getBoundingBox()->setY(textGlyphs.at(i)->getBoundingBox()->y() + movedDistanceY);
+    }
 }
 
 void updateAssociatedTextGlyphsPosition(Layout* layout, GraphicalObject* graphicalObject, const double& movedDistanceX, const double& movedDistanceY) {
@@ -591,14 +645,18 @@ void updateAssociatedTextGlyphsPosition(Layout* layout, GraphicalObject* graphic
 
 void updateAssociatedTextGlyphsDimensionWidth(Layout* layout, GraphicalObject* graphicalObject, const double& changedWidth) {
     std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
-    for (unsigned int i = 0; i < textGlyphs.size(); i++)
-        textGlyphs.at(i)->getBoundingBox()->setWidth(textGlyphs.at(i)->getBoundingBox()->width() + changedWidth);
+    for (unsigned int i = 0; i < textGlyphs.size(); i++) {
+        if (textGlyphs.at(i)->getId() != graphicalObject->getId())
+            textGlyphs.at(i)->getBoundingBox()->setWidth(textGlyphs.at(i)->getBoundingBox()->width() + changedWidth);
+    }
 }
 
 void updateAssociatedTextGlyphsDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, const double& changedHeight) {
     std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
-    for (unsigned int i = 0; i < textGlyphs.size(); i++)
-        textGlyphs.at(i)->getBoundingBox()->setHeight(textGlyphs.at(i)->getBoundingBox()->height() + changedHeight);
+    for (unsigned int i = 0; i < textGlyphs.size(); i++) {
+        if (textGlyphs.at(i)->getId() != graphicalObject->getId())
+            textGlyphs.at(i)->getBoundingBox()->setHeight(textGlyphs.at(i)->getBoundingBox()->height() + changedHeight);
+    }
 }
 
 const double getCurveMiddlePositionX(Curve* curve) {
