@@ -929,6 +929,30 @@ BoundingBox* getLineEndingBoundingBox(SBMLDocument* document, unsigned int rende
     return getLineEndingBoundingBox(getLineEnding(document, renderIndex, sid));
 }
 
+bool isSetSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return isSetSpeciesReferenceLineEndingEnableRotationalMapping(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+}
+
+bool isSetSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return isSetEnableRotationalMapping(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex));
+}
+
+bool getSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getSpeciesReferenceLineEndingEnableRotationalMapping(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+}
+
+bool getSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getEnableRotationalMapping(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex));
+}
+
+int setSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const double x) {
+    return setSpeciesReferenceLineEndingEnableRotationalMapping(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, x);
+}
+
+int setSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, bool enableRotationalMapping) {
+    return setEnableRotationalMapping(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex), enableRotationalMapping);
+}
+
 BoundingBox* getSpeciesReferenceLineEndingBoundingBox(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
     return getSpeciesReferenceLineEndingBoundingBox(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex);
 }

@@ -1344,6 +1344,63 @@ LIBSBMLNETWORK_EXTERN BoundingBox* getLineEndingBoundingBox(SBMLDocument* docume
 /// @return the bounding box for the LineEnding object, or @c NULL if the object is @c NULL
 LIBSBMLNETWORK_EXTERN BoundingBox* getLineEndingBoundingBox(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
 
+/// @brief Predicates returning \c true if the "enableRotationalMapping" attribute of the LineEnding associated with the SpeciesReferenceGlyph
+/// in the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document is set.
+/// @param document A pointer to the SBMLDocument object.
+/// @param reactionId A string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex The index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex The index number of the SpeciesReference object.
+/// @return \c true if the "enableRotationalMapping" attribute of the LineEnding is set, \c false if the attribute is not set or the object is \c NULL.
+LIBSBMLNETWORK_EXTERN bool isSetSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex);
+
+/// @brief Predicates returning \c true if the "enableRotationalMapping" attribute of the LineEnding associated with the SpeciesReferenceGlyph
+/// in the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document is set.
+/// @param document A pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param reactionId A string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex The index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex The index number of the SpeciesReference object.
+/// @return \c true if the "enableRotationalMapping" attribute of the LineEnding is set, \c false if the attribute is not set or the object is \c NULL.
+LIBSBMLNETWORK_EXTERN bool isSetSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex);
+
+/// @brief Returns the value of the "enableRotationalMapping" LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @return the value of "enableRotationalMapping" attribute of the LineEnding, or @c false if the object is @c NULL or the attribute is not set.
+LIBSBMLNETWORK_EXTERN bool getSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex);
+
+/// @brief Returns the value of the "enableRotationalMapping" LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @return the value of "enableRotationalMapping" attribute of the LineEnding, or @c false if the object is @c NULL or the attribute is not set.
+LIBSBMLNETWORK_EXTERN bool getSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex);
+
+/// @brief Sets the value of the "enableRotationalMapping" attribute of the LineEnding associated with the SpeciesReferenceGlyph
+/// with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param enableRotationalMapping a bolean to use as the value of the "enableRotationalMapping" attribute.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, bool enableRotationalMapping);
+
+/// @brief Sets the value of the "enableRotationalMapping" attribute of the LineEnding associated with the SpeciesReferenceGlyph
+/// with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param enableRotationalMapping a double to use as the value of the "enableRotationalMapping" attribute.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, bool enableRotationalMapping);
+
 /// @brief Returns the bounding box for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param reactionId a string representing the identifier of the Reaction object.

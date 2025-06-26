@@ -31,12 +31,12 @@ class StyleManager:
                     self._update_species_label_position(label, species.get_size())
             reactions_list = self.network_obj.get_reactions_list()
             for reaction in reactions_list:
-                reaction.show_reversibility(self._are_substrtes_directions_reveresed(reaction))
+                reaction.show_reversibility(self._are_substrates_directions_reversed(reaction))
                 self._set_reaction_center_style(reaction)
                 self._add_geometric_shapes_to_multiple_curve_segments(reaction)
                 labels_list = reaction.get_labels_list()
                 for label in labels_list:
-                    self._update_reaction_label_position(reaction, label)
+                    self._update_reaction_label(reaction, label)
 
             reactions_list = self.network_obj.get_reactions_list()
             reactions_list.move_arrow_head_relative_positions_to((-2, -3))
@@ -48,11 +48,13 @@ class StyleManager:
                 independent_label.set_font_color("black")
                 independent_label.set_bold(True)
                 independent_label.set_italic(True)
-    def _update_species_features(self, species):
+
+    @staticmethod
+    def _update_species_features(species):
         if species.get_size()[0] > 30 or species.get_size()[1] > 30:
             species.set_size((30, 30))
-            species.set_font_size(12)
-            species.set_font_color("black")
+        species.set_font_size(12)
+        species.set_font_color("black")
 
     def _update_curve_end_point(self, curve):
         species = curve.get_species()
@@ -86,7 +88,7 @@ class StyleManager:
             if len(curve.get_reaction().get_curves_list()) == 2:
                 segment.set_control_point_1(segment_start_point)
 
-    def _are_substrtes_directions_reveresed(self, reaction):
+    def _are_substrates_directions_reversed(self, reaction):
         curve_list = reaction.get_curves_list()
         for curve in curve_list:
             species = curve.get_species()
@@ -106,15 +108,24 @@ class StyleManager:
 
     @staticmethod
     def _update_species_label_position(label, species_size):
-        relatvie_position = label.get_relative_position()
-        if abs(relatvie_position[0]) <= 5 and abs(relatvie_position[1]) <= 5:
+        relative_position = label.get_relative_position()
+        if abs(relative_position[0]) <= 5 and abs(relative_position[1]) <= 5:
             label.move_by(species_size)
         else:
             return label.move_by((-60, 7))
 
+    def _update_reaction_label(self, reaction, label):
+        label.set_font_size(24)
+        label.set_font_color("luckypoint")
+        label.set_bold(True)
+        label.set_italic(True)
+        label.set_font("sans-serif")
+        self._update_reaction_label_position(reaction, label)
+
+
     def _update_reaction_label_position(self, reaction, label):
-        relatvie_position = label.get_relative_position()
-        if abs(relatvie_position[0]) <= 5 and abs(relatvie_position[1]) <= 5:
+        relative_position = label.get_relative_position()
+        if abs(relative_position[0]) <= 5 and abs(relative_position[1]) <= 5:
             label.move_by(reaction.get_size())
         else:
             if self._is_vertical_reaction(reaction):

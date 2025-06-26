@@ -1116,6 +1116,30 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return strdup(getLocalLineEndingId(document, renderIndex, lineEndingIndex).c_str());
     }
 
+    bool c_api_isSetLineEndingEnableRotationalMapping(SBMLDocument* document, const char* id, int renderIndex) {
+        return isSetEnableRotationalMapping(document, renderIndex, id);
+    }
+
+    bool c_api_getLineEndingEnableRotationalMapping(SBMLDocument* document, const char* id, int renderIndex) {
+        return getEnableRotationalMapping(document, renderIndex, id);
+    }
+
+    int c_api_setLineEndingEnableRotationalMapping(SBMLDocument* document, const char* id, bool enableRotationalMapping, int renderIndex) {
+        return setEnableRotationalMapping(document, renderIndex, id, enableRotationalMapping);
+    }
+
+    bool c_api_isSetSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
+        return isSetSpeciesReferenceLineEndingEnableRotationalMapping(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+    }
+
+    bool c_api_getSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
+        return getSpeciesReferenceLineEndingEnableRotationalMapping(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+    }
+
+    int c_api_setSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, const char* reactionId, bool enableRotationalMapping, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
+        return setSpeciesReferenceLineEndingEnableRotationalMapping(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, enableRotationalMapping);
+    }
+
     const double c_api_getLineEndingBoundingBoxX(SBMLDocument* document, const char* id, int renderIndex) {
         return getLineEndingBoundingBoxX(document, renderIndex, id);
     }

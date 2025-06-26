@@ -2208,6 +2208,54 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return the id of the LineEnding object with the given index, or @c "" if the object is @c NULL
     LIBSBMLNETWORK_EXTERN const char* c_api_getLocalLineEndingId(SBMLDocument* document, int lineEndingIndex, int renderIndex = 0);
 
+    /// @brief Predicate returning true if the enable rotational mapping attribute of the LineEnding object with the given id in the RenderInformationBase object with the given index is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return @c true if the enable rotational mapping attribute of the LineEnding object with the given id is set, @c false if either the enable rotational mapping attribute is not set or the object is @c NULL.
+    LIBSBMLNETWORK_EXTERN bool c_api_isSetLineEndingEnableRotationalMapping(SBMLDocument* document, const char* id, int renderIndex = 0);
+
+    /// @brief Returns the value of the enable rotational mapping attribute of the LineEnding object with the given id in the RenderInformationBase object with the given index.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the value of the enable rotational mapping attribute of the LineEnding object, or @c false if the object is @c NULL
+    LIBSBMLNETWORK_EXTERN bool c_api_getLineEndingEnableRotationalMapping(SBMLDocument* document, const char* id, int renderIndex = 0);
+
+    /// @brief Sets the value of the enable rotational mapping attribute of the LineEnding object with the given id in the RenderInformationBase object with the given index.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param enableRotationalMapping a boolean value to be set as the enable rotational mapping attribute of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setLineEndingEnableRotationalMapping(SBMLDocument* document, const char* id, bool enableRotationalMapping, int renderIndex = 0);
+
+    /// @brief Predicate returning true if the enable rotational mapping attribute of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param speciesReferenceIndex the index of the species reference glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @return @c true if the enable rotational mapping attribute of the LineEnding object associated with the given species reference glyph is set, @c false if either the enable rotational mapping attribute is not set or the object is @c NULL.
+    LIBSBMLNETWORK_EXTERN bool c_api_isSetSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex);
+
+    /// Returns the value of the enable rotational mapping attribute of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param speciesReferenceIndex the index of the species reference glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @return the value of the enable rotational mapping attribute of the LineEnding object associated with the given species reference glyph is set, @c false if either the enable rotational mapping attribute is not set or the object is @c NULL.
+    LIBSBMLNETWORK_EXTERN bool c_api_getSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex);
+
+    /// @brief Sets the value of the enable rotational mapping attribute of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param enableRotationalMapping a boolean value to be set as the enable rotational mapping attribute of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, const char* reactionId, bool enableRotationalMapping, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex);
+
     /// @brief Returns the value of the "x" attribute of the bounding box of the LineEnding object  of the RenderInformationBase object with the given index of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of the LineEnding object.

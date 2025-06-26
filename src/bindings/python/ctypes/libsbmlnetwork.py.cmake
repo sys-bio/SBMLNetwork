@@ -4394,6 +4394,107 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingBoundingBoxX(self.sbml_object, str(line_ending_id).encode(), ctypes.c_double(x), render_index)
 
+    def isSetLineEndingEnableRotationalMapping(self, line_ending_id, render_index=0):
+        """
+        Returns whether the enableRotationalMapping attribute of the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is set
+
+        :Parameters:
+
+            - line_ending_id (string): a string that determines the id of the LineEnding object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true if the enableRotationalMapping attribute of the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is set and false otherwise
+        """
+        lib.c_api_isSetLineEndingEnableRotationalMapping.restype = ctypes.c_bool
+        return lib.c_api_isSetLineEndingEnableRotationalMapping(self.sbml_object, str(line_ending_id).encode(), render_index)
+
+    def getLineEndingEnableRotationalMapping(self, line_ending_id, render_index=0):
+        """
+        Returns the enableRotationalMapping attribute of the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - line_ending_id (string): a string that determines the id of the LineEnding object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true if the enableRotationalMapping attribute of the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is set and false otherwise
+        """
+        lib.c_api_getLineEndingEnableRotationalMapping.restype = ctypes.c_bool
+        return lib.c_api_getLineEndingEnableRotationalMapping(self.sbml_object, str(line_ending_id).encode(), render_index)
+
+    def setLineEndingEnableRotationalMapping(self, line_ending_id, enable_rotational_mapping, render_index=0):
+        """
+        Sets the enableRotationalMapping attribute of the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - line_ending_id (string): a string that determines the id of the LineEnding object
+            - enable_rotational_mapping (bool): a boolean that determines whether the enableRotationalMapping attribute of the LineEnding object should be set
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the enableRotationalMapping attribute of the LineEnding object could not be set
+        """
+        return lib.c_api_setLineEndingEnableRotationalMapping(self.sbml_object, str(line_ending_id).encode(), ctypes.c_bool(enable_rotational_mapping), render_index)
+
+    def isSetSpeciesReferenceLineEndingEnableRotationalMapping(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+        """
+        Returns whether the enableRotationalMapping attribute of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is set
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction object
+            - reaction_glyph_index (int, optional): an integer (default: 0) that determines the index of the ReactionGlyph object in the given SBMLDocument
+            - species_reference_index (int, optional): an integer (default: 0) that determines the index of the SpeciesReference object in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true if the enableRotationalMapping attribute of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is set and false otherwise
+        """
+        lib.c_api_isSetSpeciesReferenceLineEndingEnableRotationalMapping.restype = ctypes.c_bool
+        return lib.c_api_isSetSpeciesReferenceLineEndingEnableRotationalMapping(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
+
+    def getSpeciesReferenceLineEndingEnableRotationalMapping(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+        """
+        Returns the enableRotationalMapping attribute of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction object
+            - reaction_glyph_index (int, optional): an integer (default: 0) that determines the index of the ReactionGlyph object in the given SBMLDocument
+            - species_reference_index (int, optional): an integer (default: 0) that determines the index of the SpeciesReference object in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true if the enableRotationalMapping attribute of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_getSpeciesReferenceLineEndingEnableRotationalMapping(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
+
+    def setSpeciesReferenceLineEndingEnableRotationalMapping(self, reaction_id, enable_rotational_mapping, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+        """
+        Sets the enableRotationalMapping attribute of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction object
+            - enable_rotational_mapping (bool): a boolean that determines whether the enableRotationalMapping attribute of the LineEnding object of the SpeciesReference object should be set
+            - reaction_glyph_index (int, optional): an integer (default: 0) that determines the index of the ReactionGlyph object in the given SBMLDocument
+            - species_reference_index (int, optional): an integer (default: 0) that determines the index of the SpeciesReference object in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the enableRotationalMapping attribute of the LineEnding object of the SpeciesReference object could not be set
+        """
+        return lib.c_api_setSpeciesReferenceLineEndingEnableRotationalMapping(self.sbml_object, str(reaction_id).encode(), ctypes.c_bool(enable_rotational_mapping), reaction_glyph_index, species_reference_index, layout_index)
+
     def getSpeciesReferenceLineEndingBoundingBoxX(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
         """
         Returns the x-coordinate of the bounding box of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
