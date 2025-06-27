@@ -36,5 +36,8 @@ class SBGNProcess(SBGNProcessNodeBase):
         sbmlnetwork_object.libsbmlnetwork.setGeometricShapeBorderWidth(parent_element.get_id(), 2.0,
                                                             geometric_shape_index=geometric_shape_index)
 
-
+        # hide the label for process nodes
+        text_glyph_id = sbmlnetwork_object.libsbmlnetwork.getTextGlyphId(id=parent_element.get_id())
+        if text_glyph_id:
+            sbmlnetwork_object.libsbmlnetwork.makeInvisible(id=text_glyph_id)
 

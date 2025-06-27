@@ -27,9 +27,9 @@ class SBGNEmptySet(SBGNEntityPoolNodeBase):
         if parent_element is None:
             parent_element = self
         self.initialize_sbml_info(sbmlnetwork_object, parent_element)
-        self.add_geometric_shape(sbmlnetwork_object, parent_element)
         self.load_sbml_info_with_sub_elements(sbmlnetwork_object, parent_element)
         sbmlnetwork_object.libsbmlnetwork.setId(self.get_id_in_model(sbmlnetwork_object), self.get_id())
+        self.add_geometric_shape(sbmlnetwork_object, parent_element)
 
     def initialize_sbml_info(self, sbmlnetwork_object, parent_element):
         if parent_element.get_id() == self.get_id():
@@ -63,3 +63,7 @@ class SBGNEmptySet(SBGNEntityPoolNodeBase):
                         species_reference_index=species_reference_index)
                     break
         return model_id
+
+    def add_geometric_shape(self, sbmlnetwork_object, parent_element):
+        # just to make sure we get a local style for it
+        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeFillColor(id=parent_element.get_id(), graphical_object_index=0, geometric_shape_index=0, fill_color="white")
