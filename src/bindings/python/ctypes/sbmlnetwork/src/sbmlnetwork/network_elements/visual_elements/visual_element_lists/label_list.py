@@ -204,6 +204,20 @@ class LabelList(list):
 
         return is_italic
 
+    def hide(self):
+        results = []
+        for label in self:
+            results.append(label.hide())
+
+        return results
+
+    def show(self):
+        results = []
+        for label in self:
+            results.append(label.show())
+
+        return results
+
     def move_to(self, position: tuple[float, float]):
         results = []
         for label in self:
