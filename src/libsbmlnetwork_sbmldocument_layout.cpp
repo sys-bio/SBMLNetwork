@@ -218,6 +218,14 @@ int setId(SBMLDocument* document, unsigned int layoutIndex, const std::string& i
     return setId(getLayout(document, layoutIndex), id, graphicalObjectIndex, graphicalObjectId);
 }
 
+const std::string getTextGlyphId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+    return getTextGlyphId(getLayout(document, layoutIndex), id, graphicalObjectIndex, textGlyphIndex);
+}
+
+int setTextGlyphId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const std::string& graphicalObjectId) {
+    return setTextGlyphId(getLayout(document, layoutIndex), id, graphicalObjectIndex, textGlyphIndex, graphicalObjectId);
+}
+
 bool isSetMetaId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
     return isSetMetaId(getLayout(document, layoutIndex), id, graphicalObjectIndex);
 }

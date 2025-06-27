@@ -855,6 +855,42 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setId(self.sbml_object, str(id).encode(), str(graphical_object_id).encode(), graphical_object_index, layout_index)
 
+    def getTextGlyphId(self, id, graphical_object_index=0, text_glyph_index = 0, layout_index=0):
+        """
+        Returns the id of the TextGlyph with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int, optional): an integer (default: 0) that determines the index of the TextGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the id of the TextGlyph with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument
+        """
+        lib.c_api_getTextGlyphId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getTextGlyphId(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)).value.decode()
+
+    def setTextGlyphId(self, id, text_glyph_id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
+        """
+        Sets the id of the TextGlyph with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - text_glyph_id (string): a string to be set as the id of the TextGlyph
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int, optional): an integer (default: 0) that determines the index of the TextGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the id of the TextGlyph could not be set
+        """
+        return lib.c_api_setTextGlyphId(self.sbml_object, str(id).encode(), str(text_glyph_id).encode(), graphical_object_index, text_glyph_index, layout_index)
+
     def isSetMetaId(self, id, graphical_object_index=0, layout_index=0):
         """
         Returns whether the meta id of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument is set

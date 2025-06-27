@@ -263,6 +263,8 @@ int hide_elements_makeVisible(SBMLDocument* document, GraphicalObject* graphical
         return hide_elements_makeReactionGlyphVisible(document, (ReactionGlyph*)graphicalObject, applyToConnectedElements);
     else if (isSpeciesReferenceGlyph(graphicalObject))
         return hide_elements_makeSpeciesReferenceGlyphVisible(document, (SpeciesReferenceGlyph*)graphicalObject);
+    else if (isTextGlyph(graphicalObject))
+        return hide_elements_makeTextGlyphVisible(document, (TextGlyph*)graphicalObject, graphicalObject);
 
     return -1;
 }
@@ -276,6 +278,8 @@ int hide_elements_makeInvisible(SBMLDocument* document, GraphicalObject* graphic
         return hide_elements_makeReactionGlyphInvisible(document, (ReactionGlyph*)graphicalObject, applyToConnectedElements);
     else if (isSpeciesReferenceGlyph(graphicalObject))
         return hide_elements_makeSpeciesReferenceGlyphInvisible(document, (SpeciesReferenceGlyph*)graphicalObject);
+    else if (isTextGlyph(graphicalObject))
+        return hide_elements_makeTextGlyphInvisible(document, (TextGlyph*)graphicalObject, graphicalObject);
 
     return -1;
 }

@@ -255,6 +255,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setId(document, layoutIndex, entityId, graphicalObjectIndex, graphicalObjectId);
     }
 
+    const char* c_api_getTextGlyphId(SBMLDocument* document, const char* entityId, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return strdup(getTextGlyphId(document, layoutIndex, entityId, graphicalObjectIndex, textGlyphIndex).c_str());
+    }
+
+    int c_api_setTextGlyphId(SBMLDocument* document, const char* entityId, const char* graphicalObjectId, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return setTextGlyphId(document, layoutIndex, entityId, graphicalObjectIndex, textGlyphIndex, graphicalObjectId);
+    }
+
     bool c_api_isSetMetaId(SBMLDocument* document, const char* entityId, int graphicalObjectIndex, int layoutIndex) {
         return isSetMetaId(document, layoutIndex, entityId, graphicalObjectIndex);
     }

@@ -261,6 +261,25 @@ LIBSBMLNETWORK_EXTERN const std::string getId(SBMLDocument* document, unsigned i
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const std::string& graphicalObjectId);
 
+/// @brief Returns the id of the TextGlyph object with the given index of the GraphicalObject object with the given index in the Layout object with the given index in the ListOfLayouts of the SBML document
+/// associated with the entered model entity id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it is going to be returned.
+/// @param graphicalObjectIndex the index number of the GraphicalObject object to return.
+/// @param textGlyphIndex the index number of the TextGlyph object to set.
+/// @return the id of the GraphicalObject object, or @c "" if the object is @c NULL or the id is not set.
+LIBSBMLNETWORK_EXTERN const std::string getTextGlyphId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex);
+
+/// @brief Sets the id of the TextGlyph object with the given index of the GraphicalObject object with the given index in the Layout object with the given index in the ListOfLayouts of the SBML document
+/// associated with the entered model entity id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it is going to be set.
+/// @param graphicalObjectIndex the index number of the GraphicalObject object to set.
+/// @param textGlyphIndex the index number of the TextGlyph object to set.
+/// @param graphicalObjectId the id to set for the GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setTextGlyphId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const std::string& graphicalObjectId);
+
 /// @brief Predicates Returning @c true if the metaid of the GraphicalObject object with the given index in the Layout object with the given index in the ListOfLayouts of the SBML document
 /// associated with the entered model entity id is set.
 /// @param document a pointer to the SBMLDocument object.

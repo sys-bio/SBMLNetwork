@@ -348,6 +348,25 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setId(SBMLDocument* document, const char* entityId, const char* graphicalObjectId, int graphicalObjectIndex, int layoutIndex);
 
+    /// @brief Returns the id of the TextGlyph with the given index of the GraphicalObject with the given id in the Layout object with the given index of the SBML document associated with the entered model entity id.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param entityId the id of the model entity.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
+    /// @param textGlyphIndex the index number of the TextGlyph to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the id of the GraphicalObject, or @c "" if the id is not set or the object does not exists.
+    LIBSBMLNETWORK_EXTERN const char* c_api_getTextGlyphId(SBMLDocument* document, const char* entityId, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex);
+
+    /// @brief Sets the id of the TextGlyph with the given index of the GraphicalObject with the given id in the Layout object with the given index of the SBML document associated with the entered model entity id.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param entityId the id of the model entity.
+    /// @param graphicalObjectId the id of the GraphicalObject.
+    /// @param textGlyphIndex the id of the TextGlyph.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setTextGlyphId(SBMLDocument* document, const char* entityId, const char* graphicalObjectId, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex);
+
     /// @brief Predicate returning true if the meta id of the GraphicalObject with the given id in the Layout object with the given index of the SBML document associated with the entered model entity id is set.
     /// @param document a pointer to the SBMLDocument object.
     /// @param entityId the id of the model entity.

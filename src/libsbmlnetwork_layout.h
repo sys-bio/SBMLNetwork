@@ -98,6 +98,10 @@ LIBSBMLNETWORK_EXTERN const std::string getId(Layout* layout, const std::string&
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex, const std::string& graphicalObjectId);
 
+LIBSBMLNETWORK_EXTERN const std::string getTextGlyphId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex, const unsigned int textGlyphIndex);
+
+LIBSBMLNETWORK_EXTERN int setTextGlyphId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex, const unsigned int textGlyphIndex, const std::string& graphicalObjectId);
+
 /// @brief Predicate returning true if the metaId of the GraphicalObject with the given index of the Layout object associated with the entered id is set.
 /// @param layout a pointer to the Layout object.
 /// @param id the id of the model entity the the GraphicalObject objects of which to be returned.
