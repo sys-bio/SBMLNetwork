@@ -945,8 +945,8 @@ bool getSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document
     return getEnableRotationalMapping(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex));
 }
 
-int setSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const double x) {
-    return setSpeciesReferenceLineEndingEnableRotationalMapping(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, x);
+int setSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, bool enableRotationalMapping) {
+    return setSpeciesReferenceLineEndingEnableRotationalMapping(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, enableRotationalMapping);
 }
 
 int setSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, bool enableRotationalMapping) {

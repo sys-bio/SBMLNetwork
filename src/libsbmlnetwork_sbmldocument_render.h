@@ -8351,9 +8351,20 @@ LIBSBMLNETWORK_EXTERN int setFillColor(SBMLDocument* document, GraphicalObject* 
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFillColor(SBMLDocument* document, const std::string& attribute, const std::string& fillColor);
 
+/// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style for the given GraphicalObject to a gradient.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param gradientType a string indicating the type of gradient to use (e.g., "linear" or "radial").
+/// @param stopsVector a vector of pairs where each pair represents a color stop, consisting of a color string and its position as a double (0.0 to 1.0).
+/// @return integer value indicating success (non-zero) or failure (zero) of the function.
 int setFillColorAsGradient(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
 
-/// @brief Sets
+/// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style that matches the given attribute (id, role, or type) to a gradient.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute a string representing the id, role, or type of a GraphicalObject to match the corresponding Style.
+/// @param gradientType a string indicating the type of gradient to use (e.g., "linear" or "radial").
+/// @param stopsVector a vector of pairs where each pair represents a color stop, consisting of a color string and its position as a double (0.0 to 1.0).
+/// @return integer value indicating success (non-zero) or failure (zero) of the function.
 int setFillColorAsGradient(SBMLDocument* document, const std::string& attribute, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
 
 /// @brief Returns the value of the "fill" attribute of the RenderGroup of the Style for the Compartment.

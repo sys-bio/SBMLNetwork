@@ -79,7 +79,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return updateLayoutCurves(document, getLayout(document, layoutIndex));
     }
 
-    int c_api_align(SBMLDocument* document, const char ***nodes, const int nodesSize,  const char* alignment, bool ignorefixedPositionNodes) {
+    int c_api_align(SBMLDocument* document, const char ***nodes, const int nodesSize,  const char* alignment, bool ignoreFixedPositionNodes) {
         std::set<std::pair<std::string, int> > nodesSet = std::set<std::pair<std::string, int> >();
         if (nodes) {
             for (int i = 0; i < nodesSize; i++) {
