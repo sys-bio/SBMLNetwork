@@ -17,59 +17,47 @@ SBMLDocument Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::writeSBML(SBMLDocument* document)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSBMLLevel(SBMLDocument* document)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSBMLLevel(const SBMLDocument* document)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSBMLVersion(SBMLDocument* document)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSBMLVersion(const SBMLDocument* document)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getErrorLog(const SBMLDocument* document)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::clearErrorLog(SBMLDocument* document)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::freeSBMLDocument(SBMLDocument* document)
 
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::freeUserData(SBMLDocument* document)
+
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetModel(SBMLDocument* document)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::autolayout(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true, bool resetFixedPositionElements = false, std::set<std::string> fixedPositionNodeIds = std::set<std::string>())
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::autolayout(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool resetFixedPositionElements = false, std::set<std::pair<std::string, int> > fixedPositionNodesSet = {}, const int iterations = -1)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::autorender(SBMLDocument* document, const int maxNumConnectedEdges = 3)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::align(SBMLDocument* document, std::set<std::string> nodeIds, const std::string& alignment, const bool ignoreFixedPositionNodes = false)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::align(SBMLDocument* document, std::set<std::pair<std::string, int> > nodesSet,  const std::string& alignment, const bool ignoreFixedPositionNodes = false)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::distribute(SBMLDocument* document, std::set<std::pair<std::string, unsigned int>> nodeIds, const std::string& direction, const double spacing = -1)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::distribute(SBMLDocument* document, std::set<std::pair<std::string, int> > nodesSet, const std::string& direction, const double spacing = -1)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSBMLObject(SBMLDocument* document, const std::string& id)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetId(SBase* object)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getId(SBase* object)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setId(SBase* object, const std::string& sid)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetName(SBase* object)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getName(SBase* object)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setName(SBase* object, const std::string& name)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetMetaId(SBase* object)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getMetaId(SBase* object)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setMetaId(SBase* object, const std::string& metaid)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumCompartments(SBMLDocument* document)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumCompartments(const SBMLDocument* document)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCompartmentId(SBMLDocument* document, unsigned int index)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCompartment(SBMLDocument* document, const std::string& id)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumSpecies(SBMLDocument* document)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumSpecies(const SBMLDocument* document)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesId(SBMLDocument* document, unsigned int index)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpecies(SBMLDocument* document, const std::string& id)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumReactions(SBMLDocument* document)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumReactions(const SBMLDocument* document)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getReactionId(SBMLDocument* document, unsigned int index)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getReaction(SBMLDocument* document, const std::string& id)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isReversible(SBMLDocument* document, const std::string& reactionId)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumSpeciesReferences(SBMLDocument* document, const std::string& reactionId)
 
@@ -89,6 +77,10 @@ SBMLDocument Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getModifierSpeciesReference(SBMLDocument* document, const std::string& reactionId, const std::string& speciesId)
 
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getStoichiometricSpeciesReference(SBMLDocument* document)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setStoichiometricSpeciesReference(SBMLDocument* document, bool stoichiometricSpeciesReference)
+
 
 *****************
 Layout Functions
@@ -96,7 +88,7 @@ Layout Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getListOfLayouts(SBMLDocument* document)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumLayouts(SBMLDocument* document)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumLayouts(const SBMLDocument* document)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLayout(SBMLDocument* document, unsigned int layoutIndex = 0)
 
@@ -106,17 +98,23 @@ Layout Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::removeAllLayouts(SBMLDocument* document)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true, bool resetFixedPositionElements = false, const std::set<std::string> fixedPositionNodeIds = std::set<std::string>())
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true, bool resetFixedPositionElements = false, const std::set<std::string> fixedPositionNodeIds = std::set<std::string>())
-
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createDefaultLayoutFeatures(SBMLDocument* document, const int maxNumConnectedEdges = 3)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::updateLayoutCurves(SBMLDocument* document, Layout* layout)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createAliasSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getUseNameAsTextLabel(SBMLDocument* document, unsigned int layoutIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createAliasSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setUseNameAsTextLabel(SBMLDocument* document, unsigned int layoutIndex, bool useNameAsTextLabel)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createAliasSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, bool updateCurves = true)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createAliasSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, bool updateCurves = true)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createAliasReactionGlyph(SBMLDocument* document, const std::string& reactionId)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createAliasReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, unsigned int speciesGlyphIndex, const std::string& reactionId, unsigned int reactionGlyphIndex)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getDimensions(SBMLDocument* document, unsigned int layoutIndex = 0)
 
@@ -146,6 +144,32 @@ Layout Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGraphicalObject(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0)
 
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::removeGraphicalObject(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::removeGraphicalObject(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const std::string& graphicalObjectId)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getTextGlyphId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setTextGlyphId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const std::string& graphicalObjectId)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetMetaId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getMetaId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setMetaId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const std::string& graphicalObjectMetaId)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetName(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getName(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setName(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const std::string& graphicalObjectName)
+
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumCompartmentGlyphs(SBMLDocument* document, unsigned int layoutIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumCompartmentGlyphs(SBMLDocument* document, const std::string& compartmentId)
@@ -166,11 +190,11 @@ Layout Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isCompartmentGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCompartmentId(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGraphicalObjectCompartmentId(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCompartmentId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGraphicalObjectCompartmentId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCompartmentId(SBMLDocument* document, GraphicalObject* graphicalObject)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGraphicalObjectCompartmentId(SBMLDocument* document, GraphicalObject* graphicalObject)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getAssociatedCompartment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0)
 
@@ -196,6 +220,12 @@ Layout Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex = 0, unsigned int speciesGlyphIndex = 0)
 
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesGlyphIndex(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesGlyphIndex(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getConnectedReactionsFor(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, int speciesGlyphIndex = 0)
+
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSpeciesGlyph(SBMLDocument* document, const std::string& id)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id)
@@ -216,23 +246,21 @@ Layout Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getReactionGlyph(SBMLDocument* document, unsigned int layoutIndex = 0, unsigned int reactionGlyphIndex = 0)
-
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isReactionGlyph(SBMLDocument* document, const std::string& id)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumSpeciesReferenceGlyphs(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumSpeciesReferences(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumSpeciesReferenceGlyphs(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumSpeciesReferences(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceGlyphs(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferences(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceGlyphs(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferences(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceGlyph(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReference(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReference(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceId(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0)
 
@@ -243,6 +271,14 @@ Layout Functions
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceSpeciesGlyphId(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceSpeciesGlyphId(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetSpeciesReferenceEmptySpeciesGlyph(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetSpeciesReferenceEmptySpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceEmptySpeciesGlyphId(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceEmptySpeciesGlyphId(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetSpeciesReferenceRole(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0)
 
@@ -260,17 +296,17 @@ Layout Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceRole(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& role)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceRole(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceGlyphIndex, const std::string& role)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceRole(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& role)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceRole(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceGlyphIndex, const std::string& role)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceRole(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& role)
 
-.. doxygenfunction:: LIBSBMLNETWORK_EXTERN::getNumSpeciesReferencesAssociatedWithSpecies(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumSpeciesReferencesAssociatedWithSpecies(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_EXTERN::getNumSpeciesReferencesAssociatedWithSpecies(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumSpeciesReferencesAssociatedWithSpecies(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_EXTERN::getSpeciesReferenceIndexAssociatedWithSpecies(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int n = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceIndexAssociatedWithSpecies(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int n = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_EXTERN::getSpeciesReferenceIndexAssociatedWithSpecies(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int n = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceIndexAssociatedWithSpecies(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int n = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetSpeciesReferenceCurve(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0)
 
@@ -288,13 +324,13 @@ Layout Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createSpeciesReferenceLineCurveSegment(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::addSpeciesReferenceLineCurveSegment(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createSpeciesReferenceLineCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::addSpeciesReferenceLineCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createSpeciesReferenceCubicBezierCurveSegment(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::addSpeciesReferenceCubicBezierCurveSegment(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createSpeciesReferenceCubicBezierCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::addSpeciesReferenceCubicBezierCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::removeSpeciesReferenceCurveSegment(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0)
 
@@ -308,10 +344,6 @@ Layout Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceCurveSegmentStartPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentStartPointX(SBMLDocument* document, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentStartPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x)
-
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentStartPointX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentStartPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x)
@@ -320,21 +352,13 @@ Layout Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceCurveSegmentStartPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentStartPointY(SBMLDocument* document, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentStartPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y)
-
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentStartPointY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentStartPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceCurveSegmentEndPointX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceCurveSegmentEndPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceGlyphIndex = 0, unsigned int curveSegmentIndex = 0)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentEndPointX(SBMLDocument* document, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentEndPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceCurveSegmentEndPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentEndPointX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x)
 
@@ -344,10 +368,6 @@ Layout Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceCurveSegmentEndPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentEndPointY(SBMLDocument* document, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentEndPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y)
-
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentEndPointY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentEndPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y)
@@ -355,10 +375,6 @@ Layout Functions
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceCurveSegmentBasePoint1X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceCurveSegmentBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentBasePoint1X(SBMLDocument* document, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentBasePoint1X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x)
 
@@ -368,29 +384,21 @@ Layout Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceCurveSegmentBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentBasePoint1Y(SBMLDocument* document, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y)
-
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentBasePoint1Y(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceCurveSegmentBasePoint2X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceCurveSegmentBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentBasePoint2X(SBMLDocument* document, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x)
-
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentBasePoint2X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceCurveSegmentBasePoint2Y(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceCurveSegmentBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentBasePoint2Y(SBMLDocument* document, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceCurveSegmentBasePoint2Y(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y)
 
@@ -442,9 +450,9 @@ Layout Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetOriginOfTextId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getOriginOfTextId(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getOriginOfTextId(const SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getOriginOfTextId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getOriginOfTextId(const SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setOriginOfTextId(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const std::string& orig)
 
@@ -458,9 +466,9 @@ Layout Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetGraphicalObjectId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGraphicalObjectId(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGraphicalObjectId(const SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGraphicalObjectId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGraphicalObjectId(const SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGraphicalObjectId(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const std::string& graphicalObjectId)
 
@@ -473,6 +481,42 @@ Layout Functions
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isTextGlyph(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isTextGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumIndependentTextGlyphs(SBMLDocument* document, unsigned int layoutIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getIndependentTextGlyph(SBMLDocument* document, unsigned int independentTextGlyphIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getIndependentTextGlyphId(SBMLDocument* document, unsigned int layoutIndex, unsigned int independentTextGlyphIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::addIndependentTextGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& text, const double& x, const double& y, const double& width, const double& height)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::removeIndependentTextGlyph(SBMLDocument* document, unsigned int layoutIndex, unsigned int independentTextGlyphIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::removeIndependentTextGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumAdditionalGraphicalObjects(SBMLDocument* document, unsigned int layoutIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getAdditionalGraphicalObject(SBMLDocument* document, unsigned int additionalGraphicalObjectIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getAdditionalGraphicalObjectId(SBMLDocument* document, unsigned int layoutIndex = 0, unsigned int additionalGraphicalObjectIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::addAdditionalGraphicalObject(SBMLDocument* document, unsigned int layoutIndex, const std::string& id)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::removeAdditionalGraphicalObject(SBMLDocument* document, unsigned int layoutIndex, unsigned int additionalGraphicalObjectIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getBoundingBox(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getBoundingBox(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getPositionX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setPositionX(SBMLDocument* document, const std::string& id, const double& x, bool updateCurves = true)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& x, bool updateCurves = true)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setPositionX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& x, bool updateCurves = true)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& x, bool updateCurves = true)
 
@@ -516,6 +560,8 @@ Layout Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getReactionDimensionWidth()
 
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getEmptySpeciesDefaultWidth()
+
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const double& width, bool updateCurves = true)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getDimensionHeight(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0)
@@ -537,6 +583,8 @@ Layout Functions
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const double& height, bool updateCurves = true)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getReactionDimensionHeight()
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getEmptySpeciesDefaultHeight()
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const double& height, bool updateCurves = true)
 
@@ -616,41 +664,41 @@ Layout Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setTextDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& height)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetCurve(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetCurve(const SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetCurve(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetCurve(const SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCurve(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCurve(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCurve(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCurve(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumCurveSegments(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumCurveSegments(const SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumCurveSegments(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumCurveSegments(const SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCurveSegment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCurveSegment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createLineCurveSegment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::addLineCurveSegment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createLineCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::addLineCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createCubicBezierCurveSegment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::addCubicBezierCurveSegment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createCubicBezierCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::addCubicBezierCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::removeCurveSegment(SBMLDocument* document, const std::string& id, unsigned int curveSegmentIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::removeCurveSegment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::removeCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int curveSegmentIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::removeCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isCubicBezier(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isCubicBezier(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isCubicBezier(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isCubicBezier(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCurveSegmentStartPointX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCurveSegmentStartPointX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCurveSegmentStartPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCurveSegmentStartPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setCurveSegmentStartPointX(SBMLDocument* document, const std::string& id, unsigned int curveSegmentIndex, const double& x)
 
@@ -750,7 +798,7 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getListOfGlobalRenderInformation(SBMLDocument* document)
 
-.. doxygenfunction::  LIBSBMLNETWORK_CPP_NAMESPACE::getNumGlobalRenderInformation(SBMLDocument* document)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumGlobalRenderInformation(const SBMLDocument* document)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGlobalRenderInformation(SBMLDocument* document, unsigned int renderIndex = 0)
 
@@ -868,9 +916,9 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetOffset(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, unsigned int gradientStopIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getOffset(SBMLDocument* document, const std::string& sid, unsigned int gradientStopIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getOffset(SBMLDocument* document, const std::string& sid , unsigned int gradientStopIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getOffset(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, unsigned int gradientStopIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getOffset(SBMLDocument* document, unsigned int renderIndex, const std::string& sid , unsigned int gradientStopIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getOffsetAsDouble(SBMLDocument* document, const std::string& sid, unsigned int gradientStopIndex = 0)
 
@@ -1126,6 +1174,18 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingBoundingBox(SBMLDocument* document, unsigned int renderIndex, const std::string& sid)
 
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, bool enableRotationalMapping)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, bool enableRotationalMapping)
+
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingBoundingBox(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingBoundingBox(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex)
@@ -1284,10 +1344,6 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumSpeciesReferenceLineEndingStrokeDashes(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingStrokeDashArray(SBMLDocument* document, const std::string& id)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingStrokeDashArray(SBMLDocument* document, unsigned int renderIndex, const std::string& id)
-
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingStrokeDashArray(SBMLDocument* document, const std::string& id, const std::vector<unsigned int>& strokeDashArray)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingStrokeDashArray(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::vector<unsigned int>& strokeDashArray)
@@ -1392,9 +1448,57 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumLineEndingGeometricShapes(SBMLDocument* document, unsigned int renderIndex, const std::string& id)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumSpeciesReferenceLineEndingGeometricShapes(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumSpeciesReferenceLineEndingGeometricShapes(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumSpeciesReferenceLineEndingGeometricShapes(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumSpeciesReferenceLineEndingGeometricShapes(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::addLineEndingGeometricShape(SBMLDocument* document, const std::string& id, const std::string& shape)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::addLineEndingGeometricShape(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::string& shape)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::addSpeciesReferenceLineEndingGeometricShape(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& shape)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::addSpeciesReferenceLineEndingGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& shape)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::removeLineEndingGeometricShape(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::removeLineEndingGeometricShape(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::removeSpeciesReferenceLineEndingGeometricShape(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::removeSpeciesReferenceLineEndingGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingGeometricShapeType(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingGeometricShapeType(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeType(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeType(SBMLDocument* document, const std::string& id, const std::string& shape)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeType(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::string& shape)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeType(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& shape)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& shape)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingGeometricShapeId(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingGeometricShapeId(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeId(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeId(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeId(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const std::string& shapeId)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeId(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const std::string& shapeId)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeId(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const std::string& shapeId)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeId(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const std::string& shapeId)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isLineEndingRectangle(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0)
 
@@ -1444,6 +1548,86 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSpeciesReferenceLineEndingText(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex)
 
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetLineEndingGeometricShapeStrokeColor(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetLineEndingGeometricShapeStrokeColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetSpeciesReferenceLineEndingGeometricShapeStrokeColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetSpeciesReferenceLineEndingGeometricShapeStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingGeometricShapeStrokeColor(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingGeometricShapeStrokeColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeStrokeColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeStrokeColor(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const std::string& strokeColor)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeStrokeColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const std::string& strokeColor)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeStrokeColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const std::string& strokeColor)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const std::string& strokeColor)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetLineEndingGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetLineEndingGeometricShapeStrokeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetSpeciesReferenceLineEndingGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetSpeciesReferenceLineEndingGeometricShapeStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingGeometricShapeStrokeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, double strokeWidth)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeStrokeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, double strokeWidth)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, double strokeWidth)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, double strokeWidth)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetLineEndingGeometricShapeFillColor(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetLineEndingGeometricShapeFillColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetSpeciesReferenceLineEndingGeometricShapeFillColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetSpeciesReferenceLineEndingGeometricShapeFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingGeometricShapeFillColor(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingGeometricShapeFillColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeFillColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeFillColor(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const std::string& fillColor)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeFillColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const std::string& fillColor)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeFillColorAsGradient(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeFillColorAsGradient(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeFillColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const std::string& fillColor)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const std::string& fillColor)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeFillColorAsGradient(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector)
+
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetLineEndingGeometricShapeX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetLineEndingGeometricShapeX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0)
@@ -1470,7 +1654,7 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& x)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& x)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeX(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& x)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& x)
 
@@ -1516,9 +1700,17 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& y)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeY(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& y)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& y)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeY(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& y)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& y)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& y)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionLineEndingGeometricShapeY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& y)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionLineEndingGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& y)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeYAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const double& y)
 
@@ -1556,9 +1748,9 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeWidthAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeWidth(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& width)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeWidth(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& width)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& width)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& width)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& width)
 
@@ -1604,7 +1796,7 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeHeightAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeHeight(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& height)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeHeight(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& height)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeHeight(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& height)
 
@@ -1628,17 +1820,17 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionLineEndingGeometricShapeHeightAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& height)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetSpeciesReferenceLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetSpeciesReferenceLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex)
 
@@ -1656,9 +1848,9 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& ratio)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex)
 
@@ -1680,9 +1872,9 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& CornerCurvatureRadiusX)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& CornerCurvatureRadiusX)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& CornerCurvatureRadiusX)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& CornerCurvatureRadiusX)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusX)
 
@@ -1728,9 +1920,9 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& CornerCurvatureRadiusY)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& CornerCurvatureRadiusY)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& CornerCurvatureRadiusY)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& CornerCurvatureRadiusY)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusY)
 
@@ -1776,9 +1968,9 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeCenterXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeCenterX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& centerX)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeCenterX(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& centerX)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeCenterX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& centerX)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeCenterX(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& centerX)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeCenterX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& centerX)
 
@@ -1824,9 +2016,9 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeCenterYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeCenterY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& centerY)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeCenterY(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& centerY)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeCenterY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& centerY)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeCenterY(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& centerY)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeCenterY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& centerY)
 
@@ -1872,9 +2064,9 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeRadiusXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& radiusX)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeRadiusX(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& radiusX)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& radiusX)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& radiusX)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeRadiusX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusX)
 
@@ -1920,9 +2112,9 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeRadiusYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeRadiusY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& radiusY)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeRadiusY(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& radiusY)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeRadiusY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& radiusY)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeRadiusY(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& radiusY)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeRadiusY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusY)
 
@@ -1976,9 +2168,9 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeElementX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeElementX(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeElementX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeElementX(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeElementX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x)
 
@@ -2016,9 +2208,9 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeElementYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeElementY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeElementY(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeElementY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeElementY(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeElementY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y)
 
@@ -2044,7 +2236,9 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& reactionId
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0)
 
@@ -2054,9 +2248,9 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1X)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1X)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1X)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1X)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1X)
 
@@ -2094,9 +2288,9 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1Y)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1Y)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1Y)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1Y)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1Y)
 
@@ -2114,6 +2308,10 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1Y)
 
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1Y)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1Y)
+
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0)
@@ -2130,9 +2328,9 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2X)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2X)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2X)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2X)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2X)
 
@@ -2154,6 +2352,8 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionLineEndingGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2X)
 
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0)
+
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex)
@@ -2168,9 +2368,9 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2Y)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2Y)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2Y)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2Y)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2Y)
 
@@ -2208,7 +2408,7 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReferenceLineEndingGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeHref(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const std::string& href)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeHref(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const std::string& href)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingGeometricShapeHref(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const std::string& href)
 
@@ -2222,9 +2422,13 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getStyle(SBMLDocument* document, GraphicalObject* graphicalObject)
 
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getTextGlyphStyle(SBMLDocument* document, TextGlyph* textGlyph, GraphicalObject* graphicalObject)
+
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLocalStyle(SBMLDocument* document, GraphicalObject* graphicalObject)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGlobalStyle(SBMLDocument* document, GraphicalObject* graphicalObject)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getTextGlyphGlobalStyle(SBMLDocument* document, GraphicalObject* graphicalObject)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createLocalStyle(SBMLDocument* document, GraphicalObject* graphicalObject)
 
@@ -2232,9 +2436,13 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject)
 
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getTextGlyphStyle(SBMLDocument* document, unsigned int renderIndex, TextGlyph* textGlyph, GraphicalObject* graphicalObject)
+
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLocalStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGlobalStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getTextGlyphGlobalStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createLocalStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject)
 
@@ -2298,21 +2506,27 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setStrokeColor(SBMLDocument* document, const std::string& attribute, const std::string& stroke)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCompartmentStrokeColor(SBMLDocument* document)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCompartmentStrokeColor(const SBMLDocument* document)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setCompartmentStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesStrokeColor(SBMLDocument* document)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesStrokeColor(const SBMLDocument* document)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getReactionStrokeColor(SBMLDocument* document)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getReactionStrokeColor(const SBMLDocument* document)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke, bool setSpeciesReferenceGlyphs = true)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingStrokeColor(SBMLDocument* document, unsigned int layoutIndex)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getEmptySpeciesStrokeColor(const SBMLDocument* document)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setEmptySpeciesStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject)
 
@@ -2326,7 +2540,7 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setStrokeWidth(SBMLDocument* document, const std::string& attribute, const double& strokeWidth)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCompartmentStrokeWidth(SBMLDocument* document)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCompartmentStrokeWidth(const SBMLDocument* document)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setCompartmentStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth)
 
@@ -2338,9 +2552,15 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth, bool setSpeciesReferenceGlyphs = true)
 
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingStrokeWidth(SBMLDocument* document, unsigned int layoutIndex = 0)
+
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getEmptySpeciesStrokeWidth(const SBMLDocument* document)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setEmptySpeciesStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetStrokeDashArray(SBMLDocument* document, GraphicalObject* graphicalObject)
 
@@ -2400,6 +2620,10 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor)
 
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getEmptySpeciesFontColor(const SBMLDocument* document)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setEmptySpeciesFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor)
+
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetFontFamily(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex = 0)
@@ -2429,6 +2653,10 @@ Render Functions
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontFamily)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontFamily)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getEmptySpeciesFontFamily(const SBMLDocument* document)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setEmptySpeciesFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontFamily)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetFontSize(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0)
 
@@ -2486,6 +2714,14 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setFontSizeAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& fontSize)
 
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getEmptySpeciesFontSize(const SBMLDocument* document)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setEmptySpeciesFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getEmptySpeciesFontSizeAsDouble(const SBMLDocument* document)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setEmptySpeciesFontSizeAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& fontSize)
+
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetFontWeight(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex = 0)
@@ -2515,6 +2751,10 @@ Render Functions
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getEmptySpeciesFontWeight(const SBMLDocument* document)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setEmptySpeciesFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0)
 
@@ -2546,6 +2786,10 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle)
 
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getEmptySpeciesFontStyle(const SBMLDocument* document)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setEmptySpeciesFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle)
+
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex = 0)
@@ -2576,6 +2820,10 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor)
 
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getEmptySpeciesTextAnchor(const SBMLDocument* document)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setEmptySpeciesTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor)
+
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetVTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex = 0)
@@ -2602,6 +2850,10 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor)
 
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getEmptySpeciesVTextAnchor(const SBMLDocument* document)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setEmptySpeciesVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor)
+
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetFillColor(SBMLDocument* document, GraphicalObject* graphicalObject)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetFillColor(SBMLDocument* document, const std::string& attribute)
@@ -2613,10 +2865,6 @@ Render Functions
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fillColor)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setFillColor(SBMLDocument* document, const std::string& attribute, const std::string& fillColor)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setFillColorAsGradient(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setFillColorAsGradient(SBMLDocument* document, const std::string& attribute, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCompartmentFillColor(SBMLDocument* document)
 
@@ -2636,6 +2884,8 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector)
 
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingFillColor(SBMLDocument* document, unsigned int layoutIndex = 0)
+
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector)
@@ -2643,6 +2893,12 @@ Render Functions
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getEmptySpeciesFillColor(const SBMLDocument* document)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setEmptySpeciesFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setEmptySpeciesFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetFillRule(SBMLDocument* document, GraphicalObject* graphicalObject)
 
@@ -2668,9 +2924,15 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule)
 
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingFillRule(SBMLDocument* document, unsigned int layoutIndex = 0)
+
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getEmptySpeciesFillRule(const SBMLDocument* document)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setEmptySpeciesFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetStartHead(SBMLDocument* document, GraphicalObject* graphicalObject)
 
@@ -2733,6 +2995,10 @@ Render Functions
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getEmptySpeciesGeometricShapeType(const SBMLDocument* document)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setEmptySpeciesGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isRectangle(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0)
 
@@ -3478,119 +3744,89 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGeometricShapeElementY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementXAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& x)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGeometricShapeElementY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string& attribute, const double& x)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGeometricShapeElementYAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int elementIndex, const double& x)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGeometricShapeElementYAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& x)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementY(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& y)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCompartmentGeometricShapeElementX(SBMLDocument* document)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int elementIndex, const RelAbsVector& y)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setCompartmentGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCompartmentGeometricShapeElementXAsDouble(SBMLDocument* document)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementY(SBMLDocument* document, const std::string& attribute, const RelAbsVector& y)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setCompartmentGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementY(SBMLDocument* document, const std::string& attribute, unsigned int elementIndex, const RelAbsVector& y)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesGeometricShapeElementX(SBMLDocument* document)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementYAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& y)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesGeometricShapeElementXAsDouble(SBMLDocument* document)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementYAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int elementIndex, const RelAbsVector& y)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementYAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getReactionGeometricShapeElementX(SBMLDocument* document)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementYAsDouble(SBMLDocument* document, const std::string& attribute, const RelAbsVector& y)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementYAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int elementIndex, const RelAbsVector& y)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getReactionGeometricShapeElementXAsDouble(SBMLDocument* document)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGeometricShapeElementY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementXAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& x)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string& attribute, const double& x)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int elementIndex, const double& x)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& x)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementYAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCompartmentGeometricShapeElementX(SBMLDocument* document)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setCompartmentGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setCompartmentGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCompartmentGeometricShapeElementXAsDouble(SBMLDocument* document)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCompartmentGeometricShapeElementYAsDouble(SBMLDocument* document)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setCompartmentGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesGeometricShapeElementX(SBMLDocument* document)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesGeometricShapeElementXAsDouble(SBMLDocument* document)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getReactionGeometricShapeElementX(SBMLDocument* document)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getReactionGeometricShapeElementXAsDouble(SBMLDocument* document)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGeometricShapeElementY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementXAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& x)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string& attribute, const double& x)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int elementIndex, const double& x)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& x)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCompartmentGeometricShapeElementX(SBMLDocument* document)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setCompartmentGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCompartmentGeometricShapeElementXAsDouble(SBMLDocument* document)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setCompartmentGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setCompartmentGeometricShapeElementYAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& y)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesGeometricShapeElementX(SBMLDocument* document)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesGeometricShapeElementXAsDouble(SBMLDocument* document)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesGeometricShapeElementYAsDouble(SBMLDocument* document)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesGeometricShapeElementYAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& y)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getReactionGeometricShapeElementX(SBMLDocument* document)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getReactionGeometricShapeElementXAsDouble(SBMLDocument* document)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getReactionGeometricShapeElementYAsDouble(SBMLDocument* document)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionGeometricShapeElementYAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& y)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeElementYAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& y)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGeometricShapeElementY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0)/// @brief Sets the value of the "x" attribute of the base point 1 of the first element of the first Transformation2D of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject as a double.
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGeometricShapeBasePoint1X(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeBasePoint1X(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& x)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeBasePoint1X(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int elementIndex, const RelAbsVector& x)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeBasePoint1X(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& attribute, const RelAbsVector& x)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& attribute, unsigned int elementIndex, const RelAbsVector& x)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, const double& x)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int elementIndex, const double& x)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& x)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, const std::string& attribute, const double& x)
 
@@ -3857,3 +4093,33 @@ Render Functions
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setStyle(SBMLDocument* document, unsigned int renderIndex, const std::string& styleName)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::whetherDisplayReactionTextLabel(const std::string& styleName)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::makeVisible(SBMLDocument* document, unsigned int layoutIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::makeInvisible(SBMLDocument* document, unsigned int layoutIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::makeCompartmentVisible(SBMLDocument* document, unsigned int layoutIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::makeCompartmentInvisible(SBMLDocument* document, unsigned int layoutIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::makeSpeciesVisible(SBMLDocument* document, unsigned int layoutIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::makeSpeciesInvisible(SBMLDocument* document, unsigned int layoutIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::makeReactionVisible(SBMLDocument* document, unsigned int layoutIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::makeReactionInvisible(SBMLDocument* document, unsigned int layoutIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::makeSpeciesReferenceVisible(SBMLDocument* document, unsigned int layoutIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::makeSpeciesReferenceInvisible(SBMLDocument* document, unsigned int layoutIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::makeLineEndingVisible(SBMLDocument* document, unsigned int layoutIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::makeLineEndingInvisible(SBMLDocument* document, unsigned int layoutIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isVisible(SBMLDocument* document, GraphicalObject* graphicalObject)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::makeVisible(SBMLDocument* document, GraphicalObject* graphicalObject, const bool& applyToConnectedElements = true)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::makeInvisible(SBMLDocument* document, GraphicalObject* graphicalObject, const bool& applyToConnectedElements = true)
