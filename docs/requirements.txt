@@ -3,3 +3,4 @@ breathe
 libsbmlnetwork
 networkinfotranslator
 IPython
+graphviz

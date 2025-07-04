@@ -14,7 +14,12 @@ release = '@LIBSBMLNETWORK_DOTTED_VERSION@'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ["breathe", "sphinx.ext.autosectionlabel", "sphinx.ext.autodoc"]
+extensions = [
+    "breathe",
+    "sphinx.ext.autosectionlabel",
+    "sphinx.ext.autodoc",
+    "sphinx.ext.graphviz",
+]
 breathe_projects = {'SBMLNetwork': "doxygen/xml"}
 breathe_default_project = "SBMLNetwork"
 autodoc_member_order = 'bysource'
