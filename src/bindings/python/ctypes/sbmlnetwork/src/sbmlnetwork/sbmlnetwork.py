@@ -361,9 +361,9 @@ class SBMLNetwork:
         self.set_font_color(color)
 
     def set_font(self, font: str):
-        self.get_compartments_list().set_font(font)
-        self.get_species_list().set_font(font)
-        self.get_reactions_list().set_font(font)
+        self.get_compartments_list().set_fonts(font)
+        self.get_species_list().set_fonts(font)
+        self.get_reactions_list().set_fonts(font)
 
     def get_font(self):
         all_fonts = set()
