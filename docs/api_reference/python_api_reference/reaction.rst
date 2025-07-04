@@ -372,6 +372,19 @@ Visibility
 
    Hide the reaction from the rendered diagram.
 
+Information
+===========
+
+.. py:property:: info
+
+   Human-readable summary of glyph state for debugging.
+
+   :rtype: str
+
+.. py:method:: get_info()
+
+   Generate the info string.
+
 Example workflow
 ****************
 

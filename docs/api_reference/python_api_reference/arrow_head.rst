@@ -194,18 +194,18 @@ Movement
    :returns: True if the operation succeeded, False otherwise.
    :rtype: bool
 
-Informational
-=============
+Information
+===========
+
+.. py:property:: info
+
+   Human-readable summary of glyph state for debugging.
+
+   :rtype: str
 
 .. py:method:: get_info()
 
-    Return a formatted summary string of the arrow head’s current state, including position, size, and attached shapes.
-
-   :returns: A multi-line string summarizing internal state.
-   :rtype: str
-
-.. py:attribute:: info
-   Alias for :py:meth:`get_info`.
+   Generate the info string.
 
 Example workflow
 ****************

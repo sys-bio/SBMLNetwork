@@ -358,13 +358,13 @@ Information
 
 .. py:property:: info
 
-   Human-readable summary of the Curve’s state for debugging.
+   Human-readable summary of glyph state for debugging.
 
    :rtype: str
 
 .. py:method:: get_info()
 
-   Generate the info string used by :py:attr:`info`.
+   Generate the info string.
 
 Example workflow
 ****************

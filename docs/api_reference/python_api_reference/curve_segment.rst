@@ -130,15 +130,15 @@ Movement
 Information
 ===========
 
-.. py:method:: get_info()
+.. py:property:: info
 
-   Return a human-readable summary of this segment’s coordinates.
+   Human-readable summary of glyph state for debugging.
 
    :rtype: str
 
-.. py:property:: info
+.. py:method:: get_info()
 
-   Shorthand for :py:meth:`get_info`.
+   Generate the info string.
 
 Example workflow
 ****************

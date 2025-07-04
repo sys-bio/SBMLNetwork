@@ -130,16 +130,15 @@ Movement
 Information
 ===========
 
-.. py:method:: get_info()
+.. py:property:: info
 
-   Return a human-readable summary of each reaction center’s state (for debugging).
+   Human-readable summary of glyph state for debugging.
 
    :rtype: str
 
-.. py:attribute:: info
+.. py:method:: get_info()
 
-   Alias for :py:meth:`get_info`.
-
+   Generate the info string.
 
 Example Workflow
 ****************
