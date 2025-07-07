@@ -3,8 +3,8 @@ from .sbgn_logical_operator_base import SBGNLogicalOperatorBase
 
 class SBGNAndOperator(SBGNLogicalOperatorBase):
 
-    def __init__(self, node_id, x, y, width, height, sub_elements=None, sbgn_elements=None):
-        super(SBGNAndOperator, self).__init__(node_id, x, y, width, height, sub_elements, sbgn_elements)
+    def __init__(self, node_id, x, y, width, height, border_color=None, fill_color=None, sub_elements=None, sbgn_elements=None):
+        super(SBGNAndOperator, self).__init__(node_id, x, y, width, height, border_color, fill_color, sub_elements, sbgn_elements)
 
     @staticmethod
     def get_type():

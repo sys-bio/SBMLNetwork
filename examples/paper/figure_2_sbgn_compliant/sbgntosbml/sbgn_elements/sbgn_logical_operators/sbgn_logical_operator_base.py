@@ -3,8 +3,8 @@ from ..utils import find_element, find_parent_element
 
 class SBGNLogicalOperatorBase(SBGN2DElementBase):
 
-    def __init__(self, node_id, x, y, width, height, sub_elements=None, sbgn_elements=None):
-        super(SBGNLogicalOperatorBase, self).__init__(node_id, x, y, width, height, sub_elements)
+    def __init__(self, node_id, x, y, width, height, border_color=None, fill_color=None, sub_elements=None, sbgn_elements=None):
+        super(SBGNLogicalOperatorBase, self).__init__(node_id, x, y, width, height, border_color, fill_color, sub_elements)
         self.sbgn_elements = sbgn_elements
         self.line_ending_horizontal_padding = -3.5
 
@@ -112,8 +112,7 @@ class SBGNLogicalOperatorBase(SBGN2DElementBase):
                                                                                   species_reference_index=species_reference_index,
                                                                                   curve_segment_index=curve_segment_index)
 
-    @staticmethod
-    def set_curve_target_segment(sbmlnetwork_object, target_element, species_reference_index):
+    def set_curve_target_segment(self, sbmlnetwork_object, target_element, species_reference_index):
         sbmlnetwork_object.libsbmlnetwork.addSpeciesReferenceCubicBezierCurveSegment(target_element.get_target_id(),
                                                                       species_reference_index=species_reference_index)
         curve_segment_index = sbmlnetwork_object.libsbmlnetwork.getNumSpeciesReferenceCurveSegments(target_element.get_target_id(),
@@ -143,7 +142,7 @@ class SBGNLogicalOperatorBase(SBGN2DElementBase):
                                                                       species_reference_index=species_reference_index,
                                                                       curve_segment_index=curve_segment_index)
         sbmlnetwork_object.libsbmlnetwork.setSpeciesReferenceLineWidth(target_element.get_target_id(), species_reference_index=species_reference_index, line_width=2.0)
-        sbmlnetwork_object.libsbmlnetwork.setSpeciesReferenceLineColor(target_element.get_target_id(), color="black",
+        sbmlnetwork_object.libsbmlnetwork.setSpeciesReferenceLineColor(target_element.get_target_id(), color=self.border_color,
                                                                       species_reference_index=species_reference_index)
         
     def set_curve_line_ending(self, sbmlnetwork_object, target_element, species_reference_index):
@@ -182,12 +181,12 @@ class SBGNLogicalOperatorBase(SBGN2DElementBase):
                                                                                    segment_index=2, layout_index=0,
                                                                                    species_reference_index=species_reference_index,
                                                                                    index=geometric_shape_index)
-            sbmlnetwork_object.libsbmlnetwork.setSpeciesReferenceLineEndingBorderColor(target_element.get_target_id(), border_color="black",
+            sbmlnetwork_object.libsbmlnetwork.setSpeciesReferenceLineEndingBorderColor(target_element.get_target_id(), border_color=self.border_color,
                                                                         species_reference_index=species_reference_index)
             sbmlnetwork_object.libsbmlnetwork.setSpeciesReferenceLineEndingBorderWidth(target_element.get_target_id(),
                                                                                        border_width=2.0,
                                                                                        species_reference_index=species_reference_index)
-            sbmlnetwork_object.libsbmlnetwork.setSpeciesReferenceLineEndingFillColor(target_element.get_target_id(), fill_color="white",
+            sbmlnetwork_object.libsbmlnetwork.setSpeciesReferenceLineEndingFillColor(target_element.get_target_id(), fill_color=self.fill_color,
                                                                       species_reference_index=species_reference_index)
 
             sbmlnetwork_object.libsbmlnetwork.addSpeciesReferenceLineEndingGeometricShape(target_element.get_target_id(), "rendercurve",

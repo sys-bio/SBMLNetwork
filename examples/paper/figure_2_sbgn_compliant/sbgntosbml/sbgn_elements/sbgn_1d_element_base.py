@@ -3,10 +3,11 @@ from .sbgn_element_base import SBGNElementBase
 
 class SBGN1DElementBase(SBGNElementBase):
 
-    def __init__(self, node_id, x, y, sub_elements=None):
+    def __init__(self, node_id, x, y, border_color=None, sub_elements=None):
         super(SBGN1DElementBase, self).__init__(node_id, sub_elements)
         self.x = x
         self.y = y
+        self.border_color = "#000000" if border_color is None else border_color
 
     def get_x(self):
         return self.x

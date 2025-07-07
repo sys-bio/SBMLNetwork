@@ -65,3 +65,9 @@ class SBGNNucleicAcidFeature(SBGNEntityPoolNodeBase):
 
         # border width
         sbmlnetwork_object.libsbmlnetwork.setGeometricShapeBorderWidth(parent_element.get_id(), self.get_border_width(), geometric_shape_index=geometric_shape_index)
+
+        # border color
+        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeBorderColor(parent_element.get_id(), self.border_color, geometric_shape_index=geometric_shape_index)
+
+        # fill color
+        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeFillColor(parent_element.get_id(), self.fill_color, geometric_shape_index=geometric_shape_index)

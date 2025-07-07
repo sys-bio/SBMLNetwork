@@ -2,8 +2,8 @@ from .sbgn_port_base import SBGNPortBase
 
 class SBGNPort(SBGNPortBase):
 
-    def __init__(self, port_id, x, y, sub_elements=None):
-        super(SBGNPortBase, self).__init__(port_id, x, y, sub_elements)
+    def __init__(self, port_id, x, y, border_color=None, sub_elements=None):
+        super(SBGNPortBase, self).__init__(port_id, x, y, border_color, sub_elements)
 
     def add_geometric_shape(self, sbmlnetwork_object, parent_element):
         sbmlnetwork_object.libsbmlnetwork.addGeometricShape(parent_element.get_id(), "rendercurve")
@@ -15,7 +15,7 @@ class SBGNPort(SBGNPortBase):
                                                geometric_shape_index=geometric_shape_index)
         sbmlnetwork_object.libsbmlnetwork.getGeometricShapeId(parent_element.get_id(), geometric_shape_index)
         relative_start_point_x, relative_start_point_y = self.get_relative_start_point(sbmlnetwork_object, parent_element)
-        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeBorderColor(parent_element.get_id(), border_color="black",
+        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeBorderColor(parent_element.get_id(), border_color=self.border_color,
                                                            geometric_shape_index=geometric_shape_index)
         sbmlnetwork_object.libsbmlnetwork.setGeometricShapeBorderWidth(parent_element.get_id(), border_width=2.0,
                                                             geometric_shape_index=geometric_shape_index)
@@ -29,7 +29,7 @@ class SBGNPort(SBGNPortBase):
                                                         segment_index=1, geometric_shape_index=geometric_shape_index)
 
         # set the style of the process node
-        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeBorderColor(parent_element.get_id(), "black",
+        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeBorderColor(parent_element.get_id(), self.border_color,
                                                            geometric_shape_index=geometric_shape_index)
         sbmlnetwork_object.libsbmlnetwork.setGeometricShapeBorderWidth(parent_element.get_id(), 2.0,
                                                            geometric_shape_index=geometric_shape_index)

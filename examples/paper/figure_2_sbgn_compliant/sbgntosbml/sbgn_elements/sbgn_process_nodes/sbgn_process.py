@@ -29,15 +29,12 @@ class SBGNProcess(SBGNProcessNodeBase):
                                                           geometric_shape_index=geometric_shape_index)
 
         # set the style of the process node
-        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeFillColor(parent_element.get_id(), "white",
+        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeFillColor(parent_element.get_id(), self.fill_color,
                                                           geometric_shape_index=geometric_shape_index)
-        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeBorderColor(parent_element.get_id(), "black",
+        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeBorderColor(parent_element.get_id(), self.border_color,
                                                             geometric_shape_index=geometric_shape_index)
         sbmlnetwork_object.libsbmlnetwork.setGeometricShapeBorderWidth(parent_element.get_id(), 2.0,
                                                             geometric_shape_index=geometric_shape_index)
 
-        # hide the label for process nodes
-        text_glyph_id = sbmlnetwork_object.libsbmlnetwork.getTextGlyphId(id=parent_element.get_id())
-        if text_glyph_id:
-            sbmlnetwork_object.libsbmlnetwork.makeInvisible(id=text_glyph_id)
+
 

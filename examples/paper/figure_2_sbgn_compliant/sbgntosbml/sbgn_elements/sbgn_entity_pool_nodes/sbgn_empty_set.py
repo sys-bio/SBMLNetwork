@@ -4,8 +4,8 @@ import math
 
 class SBGNEmptySet(SBGNEntityPoolNodeBase):
 
-    def __init__(self, node_id, reaction_id, x, y, width, height, text="", sub_elements=None):
-        super(SBGNEmptySet, self).__init__(node_id, x, y, width, height, sub_elements)
+    def __init__(self, node_id, reaction_id, x, y, width, height, border_color=None, fill_color=None, text="", sub_elements=None):
+        super(SBGNEmptySet, self).__init__(node_id, x, y, width, height, border_color, fill_color, text, sub_elements)
         self.reaction_id = reaction_id
 
     def get_type(self):
@@ -40,10 +40,10 @@ class SBGNEmptySet(SBGNEntityPoolNodeBase):
                     empty_species_glyph_id = sbmlnetwork_object.libsbmlnetwork.getSpeciesReferenceEmptySpeciesGlyphId(self.reaction_id,
                                                                                       species_reference_index=species_reference_index)
             if empty_species_glyph_id != "":
-                sbmlnetwork_object.libsbmlnetwork.setX(empty_species_glyph_id, self.get_x())
-                sbmlnetwork_object.libsbmlnetwork.setY(empty_species_glyph_id, self.get_y())
-                sbmlnetwork_object.libsbmlnetwork.setWidth(empty_species_glyph_id, self.get_width())
-                sbmlnetwork_object.libsbmlnetwork.setHeight(empty_species_glyph_id, self.get_height())
+                sbmlnetwork_object.libsbmlnetwork.setX(empty_species_glyph_id, self.get_x(), update_curves=False)
+                sbmlnetwork_object.libsbmlnetwork.setY(empty_species_glyph_id, self.get_y(), update_curves=False)
+                sbmlnetwork_object.libsbmlnetwork.setWidth(empty_species_glyph_id, self.get_width(), update_curves=False)
+                sbmlnetwork_object.libsbmlnetwork.setHeight(empty_species_glyph_id, self.get_height(), update_curves=False)
                 sbmlnetwork_object.libsbmlnetwork.removeText(empty_species_glyph_id)
             else:
                 raise ValueError("Empty set node must be associated with an empty species glyph.")
@@ -65,5 +65,7 @@ class SBGNEmptySet(SBGNEntityPoolNodeBase):
         return model_id
 
     def add_geometric_shape(self, sbmlnetwork_object, parent_element):
-        # just to make sure we get a local style for it
-        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeFillColor(id=parent_element.get_id(), graphical_object_index=0, geometric_shape_index=0, fill_color="white")
+        # border color
+        sbmlnetwork_object.libsbmlnetwork.setBorderColor(parent_element.get_id(), self.border_color)
+        # # fill color
+        sbmlnetwork_object.libsbmlnetwork.setFillColor(parent_element.get_id(), self.fill_color)

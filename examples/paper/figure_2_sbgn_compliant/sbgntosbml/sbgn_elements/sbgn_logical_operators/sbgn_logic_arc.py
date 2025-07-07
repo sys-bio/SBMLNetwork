@@ -4,8 +4,8 @@ from ..utils import find_element, find_parent_element
 
 class SBGNLogicArc(SBGNConnectingArcBase):
 
-    def __init__(self, element_id, source_id, target_id, start_x, start_y, end_x, end_y, intermediate_points=None, sub_elements=None):
-        super(SBGNLogicArc, self).__init__(element_id, source_id, target_id, start_x, start_y, end_x, end_y, intermediate_points, sub_elements)
+    def __init__(self, element_id, source_id, target_id, start_x, start_y, end_x, end_y, intermediate_points=None, border_color=None, sub_elements=None):
+        super(SBGNLogicArc, self).__init__(element_id, source_id, target_id, start_x, start_y, end_x, end_y, intermediate_points, border_color, sub_elements)
 
     @staticmethod
     def get_type():

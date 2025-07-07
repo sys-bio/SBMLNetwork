@@ -12,10 +12,6 @@ class SBGNCompartment(SBGNContainerNodeBase):
         return 12.0
 
     @staticmethod
-    def get_fill_color():
-        return "#EEEAE4"
-
-    @staticmethod
     def get_font_color():
         return "black"
 
@@ -46,7 +42,7 @@ class SBGNCompartment(SBGNContainerNodeBase):
         sbmlnetwork_object.libsbmlnetwork.setGeometricShapeBorderWidth(parent_element.get_id(), self.get_border_width(), geometric_shape_index=geometric_shape_index)
 
         # fill color
-        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeFillColor(parent_element.get_id(), self.get_fill_color(), geometric_shape_index=geometric_shape_index)
+        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeFillColor(parent_element.get_id(), self.fill_color, geometric_shape_index=geometric_shape_index)
 
     def load_sbml_text_info(self, sbmlnetwork_object, parent_element=None):
         super(SBGNCompartment, self).load_sbml_text_info(sbmlnetwork_object, parent_element)

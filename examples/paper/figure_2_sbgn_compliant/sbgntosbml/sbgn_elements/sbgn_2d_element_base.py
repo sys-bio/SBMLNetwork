@@ -3,10 +3,11 @@ from .sbgn_1d_element_base import SBGN1DElementBase
 
 class SBGN2DElementBase(SBGN1DElementBase):
 
-    def __init__(self, node_id, x, y, width, height, sub_elements=None):
-        super(SBGN2DElementBase, self).__init__(node_id, x, y, sub_elements)
+    def __init__(self, node_id, x, y, width, height, border_color=None, fill_color=None, sub_elements=None):
+        super(SBGN2DElementBase, self).__init__(node_id, x, y, border_color, sub_elements)
         self.width = width
         self.height = height
+        self.fill_color = fill_color if fill_color is not None else "#FFFFFF"
 
     def get_width(self):
         return self.width

@@ -4,8 +4,8 @@ import math
 
 class SBGNPortBase(SBGN1DElementBase):
 
-    def __init__(self, port_id, x, y, sub_elements=None):
-        super(SBGNPortBase, self).__init__(port_id, x, y, sub_elements)
+    def __init__(self, port_id, x, y, border_color=None, sub_elements=None):
+        super(SBGNPortBase, self).__init__(port_id, x, y, border_color, sub_elements)
 
     def get_type(self):
         return "port"

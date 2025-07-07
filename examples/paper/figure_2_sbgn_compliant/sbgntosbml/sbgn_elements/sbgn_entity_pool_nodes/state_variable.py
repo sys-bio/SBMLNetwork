@@ -4,20 +4,16 @@ import math
 
 class SBGNStateVariable(SBGNEntityPoolNodeBase):
 
-    def __init__(self, node_id, x, y, width, height, text="", text_x=math.nan, text_y=math.nan, text_width=math.nan,
-                 text_height=math.nan,
-                 font_size=11, text_vertical_alignment="middle", text_horizontal_alignment="middle", sub_elements=None):
-        super(SBGNStateVariable, self).__init__(node_id, x, y, width, height, text, text_x, text_y, text_width,
-                                                     text_height,
-                                                     font_size, text_vertical_alignment, text_horizontal_alignment,
+    def __init__(self, node_id, x, y, width, height, border_color=None, fill_color=None,
+                 text="", text_x=math.nan, text_y=math.nan, text_width=math.nan, text_height=math.nan,
+                 font_size=11, font_color=None, text_vertical_alignment="middle", text_horizontal_alignment="middle", sub_elements=None):
+        super(SBGNStateVariable, self).__init__(node_id, x, y, width, height, border_color, fill_color,
+                                                text, text_x, text_y, text_width, text_height,
+                                                     font_size, font_color, text_vertical_alignment, text_horizontal_alignment,
                                                      sub_elements)
 
     def get_type(self):
         return "state variable"
-
-    @staticmethod
-    def get_fill_color():
-        return "white"
 
     def add_geometric_shape(self, sbmlnetwork_object, parent_element):
         sbmlnetwork_object.libsbmlnetwork.addGeometricShape(parent_element.get_id(), "ellipse")
@@ -41,5 +37,8 @@ class SBGNStateVariable(SBGNEntityPoolNodeBase):
         # border width
         sbmlnetwork_object.libsbmlnetwork.setGeometricShapeBorderWidth(parent_element.get_id(), self.get_border_width(), geometric_shape_index=geometric_shape_index)
 
+        # border color
+        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeBorderColor(parent_element.get_id(), self.border_color, geometric_shape_index=geometric_shape_index)
+
         # fill color
-        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeFillColor(parent_element.get_id(), self.get_fill_color(), geometric_shape_index=geometric_shape_index)
+        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeFillColor(parent_element.get_id(), self.fill_color, geometric_shape_index=geometric_shape_index)

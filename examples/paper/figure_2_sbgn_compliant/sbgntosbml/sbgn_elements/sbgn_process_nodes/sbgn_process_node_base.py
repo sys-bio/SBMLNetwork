@@ -3,8 +3,8 @@ from ..sbgn_2d_element_base import SBGN2DElementBase
 
 class SBGNProcessNodeBase(SBGN2DElementBase):
 
-    def __init__(self, node_id, x, y, width, height, sub_elements=None):
-            super(SBGNProcessNodeBase, self).__init__(node_id, x, y, width, height, sub_elements)
+    def __init__(self, node_id, x, y, width, height, border_color=None, fill_color=None, sub_elements=None):
+            super(SBGNProcessNodeBase, self).__init__(node_id, x, y, width, height, border_color, fill_color, sub_elements)
 
     @staticmethod
     def get_super_type():

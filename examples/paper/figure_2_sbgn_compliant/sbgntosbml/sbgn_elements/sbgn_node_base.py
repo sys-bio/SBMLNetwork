@@ -4,16 +4,17 @@ import math
 
 class SBGNNodeBase(SBGN2DElementBase):
 
-    def __init__(self, node_id, x, y, width, height, text="", text_x=math.nan, text_y=math.nan, text_width=math.nan,
-                 text_height=math.nan,
-                 font_size=14, text_vertical_alignment="middle", text_horizontal_alignment="middle", sub_elements=None):
-        super(SBGNNodeBase, self).__init__(node_id, x, y, width, height, sub_elements)
+    def __init__(self, node_id, x, y, width, height, border_color=None, fill_color=None,
+                 text="", text_x=math.nan, text_y=math.nan, text_width=math.nan, text_height=math.nan,
+                 font_size=14, font_color=None, text_vertical_alignment="middle", text_horizontal_alignment="middle", sub_elements=None):
+        super(SBGNNodeBase, self).__init__(node_id, x, y, width, height, border_color, fill_color, sub_elements)
         self.text = text
         self.text_x = text_x
         self.text_y = text_y
         self.text_width = text_width
         self.text_height = text_height
         self.font_size = font_size
+        self.font_color = "#000000" if font_color is None else font_color
         self.text_vertical_alignment = text_vertical_alignment
         self.text_horizontal_alignment = text_horizontal_alignment
 
@@ -66,10 +67,10 @@ class SBGNNodeBase(SBGN2DElementBase):
         self.font_size = font_size
 
     def get_font_color(self):
-        return "black"
+        return self.font_color
 
     def set_font_color(self, font_color):
-        pass
+        self.font_color = font_color
 
     def get_text_vertical_alignment(self):
         return self.text_vertical_alignment

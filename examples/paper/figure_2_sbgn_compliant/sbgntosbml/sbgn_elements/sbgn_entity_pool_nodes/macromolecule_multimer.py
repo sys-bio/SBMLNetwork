@@ -6,10 +6,6 @@ class SBGNMacromoleculeMultimer(SBGNEntityPoolNodeBase):
     def get_type(self):
         return "macromolecule multimer"
 
-    @staticmethod
-    def get_fill_color():
-        return "#D9E5F2"
-
     def add_geometric_shape(self, sbmlnetwork_object, parent_element):
         sbmlnetwork_object.libsbmlnetwork.addGeometricShape(parent_element.get_id(), "rectangle")
         geometric_shape_index = sbmlnetwork_object.libsbmlnetwork.getNumGeometricShapes(parent_element.get_id()) - 1
@@ -37,7 +33,7 @@ class SBGNMacromoleculeMultimer(SBGNEntityPoolNodeBase):
         sbmlnetwork_object.libsbmlnetwork.setGeometricShapeBorderWidth(parent_element.get_id(), self.get_border_width(), geometric_shape_index=geometric_shape_index)
 
         # fill color
-        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeFillColor(parent_element.get_id(), self.get_fill_color(), geometric_shape_index=geometric_shape_index)
+        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeFillColor(parent_element.get_id(), self.fill_color, geometric_shape_index=geometric_shape_index)
 
         sbmlnetwork_object.libsbmlnetwork.addGeometricShape(parent_element.get_id(), "rectangle")
         geometric_shape_index = sbmlnetwork_object.libsbmlnetwork.getNumGeometricShapes(parent_element.get_id()) - 1
@@ -64,5 +60,8 @@ class SBGNMacromoleculeMultimer(SBGNEntityPoolNodeBase):
         # border width
         sbmlnetwork_object.libsbmlnetwork.setGeometricShapeBorderWidth(parent_element.get_id(), self.get_border_width(), geometric_shape_index=geometric_shape_index)
 
+        # border color
+        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeBorderColor(parent_element.get_id(), self.border_color, geometric_shape_index=geometric_shape_index)
+
         # fill color
-        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeFillColor(parent_element.get_id(), self.get_fill_color(), geometric_shape_index=geometric_shape_index)
+        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeFillColor(parent_element.get_id(), self.fill_color, geometric_shape_index=geometric_shape_index)
