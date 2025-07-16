@@ -24,6 +24,12 @@ To install the Python package, run the following command:
 
 ```pip install sbmlnetwork```
 
+This will install the latest version of SBMLNetwork from PyPI, along with its dependencies. If you also want Tellurium for simulation:
+
+```pip install sbmlnetwork[tellurium]```
+
+which will install the latest version of Tellurium as well to be used as the simulation engine for the SBML models. This is in particular useful for using data integration features of SBMLNetwork when the data is not directly passed and instead is expected to be fetched from the model.
+
 ### Shared Library
 
 To install the shared library, download the latest release from the [releases page](https://github.com/sys-bio/SBMLNetwork/releases) and link it to your project.
