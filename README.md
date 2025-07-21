@@ -1,18 +1,30 @@
 # SBMLNetwork
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15360020.svg)](https://doi.org/10.5281/zenodo.15360020)
+[![Paper DOI](https://img.shields.io/badge/DOI-10.1101%2F2025.05.09.653024-blue)](https://doi.org/10.1101/2025.05.09.653024)
 
-SBMLNetwork is a library designed to enable software developers and systems biologists to interact with the graphical representation of SBML (Systems Biology Markup Language) models. It makes use of SBML Layout and Render extensions and provides the following features: (i) a built-in high-performance autolayout algorithm that automatically generates and adds graphical representation data to SBML models that don’t have them (ii) a robust API that provides the users and developers with seamless access to the graphical representation attributes of SBML models (iii) a drawing tool to render an image of the graphical representation of SBML models using their Layout and Render data.
+SBMLNetwork is a cross-platform library—built on a C++ core with native Python and WebAssembly bindings—that automatically generates and renders SBML Layout & Render info, transforming plain biochemical models into standards-compliant, publication-ready network diagrams with a single function call.
 
-**Important Note**: As of tag [v0.3.1](https://github.com/adelhpour/SBMLNetwork/releases/tag/v0.3.1) this repository has been forked and is now under active development and maintenance at the [UW Sauro Lab](https://github.com/sys-bio/SBMLNetwork) GitHub account, where further enhancements and updates are being implemented.
+**Note**: This repository is a continuation of the original [adelhpour/SBMLNetwork](https://github.com/adelhpour/SBMLNetwork) project. As of [v0.3.1](https://github.com/adelhpour/SBMLNetwork/releases/tag/v0.3.1), active development and maintenance have moved to the [UW Sauro Lab](https://github.com/sys-bio/SBMLNetwork), where ongoing enhancements and new features are being implemented.
 
 ## Features
 
-- **Autolayout**: SBMLNetwork provides a high-performance autolayout algorithm that automatically generates and adds graphical representation data to SBML models that don’t have them. The autolayout algorithm is based on the force-directed layout algorithm which is customized to accommodate the intricate structures often present in the graphical representation of biological networks.
+- **Standards fidelity** – full read/write support for SBML Layout & Render.
 
-- **API**: SBMLNetwork provides a robust API that allows users and developers to interact with the graphical representation attributes of SBML models. The API is designed to be intuitive and easy to use, providing seamless access to the graphical representation data of SBML models.
+- **Reaction-aware autolayout** – Fruchterman–Reingold variant tuned for
+  metabolic graphs.
 
-- **Drawing Tool**: SBMLNetwork provides a drawing tool that allows users to render an image of the graphical representation of SBML models using their Layout and Render data.
+- **Styling engine** – predefined templates like Escher to get you started,
+  plus per-element overrides for colors, shapes, fonts, and stroke widths.
+
+- **Data overlays** – map fluxes or concentrations to color gradients, line
+  thickness, or node size with one call; automatic color-bar legend included.
+
+- **Multi-format export** – render to PNG, SVG, PDF; high-quality drawing powered by Skia.
+
+- **Multi-language API** – performance-oriented C++ core exposed to Python
+  (PyPI) and JavaScript/WebAssembly for seamless embedding in desktop or web
+  tools.
 
 ## Installation
 
@@ -32,93 +44,38 @@ which will install the latest version of Tellurium as well to be used as the sim
 
 ### Shared Library
 
-To install the shared library, download the latest release from the [releases page](https://github.com/sys-bio/SBMLNetwork/releases) and link it to your project.
+SBMLNetwork provides native libraries for both **C/C++** and **JavaScript/WebAssembly** environments.
 
-#### Pre-built binaries
+To get started:
 
-Download an archive for your OS from the [releases page](https://github.com/adelhpour/SBMLNetwork/releases) and link it in your build system.
+- **C/C++ users** can link against the precompiled static libraries available on the [releases page](https://github.com/sys-bio/SBMLNetwork/releases), or build from source for full control.
+- **JavaScript/WebAssembly users** can include the `libsbmlnetwork.js` and `libsbmlnetwork.wasm` bundles in their web applications for in-browser SBML support.
 
-#### Build from source
-
-The steps below reproduce our CI workflow so you can compile the C/C++ core and the Python bindings locally on macOS, Linux, or Windows.
-
-#####  Clone the repo
-```bash
-git clone https://github.com/sys-bio/SBMLNetwork.git
-cd SBMLNetwork
-```
-
-#####  Download binary dependencies (libroadrunner-deps)
-```bash
-curl -L -O <matching-archive>.zip          # pick the archive for your OS/arch/build-type
-unzip <matching-archive>.zip -d $HOME/rr_deps
-export DEPENDENCIES_INSTALL_PREFIX=$HOME/rr_deps   # Windows PowerShell:  setx DEPENDENCIES_INSTALL_PREFIX C:\rr_deps
-```
-
-#####  Configure
-```bash
-mkdir build && cd build
-cmake .. -G Ninja \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DDEPENDENCIES_INSTALL_PREFIX=$DEPENDENCIES_INSTALL_PREFIX \
-  -DWITH_PYTHON=ON \
-  -DPYTHON_INSTALL_WITH_SETUP=ON \
-  -DCMAKE_INSTALL_PREFIX=$PWD/../install
-#  (macOS Apple-silicon: add -DCMAKE_OSX_ARCHITECTURES=arm64)
-#  (Windows: run from a “x64 Native Tools VS 2022” prompt)
-```
-
-#####  Build & install
-```bash
-cmake --build . --target install
-```
+📚 **Detailed installation and usage instructions** for all supported environments are available in the [documentation](https://sbmlnetwork.readthedocs.io/en/latest/installation.html).
 
 ## Usage
 
-Here are simple examples of how to use SBMLNetwork python package and C library:
+SBMLNetwork provides a concise, high-level Python interface for loading, styling, analyzing, and exporting SBML models with full Layout and Render support.
 
-### Python
+### Basic Visualization
+
+Load a model, apply automatic layout and styling if needed, render the image, and save the updated SBML.
 
 ```python
-import sbmlnetwork
+import sbmlnetwork as sb
 
-# Load an SBML model
-network = sbmlnetwork.load('path/to/model.xml')
+# Load SBML; auto‑layout and auto‑style will run if the file lacks them
+net = sb.load("my_model.xml")
 
-# set the fill color of the species
-network.setSpeciesFillColor('Orange')
+# Render the network and save a PNG
+net.draw("network.png")
 
-# draw an image of the graphical representation of the model
-network.draw()
-
-# export the image
-network.draw('path/to/image.png')
-
-# save the model with the graphical representation data
-network.save('path/to/model_with_graphical_representation.xml')
+# Save SBML back to disk with Layout/Render information embedded
+net.save("network.xml")
 ```
 
-To use the C APIs, you need to link to both libsbml and libsbmlnetowk libraries and include the appropriate headers. The following is an example of how to use the C APIs:
+📚 More examples (including styling and theming, flux mapping, concentration overlays, and reaction grouping) are available in the [Getting Started guide](https://sbmlnetwork.readthedocs.io/en/latest/getting_started.html).
 
-### C
-
-```c
-#include "sbml/SBMLTypes.h"
-#include "sbml/packages/layout/common/LayoutExtensionTypes.h"
-#include "c_api/libsbmlnetwork_c_api.h"
-
-// Load an SBML model
-SBMLDocument* document = c_api_readSBML('path/to/model.xml');
-
-// add graphical representation data to the model
-c_api_applyAutolayout(document); 
-
-// Save the model with the graphical representation data
-c_api_writeSBMLToFile(document, 'path/to/model_with_graphical_representation.xml');
-
-// Free the memory
-c_api_freeSBMLDocument(document);
-```
 
 ## Documentation
 
@@ -132,7 +89,17 @@ SBMLNetwork is distributed under the [MIT License](https://github.com/adelhpour/
 
 If you would like to contribute to SBMLNetwork, please create a pull request with your changes. We welcome contributions from the community and are happy to review and merge your changes.
 
+## Citation
+
+If you use SBMLNetwork in your work, please cite the following preprint:
+
+> Heydarabadipour A, Smith L, Hellerstein JL, Sauro HM.  
+> *SBMLNetwork: Standards-based layout, styling, and visualization of biochemical models across platforms.*  
+> bioRxiv 2025. [https://doi.org/10.1101/2025.05.09.653024](https://doi.org/10.1101/2025.05.09.653024)
+
+📄 [View on bioRxiv](https://www.biorxiv.org/content/10.1101/2025.05.09.653024v1)
+
+
 ## Acknowledgements
 
-This project is developed by the [UW Sauro Lab](https://www.sys-bio.org) at the Department of Bioengineering, University of Washington, Seattle.
-
+This project is developed by the [UW Sauro Lab](https://www.sys-bio.org) at the Department of Bioengineering, University of Washington, Seattle.  We acknowledge the support of the **Center for Reproducible Biomedical Modeling**, funded by NIH award [P41EB023912](https://reporter.nih.gov/project-details/10094520).  We also gratefully acknowledge funding from NIH award [U24EB028887](https://reporter.nih.gov/project-details/10126363), which supported much of the early work.

@@ -89,7 +89,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
                 nodesSet.insert(std::make_pair(id, index));
             }
         }
-        return align(document, nodesSet, alignment, ignorefixedPositionNodes);
+        return align(document, nodesSet, alignment, ignoreFixedPositionNodes);
     }
 
     int c_api_distribute(SBMLDocument* document, const char ***nodes, const int nodesSize, const char* direction, const double spacing) {
