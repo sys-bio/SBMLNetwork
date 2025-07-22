@@ -88,6 +88,15 @@ bottlenecks or high‑throughput steps.
    # Render the flux‑mapped network
    net.draw("flux_map.png")
 
+.. note::
+
+   The `data` argument for `show_fluxes` may be provided in two ways:
+
+   1. **Single float** – interpreted as a simulation time (SBMLNetwork will run your simulator at that time to compute fluxes).
+   2. **Dict[str, float]** – a mapping of reaction IDs to pre‑computed flux values.
+
+   See the full :ref:`data-visualization` documentation for details on parameters and behavior.
+
 Mapping species concentrations
 ------------------------------
 
@@ -126,6 +135,15 @@ visualise high‑ and low‑concentration pools at a glance.
 
    # Render the concentration‑mapped network
    net.draw("concentration_map.png")
+
+.. note::
+
+   The ``data`` argument for ``show_concentrations`` may be provided in two ways:
+
+   1. **Single float** – interpreted as a simulation time (SBMLNetwork will run your simulator at that time to compute concentrations).
+   2. **Dict[str, float]** – a mapping of species IDs to pre‑computed concentration values.
+
+   See the full :ref:`data-visualization` documentation for details on parameters and behavior.
 
 Grouping reactions
 ------------------

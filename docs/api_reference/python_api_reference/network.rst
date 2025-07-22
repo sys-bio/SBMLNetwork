@@ -430,18 +430,52 @@ Example
     # Render updated network
     net.draw("styled_network.png")
 
+.. _data-visualization:
+
 Data Visualization
 ==================
+
 
 .. py:method:: show_fluxes(data, log_scale=False, min_threshold=None, skip_hidden_elements=True)
 
    Color reactions by numeric flux values.
 
-   :param data: Single float or dict mapping reaction IDs to values
-   :type  data: float | dict[str, float]
-   :param bool log_scale: Use logarithmic color scaling (default: False)
-   :param float min_threshold: Minimum value to display (default: None)
-   :param bool skip_hidden_elements: Ignore hidden reactions (default: True)
+   :param data: Either:
+
+                1. A single float representing a **simulation time** (in time units of your model).
+                   In this mode, SBMLNetwork will invoke the simulation engine (i.e., Tellurium) to compute reaction fluxes at that time point and then color reactions accordingly.
+                   **Example:**
+
+                   .. code-block:: python
+
+                      # Simulate the model for 5.0 time units, then color by flux
+                      net.show_fluxes(5.0)
+
+                2. A dict mapping individual reaction IDs to their flux values (floats).
+                   - **Keys**: SBML Reaction Ids.
+                   - **Values**: Flux magnitudes (floats).
+                     - Positive → forward flux
+                     - Negative → reverse flux
+
+                   **Example:**
+
+                   .. code-block:: python
+
+                      flux_map = {
+                          'HEX1': 0.85,     # forward 0.85 units
+                          'PGI_rev': -0.30  # reverse 0.30 units
+                      }
+                      net.show_fluxes(flux_map, log_scale=True, min_threshold=0.05)
+   :type data: float | dict[str, float]
+   :param bool log_scale:
+      If ``True``, apply a logarithmic color scale to flux magnitudes (default: ``False``).
+   :param float min_threshold:
+      Minimum absolute flux value to display. Reactions with |flux| below this threshold are omitted (default: ``None``).
+   :param bool skip_hidden_elements:
+      If ``True``, skip reactions marked as hidden in the current layout (default: ``True``).
+   :raises KeyError:
+      If a dict-mode key does not match any reaction ID in the model.
+   :returns: ``None``
 
 .. py:method:: hide_fluxes()
 
@@ -451,14 +485,56 @@ Data Visualization
 
    Visualize species concentrations by coloring or resizing glyphs.
 
-   :param data: Single float or dict mapping species IDs to values
-   :type  data: float | dict[str, float]
-   :param bool log_scale: Use logarithmic scaling (default: False)
-   :param float min_threshold: Minimum value to display (default: None)
-   :param str show_by: `"color"` (default) or `"size"`
-   :param bool skip_hidden_elements: Ignore hidden species (default: True)
-   :param float min_size: Minimum glyph size when sizing (default: 10)
-   :param float max_size: Maximum glyph size when sizing (default: 100)
+   :param data: Either:
+
+                1. A single float representing a **simulation time** (in your model’s time units).
+                   SBMLNetwork will invoke the simulation engine (i.e., Tellurium) to compute species concentrations at that time point, then visualize accordingly.
+
+                   **Example:**
+
+                   .. code-block:: python
+
+                      # Simulate for 10.0 time units, then color by concentration
+                      net.show_concentrations(10.0, show_by="color")
+
+                2. A dict mapping individual species IDs to their concentration values (floats).
+                   - **Keys**: SBML Species Ids.
+                   - **Values**: Concentration magnitudes (floats).
+
+                   **Example:**
+
+                   .. code-block:: python
+
+                      conc_map = {
+                          'A': 5.2,    # concentration 5.2 units for species “A”
+                          'B': 0.75    # concentration 0.75 units for species “B”
+                      }
+                      net.show_concentrations(
+                          conc_map,
+                          log_scale=True,
+                          min_threshold=0.1,
+                          show_by="size",
+                          min_size=5,
+                          max_size=50
+                      )
+   :type data: float | dict[str, float]
+   :param bool log_scale:
+      If ``True``, apply a logarithmic scale to concentration values (default: ``False``).
+   :param float min_threshold:
+      Minimum concentration to display. Species with values below this threshold are omitted (default: ``None``).
+   :param str show_by:
+      Choose how to visualize values:
+      - ``"color"`` – color glyphs by concentration (default)
+      - ``"size"``  – resize glyphs between ``min_size`` and ``max_size`` based on concentration
+   :param bool skip_hidden_elements:
+      If ``True``, skip any species marked as hidden in the current layout (default: ``True``).
+   :param float min_size:
+      Minimum glyph size when ``show_by="size"`` (default: ``10``).
+   :param float max_size:
+      Maximum glyph size when ``show_by="size"`` (default: ``100``).
+   :raises KeyError:
+      If a dict-mode key does not match any species ID in the model.
+   :returns: ``None``
 
 .. py:method:: hide_concentrations()
 
