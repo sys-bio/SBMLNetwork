@@ -67,5 +67,8 @@ class SBGNEmptySet(SBGNEntityPoolNodeBase):
     def add_geometric_shape(self, sbmlnetwork_object, parent_element):
         # border color
         sbmlnetwork_object.libsbmlnetwork.setBorderColor(parent_element.get_id(), self.border_color)
-        # # fill color
+        # border width
+        sbmlnetwork_object.libsbmlnetwork.setGeometricShapeBorderWidth(parent_element.get_id(), geometric_shape_index=0,
+                                                                       border_width=4.0)
+        # fill color
         sbmlnetwork_object.libsbmlnetwork.setFillColor(parent_element.get_id(), self.fill_color)

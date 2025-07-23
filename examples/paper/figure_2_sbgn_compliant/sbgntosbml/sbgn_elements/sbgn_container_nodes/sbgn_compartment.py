@@ -9,7 +9,7 @@ class SBGNCompartment(SBGNContainerNodeBase):
 
     @staticmethod
     def get_border_width():
-        return 12.0
+        return 16.0
 
     @staticmethod
     def get_font_color():
@@ -52,3 +52,6 @@ class SBGNCompartment(SBGNContainerNodeBase):
 
         # font weight
         sbmlnetwork_object.libsbmlnetwork.setFontWeight(parent_element.get_id(), "normal")
+
+        # font size
+        sbmlnetwork_object.libsbmlnetwork.setFontSize(parent_element.get_id(), 14.0)
