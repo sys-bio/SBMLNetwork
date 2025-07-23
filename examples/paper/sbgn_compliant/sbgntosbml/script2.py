@@ -315,4 +315,4 @@ sbgn_elements.append(element)
 load_sbml_info(net, sbgn_elements)
 
 net.draw("./figure_2_sbgn_compliant_2.pdf", update_network_extents=True)
-net.save("./figure_2_sbgn_compliant_2.xml", update_network_extents=True)
+net.save("./sbgn_compliant_repressilator.xml", update_network_extents=True)

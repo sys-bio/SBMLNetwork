@@ -649,5 +649,5 @@ sbgn_elements.append(element)
 
 load_sbml_info(net, sbgn_elements)
 
-net.draw("./figure_2_sbgn_compliant_1.pdf", update_network_extents=True)
-net.save("./figure_2_sbgn_compliant_1.xml", update_network_extents=True)
+net.draw("./sbgn_compliant_iNOS.pdf", update_network_extents=True)
+net.save("./sbgn_compliant_iNOS.xml", update_network_extents=True)
