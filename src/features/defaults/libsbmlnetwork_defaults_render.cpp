@@ -85,6 +85,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         circle->setCX(RelAbsVector(0.0, 50.0));
         circle->setCY(RelAbsVector(0.0, 50.0));
         circle->setRX(RelAbsVector(0.0, 50.0));
+        circle->setRY(RelAbsVector(0.0, 50.0));
         circle->setRatio(1.0);
         circle->setStroke("black");
         circle->setStrokeWidth(2.0);

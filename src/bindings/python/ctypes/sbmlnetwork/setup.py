@@ -28,6 +28,13 @@ setup(
         "Operating System :: OS Independent",
     ],
     install_requires=requirements,
+    extras_require={
+        # core + simulation
+        "tellurium": ["tellurium"],
+
+        # everything
+        "all": ["tellurium"],
+    },
     package_dir={"": "src"},
     packages=find_packages(where="src"),
     python_requires=">=3.9"

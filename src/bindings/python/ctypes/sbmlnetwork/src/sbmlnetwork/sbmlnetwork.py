@@ -1,7 +1,6 @@
 import libsbmlnetwork
 import networkinfotranslator
 import os
-import tellurium as te
 from IPython.display import display
 from .settings import Settings
 from .features.data_integration import ColorCodingFluxes
@@ -24,7 +23,11 @@ class SBMLNetwork:
         if os.path.exists(sbml) or sbml.startswith("<?xml"):
             self.libsbmlnetwork.load(sbml)
         else:
-            self.libsbmlnetwork.load(te.loada(sbml).getSBML())
+            try:
+                import tellurium as te
+                self.libsbmlnetwork.load(te.loada(sbml).getSBML())
+            except ImportError:
+                raise ImportError("To load an Antimony model, please install full package using pip install \"sbmlnetwork[tellurium]\".")
         self.populate_settings()
         if self.libsbmlnetwork.getNumLayouts() == 0:
             self.auto_layout()
@@ -361,9 +364,9 @@ class SBMLNetwork:
         self.set_font_color(color)
 
     def set_font(self, font: str):
-        self.get_compartments_list().set_font(font)
-        self.get_species_list().set_font(font)
-        self.get_reactions_list().set_font(font)
+        self.get_compartments_list().set_fonts(font)
+        self.get_species_list().set_fonts(font)
+        self.get_reactions_list().set_fonts(font)
 
     def get_font(self):
         all_fonts = set()
@@ -704,8 +707,8 @@ class SBMLNetwork:
     #
     #     return False
 
-    def auto_layout(self, max_num_connected_edges: int = 3, reset_fixed_position_elements: bool = False, fixed_position_nodes: list = []):
-        self.libsbmlnetwork.autolayout(max_num_connected_edges, reset_fixed_position_elements, fixed_position_nodes)
+    def auto_layout(self, max_num_connected_edges: int = 3, reset_fixed_position_elements: bool = False, fixed_position_nodes: list = [], iterations: int = -1):
+        self.libsbmlnetwork.autolayout(max_num_connected_edges, reset_fixed_position_elements, fixed_position_nodes, iterations)
 
     def auto_style(self, max_num_connected_edges: int = 3):
         self.libsbmlnetwork.autorender(max_num_connected_edges)

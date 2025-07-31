@@ -142,6 +142,30 @@ int setId(Layout* layout, const std::string& id, const unsigned int graphicalObj
     return updateGraphicalObjectId(layout, getGraphicalObject(layout, id, graphicalObjectIndex), graphicalObjectId);
 }
 
+const std::string getTextGlyphId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex, const unsigned int textGlyphIndex) {
+    GraphicalObject* graphicalObject = getGraphicalObject(layout, id, graphicalObjectIndex);
+    if (graphicalObject) {
+        std::vector<TextGlyph*> textGlyphs = getTextGlyphs(layout, graphicalObject);
+        if (textGlyphIndex < textGlyphs.size())
+            return textGlyphs.at(textGlyphIndex)->getId();
+    }
+
+    return "";
+}
+
+int setTextGlyphId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex, const unsigned int textGlyphIndex, const std::string& graphicalObjectId) {
+    GraphicalObject* graphicalObject = getGraphicalObject(layout, id, graphicalObjectIndex);
+    if (graphicalObject) {
+        std::vector<TextGlyph*> textGlyphs = getTextGlyphs(layout, graphicalObject);
+        if (textGlyphIndex < textGlyphs.size()) {
+            textGlyphs.at(textGlyphIndex)->setId(graphicalObjectId);
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
 bool isSetMetaId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex) {
     GraphicalObject* graphicalObject = getGraphicalObject(layout, id, graphicalObjectIndex);
     if (graphicalObject)

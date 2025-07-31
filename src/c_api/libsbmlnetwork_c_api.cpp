@@ -57,7 +57,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return isSetModel(document);
     }
 
-    int c_api_autolayout(SBMLDocument *document, const int maxNumConnectedEdges, bool resetFixedPositionElements, const char ***fixedPositionNodes, const int fixedPositionNodesSize) {
+    int c_api_autolayout(SBMLDocument *document, const int maxNumConnectedEdges, bool resetFixedPositionElements, const char ***fixedPositionNodes, const int fixedPositionNodesSize, const int iterations) {
         std::set<std::pair<std::string, int> > fixedPositionNodesSet = std::set<std::pair<std::string, int> >();
         if (fixedPositionNodes) {
             for (int i = 0; i < fixedPositionNodesSize; i++) {
@@ -68,7 +68,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
             }
         }
 
-        return autolayout(document, maxNumConnectedEdges, resetFixedPositionElements, fixedPositionNodesSet);
+        return autolayout(document, maxNumConnectedEdges, resetFixedPositionElements, fixedPositionNodesSet, iterations);
     }
 
     int c_api_autorender(SBMLDocument *document, const int maxNumConnectedEdges) {
@@ -79,7 +79,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return updateLayoutCurves(document, getLayout(document, layoutIndex));
     }
 
-    int c_api_align(SBMLDocument* document, const char ***nodes, const int nodesSize,  const char* alignment, bool ignorefixedPositionNodes) {
+    int c_api_align(SBMLDocument* document, const char ***nodes, const int nodesSize,  const char* alignment, bool ignoreFixedPositionNodes) {
         std::set<std::pair<std::string, int> > nodesSet = std::set<std::pair<std::string, int> >();
         if (nodes) {
             for (int i = 0; i < nodesSize; i++) {
@@ -89,7 +89,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
                 nodesSet.insert(std::make_pair(id, index));
             }
         }
-        return align(document, nodesSet, alignment, ignorefixedPositionNodes);
+        return align(document, nodesSet, alignment, ignoreFixedPositionNodes);
     }
 
     int c_api_distribute(SBMLDocument* document, const char ***nodes, const int nodesSize, const char* direction, const double spacing) {
@@ -179,7 +179,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges, bool resetFixedPositionElements,
-                                  const char ***fixedPositionNodes, const int fixedPositionNodesSize) {
+                                  const char ***fixedPositionNodes, const int fixedPositionNodesSize, const int iterations) {
         std::set<std::pair<std::string, int> > fixedPositionNodesSet = std::set<std::pair<std::string, int> >();
         for (int i = 0; i < fixedPositionNodesSize; i++) {
             const char **fixedPositionNode = fixedPositionNodes[i];
@@ -188,7 +188,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
             fixedPositionNodesSet.insert(std::make_pair(id, index));
         }
 
-        return createDefaultLayoutLocations(document, maxNumConnectedEdges, resetFixedPositionElements, fixedPositionNodesSet);
+        return createDefaultLayoutLocations(document, maxNumConnectedEdges, resetFixedPositionElements, fixedPositionNodesSet, iterations);
     }
 
     bool c_api_getStoichiometricSpeciesReference(SBMLDocument* document) {
@@ -253,6 +253,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setId(SBMLDocument* document, const char* entityId, const char* graphicalObjectId, int graphicalObjectIndex, int layoutIndex) {
         return setId(document, layoutIndex, entityId, graphicalObjectIndex, graphicalObjectId);
+    }
+
+    const char* c_api_getTextGlyphId(SBMLDocument* document, const char* entityId, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return strdup(getTextGlyphId(document, layoutIndex, entityId, graphicalObjectIndex, textGlyphIndex).c_str());
+    }
+
+    int c_api_setTextGlyphId(SBMLDocument* document, const char* entityId, const char* graphicalObjectId, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return setTextGlyphId(document, layoutIndex, entityId, graphicalObjectIndex, textGlyphIndex, graphicalObjectId);
     }
 
     bool c_api_isSetMetaId(SBMLDocument* document, const char* entityId, int graphicalObjectIndex, int layoutIndex) {
@@ -1114,6 +1122,30 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     const char* c_api_getLocalLineEndingId(SBMLDocument* document, int lineEndingIndex, int renderIndex) {
         return strdup(getLocalLineEndingId(document, renderIndex, lineEndingIndex).c_str());
+    }
+
+    bool c_api_isSetLineEndingEnableRotationalMapping(SBMLDocument* document, const char* id, int renderIndex) {
+        return isSetEnableRotationalMapping(document, renderIndex, id);
+    }
+
+    bool c_api_getLineEndingEnableRotationalMapping(SBMLDocument* document, const char* id, int renderIndex) {
+        return getEnableRotationalMapping(document, renderIndex, id);
+    }
+
+    int c_api_setLineEndingEnableRotationalMapping(SBMLDocument* document, const char* id, bool enableRotationalMapping, int renderIndex) {
+        return setEnableRotationalMapping(document, renderIndex, id, enableRotationalMapping);
+    }
+
+    bool c_api_isSetSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
+        return isSetSpeciesReferenceLineEndingEnableRotationalMapping(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+    }
+
+    bool c_api_getSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
+        return getSpeciesReferenceLineEndingEnableRotationalMapping(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+    }
+
+    int c_api_setSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, const char* reactionId, bool enableRotationalMapping, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
+        return setSpeciesReferenceLineEndingEnableRotationalMapping(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, enableRotationalMapping);
     }
 
     const double c_api_getLineEndingBoundingBoxX(SBMLDocument* document, const char* id, int renderIndex) {

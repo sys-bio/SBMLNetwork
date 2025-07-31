@@ -260,7 +260,21 @@ class Label:
 
         return False
 
-    #ToDo hide/show label
+    def hide(self):
+        text_glyph_id = self.libsbmlnetwork.getTextGlyphId(id=self.element_id, graphical_object_index=self.graphical_object_index,
+                                                           text_glyph_index=self.text_glyph_index)
+        if self.libsbmlnetwork.makeInvisible(id=text_glyph_id) == 0:
+            return True
+
+        return False
+
+    def show(self):
+        text_glyph_id = self.libsbmlnetwork.getTextGlyphId(id=self.element_id, graphical_object_index=self.graphical_object_index,
+                                                           text_glyph_index=self.text_glyph_index)
+        if self.libsbmlnetwork.makeVisible(id=text_glyph_id) == 0:
+            return True
+
+        return False
 
     def move_to(self, position: tuple[float, float]):
         if self.set_position(position):

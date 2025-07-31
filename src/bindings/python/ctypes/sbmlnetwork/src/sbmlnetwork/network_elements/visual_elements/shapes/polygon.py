@@ -18,9 +18,10 @@ class Polygon(ShapeBase):
         return points
 
     def set_points(self, points: list[tuple[float, float]]):
-        for segment_index in range(self.libsbmlnetwork.getGeometricShapeNumSegments(id=self.element_id, graphical_object_index=self.graphical_object_index, geometric_shape_index=self.geometric_shape_index)):
-            if self.libsbmlnetwork.removeGeometricShapeSegment(id=self.element_id, graphical_object_index=self.graphical_object_index, geometric_shape_index=self.geometric_shape_index, segment_index=segment_index) != 0:
-                return False
+        # ToDo: add this function to the python and C API
+        # for segment_index in range(self.libsbmlnetwork.getGeometricShapeNumSegments(id=self.element_id, graphical_object_index=self.graphical_object_index, geometric_shape_index=self.geometric_shape_index)):
+        #     if self.libsbmlnetwork.removeGeometricShapeSegment(id=self.element_id, graphical_object_index=self.graphical_object_index, geometric_shape_index=self.geometric_shape_index, segment_index=segment_index) != 0:
+        #         return False
 
         if self.sub_element_index is None:
             for segment_index, point in enumerate(points):

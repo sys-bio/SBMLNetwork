@@ -12,7 +12,7 @@
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
-void autolayout_locateGlyphs(Model *model, Layout *layout) {
+void autolayout_locateGlyphs(Model *model, Layout *layout, const int& iterations) {
     double stiffness = autolayout_getStiffness(layout);
     double gravity = autolayout_getGravity(layout);
     bool useMagnetism = false;
@@ -29,7 +29,7 @@ void autolayout_locateGlyphs(Model *model, Layout *layout) {
     autoLayoutAlgorithm->updateConnectionsFixedPositionStatus();
     autoLayoutAlgorithm->setWidth(layout);
     autoLayoutAlgorithm->setHeight(layout);
-    autoLayoutAlgorithm->apply();
+    autoLayoutAlgorithm->apply(iterations);
     autolayout_updateCompartmentsExtents(model, layout);
     autolayout_updateLayoutDimensions(layout);
     delete autoLayoutAlgorithm;

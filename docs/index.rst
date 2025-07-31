@@ -13,10 +13,11 @@ Welcome to SBMLNetwork's documentation!
    overview
    installation
    building
-   usage
+   getting_started
+   gallery
+   api_reference/python_api_index
    api_reference/c_api_index
    api_reference/cpp_api_index
-   api_reference/python_api_index
    contributing
    license
 

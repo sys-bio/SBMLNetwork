@@ -12,7 +12,7 @@ To contribute to SBMLNetwork, follow these steps:
 2. **Clone** your forked repository to your local machine:
 
     ```bash
-    git clone https://github.com/adelhpour/SBMLNetwork.git
+    git clone https://github.com/sys-bio/SBMLNetwork.git
     ```
 
 3. **Create a new branch**:
@@ -51,7 +51,7 @@ To ensure smooth collaboration, please adhere to the following guidelines:
 Feedback
 --------
 
-If you encounter issues or have suggestions for improving SBMLNetwork, please [open an issue](https://github.com/adelhpour/SBMLNetwork/issues) on GitHub.
+If you encounter issues or have suggestions for improving SBMLNetwork, please [open an issue](https://github.com/sys-bio/SBMLNetwork/issues) on GitHub.
 
 Thank you for contributing to SBMLNetwork!
 

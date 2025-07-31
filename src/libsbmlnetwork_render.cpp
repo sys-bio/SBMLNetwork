@@ -931,7 +931,7 @@ bool isSetEnableRotationalMapping(RenderInformationBase* renderInformationBase, 
 
 bool isSetEnableRotationalMapping(LineEnding* lineEnding) {
     if (lineEnding) {
-        lineEnding->isSetEnableRotationalMapping();
+        return lineEnding->isSetEnableRotationalMapping();
     }
 
     return false;
@@ -943,7 +943,7 @@ bool getEnableRotationalMapping(RenderInformationBase* renderInformationBase, co
 
 bool getEnableRotationalMapping(LineEnding* lineEnding) {
     if (lineEnding) {
-        lineEnding->getEnableRotationalMapping();
+        return lineEnding->getEnableRotationalMapping();
     }
 
     return false;

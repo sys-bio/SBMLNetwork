@@ -77,9 +77,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param resetFixedPositionElements a variable that determines whether to reset the fixed position elements in the autolayout algorithm.
     /// @param fixedPositionNodeIds an array of strings containing the ids of the nodes and the indices of their associated graphical objects that must have fixed position in the autolayout algorithm.
     /// @param fixedPositionNodesSize the size of fixedPositionNodeIds
+    /// @param iterations the number of iterations to run the autolayout algorithm for. If -1, the algorithm will set it based on the number of species and reactions
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_autolayout(SBMLDocument* document, const int maxNumConnectedEdges = 3,
-                                                bool resetFixedPositionElements = false, const char ***fixedPositionNodes = NULL, const int fixedPositionNodesSize = 0);
+                                                bool resetFixedPositionElements = false, const char ***fixedPositionNodes = NULL, const int fixedPositionNodesSize = 0, const int iterations = -1);
 
     /// @brief Create a Render object, add it to the the SBML document, and set all the necessary features for it.
     /// @param document a pointer to the SBMLDocument object.
@@ -235,7 +236,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param fixedPositionNodeIds an array of strings containing the ids of the nodes that must have fixed position in the autolayout algorithm.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges = 3,
-                                                               bool resetFixedPositionElements = false, const char*** fixedPositionNodeIds = NULL, const int fixedPositionNodesSize = 0);
+                                                               bool resetFixedPositionElements = false, const char*** fixedPositionNodeIds = NULL, const int fixedPositionNodesSize = 0, const int iterations = -1);
 
     /// @brief Returns the value of the option to generate stoichiometric species reference in the autolayout algorithm.
     /// @param document a pointer to the SBMLDocument object.
@@ -346,6 +347,25 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setId(SBMLDocument* document, const char* entityId, const char* graphicalObjectId, int graphicalObjectIndex, int layoutIndex);
+
+    /// @brief Returns the id of the TextGlyph with the given index of the GraphicalObject with the given id in the Layout object with the given index of the SBML document associated with the entered model entity id.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param entityId the id of the model entity.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
+    /// @param textGlyphIndex the index number of the TextGlyph to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the id of the GraphicalObject, or @c "" if the id is not set or the object does not exists.
+    LIBSBMLNETWORK_EXTERN const char* c_api_getTextGlyphId(SBMLDocument* document, const char* entityId, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex);
+
+    /// @brief Sets the id of the TextGlyph with the given index of the GraphicalObject with the given id in the Layout object with the given index of the SBML document associated with the entered model entity id.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param entityId the id of the model entity.
+    /// @param graphicalObjectId the id of the GraphicalObject.
+    /// @param textGlyphIndex the id of the TextGlyph.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setTextGlyphId(SBMLDocument* document, const char* entityId, const char* graphicalObjectId, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex);
 
     /// @brief Predicate returning true if the meta id of the GraphicalObject with the given id in the Layout object with the given index of the SBML document associated with the entered model entity id is set.
     /// @param document a pointer to the SBMLDocument object.
@@ -2206,6 +2226,54 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param renderIndex the index number of the LocalRenderInformation object.
     /// @return the id of the LineEnding object with the given index, or @c "" if the object is @c NULL
     LIBSBMLNETWORK_EXTERN const char* c_api_getLocalLineEndingId(SBMLDocument* document, int lineEndingIndex, int renderIndex = 0);
+
+    /// @brief Predicate returning true if the enable rotational mapping attribute of the LineEnding object with the given id in the RenderInformationBase object with the given index is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return @c true if the enable rotational mapping attribute of the LineEnding object with the given id is set, @c false if either the enable rotational mapping attribute is not set or the object is @c NULL.
+    LIBSBMLNETWORK_EXTERN bool c_api_isSetLineEndingEnableRotationalMapping(SBMLDocument* document, const char* id, int renderIndex = 0);
+
+    /// @brief Returns the value of the enable rotational mapping attribute of the LineEnding object with the given id in the RenderInformationBase object with the given index.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the value of the enable rotational mapping attribute of the LineEnding object, or @c false if the object is @c NULL
+    LIBSBMLNETWORK_EXTERN bool c_api_getLineEndingEnableRotationalMapping(SBMLDocument* document, const char* id, int renderIndex = 0);
+
+    /// @brief Sets the value of the enable rotational mapping attribute of the LineEnding object with the given id in the RenderInformationBase object with the given index.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param enableRotationalMapping a boolean value to be set as the enable rotational mapping attribute of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setLineEndingEnableRotationalMapping(SBMLDocument* document, const char* id, bool enableRotationalMapping, int renderIndex = 0);
+
+    /// @brief Predicate returning true if the enable rotational mapping attribute of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param speciesReferenceIndex the index of the species reference glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @return @c true if the enable rotational mapping attribute of the LineEnding object associated with the given species reference glyph is set, @c false if either the enable rotational mapping attribute is not set or the object is @c NULL.
+    LIBSBMLNETWORK_EXTERN bool c_api_isSetSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex);
+
+    /// Returns the value of the enable rotational mapping attribute of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param speciesReferenceIndex the index of the species reference glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @return the value of the enable rotational mapping attribute of the LineEnding object associated with the given species reference glyph is set, @c false if either the enable rotational mapping attribute is not set or the object is @c NULL.
+    LIBSBMLNETWORK_EXTERN bool c_api_getSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex);
+
+    /// @brief Sets the value of the enable rotational mapping attribute of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param enableRotationalMapping a boolean value to be set as the enable rotational mapping attribute of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesReferenceLineEndingEnableRotationalMapping(SBMLDocument* document, const char* reactionId, bool enableRotationalMapping, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex);
 
     /// @brief Returns the value of the "x" attribute of the bounding box of the LineEnding object  of the RenderInformationBase object with the given index of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -5443,25 +5511,6 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeType(SBMLDocument* document, const char* id, const char* shape, int graphicalObjectIndex = 0, int layoutIndex = 0);
-
-    /// @brief Returns the id of the geometric shape of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
-    /// @param document a pointer to the SBMLDocument object.
-    /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
-    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
-    /// @param layoutIndex the index number of the Layout to return.
-    /// @return the id of the geometric shape of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-    LIBSBMLNETWORK_EXTERN const char* c_api_getGeometricShapesId(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
-
-    /// @brief Sets the id of the geometric shape of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
-    /// @param document a pointer to the SBMLDocument object.
-    /// @param id the id of a model entity.
-    /// @param geometricShapeId a string value indicating the id of the geometric shape to be set.
-    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
-    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
-    /// @param layoutIndex the index number of the Layout to return.
-    /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapesId(SBMLDocument* document, const char* id, const char* geometricShapeId, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the type of the geometric shape of the RenderGroup of the Style of all CompartmentGlyph objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.

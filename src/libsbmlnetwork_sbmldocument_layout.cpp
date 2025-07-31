@@ -68,8 +68,8 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const int m
     return set_layout_features_setDefaultLayoutFeatures(document, layout, maxNumConnectedEdges);
 }
 
-int setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges, bool resetFixedPositionElements, const std::set<std::pair<std::string, int> > fixedPositionNodesSet) {
-    return set_layout_features_setDefaultLayoutLocations(document, layout, maxNumConnectedEdges, resetFixedPositionElements, fixedPositionNodesSet);
+int setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges, bool resetFixedPositionElements, const std::set<std::pair<std::string, int> > fixedPositionNodesSet, const int iterations) {
+    return set_layout_features_setDefaultLayoutLocations(document, layout, maxNumConnectedEdges, resetFixedPositionElements, fixedPositionNodesSet, iterations);
 }
 
 int updateLayoutCurves(SBMLDocument* document, Layout* layout) {
@@ -96,12 +96,12 @@ int createDefaultLayoutFeatures(SBMLDocument* document, const int maxNumConnecte
     return setDefaultLayoutFeatures(document, layout, maxNumConnectedEdges);
 }
 
-int createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges, bool resetFixedPositionElements, const std::set<std::pair<std::string, int> > fixedPositionNodesSet) {
+int createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges, bool resetFixedPositionElements, const std::set<std::pair<std::string, int> > fixedPositionNodesSet, const int iterations) {
     Layout* layout = getLayout(document);
     if (!layout)
         layout = createLayout(document);
 
-    return setDefaultLayoutLocations(document, layout, maxNumConnectedEdges, resetFixedPositionElements, fixedPositionNodesSet);
+    return setDefaultLayoutLocations(document, layout, maxNumConnectedEdges, resetFixedPositionElements, fixedPositionNodesSet, iterations);
 }
 
 int createAliasSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, bool updateCurves) {
@@ -216,6 +216,14 @@ const std::string getId(SBMLDocument* document, unsigned int layoutIndex, const 
 
 int setId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const std::string& graphicalObjectId) {
     return setId(getLayout(document, layoutIndex), id, graphicalObjectIndex, graphicalObjectId);
+}
+
+const std::string getTextGlyphId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+    return getTextGlyphId(getLayout(document, layoutIndex), id, graphicalObjectIndex, textGlyphIndex);
+}
+
+int setTextGlyphId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const std::string& graphicalObjectId) {
+    return setTextGlyphId(getLayout(document, layoutIndex), id, graphicalObjectIndex, textGlyphIndex, graphicalObjectId);
 }
 
 bool isSetMetaId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
