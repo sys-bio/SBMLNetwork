@@ -1,7 +1,6 @@
 import libsbmlnetwork
 import networkinfotranslator
 import os
-import tellurium as te
 from IPython.display import display
 from .settings import Settings
 from .features.data_integration import ColorCodingFluxes
@@ -24,7 +23,11 @@ class SBMLNetwork:
         if os.path.exists(sbml) or sbml.startswith("<?xml"):
             self.libsbmlnetwork.load(sbml)
         else:
-            self.libsbmlnetwork.load(te.loada(sbml).getSBML())
+            try:
+                import tellurium as te
+                self.libsbmlnetwork.load(te.loada(sbml).getSBML())
+            except ImportError:
+                raise ImportError("To load an Antimony model, please install full package using pip install \"sbmlnetwork[tellurium]\".")
         self.populate_settings()
         if self.libsbmlnetwork.getNumLayouts() == 0:
             self.auto_layout()

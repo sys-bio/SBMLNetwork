@@ -1,4 +1,3 @@
-import tellurium as te
 from typing import Union, Dict
 import math
 
@@ -148,6 +147,11 @@ class ColorCodingFluxes(ColorCodingDataIntegrationBase):
         self._data_type = "fluxes"
 
     def _simulate(self, simulation_time):
+        try:
+            import tellurium as te
+        except ImportError:
+            raise ImportError("To simulate fluxes, please install the package with its integrated simulation engine using pip install \"sbmlnetwork[simulation]\".")
+
         model = self.network_obj.save()
         r = te.loadSBMLModel(model)
         r.simulate(start=0.0, end=simulation_time, steps=simulation_time * 100)
@@ -227,6 +231,11 @@ class ConcentrationDataIntegrationBase(DataIntegrationBase):
         self._data_type = "concentrations"
 
     def _simulate(self, simulation_time):
+        try:
+            import tellurium as te
+        except ImportError:
+            raise ImportError("To simulate concentrations, please install the package with its integrated simulation engine using pip install \"sbmlnetwork[tellurium]\".")
+
         model = self.network_obj.save()
         r = te.loadSBMLModel(model)
         r.simulate(start=0.0, end=simulation_time, steps=simulation_time * 100)

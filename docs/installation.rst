@@ -23,7 +23,7 @@ Install the Python package (recommended for most)
 
    .. code-block:: console
 
-      pip install sbmlnetwork[tellurium]
+      pip install "sbmlnetwork[tellurium]"
 
    The ``[tellurium]`` extra pulls in the latest version of **Tellurium** to act
    as the simulation engine. Choose this variant if you plan to use
