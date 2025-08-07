@@ -25,11 +25,11 @@ Contents
 SBGN-Compliant Network
 ----------------------
 
-.. figure:: _static/sbgn_inos.pdf
+.. figure:: _static/sbgn_inos.svg
    :alt: iNOS pathway in SBGN style
    :align: center
    :figwidth: 85%
-   :target: _static/sbgn_inos.pdf
+   :target: _static/sbgn_inos.svg
 
    **SBGN-Compliant iNOS Pathway.**
    Rendered with SBGN-like glyphs: multi-compartment support, reaction centers,
@@ -43,11 +43,11 @@ SBGN-Compliant Network
 Escher-Style Template Application
 ---------------------------------
 
-.. figure:: _static/escher_ecoli.pdf
+.. figure:: _static/escher_ecoli.svg
    :alt: Escher style applied to E. coli core metabolic model
    :align: center
    :figwidth: 85%
-   :target: _static/escher_ecoli.pdf
+   :target: _static/escher_ecoli.svg
 
    **Escher Style on the E. coli Core Model.**
    An SBML model (with Layout) styled using an Escher-inspired template via
@@ -61,11 +61,11 @@ Escher-Style Template Application
 Reaction Alignment and Layout Refinement
 ----------------------------------------
 
-.. figure:: _static/alignment.pdf
+.. figure:: _static/alignment.svg
    :alt: Circular and vertical alignment of TCA cycle reactions
    :align: center
    :figwidth: 80%
-   :target: _static/alignment.pdf
+   :target: _static/alignment.svg
 
    **Reaction Alignment in the TCA Cycle.**
    Core TCA reactions arranged on a circular arc with a vertically aligned upstream
@@ -80,11 +80,11 @@ Reaction Alignment and Layout Refinement
 Simulation Data Overlays (Flux Encoding)
 ----------------------------------------
 
-.. figure:: _static/data_integration.pdf
+.. figure:: _static/data_integration.svg
    :alt: Reaction fluxes encoded by color gradient on glycolysis pathway
    :align: center
    :figwidth: 80%
-   :target: _static/data_integration.pdf
+   :target: _static/data_integration.svg
 
    **Reaction Flux Gradient on Glycolysis Pathway.**
    Reaction fluxes at a selected simulation time point encoded as a continuous
