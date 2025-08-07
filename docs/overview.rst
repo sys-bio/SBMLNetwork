@@ -45,7 +45,7 @@ Who Is It For?
 Architecture Snapshot
 ---------------------
 
-.. figure:: _static/architecture.pdf
+.. figure:: _static/architecture.svg
    :alt: Layered architecture of SBMLNetwork
    :width: 500px
    :align: center
