@@ -94,8 +94,9 @@ Loading and Saving
 
    :param str file_name: Output file path (optional)
    :param bool update_network_extents: Whether to recalculate canvas size before saving
-   :returns: Success status
-   :rtype: bool
+   :returns: If file_name is provided, returns True on success and False on failure.
+             If file_name is None, returns the SBML string representation of the network.
+   :rtype: bool | str
 
 .. py:method:: draw(file_name=None, update_network_extents=False)
 
