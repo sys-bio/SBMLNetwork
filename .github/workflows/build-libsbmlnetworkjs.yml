@@ -11,6 +11,9 @@ on:
         description: 'LibSBML version number'
         required: true
         default: '5.20.0'
+
+  pull_request:
+
 jobs:
   build-new-version-libsbmlnetwork-webassembly:
     runs-on: ubuntu-latest
@@ -79,7 +82,7 @@ jobs:
         run: mkdir build
         working-directory: SBMLNetwork
       - name: Build SBMLNetwork library
-        run: emcmake cmake .. -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install/SBMLNetwork -DCMAKE_BUILD_TYPE=Release -DEXPAT_INSTALL_PREFIX=$GITHUB_WORKSPACE/install/expat -DLIBEXPAT_LIBRARY=$GITHUB_WORKSPACE/install/expat/lib/libexpat.a -DLIBSBML_INSTALL_PREFIX=$GITHUB_WORKSPACE/install/sbml -DLIBSBML_LIBRARY=$GITHUB_WORKSPACE/install/sbml/lib/libsbml-static.a -DWITH_PYTHON=OFF
+        run: emcmake cmake .. -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install/SBMLNetwork -DCMAKE_BUILD_TYPE=Release -DEXPAT_INSTALL_PREFIX=$GITHUB_WORKSPACE/install/expat -DLIBSBML_INSTALL_PREFIX=$GITHUB_WORKSPACE/install/sbml -DLIBSBML_LIBRARY=$GITHUB_WORKSPACE/install/sbml/lib/libsbml-static.a -DWITH_PYTHON=OFF
         working-directory: SBMLNetwork/build
       - name: Compile SBMLNetwork lib
         run: emmake make
