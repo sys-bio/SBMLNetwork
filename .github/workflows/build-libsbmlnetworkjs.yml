@@ -16,7 +16,7 @@ on:
 
 jobs:
   build-new-version-libsbmlnetwork-webassembly:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     env:
       EMSDK: emsdk
       EMSCRIPTEN_VERS: '3.1.20'
@@ -81,12 +81,6 @@ jobs:
       - name: make SBMLNetwork build dir
         run: mkdir build
         working-directory: SBMLNetwork
-      - name: print expat install dir
-        run: |
-          echo "expat install dir: $GITHUB_WORKSPACE/install/expat"
-          echo "expat install dir: $GITHUB_WORKSPACE/install/expat/lib"
-          ls -l $GITHUB_WORKSPACE/install/expat
-          ls -l $GITHUB_WORKSPACE/install/expat/lib
       - name: Build SBMLNetwork library
         run: emcmake cmake .. -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install/SBMLNetwork -DCMAKE_BUILD_TYPE=Release -DEXPAT_INSTALL_PREFIX=$GITHUB_WORKSPACE/install/expat -DLIBEXPAT_LIBRARY=$GITHUB_WORKSPACE/install/expat/lib/libexpat.a -DLIBSBML_INSTALL_PREFIX=$GITHUB_WORKSPACE/install/sbml -DLIBSBML_LIBRARY=$GITHUB_WORKSPACE/install/sbml/lib/libsbml-static.a -DWITH_PYTHON=OFF
         working-directory: SBMLNetwork/build
