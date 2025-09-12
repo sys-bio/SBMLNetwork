@@ -81,7 +81,7 @@ jobs:
       - name: make SBMLNetwork build dir
         run: mkdir build
         working-directory: SBMLNetwork
-      - name print expat install dir
+      - name: print expat install dir
         run: |
           echo "expat install dir: $GITHUB_WORKSPACE/install/expat"
           echo "expat install dir: $GITHUB_WORKSPACE/install/expat/lib"
