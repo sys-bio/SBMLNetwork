@@ -25,11 +25,11 @@ Contents
 SBGN-Compliant Network
 ----------------------
 
-.. figure:: _static/sbgn_inos.pdf
+.. figure:: _static/sbgn_inos.svg
    :alt: iNOS pathway in SBGN style
    :align: center
    :figwidth: 85%
-   :target: _static/sbgn_inos.pdf
+   :target: _static/sbgn_inos.svg
 
    **SBGN-Compliant iNOS Pathway.**
    Rendered with SBGN-like glyphs: multi-compartment support, reaction centers,
@@ -37,17 +37,17 @@ SBGN-Compliant Network
 
 **Feature focus:** Standards-based reproduction of an SBGN map within SBML Layout/Render.
 
-**Resources:** :download:`SBML file <https://github.com/sys-bio/SBMLNetwork/tree/develop/examples/paper/figure_2_sbgn_compliant/figure_2_sbgn_compliant.xml>` | :download:`Source script <https://github.com/sys-bio/SBMLNetwork/tree/develop/examples/paper/figure_2_sbgn_compliant>`
+**Resources:** :download:`SBML file <https://github.com/sys-bio/SBMLNetwork/blob/develop/examples/paper/sbgn_compliant/sbgn_compliant_iNOS.xml>` | :download:`Source script <https://github.com/sys-bio/SBMLNetwork/tree/develop/examples/paper/sbgn_compliant>`
 
 
 Escher-Style Template Application
 ---------------------------------
 
-.. figure:: _static/escher_ecoli.pdf
+.. figure:: _static/escher_ecoli.svg
    :alt: Escher style applied to E. coli core metabolic model
    :align: center
    :figwidth: 85%
-   :target: _static/escher_ecoli.pdf
+   :target: _static/escher_ecoli.svg
 
    **Escher Style on the E. coli Core Model.**
    An SBML model (with Layout) styled using an Escher-inspired template via
@@ -55,17 +55,17 @@ Escher-Style Template Application
 
 **Feature focus:** Applying a predefined style template across an entire network.
 
-**Resources:** :download:`SBML file <https://github.com/sys-bio/SBMLNetwork/blob/develop/examples/paper/figure_3_visual_styling/figure_3_visual_styling.xml>` | :download:`Source script <https://github.com/sys-bio/SBMLNetwork/blob/develop/examples/paper/figure_3_visual_styling>`
+**Resources:** :download:`SBML file <https://github.com/sys-bio/SBMLNetwork/blob/develop/examples/paper/visual_styling/visual_styling.xml>` | :download:`Source script <https://github.com/sys-bio/SBMLNetwork/tree/develop/examples/paper/visual_styling>`
 
 
 Reaction Alignment and Layout Refinement
 ----------------------------------------
 
-.. figure:: _static/alignment.pdf
+.. figure:: _static/alignment.svg
    :alt: Circular and vertical alignment of TCA cycle reactions
    :align: center
    :figwidth: 80%
-   :target: _static/alignment.pdf
+   :target: _static/alignment.svg
 
    **Reaction Alignment in the TCA Cycle.**
    Core TCA reactions arranged on a circular arc with a vertically aligned upstream
@@ -74,17 +74,17 @@ Reaction Alignment and Layout Refinement
 
 **Feature focus:** High-level geometric alignment (circular + vertical) for pathway logic.
 
-**Resources:** :download:`SBML file <https://github.com/sys-bio/SBMLNetwork/blob/develop/examples/paper/figure_4_alignment/figure_4_alignment.xml>` | :download:`Source script <https://github.com/sys-bio/SBMLNetwork/blob/develop/examples/paper/figure_4_alignment>`
+**Resources:** :download:`SBML file <https://github.com/sys-bio/SBMLNetwork/blob/develop/examples/paper/alignment/alignment.xml>` | :download:`Source script <https://github.com/sys-bio/SBMLNetwork/tree/develop/examples/paper/alignment>`
 
 
 Simulation Data Overlays (Flux Encoding)
 ----------------------------------------
 
-.. figure:: _static/data_integration.pdf
+.. figure:: _static/data_integration.svg
    :alt: Reaction fluxes encoded by color gradient on glycolysis pathway
    :align: center
    :figwidth: 80%
-   :target: _static/data_integration.pdf
+   :target: _static/data_integration.svg
 
    **Reaction Flux Gradient on Glycolysis Pathway.**
    Reaction fluxes at a selected simulation time point encoded as a continuous
@@ -93,4 +93,4 @@ Simulation Data Overlays (Flux Encoding)
 **Feature focus:** Mapping simulation output (fluxes) to visual attributes (color; also
 supports thickness, node size, etc.).
 
-**Resources:** :download:`SBML file <https://github.com/sys-bio/SBMLNetwork/blob/develop/examples/paper/figure_5_data_integration/figure_5_data_integration.xml>` | :download:`Source script <https://github.com/sys-bio/SBMLNetwork/tree/develop/examples/paper/figure_5_data_integration>`
+**Resources:** :download:`SBML file <https://github.com/sys-bio/SBMLNetwork/blob/develop/examples/paper/data_integration/data_integration.xml>` | :download:`Source script <https://github.com/sys-bio/SBMLNetwork/tree/develop/examples/paper/data_integration>`
