@@ -4031,7 +4031,11 @@ Style* createLocalStyle(SBMLDocument* document, GraphicalObject* graphicalObject
 
 Style* createLocalStyle(SBMLDocument* document, TextGlyph* textGlyph, GraphicalObject* graphicalObject) {
     Style* globalStyle = getGlobalStyle(document, graphicalObject);
-    return createLocalStyle(getLocalRenderInformation(document), globalStyle, textGlyph);
+    Style* localStyle = createLocalStyle(getLocalRenderInformation(document), globalStyle, textGlyph);
+    while (getNumGeometricShapes(localStyle))
+        removeGeometricShape(localStyle, 0);
+
+    return localStyle;
 }
 
 Style* getStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject) {
