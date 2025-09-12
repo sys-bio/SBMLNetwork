@@ -141,12 +141,11 @@ Geometry & Positioning
 
    :returns: ``(width, height)``
 
-.. py:method:: set_size(width, height)
+.. py:method:: set_size(size)
 
    Resize the compartment.
 
-   :param float width: New width
-   :param float height: New height
+   :param tuple size: (width, height)
 
 Appearance
 ==========
