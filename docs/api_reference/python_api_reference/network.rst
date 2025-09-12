@@ -90,7 +90,7 @@ Loading and Saving
 
 .. py:method:: save(file_name=None, update_network_extents=False)
 
-   Save the network to an SBML file.
+   Save the network to an SBML file if a file name is provided, or return the SBML XML string otherwise.
 
    :param str file_name: Output file path (optional)
    :param bool update_network_extents: Whether to recalculate canvas size before saving
