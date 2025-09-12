@@ -14,6 +14,7 @@ on:
 
   pull_request:
 
+
 jobs:
   build-new-version-libsbmlnetwork-webassembly:
     runs-on: ubuntu-latest
@@ -21,8 +22,8 @@ jobs:
       EMSDK: emsdk
       EMSCRIPTEN_VERS: '3.1.20'
       EMSDK_NODE: emsdk/node/16.20.0_64bit/bin/node
-      SBML_VERS: ${{ inputs.libsbml_version }}
-      SBMLNETWORK_VERS: ${{ inputs.SBMLNETWORK_VERSion }}
+      SBML_VERS: ${{ github.event.inputs.libsbml_version || '5.20.0' }}
+      SBMLNETWORK_VERS: ${{ github.event.inputs.sbmlnetwork_version || '0.5.11' }}
     steps:
       - uses: actions/checkout@v4
       - name: get emscripten
