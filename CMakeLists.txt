@@ -30,7 +30,6 @@ add_definitions(-DLIBSBMLNETWORK_VERSION="${LIBSBMLNETWORK_DOTTED_VERSION}")
 set(DEPENDENCIES_INSTALL_PREFIX "" CACHE PATH "Path to the libsbml, libexpat, and libz installation directory")
 set(LIBSBML_INSTALL_PREFIX "" CACHE PATH "Path to the libsbml installation directory")
 set(EXPAT_INSTALL_PREFIX "" CACHE PATH "Path to the expat installation directory")
-set(EXPAT_LIBRARY "" CACHE FILEPATH "Path to the Expat library")
 if(WIN32)
 	find_library(LIBSBML_LIBRARY NAMES libsbml-staticmd.lib libsbml-staticmdd.lib PATHS ${LIBSBML_INSTALL_PREFIX}/lib ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
 	if (NOT TARGET EXPAT::EXPAT)
@@ -47,10 +46,8 @@ elseif (APPLE)
 elseif(UNIX)
 	find_library(LIBSBML_LIBRARY NAMES libsbml-static.a libsbml-staticd.a
 			PATHS ${LIBSBML_INSTALL_PREFIX}/lib ${DEPENDENCIES_INSTALL_PREFIX}/lib ${LIBSBML_INSTALL_PREFIX}/lib64 ${DEPENDENCIES_INSTALL_PREFIX}/lib64 REQUIRED)
-	if(NOT EXPAT_LIBRARY)
-		find_library(EXPAT_LIBRARY NAMES libexpat.a expat
-				PATHS ${EXPAT_INSTALL_PREFIX}/lib ${DEPENDENCIES_INSTALL_PREFIX}/lib ${EXPAT_INSTALL_PREFIX}/lib64 ${DEPENDENCIES_INSTALL_PREFIX}/lib64 REQUIRED)
-	endif()
+	find_library(EXPAT_LIBRARY NAMES libexpat.a expat
+			PATHS ${EXPAT_INSTALL_PREFIX}/lib ${DEPENDENCIES_INSTALL_PREFIX}/lib ${EXPAT_INSTALL_PREFIX}/lib64 ${DEPENDENCIES_INSTALL_PREFIX}/lib64 REQUIRED)
 	find_library(LIBZ_LIBRARY NAMES libz.so
 			PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib ${DEPENDENCIES_INSTALL_PREFIX}/lib64)
 endif()
