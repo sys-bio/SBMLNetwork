@@ -464,6 +464,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return isSpeciesReferenceCurveSegmentCubicBezier(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, curveSegmentIndex);
     }
 
+    int c_api_convertSpeciesReferenceCurveSegmentToLine(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int curveSegmentIndex, int layoutIndex) {
+        return convertSpeciesReferenceCurveSegmentToLine(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, curveSegmentIndex);
+    }
+
+    int c_api_convertSpeciesReferenceCurveSegmentToCubicBezier(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int curveSegmentIndex, int layoutIndex) {
+        return convertSpeciesReferenceCurveSegmentToCubicBezier(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, curveSegmentIndex);
+    }
+
     const double c_api_getSpeciesReferenceCurveSegmentStartPointX(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int curveSegmentIndex, int layoutIndex) {
         return getSpeciesReferenceCurveSegmentStartPointX(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, curveSegmentIndex);
     }
@@ -790,6 +798,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     bool c_api_isCurveSegmentCubicBezier(SBMLDocument* document, const char* id, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
         return isCubicBezier(document, layoutIndex, id, graphicalObjectIndex, curveSegmentIndex);
+    }
+
+    int c_api_convertCurveSegmentToLine(SBMLDocument* document, const char* id, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
+        return convertCurveSegmentToLine(document, layoutIndex, id, graphicalObjectIndex, curveSegmentIndex);
+    }
+
+    int c_api_convertCurveSegmentToCubicBezier(SBMLDocument* document, const char* id, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
+        return convertCurveSegmentToCubicBezier(document, layoutIndex, id, graphicalObjectIndex, curveSegmentIndex);
     }
 
     const double c_api_getCurveSegmentStartPointX(SBMLDocument* document, const char* id, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {

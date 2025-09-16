@@ -1522,6 +1522,38 @@ bool isCubicBezier(LineSegment* lineSegment) {
     return  false;
 }
 
+int convertCurveSegmentToLine(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return convertCurveSegmentToLine(getGraphicalObject(layout, id, graphicalObjectIndex), curveSegmentIndex);
+}
+
+int convertCurveSegmentToLine(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex) {
+    return convertCurveSegmentToLine(getCurve(graphicalObject), curveSegmentIndex);
+}
+
+int convertCurveSegmentToLine(Curve* curve, unsigned int curveSegmentIndex) {
+    LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
+    if (!lineSegment || !isCubicBezier(lineSegment))
+        return -1;
+
+    return replaceSegmentWithLine(curve, curveSegmentIndex, lineSegment);
+}
+
+int convertCurveSegmentToCubicBezier(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return convertCurveSegmentToCubicBezier(getGraphicalObject(layout, id, graphicalObjectIndex), curveSegmentIndex);
+}
+
+int convertCurveSegmentToCubicBezier(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex) {
+    return convertCurveSegmentToCubicBezier(getCurve(graphicalObject), curveSegmentIndex);
+}
+
+int convertCurveSegmentToCubicBezier(Curve* curve, unsigned int curveSegmentIndex) {
+    LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
+    if (!lineSegment || isCubicBezier(lineSegment))
+        return -1;
+
+    return replaceSegmentWithCubicBezier(curve, curveSegmentIndex, lineSegment);
+}
+
 const double getCurveSegmentStartPointX(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
     return getCurveSegmentStartPointX(getGraphicalObject(layout, id, graphicalObjectIndex), curveSegmentIndex);
 }

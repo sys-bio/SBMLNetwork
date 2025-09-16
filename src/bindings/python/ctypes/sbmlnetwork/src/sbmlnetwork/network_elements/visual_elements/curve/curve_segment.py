@@ -10,6 +10,24 @@ class CurveSegment:
     def get_curve_segment_index(self):
         return self.curve_segment_index
 
+    def is_bezier_curve(self):
+        if self.species_reference_index is None:
+            return self.libsbmlnetwork.isCurveSegmentCubicBezier(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, curve_segment_index=self.curve_segment_index) == 1
+        else:
+            return self.libsbmlnetwork.isSpeciesReferenceCurveSegmentCubicBezier(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index, curve_segment_index=self.curve_segment_index) == 1
+
+    def convert_to_straight_line(self):
+        if self.species_reference_index is None:
+            return self.libsbmlnetwork.convertCurveSegmentToLine(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, curve_segment_index=self.curve_segment_index) == 0
+        else:
+            return self.libsbmlnetwork.convertSpeciesReferenceCurveSegmentToLine(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index, curve_segment_index=self.curve_segment_index) == 0
+
+    def convert_to_bezier_curve(self):
+        if self.species_reference_index is None:
+            return self.libsbmlnetwork.convertCurveSegmentToCubicBezier(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, curve_segment_index=self.curve_segment_index) == 0
+        else:
+            return self.libsbmlnetwork.convertSpeciesReferenceCurveSegmentToCubicBezier(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index, curve_segment_index=self.curve_segment_index) == 0
+
     def get_start(self):
         if self.species_reference_index is None:
             return (self.libsbmlnetwork.getCurveSegmentStartPointX(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, curve_segment_index=self.curve_segment_index),

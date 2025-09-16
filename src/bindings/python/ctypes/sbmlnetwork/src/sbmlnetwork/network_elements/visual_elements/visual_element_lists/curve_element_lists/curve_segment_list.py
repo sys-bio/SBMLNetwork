@@ -3,6 +3,27 @@ class CurveSegmentList(list):
     def __init__(self, segment_list=None):
         super().__init__(segment_list or [])
 
+    def are_bezier_curves(self):
+        results = []
+        for segment in self:
+            results.append(segment.is_bezier_curve())
+
+        return results
+
+    def convert_to_straight_lines(self):
+        results = []
+        for segment in self:
+            results.append(segment.convert_to_straight_line())
+
+        return results
+
+    def convert_to_bezier_curves(self):
+        results = []
+        for segment in self:
+            results.append(segment.convert_to_bezier_curve())
+
+        return results
+
     def get_starts(self):
         results = []
         for segment in self:

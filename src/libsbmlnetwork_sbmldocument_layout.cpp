@@ -603,6 +603,22 @@ bool isSpeciesReferenceCurveSegmentCubicBezier(SBMLDocument* document, unsigned 
     return isCubicBezier(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
 }
 
+int convertSpeciesReferenceCurveSegmentToLine(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
+    return convertCurveSegmentToLine(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+}
+
+int convertSpeciesReferenceCurveSegmentToLine(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
+    return convertCurveSegmentToLine(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+}
+
+int convertSpeciesReferenceCurveSegmentToCubicBezier(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
+    return convertCurveSegmentToCubicBezier(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+}
+
+int convertSpeciesReferenceCurveSegmentToCubicBezier(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
+    return convertCurveSegmentToCubicBezier(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+}
+
 double getSpeciesReferenceCurveSegmentStartPointX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
     return getCurveSegmentStartPointX(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
 }
@@ -1523,6 +1539,22 @@ bool isCubicBezier(SBMLDocument* document, const std::string& id, unsigned int g
 
 bool isCubicBezier(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
     return isCubicBezier(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex);
+}
+
+int convertCurveSegmentToLine(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return convertCurveSegmentToLine(getLayout(document), id, graphicalObjectIndex, curveSegmentIndex);
+}
+
+int convertCurveSegmentToLine(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return convertCurveSegmentToLine(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex);
+}
+
+int convertCurveSegmentToCubicBezier(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return convertCurveSegmentToCubicBezier(getLayout(document), id, graphicalObjectIndex, curveSegmentIndex);
+}
+
+int convertCurveSegmentToCubicBezier(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return convertCurveSegmentToCubicBezier(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex);
 }
 
 const double getCurveSegmentStartPointX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {

@@ -1531,6 +1531,41 @@ class LibSBMLNetwork:
         lib.c_api_isSpeciesReferenceCurveSegmentCubicBezier.restype = ctypes.c_bool
         return lib.c_api_isSpeciesReferenceCurveSegmentCubicBezier(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, curve_segment_index, layout_index)
 
+    def convertSpeciesReferenceCurveSegmentToLine(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, curve_segment_index=0, layout_index=0):
+        """
+        Converts the CurveSegment with the given reaction_id, reaction_glyph_index, species_reference_index, curve_segment_index, and layout_index in the given SBMLDocument to a LineSegment
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - species_reference_index (int): an integer that determines the index of the SpeciesReference in the given SBMLDocument
+            - curve_segment_index (int): an integer that determines the index of the CurveSegment in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the CurveSegment could not be converted to a LineSegment
+        """
+        return lib.c_api_convertSpeciesReferenceCurveSegmentToLine(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, curve_segment_index, layout_index)
+
+    def convertSpeciesReferenceCurveSegmentToCubicBezier(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, curve_segment_index=0, layout_index=0):
+        """
+        Converts the CurveSegment with the given reaction_id, reaction_glyph_index, species_reference_index, curve_segment_index, and layout_index in the given SBMLDocument to a CubicBezier
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - species_reference_index (int): an integer that determines the index of the SpeciesReference in the given SBMLDocument
+            - curve_segment_index (int): an integer that determines the index of the CurveSegment in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the CurveSegment could not be converted to a CubicBezier
+        """
+        return lib.c_api_convertSpeciesReferenceCurveSegmentToCubicBezier(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, curve_segment_index, layout_index)
+
     def getSpeciesReferenceCurveSegmentStartPointX(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, curve_segment_index=0, layout_index=0):
         """
         Returns the x-coordinate of the start point of the CurveSegment with the given reaction_id, reaction_glyph_index, species_reference_index, curve_segment_index, and layout_index in the given SBMLDocument
@@ -2995,6 +3030,40 @@ class LibSBMLNetwork:
         """
         lib.c_api_isCurveSegmentCubicBezier.restype = ctypes.c_bool
         return lib.c_api_isCurveSegmentCubicBezier(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, curve_segment_index, layout_index)
+
+    def convertCurveSegmentToLine(self, reaction_id, reaction_glyph_index=0, curve_segment_index=0, layout_index=0):
+        """
+        Converts the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument to a LineSegment
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - curve_segment_index (int): an integer that determines the index of the CurveSegment in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the CurveSegment could not be converted to a LineSegment
+        """
+        return lib.c_api_convertCurveSegmentToLine(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, curve_segment_index, layout_index)
+
+    def convertCurveSegmentToCubicBezier(self, reaction_id, reaction_glyph_index=0, curve_segment_index=0, layout_index=0):
+        """
+        Converts the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument to a CubicBezier
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - curve_segment_index (int): an integer that determines the index of the CurveSegment in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the CurveSegment could not be converted to a CubicBezier
+        """
+        return lib.c_api_convertCurveSegmentToCubicBezier(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, curve_segment_index, layout_index)
 
     def getCurveSegmentStartPointX(self, reaction_id, reaction_glyph_index=0, curve_segment_index=0, layout_index=0):
         """
