@@ -776,6 +776,67 @@ int getCurveVerticalLength(Curve* curve, double& length) {
     return -1;
 }
 
+int replaceSegmentWithLine(Curve* curve, unsigned int segmentIndex, LineSegment* originalSegment) {
+    double startX = originalSegment->getStart()->x();
+    double startY = originalSegment->getStart()->y();
+    double endX = originalSegment->getEnd()->x();
+    double endY = originalSegment->getEnd()->y();
+
+    ListOfLineSegments* listOfSegments = curve->getListOfCurveSegments();
+    if (!listOfSegments)
+        return -1;
+
+    delete listOfSegments->remove(segmentIndex);
+
+    LineSegment* newLineSegment = new LineSegment(
+            curve->getLevel(),
+            curve->getVersion(),
+            curve->getPackageVersion()
+    );
+
+    newLineSegment->getStart()->setX(startX);
+    newLineSegment->getStart()->setY(startY);
+    newLineSegment->getEnd()->setX(endX);
+    newLineSegment->getEnd()->setY(endY);
+
+    listOfSegments->insertAndOwn(segmentIndex, newLineSegment);
+
+    return 0;
+}
+
+int replaceSegmentWithCubicBezier(Curve* curve, unsigned int segmentIndex, LineSegment* originalSegment) {
+    double startX = originalSegment->getStart()->x();
+    double startY = originalSegment->getStart()->y();
+    double endX = originalSegment->getEnd()->x();
+    double endY = originalSegment->getEnd()->y();
+
+    ListOfLineSegments* listOfSegments = curve->getListOfCurveSegments();
+    if (!listOfSegments)
+        return -1;
+
+    delete listOfSegments->remove(segmentIndex);
+
+    CubicBezier* newCubicBezier = new CubicBezier(
+            curve->getLevel(),
+            curve->getVersion(),
+            curve->getPackageVersion()
+    );
+
+    newCubicBezier->getStart()->setX(startX);
+    newCubicBezier->getStart()->setY(startY);
+    newCubicBezier->getEnd()->setX(endX);
+    newCubicBezier->getEnd()->setY(endY);
+
+    newCubicBezier->getBasePoint1()->setX(startX);
+    newCubicBezier->getBasePoint1()->setY(startY);
+    newCubicBezier->getBasePoint2()->setX(endX);
+    newCubicBezier->getBasePoint2()->setY(endY);
+
+    listOfSegments->insertAndOwn(segmentIndex, newCubicBezier);
+
+    return 0;
+}
+
 int updateGraphicalObjectId(Layout* layout, GraphicalObject* graphicalObject, const std::string& newId) {
     if (graphicalObject && !newId.empty() && getGraphicalObjectUsingItsOwnId(layout, newId) == NULL) {
         if (isSpeciesGlyph(graphicalObject)) {

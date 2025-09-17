@@ -27,12 +27,12 @@ jobs:
             build_python: ON
           - name: macos-latest-release
             os_type: macos
-            os_name: macos-latest
+            os_name: macos-14
             build_type: Release
             build_python: ON
           - name: macos-latest-debug
             os_type: macos
-            os_name: macos-latest
+            os_name: macos-14
             build_type: Debug
             build_python: ON
 #          - name: ubuntu-latest-release

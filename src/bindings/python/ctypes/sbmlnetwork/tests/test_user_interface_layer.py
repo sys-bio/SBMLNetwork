@@ -1983,6 +1983,37 @@ class TestSBMLModel(unittest.TestCase):
         sb.remove_independent_label("Label_1")
         self.assertEqual(len(sb.get_independent_labels()), 0)
 
+    def test_curve_segment_conversion(self):
+        model = """
+        J0: S1 -> S2 + S3;
+        """
+
+        net = sbmlnetwork.load(model)
+        reaction = net.get_reaction("J0")
+
+        for idx, y in enumerate([100, 200, 300]):
+            curve = reaction.get_curves_list()[idx]
+            curve.add_segment(
+                (100, y), (150, y + 50), (125, y + 25), (110, y + 40)
+            )
+
+            segments = curve.get_segments()
+
+            # Initially, the added segments should be Bezier curves
+            self.assertTrue(segments[0].is_bezier_curve())
+            self.assertTrue(segments[1].is_bezier_curve())
+
+            # Convert to straight lines
+            segments[0].convert_to_straight_line()
+            segments[1].convert_to_straight_line()
+            self.assertFalse(segments[0].is_bezier_curve())
+            self.assertFalse(segments[1].is_bezier_curve())
+
+            # Convert back to Bezier curves
+            segments[0].convert_to_bezier_curve()
+            segments[1].convert_to_bezier_curve()
+            self.assertTrue(segments[0].is_bezier_curve())
+            self.assertTrue(segments[1].is_bezier_curve())
 
 
 if __name__ == '__main__':

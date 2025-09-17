@@ -133,6 +133,27 @@ class Curve:
     def thickness(self, thickness: float):
         self.set_thickness(thickness)
 
+    def are_bezier_curves(self):
+        results = []
+        for segment in self.get_segments_list():
+            results.append(segment.is_bezier_curve())
+
+        return results
+
+    def convert_to_straight_lines(self):
+        results = []
+        for segment in self.get_segments_list():
+            results.append(segment.convert_to_straight_line())
+
+        return results
+
+    def convert_to_bezier_curves(self):
+        results = []
+        for segment in self.get_segments_list():
+            results.append(segment.convert_to_bezier_curve())
+
+        return results
+
     def get_start(self):
         first_segment = self.get_segment(0)
         if first_segment is not None:

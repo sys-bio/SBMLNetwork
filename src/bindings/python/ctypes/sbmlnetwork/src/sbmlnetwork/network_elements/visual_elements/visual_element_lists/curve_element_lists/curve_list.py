@@ -84,6 +84,27 @@ class CurveList(list):
     def thicknesses(self, thickness: float):
         self.set_thicknesses(thickness)
 
+    def are_bezier_curves(self):
+        results = []
+        for curve in self:
+            results.append(all(curve.are_bezier_curves()))
+
+        return results
+
+    def convert_to_straight_lines(self):
+        results = []
+        for curve in self:
+            results.append(curve.convert_to_straight_lines())
+
+        return results
+
+    def convert_to_bezier_curves(self):
+        results = []
+        for curve in self:
+            results.append(curve.convert_to_bezier_curves())
+
+        return results
+
     def get_starts(self):
         start_points = []
         for curve in self:

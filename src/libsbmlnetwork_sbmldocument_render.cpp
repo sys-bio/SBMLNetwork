@@ -11309,6 +11309,10 @@ int setStyle(SBMLDocument* document, unsigned int renderIndex, const std::string
     if (styleFeatures.find("line-ending-fill-color") != styleFeatures.end())
         setLineEndingFillColor(document, renderIndex, styleFeatures.find("line-ending-fill-color")->second);
 
+    if (stringCompare(styleName, "escher")) {
+        setEscherStyleCustomFeatures(document);
+    }
+
     return 0;
 }
 

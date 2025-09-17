@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include "libsbmlnetwork_sbmldocument.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
@@ -63,6 +64,44 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     const bool isValidPredefinedStyleName(const std::string& predefinedStyleName);
 
     const std::string findStyle(const std::map<std::string, std::string> renderFeatures);
+
+    void setEscherStyleCustomFeatures(SBMLDocument* document, int layoutIndex = 0);
+
+    bool IsSubstrateRole(const std::string& role);
+
+    bool IsProductRole(const std::string& role);
+
+    void UpdateSpeciesFeatures(SBMLDocument* document, int layoutIndex, const std::string& speciesId, unsigned glyphIndex);
+
+    std::pair<double, double> SpeciesCenter(SBMLDocument* document, int layoutIndex, const std::string& speciesId, unsigned glyphIndex);
+
+    inline bool EndCloserThanStart(double sx, double sy, double ex, double ey, double cx, double cy);
+
+    bool IsEndPointCloseToSpecies(SBMLDocument* document, int layoutIndex, const std::string& reactionId, unsigned reactionGlyphIndex, unsigned speciesReferenceIndex, double speciesCenterX, double speciesCenterY);
+
+    void UpdateCurveEndPoint(SBMLDocument* document, int layoutIndex, const std::string& reactionId, unsigned reactionGlyphIndex, unsigned speciesReferenceIndex, double speciesCenterX, double speciesCenterY, double speciesGlyphW, double speciesGlyphH);
+
+    void UpdateAllCurvesTouchingSpeciesGlyph(SBMLDocument* document, int layoutIndex, const std::string& speciesId, unsigned speciesGlyphIndex);
+
+    void UpdateSpeciesLabelPosition(SBMLDocument* document, int layoutIndex, const std::string& speciesId, unsigned speciesGlyphIndex, unsigned textGlyphIndex);
+
+    bool AreSubstratesDirectionsReversed(SBMLDocument* document, int layoutIndex, const std::string& reactionId, unsigned reactionGlyphIndex);
+
+    void ShowReversibilityHeads(SBMLDocument* document, int layoutIndex, const std::string& reactionId, unsigned reactionGlyphIndex, bool substratesAreReversed);
+
+    void SetReactionCenterStyle(SBMLDocument* document, int layoutIndex, const std::string& reactionId, unsigned reactionGlyphIndex);
+
+    void AddGeometricShapesToMultipleCurveSegments(SBMLDocument* document, int layoutIndex, const std::string& reactionId, unsigned reactionGlyphIndex);
+
+    bool IsVerticalReaction(SBMLDocument* document, int layoutIndex, const std::string& reactionId, unsigned reactionGlyphIndex);
+
+    bool IsHorizontalReaction(SBMLDocument* document, int layoutIndex, const std::string& reactionId, unsigned reactionGlyphIndex);
+
+    void UpdateReactionLabelPosition(SBMLDocument* document, int layoutIndex, const std::string& reactionId, unsigned reactionGlyphIndex, unsigned textGlyphIndex);
+
+    void UpdateReactionLabel(SBMLDocument* document, int layoutIndex, const std::string& reactionId, unsigned reactionGlyphIndex, unsigned textGlyphIndex);
+
+    void ConfigureArrowHeadsForAllReactions(SBMLDocument* document, int layoutIndex, double bx, double by, double bw, double bh);
 }
 
 #endif

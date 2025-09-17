@@ -148,6 +148,10 @@ int getCurveHorizontalLength(Curve* curve, double& length);
 
 int getCurveVerticalLength(Curve* curve, double& length);
 
+int replaceSegmentWithLine(Curve* curve, unsigned int segmentIndex, LineSegment* originalSegment);
+
+int replaceSegmentWithCubicBezier(Curve* curve, unsigned int segmentIndex, LineSegment* originalSegment);
+
 int updateGraphicalObjectId(Layout* layout, GraphicalObject* graphicalObject, const std::string& newId);
 
 int updateSpeciesReferenceGlyphSpeciesGlyphId(SpeciesReferenceGlyph* speciesReferenceGlyph, const std::string& originalSpeciesGlyphId, const std::string& newSpeciesGlyphId);

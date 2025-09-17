@@ -768,6 +768,28 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return @c true if the curve segment with the given index is of type CubicBezier, @c false otherwise
     LIBSBMLNETWORK_EXTERN bool c_api_isSpeciesReferenceCurveSegmentCubicBezier(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
 
+    /// @breif Converts the curve segment with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts to a LineSegment.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceIndex the index of the SpeciesReference.
+    /// @param curveSegmentIndex the index of the CurveSegment.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_convertSpeciesReferenceCurveSegmentToLine(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+
+    /// @breif Converts the curve segment with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts to a CubicBezier.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceIndex the index of the SpeciesReference.
+    /// @param curveSegmentIndex the index of the CurveSegment.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_convertSpeciesReferenceCurveSegmentToCubicBezier(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+
     /// @brief Returns the value of the "x" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
     /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -1561,6 +1583,26 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return @c true if this curve segment is of type CubicBezier, false otherwise
     LIBSBMLNETWORK_EXTERN bool c_api_isCurveSegmentCubicBezier(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Converts the curve segment with the given index of the Curve of the GraphicalObject
+    /// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document to a LineSegment.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param curveSegmentIndex an int representing the index of the curve segment to convert.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_convertCurveSegmentToLine(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Converts the curve segment with the given index of the Curve of the GraphicalObject
+    /// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document to a CubicBezier.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param curveSegmentIndex an int representing the index of the curve segment to convert.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_convertCurveSegmentToCubicBezier(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "x" attribute of the start point of the curve segment with the given index of the curve of the GraphicalObject
     /// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.

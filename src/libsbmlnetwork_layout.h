@@ -1307,6 +1307,48 @@ LIBSBMLNETWORK_EXTERN bool isCubicBezier(Curve* curve, unsigned int curveSegment
 /// @return @c true if this abstract LineSegment is of type CubicBezier, false otherwise
 LIBSBMLNETWORK_EXTERN bool isCubicBezier(LineSegment* lineSegment);
 
+/// @brief Converts the curve segment with the given index of the Curve of the GraphicalObject
+///// with the given index associated with the model entity with the given id of the Layout object to a Line segment.
+/// @param Layout a pointer to the Layout object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param curveSegmentIndex an unsigned int representing the index of the curve segment to convert.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int convertCurveSegmentToLine(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
+
+/// @brief Converts the curve segment with the given index of the Curve of this GraphicalObject object to a Line segment.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param curveSegmentIndex an unsigned int representing the index of the curve segment to convert.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int convertCurveSegmentToLine(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex = 0);
+
+/// @brief Converts the curve segment with the given index of this Curve object to a Line segment.
+/// @param curve a pointer to the Curve object.
+/// @param curveSegmentIndex an unsigned int representing the index of the curve segment to convert.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int convertCurveSegmentToLine(Curve* curve, unsigned int curveSegmentIndex = 0);
+
+/// @brief Converts the curve segment with the given index of the Curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object to a CubicBezier segment.
+/// @param Layout a pointer to the Layout object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param curveSegmentIndex an unsigned int representing the index of the curve segment to convert.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int convertCurveSegmentToCubicBezier(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
+
+/// @brief Converts the curve segment with the given index of the Curve of this GraphicalObject object to a CubicBezier segment.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param curveSegmentIndex an unsigned int representing the index of the curve segment to convert.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int convertCurveSegmentToCubicBezier(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex = 0);
+
+/// @brief Converts the curve segment with the given index of this Curve object to a CubicBezier segment.
+/// @param curve a pointer to the Curve object.
+/// @param curveSegmentIndex an unsigned int representing the index of the curve segment to convert.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int convertCurveSegmentToCubicBezier(Curve* curve, unsigned int curveSegmentIndex = 0);
+
 /// @brief Returns the value of the "x" attribute of the start point of the curve segment with the given index of the curve of the GraphicalObject
 ///// with the given index associated with the model entity with the given id of the Layout object.
 /// @param Layout a pointer to the Layout object.
