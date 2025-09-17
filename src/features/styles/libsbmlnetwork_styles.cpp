@@ -3,9 +3,11 @@
 #include "libsbmlnetwork_sbmldocument_render.h"
 #include "libsbmlnetwork_sbmldocument_layout.h"
 
-
-
 #include <algorithm>
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
