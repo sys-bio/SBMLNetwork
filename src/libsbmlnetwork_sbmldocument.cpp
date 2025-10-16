@@ -217,16 +217,6 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return false;
     }
 
-    const unsigned int getNumSpeciesReferences(SBMLDocument* document, const std::string& reactionId) {
-        if (document && document->isSetModel()) {
-            Reaction* reaction = getReaction(document, reactionId);
-            if (reaction)
-                return reaction->getNumReactants() + reaction->getNumProducts() + reaction->getNumModifiers();
-        }
-
-        return 0;
-    }
-
     const unsigned int getNumReactants(SBMLDocument* document, const std::string& reactionId) {
         if (document && document->isSetModel()) {
             Reaction* reaction = getReaction(document, reactionId);

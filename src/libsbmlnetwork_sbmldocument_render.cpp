@@ -4411,6 +4411,9 @@ int setStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, con
         if (!style)
             style = createLocalStyle(document, graphicalObject);
         setReactionLineEndingStrokeWidth(document, getReactionId(graphicalObject), 0, strokeWidth);
+        for (unsigned int i = 0; i < getNumSpeciesReferences(graphicalObject); i++) {
+          setStrokeWidth(document, getSpeciesReference(document, getReactionId(graphicalObject), 0, i), strokeWidth);
+        }
         return setStrokeWidth(style, strokeWidth);
     }
 
@@ -4423,6 +4426,9 @@ int setStrokeWidth(SBMLDocument* document, const std::string& attribute, const d
         if (!style)
             style = createLocalStyle(document, attribute);
         setReactionLineEndingStrokeWidth(document, attribute, 0, strokeWidth);
+        for (unsigned int i = 0; i < getNumSpeciesReferences(document, attribute); i++) {
+          setStrokeWidth(document, getSpeciesReference(document, attribute, 0, i), strokeWidth);
+        }
         return setStrokeWidth(style, strokeWidth);
     }
 
