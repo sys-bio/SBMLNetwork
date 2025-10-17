@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 #include <map>
-#include "libsbmlnetwork_sbmldocument.h"
+#include "../../libsbmlnetwork_sbmldocument.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
