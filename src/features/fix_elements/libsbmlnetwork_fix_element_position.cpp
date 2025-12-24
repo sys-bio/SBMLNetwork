@@ -89,6 +89,18 @@ void fix_elements_unfixGraphicalObjectPosition(GraphicalObject* graphicalObject)
         user_data_unsetPositionData(graphicalObject);
 }
 
+void fix_elements_unfixCurveSegmentPosition(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex) {
+    if (isSpeciesReferenceGlyph(graphicalObject)) {
+        user_data_unsetPositionData((SpeciesReferenceGlyph*)graphicalObject, curveSegmentIndex);
+    }
+}
+
+void fix_elements_updateFixedCurveSegmentsIndicesAfterRemoval(GraphicalObject* graphicalObject, unsigned int removedCurveSegmentIndex) {
+    if (isSpeciesReferenceGlyph(graphicalObject)) {
+        user_data_updateFixedCurveSegmentsIndicesAfterRemoval((SpeciesReferenceGlyph*)graphicalObject, removedCurveSegmentIndex);
+    }
+}
+
 std::vector<GraphicalObject*> fix_elements_getFixedPositionGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects) {
     std::vector<GraphicalObject*> fixedPositionGraphicalObjects;
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)

@@ -23,6 +23,10 @@ public:
 
     void updateFixedPositionStatus();
 
+    const int getNumFixedPositionedCurveSegments();
+
+    LineSegment* getFixedPositionedCurveSegment(const int& curveSegmentIndex);
+
     const AutoLayoutPoint getNodeSidePoint();
 
     void setNodeSidePoint(const AutoLayoutPoint& nodeSidePoint);

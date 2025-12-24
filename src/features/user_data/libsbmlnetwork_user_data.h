@@ -25,7 +25,13 @@ int user_data_unsetPositionData(GraphicalObject* graphicalObject);
 
 int user_data_setPositionData(SpeciesReferenceGlyph* speciesReferenceGlyph);
 
+int user_data_setPositionData(SpeciesReferenceGlyph* speciesReferenceGlyph, const unsigned int curveSegmentIndex);
+
 int user_data_unsetPositionData(SpeciesReferenceGlyph* speciesReferenceGlyph);
+
+int user_data_unsetPositionData(SpeciesReferenceGlyph* speciesReferenceGlyph, unsigned int curveSegmentIndex);
+
+int user_data_updateFixedCurveSegmentsIndicesAfterRemoval(SpeciesReferenceGlyph* speciesReferenceGlyph, unsigned int removedCurveSegmentIndex);
 
 int user_data_setGraphicalObjectUserData(GraphicalObject* graphicalObject, const std::vector<std::map<std::string, std::string>>& userData);
 

@@ -1485,6 +1485,12 @@ int removeCurveSegment(Layout* layout, const std::string& id, unsigned int graph
 }
 
 int removeCurveSegment(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex) {
+    if (getNumCurveSegments(getCurve(graphicalObject)) == 1)
+        fix_elements_unfixGraphicalObjectPosition(graphicalObject);
+    else {
+        fix_elements_unfixCurveSegmentPosition(graphicalObject, curveSegmentIndex);
+        fix_elements_updateFixedCurveSegmentsIndicesAfterRemoval(graphicalObject, curveSegmentIndex);
+    }
     return removeCurveSegment(getCurve(graphicalObject), curveSegmentIndex);
 }
 
