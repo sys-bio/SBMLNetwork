@@ -86,9 +86,12 @@ if (BUILD_SHARED_LIBS)
 	set_target_properties(sbmlnetwork PROPERTIES
 			VERSION ${LIBSBMLNETWORK_DOTTED_VERSION}
 			SOVERSION ${LIBSBMLNETWORK_VERSION_MAJOR})
-	target_link_libraries(sbmlnetwork PUBLIC libsbml)
-	target_link_libraries(sbmlnetwork PUBLIC libexpat)
-	target_link_libraries(sbmlnetwork PUBLIC libz)
+	target_link_libraries(sbmlnetwork
+			${LIBSBML_LIBRARY}
+			${EXPAT_LIBRARY}
+			${LIBZ_LIBRARY}
+			${EXTRA_LIBS}
+	)
 	target_link_libraries(sbmlnetwork PUBLIC ${EXTRA_LIBS})
 	target_include_directories(sbmlnetwork PUBLIC ${DEPENDENCIES_INCLUDE_DIR})
 	if (WIN32)
