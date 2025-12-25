@@ -2015,6 +2015,47 @@ class TestSBMLModel(unittest.TestCase):
             self.assertTrue(segments[0].is_bezier_curve())
             self.assertTrue(segments[1].is_bezier_curve())
 
+    def test_curve_segments_persist_and_reset_with_auto_layout(self):
+        """
+        Test adding, removing, and auto-layout behavior of curve segments
+        """
+        model = '''
+            S1 -> S2;
+            S2 -> S3;
+        '''
+
+        r = te.loada(model)
+        network = sbmlnetwork.load(r.getSBML())
+
+        reaction = network.get_reactions_list()[0]
+        curve = reaction.get_curves_list()[0]
+
+        initial_segment_count = len(curve.get_segments())
+        curve.add_segment((10, 50), (50, 10))
+        curve.add_segment((50, 10), (90, 50))
+        self.assertEqual(len(curve.get_segments()), initial_segment_count + 2)
+
+        network.auto_layout()
+        self.assertEqual(len(curve.get_segments()), initial_segment_count + 2)
+
+        segments = curve.get_segments()
+        self.assertAlmostEqual(segments[-1].get_start()[0], 50, delta=1)
+        self.assertAlmostEqual(segments[-1].get_start()[1], 10, delta=1)
+        self.assertAlmostEqual(segments[-1].get_end()[0], 90, delta=1)
+        self.assertAlmostEqual(segments[-1].get_end()[1], 50, delta=1)
+        self.assertAlmostEqual(segments[-2].get_start()[0], 10, delta=1)
+        self.assertAlmostEqual(segments[-2].get_start()[1], 50, delta=1)
+        self.assertAlmostEqual(segments[-2].get_end()[0], 50, delta=1)
+        self.assertAlmostEqual(segments[-2].get_end()[1], 10, delta=1)
+
+        curve.remove_segment(len(segments) - 1)
+        curve.remove_segment(len(segments) - 2)
+        self.assertEqual(len(curve.get_segments()), initial_segment_count)
+
+        network.auto_layout()
+        self.assertEqual(len(curve.get_segments()), initial_segment_count)
+
+
 
 if __name__ == '__main__':
     unittest.main()

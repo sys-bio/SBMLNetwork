@@ -72,24 +72,18 @@ set(HEADERS
 		features/update_curves/libsbmlnetwork_update_curves.h
 		c_api/libsbmlnetwork_c_api.h)
 
-#### dependencies
-add_library(libsbml STATIC IMPORTED)
-set_target_properties(libsbml PROPERTIES IMPORTED_LOCATION ${LIBSBML_LIBRARY})
-add_library(libexpat STATIC IMPORTED)
-set_target_properties(libexpat PROPERTIES IMPORTED_LOCATION ${EXPAT_LIBRARY})
-add_library(libz STATIC IMPORTED)
-set_target_properties(libz PROPERTIES IMPORTED_LOCATION ${LIBZ_LIBRARY})
-
 ### shared library
 if (BUILD_SHARED_LIBS)
 	add_library(sbmlnetwork SHARED ${SOURCES} ${HEADERS})
 	set_target_properties(sbmlnetwork PROPERTIES
 			VERSION ${LIBSBMLNETWORK_DOTTED_VERSION}
 			SOVERSION ${LIBSBMLNETWORK_VERSION_MAJOR})
-	target_link_libraries(sbmlnetwork PUBLIC libsbml)
-	target_link_libraries(sbmlnetwork PUBLIC libexpat)
-	target_link_libraries(sbmlnetwork PUBLIC libz)
-	target_link_libraries(sbmlnetwork PUBLIC ${EXTRA_LIBS})
+	target_link_libraries(sbmlnetwork PUBLIC
+			${LIBSBML_LIBRARY}
+			${EXPAT_LIBRARY}
+			${LIBZ_LIBRARY}
+			${EXTRA_LIBS}
+	)
 	target_include_directories(sbmlnetwork PUBLIC ${DEPENDENCIES_INCLUDE_DIR})
 	if (WIN32)
 		set_target_properties(sbmlnetwork PROPERTIES OUTPUT_NAME "libsbmlnetwork")
@@ -102,7 +96,12 @@ endif ()
 ### static library
 if (BUILD_STATIC_LIBS)
 	add_library(sbmlnetwork-static STATIC ${SOURCES} ${HEADERS})
-	target_link_libraries(sbmlnetwork-static ${LIBSBML_LIBRARY} ${EXTRA_LIBS})
+	target_link_libraries(sbmlnetwork-static PUBLIC
+			${LIBSBML_LIBRARY}
+			${EXPAT_LIBRARY}
+			${LIBZ_LIBRARY}
+			${EXTRA_LIBS}
+	)
 	target_include_directories(sbmlnetwork-static PUBLIC ${DEPENDENCIES_INCLUDE_DIR})
 	if (WIN32)
 		set_target_properties(sbmlnetwork-static PROPERTIES OUTPUT_NAME "libsbmlnetwork-static")

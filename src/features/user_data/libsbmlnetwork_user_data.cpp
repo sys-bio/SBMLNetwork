@@ -111,16 +111,29 @@ int user_data_setPositionData(SpeciesReferenceGlyph* speciesReferenceGlyph) {
     if (speciesReferenceGlyph) {
         Curve* curve = getCurve(speciesReferenceGlyph);
         for (unsigned int i = 0; i < getNumCurveSegments(curve); i++) {
-            user_data_setUserData(speciesReferenceGlyph, std::to_string(i) + ":start_x", std::to_string(getCurveSegmentStartPointX(curve, i)));
-            user_data_setUserData(speciesReferenceGlyph, std::to_string(i) + ":start_y", std::to_string(getCurveSegmentStartPointY(curve, i)));
-            user_data_setUserData(speciesReferenceGlyph, std::to_string(i) + ":end_x", std::to_string(getCurveSegmentEndPointX(curve, i)));
-            user_data_setUserData(speciesReferenceGlyph, std::to_string(i) + ":end_y", std::to_string(getCurveSegmentEndPointY(curve, i)));
-            if (isCubicBezier(curve, i)) {
-                user_data_setUserData(speciesReferenceGlyph, std::to_string(i) + ":b1_x", std::to_string(getCurveSegmentBasePoint1X(curve, i)));
-                user_data_setUserData(speciesReferenceGlyph, std::to_string(i) + ":b1_y", std::to_string(getCurveSegmentBasePoint1Y(curve, i)));
-                user_data_setUserData(speciesReferenceGlyph, std::to_string(i) + ":b2_x", std::to_string(getCurveSegmentBasePoint2X(curve, i)));
-                user_data_setUserData(speciesReferenceGlyph, std::to_string(i) + ":b2_y", std::to_string(getCurveSegmentBasePoint2Y(curve, i)));
+            if (user_data_setPositionData(speciesReferenceGlyph, i)) {
+                return -1;
             }
+        }
+
+        return 0;
+    }
+
+    return -1;
+}
+
+int user_data_setPositionData(SpeciesReferenceGlyph* speciesReferenceGlyph, unsigned int curveSegmentIndex) {
+    if (speciesReferenceGlyph) {
+        Curve* curve = getCurve(speciesReferenceGlyph);
+        user_data_setUserData(speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":start_x", std::to_string(getCurveSegmentStartPointX(curve, curveSegmentIndex)));
+        user_data_setUserData(speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":start_y", std::to_string(getCurveSegmentStartPointY(curve, curveSegmentIndex)));
+        user_data_setUserData(speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":end_x", std::to_string(getCurveSegmentEndPointX(curve, curveSegmentIndex)));
+        user_data_setUserData(speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":end_y", std::to_string(getCurveSegmentEndPointY(curve, curveSegmentIndex)));
+        if (isCubicBezier(curve, curveSegmentIndex)) {
+            user_data_setUserData(speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":b1_x", std::to_string(getCurveSegmentBasePoint1X(curve, curveSegmentIndex)));
+            user_data_setUserData(speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":b1_y", std::to_string(getCurveSegmentBasePoint1Y(curve, curveSegmentIndex)));
+            user_data_setUserData(speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":b2_x", std::to_string(getCurveSegmentBasePoint2X(curve, curveSegmentIndex)));
+            user_data_setUserData(speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":b2_y", std::to_string(getCurveSegmentBasePoint2Y(curve, curveSegmentIndex)));
         }
 
         return 0;
@@ -133,15 +146,61 @@ int user_data_unsetPositionData(SpeciesReferenceGlyph* speciesReferenceGlyph) {
     if (speciesReferenceGlyph) {
         Curve* curve = getCurve(speciesReferenceGlyph);
         for (unsigned int i = 0; i < getNumCurveSegments(curve); i++) {
-            user_data_setUserData(curve, std::to_string(i) + ":start_x", "");
-            user_data_setUserData(curve, std::to_string(i) + ":start_y", "");
-            user_data_setUserData(curve, std::to_string(i) + ":end_x", "");
-            user_data_setUserData(curve, std::to_string(i) + ":end_y", "");
-            user_data_setUserData(curve, std::to_string(i) + ":b1_x", "");
-            user_data_setUserData(curve, std::to_string(i) + ":b1_y", "");
-            user_data_setUserData(curve, std::to_string(i) + ":b2_x", "");
-            user_data_setUserData(curve, std::to_string(i) + ":b2_y", "");
+            if (user_data_unsetPositionData(speciesReferenceGlyph, i))
+                return -1;
         }
+
+        return 0;
+    }
+
+    return -1;
+}
+
+int user_data_unsetPositionData(SpeciesReferenceGlyph* speciesReferenceGlyph, unsigned int curveSegmentIndex) {
+    if (speciesReferenceGlyph) {
+        Curve* curve = getCurve(speciesReferenceGlyph);
+        user_data_setUserData(speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":start_x", "");
+        user_data_setUserData(speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":start_y", "");
+        user_data_setUserData(speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":end_x", "");
+        user_data_setUserData(speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":end_y", "");
+        if (isCubicBezier(curve, curveSegmentIndex)) {
+            user_data_setUserData(speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":b1_x", "");
+            user_data_setUserData(speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":b1_y", "");
+            user_data_setUserData(speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":b2_x", "");
+            user_data_setUserData(speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":b2_y", "");
+        }
+
+        return 0;
+    }
+
+    return -1;
+}
+
+int user_data_updateFixedCurveSegmentsIndicesAfterRemoval(SpeciesReferenceGlyph* speciesReferenceGlyph, unsigned int removedCurveSegmentIndex) {
+    if (speciesReferenceGlyph) {
+        Curve *curve = getCurve(speciesReferenceGlyph);
+        unsigned int numCurveSegments = getNumCurveSegments(curve);
+        for (unsigned int i = removedCurveSegmentIndex; i < numCurveSegments + 1; i++) {
+            std::string startX = user_data_getUserData(speciesReferenceGlyph, std::to_string(i + 1) + ":start_x");
+            std::string startY = user_data_getUserData(speciesReferenceGlyph, std::to_string(i + 1) + ":start_y");
+            std::string endX = user_data_getUserData(speciesReferenceGlyph, std::to_string(i + 1) + ":end_x");
+            std::string endY = user_data_getUserData(speciesReferenceGlyph, std::to_string(i + 1) + ":end_y");
+            user_data_setUserData(speciesReferenceGlyph, std::to_string(i) + ":start_x", startX);
+            user_data_setUserData(speciesReferenceGlyph, std::to_string(i) + ":start_y", startY);
+            user_data_setUserData(speciesReferenceGlyph, std::to_string(i) + ":end_x", endX);
+            user_data_setUserData(speciesReferenceGlyph, std::to_string(i) + ":end_y", endY);
+            if (isCubicBezier(curve, i + 1)) {
+                std::string b1X = user_data_getUserData(speciesReferenceGlyph, std::to_string(i + 1) + ":b1_x");
+                std::string b1Y = user_data_getUserData(speciesReferenceGlyph, std::to_string(i + 1) + ":b1_y");
+                std::string b2X = user_data_getUserData(speciesReferenceGlyph, std::to_string(i + 1) + ":b2_x");
+                std::string b2Y = user_data_getUserData(speciesReferenceGlyph, std::to_string(i + 1) + ":b2_y");
+                user_data_setUserData(speciesReferenceGlyph, std::to_string(i) + ":b1_x", b1X);
+                user_data_setUserData(speciesReferenceGlyph, std::to_string(i) + ":b1_y", b1Y);
+                user_data_setUserData(speciesReferenceGlyph, std::to_string(i) + ":b2_x", b2X);
+                user_data_setUserData(speciesReferenceGlyph, std::to_string(i) + ":b2_y", b2Y);
+            }
+        }
+        user_data_unsetPositionData(speciesReferenceGlyph, numCurveSegments);
 
         return 0;
     }

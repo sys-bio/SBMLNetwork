@@ -24,6 +24,10 @@ void fix_elements_fixGraphicalObjectPosition(GraphicalObject* graphicalObject);
 
 void fix_elements_unfixGraphicalObjectPosition(GraphicalObject* graphicalObject);
 
+void fix_elements_unfixCurveSegmentPosition(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex);
+
+void fix_elements_updateFixedCurveSegmentsIndicesAfterRemoval(GraphicalObject* graphicalObject, unsigned int removedCurveSegmentIndex);
+
 std::vector<GraphicalObject*> fix_elements_getFixedPositionGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects);
 
 }
