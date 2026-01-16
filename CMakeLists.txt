@@ -49,24 +49,27 @@ endif ()
 ## Find ZLIB
 find_package(ZLIB CONFIG REQUIRED)
 set(LIBZ_LIBRARY ZLIB::ZLIBSTATIC)
-get_target_property(LIBZ_LIBRARY_LOCATION ZLIB::ZLIBSTATIC LOCATION)
-message(STATUS "ZLIB Library: ${LIBZ_LIBRARY_LOCATION}")
-set(ZLIB_LIBRARY "${LIBZ_LIBRARY_LOCATION}" CACHE FILEPATH "Path to zlib library" FORCE)
+set(ZLIB_LIBRARY $<TARGET_FILE:zlibstatic> CACHE FILEPATH "Path to zlib library" FORCE)
 set(ZLIB_INCLUDE_DIR "${DEPENDENCIES_INSTALL_PREFIX}/include" CACHE PATH "Path to zlib include directory" FORCE)
 set(ZLIB_FOUND TRUE CACHE BOOL "ZLIB found" FORCE)
 
 ## Find expat
-find_package(expat CONFIG REQUIRED)
-set(EXPAT_LIBRARY expat::expat)
-get_target_property(EXPAT_LIBRARY_LOCATION expat::expat LOCATION)
-get_target_property(EXPAT_INCLUDE_DIR expat::expat INTERFACE_INCLUDE_DIRECTORIES)
-message(STATUS "Expat Library: ${EXPAT_LIBRARY_LOCATION}")
-message(STATUS "Expat Include: ${EXPAT_INCLUDE_DIR}")
+if (NOT DEFINED EXPAT_LIBRARY)
+	find_package(expat CONFIG REQUIRED)
+	set(EXPAT_LIBRARY expat::expat)
+	get_target_property(EXPAT_LIBRARY_LOCATION expat::expat LOCATION)
+	get_target_property(EXPAT_INCLUDE_DIR expat::expat INTERFACE_INCLUDE_DIRECTORIES)
+	message(STATUS "Expat Library: ${EXPAT_LIBRARY_LOCATION}")
+	message(STATUS "Expat Include: ${EXPAT_INCLUDE_DIR}")
+endif()
 
 ## Find libSBML
-find_package(${SBML_TARGET_NAME} CONFIG REQUIRED)
-set(LIBSBML_LIBRARY ${SBML_TARGET_NAME})
-message(STATUS "libSBML Target: ${LIBSBML_LIBRARY}")
+if (NOT DEFINED LIBSBML_LIBRARY)
+	find_package(${SBML_TARGET_NAME} CONFIG REQUIRED)
+	set(LIBSBML_LIBRARY ${SBML_TARGET_NAME})
+	message(STATUS "libSBML Target: ${LIBSBML_LIBRARY}")
+endif()
+
 
 ## Set dependencies include directory
 set(DEPENDENCIES_INCLUDE_DIR "${DEPENDENCIES_INSTALL_PREFIX}/include")
