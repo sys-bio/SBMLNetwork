@@ -4247,6 +4247,9 @@ int setStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, con
         if (!style)
             style = createLocalStyle(document, graphicalObject);
         setReactionLineEndingStrokeColor(document, getReactionId(graphicalObject), 0, stroke);
+        for (unsigned int i = 0; i < getNumSpeciesReferences(graphicalObject); i++) {
+          setStrokeColor(document, getSpeciesReference(document, getReactionId(graphicalObject), 0, i), stroke);
+        }
         std::string colorId = addColor(document, style, stroke);
         return setStrokeColor(style, colorId, getValue(document, colorId));
     }
@@ -4260,6 +4263,9 @@ int setStrokeColor(SBMLDocument* document, const std::string& attribute, const s
         if (!style)
             style = createLocalStyle(document, attribute);
         setReactionLineEndingStrokeColor(document, attribute, 0, stroke);
+        for (unsigned int i = 0; i < getNumSpeciesReferences(document, attribute); i++) {
+          setStrokeColor(document, getSpeciesReference(document, attribute, 0, i), stroke);
+        }
         std::string colorId = addColor(document, style, stroke);
         return setStrokeColor(style, colorId, getValue(document, colorId));
     }
