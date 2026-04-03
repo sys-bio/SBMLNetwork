@@ -848,10 +848,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
                 UpdateAllCurvesTouchingSpeciesGlyph(document, layoutIndex, sid, sg);
 
                 for (unsigned tg = 0; tg < getNumTextGlyphs(document, layoutIndex, sid, sg); ++tg) {
-                    setFontSizeAsDouble(document, getGraphicalObject(document, layoutIndex, sid, sg), tg, 12);
-                    setFontColor(document,        getGraphicalObject(document, layoutIndex, sid, sg), tg, "black");
-                    setFontStyle(document,        getGraphicalObject(document, layoutIndex, sid, sg), tg, "italic");
-                    setFontWeight(document,       getGraphicalObject(document, layoutIndex, sid, sg), tg, "bold");
+//                    setFontSizeAsDouble(document, getGraphicalObject(document, layoutIndex, sid, sg), tg, 12);
+//                    setFontColor(document,        getGraphicalObject(document, layoutIndex, sid, sg), tg, "black");
+//                    setFontStyle(document,        getGraphicalObject(document, layoutIndex, sid, sg), tg, "italic");
+//                    setFontWeight(document,       getGraphicalObject(document, layoutIndex, sid, sg), tg, "bold");
                     UpdateSpeciesLabelPosition(document, layoutIndex, sid, sg, tg);
                 }
             }
@@ -1018,16 +1018,64 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         double w = getDimensionWidth(document, layoutIndex, speciesId, speciesGlyphIndex);
         double h = getDimensionHeight(document, layoutIndex, speciesId, speciesGlyphIndex);
 
-        double tx = getTextPositionX(document, layoutIndex, speciesId, speciesGlyphIndex, textGlyphIndex);
-        double ty = getTextPositionY(document, layoutIndex, speciesId, speciesGlyphIndex, textGlyphIndex);
+        double speciesCX = speciesX + w / 2.0;
+        double speciesCY = speciesY + h / 2.0;
 
-        if (std::abs(speciesX - tx) < 5.0 && std::abs(speciesY - ty) < 5.0) {
-            setTextPositionX(document, layoutIndex, speciesId, speciesGlyphIndex, textGlyphIndex, tx + w);
-            setTextPositionY(document, layoutIndex, speciesId, speciesGlyphIndex, textGlyphIndex, ty + h);
-        } else {
-            setTextPositionX(document, layoutIndex, speciesId, speciesGlyphIndex, textGlyphIndex, tx - 60.0);
-            setTextPositionY(document, layoutIndex, speciesId, speciesGlyphIndex, textGlyphIndex, ty + 7.0);
+        double reactionCX = -1.0, reactionCY = -1.0;
+        std::string speciesGlyphId = getId(document, layoutIndex, speciesId, speciesGlyphIndex);
+        for (unsigned rIdx = 0; rIdx < getNumReactions(document); ++rIdx) {
+            std::string reactionId = getReactionId(document, rIdx);
+            for (unsigned rg = 0; rg < getNumReactionGlyphs(document, layoutIndex, reactionId); ++rg) {
+                for (unsigned sr = 0; sr < getNumSpeciesReferences(document, layoutIndex, reactionId, rg); ++sr) {
+                    if (stringCompare(getSpeciesReferenceSpeciesGlyphId(document, layoutIndex, reactionId, rg, sr), speciesGlyphId)) {
+                        double rx = getPositionX(document, layoutIndex, reactionId, rg);
+                        double ry = getPositionY(document, layoutIndex, reactionId, rg);
+                        reactionCX = rx + getDimensionWidth(document, layoutIndex, reactionId, rg) / 2.0;
+                        reactionCY = ry + getDimensionHeight(document, layoutIndex, reactionId, rg) / 2.0;
+                        goto foundReaction;
+                    }
+                }
+            }
         }
+        foundReaction:
+
+        const double pad = 8.0;
+        const double diagThreshold = 0.4;
+
+        if (reactionCX < 0.0) {
+            setTextPositionX(document, layoutIndex, speciesId, speciesGlyphIndex, textGlyphIndex, speciesX + w + pad * 3.0);
+            setTextPositionY(document, layoutIndex, speciesId, speciesGlyphIndex, textGlyphIndex, speciesCY - 7.0);
+            return;
+        }
+
+        double dx = speciesCX - reactionCX;
+        double dy = speciesCY - reactionCY;
+        double absDx = std::abs(dx);
+        double absDy = std::abs(dy);
+        double maxD  = std::max(absDx, absDy);
+        bool isDiagonal = (absDx > diagThreshold * maxD) && (absDy > diagThreshold * maxD);
+
+        double newTX, newTY;
+
+        if (isDiagonal) {
+            newTX = speciesX + w + pad * 3.0;
+            newTY = (dy < 0) ? speciesY - 4.0 : speciesY + h + 2.0;
+
+        } else if (absDx >= absDy) {
+            if (dx >= 0) {
+                newTX = speciesX + w + pad * 3.0;
+                newTY = speciesCY - 7.0;
+            } else {
+                newTX = speciesCX - 20.0;
+                newTY = speciesY + h + pad;
+            }
+        } else {
+            newTX = speciesCX - 20.0;
+            newTY = (dy < 0) ? speciesY - 20.0 : speciesY + h + pad;
+        }
+
+        setTextPositionX(document, layoutIndex, speciesId, speciesGlyphIndex, textGlyphIndex, newTX);
+        setTextPositionY(document, layoutIndex, speciesId, speciesGlyphIndex, textGlyphIndex, newTY);
     }
 
     bool AreSubstratesDirectionsReversed(SBMLDocument* document, int layoutIndex, const std::string& reactionId, unsigned reactionGlyphIndex) {
@@ -1128,22 +1176,27 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
                 ++numSegments;
                 double sX = getSpeciesReferenceCurveSegmentStartPointX(document, layoutIndex, reactionId, reactionGlyphIndex, sr, k);
                 double sY = getSpeciesReferenceCurveSegmentStartPointY(document, layoutIndex, reactionId, reactionGlyphIndex, sr, k);
-                double c1X= getSpeciesReferenceCurveSegmentBasePoint1X(document, layoutIndex, reactionId, reactionGlyphIndex, sr, k);
-                double c1Y= getSpeciesReferenceCurveSegmentBasePoint1Y(document, layoutIndex, reactionId, reactionGlyphIndex, sr, k);
                 double eX = getSpeciesReferenceCurveSegmentEndPointX  (document, layoutIndex, reactionId, reactionGlyphIndex, sr, k);
                 double eY = getSpeciesReferenceCurveSegmentEndPointY  (document, layoutIndex, reactionId, reactionGlyphIndex, sr, k);
-                double c2X= getSpeciesReferenceCurveSegmentBasePoint2X(document, layoutIndex, reactionId, reactionGlyphIndex, sr, k);
-                double c2Y= getSpeciesReferenceCurveSegmentBasePoint2Y(document, layoutIndex, reactionId, reactionGlyphIndex, sr, k);
-                if ((std::abs(sX - c1X) < 1e-6 && std::abs(sY - c1Y) > 1e-6) ||
-                    (std::abs(eX - c2X) < 1e-6 && std::abs(eY - c2Y) > 1e-6)) {
+
+                double dx = std::abs(eX - sX);
+                double dy = std::abs(eY - sY);
+
+                if (dx < 1e-6 && dy < 1e-6) {
+                    --numSegments;
+                    continue;
+                }
+
+                if (dy >= dx) {
                     ++count;
                 }
             }
         }
-        return (numSegments > 0) && (count >= 0.3 * numSegments);
+        return (numSegments > 0) && (count >= 0.5 * numSegments);
     }
 
-    bool IsHorizontalReaction(SBMLDocument* document, int layoutIndex, const std::string& reactionId, unsigned reactionGlyphIndex) {
+    bool IsHorizontalReaction(SBMLDocument* document, int layoutIndex,
+                              const std::string& reactionId, unsigned reactionGlyphIndex) {
         int count = 0, numSegments = 0;
         for (unsigned sr = 0; sr < getNumSpeciesReferences(document, layoutIndex, reactionId, reactionGlyphIndex); ++sr) {
             int nSeg = getNumSpeciesReferenceCurveSegments(document, layoutIndex, reactionId, reactionGlyphIndex, sr);
@@ -1151,19 +1204,24 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
                 ++numSegments;
                 double sX = getSpeciesReferenceCurveSegmentStartPointX(document, layoutIndex, reactionId, reactionGlyphIndex, sr, k);
                 double sY = getSpeciesReferenceCurveSegmentStartPointY(document, layoutIndex, reactionId, reactionGlyphIndex, sr, k);
-                double c1X= getSpeciesReferenceCurveSegmentBasePoint1X(document, layoutIndex, reactionId, reactionGlyphIndex, sr, k);
-                double c1Y= getSpeciesReferenceCurveSegmentBasePoint1Y(document, layoutIndex, reactionId, reactionGlyphIndex, sr, k);
                 double eX = getSpeciesReferenceCurveSegmentEndPointX  (document, layoutIndex, reactionId, reactionGlyphIndex, sr, k);
                 double eY = getSpeciesReferenceCurveSegmentEndPointY  (document, layoutIndex, reactionId, reactionGlyphIndex, sr, k);
-                double c2X= getSpeciesReferenceCurveSegmentBasePoint2X(document, layoutIndex, reactionId, reactionGlyphIndex, sr, k);
-                double c2Y= getSpeciesReferenceCurveSegmentBasePoint2Y(document, layoutIndex, reactionId, reactionGlyphIndex, sr, k);
-                if ((std::abs(sY - c1Y) < 1e-6 && std::abs(sX - c1X) > 1e-6) ||
-                    (std::abs(eY - c2Y) < 1e-6 && std::abs(eX - c2X) > 1e-6)) {
+
+                double dx = std::abs(eX - sX);
+                double dy = std::abs(eY - sY);
+
+                // Treat degenerate (zero-length) segments as neutral — skip them
+                if (dx < 1e-6 && dy < 1e-6) {
+                    --numSegments;
+                    continue;
+                }
+
+                if (dx >= dy) {
                     ++count;
                 }
             }
         }
-        return (numSegments > 0) && (count >= 0.3 * numSegments);
+        return (numSegments > 0) && (count >= 0.5 * numSegments);
     }
 
     void UpdateReactionLabelPosition(SBMLDocument* document, int layoutIndex, const std::string& reactionId, unsigned reactionGlyphIndex, unsigned textGlyphIndex) {
