@@ -181,6 +181,7 @@ jobs:
           /Miniconda3/bin/conda create -y --name python${{ matrix.python_version }} python=${{ matrix.python_version }}
           cd ${RUNNER_WORKSPACE}
           echo "/Miniconda3/envs/python${{ matrix.python_version }}/bin" >> "${GITHUB_PATH}"
+          echo "LD_LIBRARY_PATH=/Miniconda3/envs/python${{ matrix.python_version }}/lib:$LD_LIBRARY_PATH" >> "${GITHUB_ENV}"
 
       - name: Download Dependencies binaries
         shell: bash
