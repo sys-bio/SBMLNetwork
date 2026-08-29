@@ -22,10 +22,11 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         SBMLDocument* document = readSBMLFromFile(sbml.c_str());
         if (document && document->isSetModel())
             return document;
+        delete document;
         document = readSBMLFromString(sbml.c_str());
         if (document && document->isSetModel())
             return document;
-
+        delete document;
         return NULL;
     }
 

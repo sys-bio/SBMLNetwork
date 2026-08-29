@@ -48,15 +48,20 @@ endif ()
 
 ## Find ZLIB
 option(WITH_ZLIB "Link libsbmlnetwork against zlib." ON)
-set(LIBZ_LIBRARY "")
 if (WITH_ZLIB)
-	find_package(ZLIB CONFIG REQUIRED)
-	set(LIBZ_LIBRARY ZLIB::ZLIBSTATIC)
-	get_target_property(LIBZ_LIBRARY_LOCATION ZLIB::ZLIBSTATIC LOCATION)
-	message(STATUS "ZLIB Library: ${LIBZ_LIBRARY_LOCATION}")
-	set(ZLIB_LIBRARY "${LIBZ_LIBRARY_LOCATION}" CACHE FILEPATH "Path to zlib library" FORCE)
-	set(ZLIB_INCLUDE_DIR "${DEPENDENCIES_INSTALL_PREFIX}/include" CACHE PATH "Path to zlib include directory" FORCE)
-	set(ZLIB_FOUND TRUE CACHE BOOL "ZLIB found" FORCE)
+	if (DEFINED LIBZ_LIBRARY)
+		message(STATUS "ZLIB Library: ${LIBZ_LIBRARY}")
+	else ()
+		find_package(ZLIB CONFIG REQUIRED)
+		set(LIBZ_LIBRARY ZLIB::ZLIBSTATIC)
+		get_target_property(LIBZ_LIBRARY_LOCATION ZLIB::ZLIBSTATIC LOCATION)
+		message(STATUS "ZLIB Library: ${LIBZ_LIBRARY_LOCATION}")
+		set(ZLIB_LIBRARY "${LIBZ_LIBRARY_LOCATION}" CACHE FILEPATH "Path to zlib library" FORCE)
+		set(ZLIB_INCLUDE_DIR "${DEPENDENCIES_INSTALL_PREFIX}/include" CACHE PATH "Path to zlib include directory" FORCE)
+		set(ZLIB_FOUND TRUE CACHE BOOL "ZLIB found" FORCE)
+	endif ()
+else ()
+	set(LIBZ_LIBRARY "")
 endif ()
 
 ## Find expat
@@ -81,8 +86,10 @@ else ()
 	message(STATUS "libSBML Target: ${LIBSBML_LIBRARY}")
 endif ()
 
-## Set dependencies include directory
-set(DEPENDENCIES_INCLUDE_DIR "${DEPENDENCIES_INSTALL_PREFIX}/include" "${LIBSBML_INSTALL_PREFIX}/include" "${EXPAT_INCLUDE_DIR}")
+## Set dependencies include directory if it is not set by a parent project
+if (NOT DEFINED DEPENDENCIES_INCLUDE_DIR)
+	set(DEPENDENCIES_INCLUDE_DIR "${DEPENDENCIES_INSTALL_PREFIX}/include" "${LIBSBML_INSTALL_PREFIX}/include" "${EXPAT_INCLUDE_DIR}")
+endif ()
 
 ## whether to build the dynamic version of the library
 set(BUILD_SHARED_LIBS ON CACHE BOOL "Build the dynamic version of the library")
