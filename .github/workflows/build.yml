@@ -70,8 +70,8 @@ jobs:
         libroadrunner_deps_owner: [ "sys-bio" ]
         libroadrunner_deps_repo: [ "libroadrunner-deps" ]
         libroadrunner_deps_name: [ "libroadrunner-deps" ]
-        libroadrunner_deps_release_version: [ "v2.2.22" ]
-        python_version: [ "3.11" ]
+        libroadrunner_deps_release_version: [ "v2.3.5" ]
+        python_version: [ "3.14" ]
     runs-on: ${{ matrix.platform.os_name }}
     container:
       image: ${{ matrix.platform.container_image || '' }}
@@ -179,8 +179,9 @@ jobs:
           wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
           bash Miniconda3-latest-Linux-x86_64.sh -b -p /Miniconda3
           /Miniconda3/bin/conda create -y --name python${{ matrix.python_version }} python=${{ matrix.python_version }}
-          /Miniconda3/bin/conda init && bash ~/.bashrc && . ~/.bashrc          cd ${RUNNER_WORKSPACE}
-          echo "export PATH=/Miniconda3/envs/python${{ matrix.python_version }}/bin:$PATH" >> "${GITHUB_ENV}"
+          cd ${RUNNER_WORKSPACE}
+          echo "/Miniconda3/envs/python${{ matrix.python_version }}/bin" >> "${GITHUB_PATH}"
+          echo "LD_LIBRARY_PATH=/Miniconda3/envs/python${{ matrix.python_version }}/lib:$LD_LIBRARY_PATH" >> "${GITHUB_ENV}"
 
       - name: Download Dependencies binaries
         shell: bash
