@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 
 project(libsbmlnetwork)
 add_definitions(-DLIBSBMLNETWORK_EXPORTS=true)
@@ -26,48 +26,42 @@ endif()
 
 add_definitions(-DLIBSBMLNETWORK_VERSION="${LIBSBMLNETWORK_DOTTED_VERSION}")
 
-## find dependency libraries
+## Dependency configuration
 set(DEPENDENCIES_INSTALL_PREFIX "" CACHE PATH "Path to the libsbml, libexpat, and libz installation directory")
-set(LIBSBML_INSTALL_PREFIX "" CACHE PATH "Path to the libsbml installation directory")
-set(EXPAT_INSTALL_PREFIX "" CACHE PATH "Path to the expat installation directory")
-if(WIN32)
-	find_library(LIBSBML_LIBRARY NAMES libsbml-staticmd.lib libsbml-staticmdd.lib PATHS ${LIBSBML_INSTALL_PREFIX}/lib ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
-	if (NOT TARGET EXPAT::EXPAT)
-		find_library(EXPAT_LIBRARY NAMES libexpatMD.lib libexpatdMD.lib PATHS ${EXPAT_INSTALL_PREFIX}/lib ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
-	else ()
-		find_package(EXPAT REQUIRED)
-		set(EXPAT_LIBRARY EXPAT::EXPAT)
-	endif ()
-	find_library(LIBZ_LIBRARY NAMES zlibstatic.lib zlibstaticd.lib zs.lib zsd.lib PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
-elseif (APPLE)
-	find_library(LIBSBML_LIBRARY NAMES libsbml-static.a libsbml-staticd.a PATHS ${LIBSBML_INSTALL_PREFIX}/lib ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
-	find_library(EXPAT_LIBRARY NAMES libexpat.a expat PATHS ${EXPAT_INSTALL_PREFIX}/lib ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
-	find_library(LIBZ_LIBRARY NAMES libz.a PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
-elseif(UNIX)
-	find_library(LIBSBML_LIBRARY NAMES libsbml-static.a libsbml-staticd.a
-			PATHS ${LIBSBML_INSTALL_PREFIX}/lib ${DEPENDENCIES_INSTALL_PREFIX}/lib ${LIBSBML_INSTALL_PREFIX}/lib64 ${DEPENDENCIES_INSTALL_PREFIX}/lib64 REQUIRED)
-	find_library(EXPAT_LIBRARY NAMES libexpat.a expat
-			PATHS ${EXPAT_INSTALL_PREFIX}/lib ${DEPENDENCIES_INSTALL_PREFIX}/lib ${EXPAT_INSTALL_PREFIX}/lib64 ${DEPENDENCIES_INSTALL_PREFIX}/lib64 REQUIRED)
-	find_library(LIBZ_LIBRARY NAMES libz.so
-			PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib ${DEPENDENCIES_INSTALL_PREFIX}/lib64)
-endif()
 
-## set dependencies include directory if it is not set by a parent project
-if (NOT DEFINED DEPENDENCIES_INCLUDE_DIR)
-	set(DEPENDENCIES_INCLUDE_DIR ${LIBSBML_INSTALL_PREFIX}/include ${EXPAT_INSTALL_PREFIX}/include ${DEPENDENCIES_INSTALL_PREFIX}/include)
+set(DEPENDENCY_CMAKE_CONFIG_PATHS
+		"${DEPENDENCIES_INSTALL_PREFIX}/cmake"
+		"${DEPENDENCIES_INSTALL_PREFIX}/lib/cmake"
+		"${DEPENDENCIES_INSTALL_PREFIX}/lib64/cmake"
+)
+set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${DEPENDENCY_CMAKE_CONFIG_PATHS}")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${DEPENDENCY_CMAKE_CONFIG_PATHS}")
+
+message(STATUS "CMAKE_PREFIX_PATH: ${CMAKE_PREFIX_PATH}")
+
+## Set platform-specific libSBML target name
+if (WIN32)
+	set(SBML_TARGET_NAME "libsbml-static")
+else ()
+	set(SBML_TARGET_NAME "sbml-static")
 endif ()
 
 ## Find ZLIB
 option(WITH_ZLIB "Link libsbmlnetwork against zlib." ON)
-set(LIBZ_LIBRARY "")
 if (WITH_ZLIB)
-	find_package(ZLIB CONFIG REQUIRED)
-	set(LIBZ_LIBRARY ZLIB::ZLIBSTATIC)
-	get_target_property(LIBZ_LIBRARY_LOCATION ZLIB::ZLIBSTATIC LOCATION)
-	message(STATUS "ZLIB Library: ${LIBZ_LIBRARY_LOCATION}")
-	set(ZLIB_LIBRARY "${LIBZ_LIBRARY_LOCATION}" CACHE FILEPATH "Path to zlib library" FORCE)
-	set(ZLIB_INCLUDE_DIR "${DEPENDENCIES_INSTALL_PREFIX}/include" CACHE PATH "Path to zlib include directory" FORCE)
-	set(ZLIB_FOUND TRUE CACHE BOOL "ZLIB found" FORCE)
+	if (DEFINED LIBZ_LIBRARY)
+		message(STATUS "ZLIB Library: ${LIBZ_LIBRARY}")
+	else ()
+		find_package(ZLIB CONFIG REQUIRED)
+		set(LIBZ_LIBRARY ZLIB::ZLIBSTATIC)
+		get_target_property(LIBZ_LIBRARY_LOCATION ZLIB::ZLIBSTATIC LOCATION)
+		message(STATUS "ZLIB Library: ${LIBZ_LIBRARY_LOCATION}")
+		set(ZLIB_LIBRARY "${LIBZ_LIBRARY_LOCATION}" CACHE FILEPATH "Path to zlib library" FORCE)
+		set(ZLIB_INCLUDE_DIR "${DEPENDENCIES_INSTALL_PREFIX}/include" CACHE PATH "Path to zlib include directory" FORCE)
+		set(ZLIB_FOUND TRUE CACHE BOOL "ZLIB found" FORCE)
+	endif ()
+else ()
+	set(LIBZ_LIBRARY "")
 endif ()
 
 ## Find expat
@@ -92,8 +86,10 @@ else ()
 	message(STATUS "libSBML Target: ${LIBSBML_LIBRARY}")
 endif ()
 
-## Set dependencies include directory
-set(DEPENDENCIES_INCLUDE_DIR "${DEPENDENCIES_INSTALL_PREFIX}/include" "${LIBSBML_INSTALL_PREFIX}/include" "${EXPAT_INCLUDE_DIR}")
+## Set dependencies include directory if it is not set by a parent project
+if (NOT DEFINED DEPENDENCIES_INCLUDE_DIR)
+	set(DEPENDENCIES_INCLUDE_DIR "${DEPENDENCIES_INSTALL_PREFIX}/include" "${LIBSBML_INSTALL_PREFIX}/include" "${EXPAT_INCLUDE_DIR}")
+endif ()
 
 ## whether to build the dynamic version of the library
 set(BUILD_SHARED_LIBS ON CACHE BOOL "Build the dynamic version of the library")
